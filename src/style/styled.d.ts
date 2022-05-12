@@ -7,5 +7,6 @@ declare module "styled-components" {
     borderColor: string;
     contrast: string;
     hoverColor: string;
+    headerBoxShadow: string;
   }
 }
