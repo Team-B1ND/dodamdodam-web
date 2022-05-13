@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import App from "./components/App";
-import PageTemplate from "./components/common/pageTemplate/pageTemplate";
 import ThemeProviderContainer from "./components/common/themeProviderContainer/themeProviderContainer";
 
 function Root() {
@@ -9,9 +9,9 @@ function Root() {
     <StrictMode>
       <RecoilRoot>
         <ThemeProviderContainer>
-          <PageTemplate>
+          <BrowserRouter>
             <App />
-          </PageTemplate>
+          </BrowserRouter>
         </ThemeProviderContainer>
       </RecoilRoot>
     </StrictMode>

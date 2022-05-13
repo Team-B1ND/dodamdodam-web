@@ -61,6 +61,10 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
         color: ${palette.main};
         border-bottom: 3px solid ${palette.main};
       `}
+
+    &:hover {
+      color: ${palette.main};
+    }
   }
 `;
 
