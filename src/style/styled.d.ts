@@ -9,5 +9,6 @@ declare module "styled-components" {
     contrast2: string;
     hoverColor: string;
     headerBoxShadow: string;
+    darkmodeButtonColor: string;
   }
 }

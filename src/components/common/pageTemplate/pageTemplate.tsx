@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import DarkModeButton from "../drakmodeButton/darkmodeButton";
 import Header from "../header/header";
 import { PageTemplateContainer, PageTemplateWrap } from "./style";
 
@@ -11,6 +12,7 @@ const PageTemplate = ({ children }: Props) => {
     <PageTemplateContainer>
       <Header />
       <PageTemplateWrap>{children}</PageTemplateWrap>
+      <DarkModeButton />
     </PageTemplateContainer>
   );
 };

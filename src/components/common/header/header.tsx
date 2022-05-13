@@ -22,7 +22,10 @@ const Header = () => {
         </HeaderLogo>
         <HeaderItemWrap>
           {HEADER_LINKS.map((link) => (
-            <HeaderItem isSelect={link.name === currentSelect}>
+            <HeaderItem
+              isSelect={link.name === currentSelect}
+              key={`header/${link.name}Item`}
+            >
               <a href={link.link}>
                 <span>{link.name}</span>
               </a>
