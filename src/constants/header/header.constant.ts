@@ -8,5 +8,5 @@ export const HEADER_LINKS = [
   { name: "라이브톡", link: "http://livetalk.b1nd.com/" },
   { name: "IT을지도", link: "https://iteuljido.com/" },
   { name: "위키", link: "https://sh031224.github.io/ask-for-information/" },
-  { name: "dgit", link: "http://dgit.b1nd.com/" },
+  { name: "DGIT", link: "http://dgit.b1nd.com/" },
 ];
