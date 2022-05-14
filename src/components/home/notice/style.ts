@@ -19,5 +19,4 @@ export const NoticeLabel = styled.div`
   user-select: none;
   background-color: ${palette.blue[300]};
   font-size: 14px;
-  font-weight: bold;
 `;

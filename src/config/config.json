@@ -1,0 +1,4 @@
+{
+  "DODAM_SERVER": "http://dodam.b1nd.com/api/v2",
+  "AUTH_SERVER": "http://auth.dodam.b1nd.com"
+}

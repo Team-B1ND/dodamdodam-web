@@ -1,5 +1,7 @@
+import Signup from "../components/signup/signup";
+
 const SignupPage = () => {
-  return <div>회원가입</div>;
+  return <Signup />;
 };
 
 export default SignupPage;
