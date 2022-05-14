@@ -16,7 +16,7 @@ const useLogin = () => {
 
   const [loginData, setLoginData] = useState<Login>({
     id: "",
-    password: "",
+    pw: "",
   });
 
   const [profileData, setProfileData] = useRecoilState(profileAtom);
@@ -30,11 +30,11 @@ const useLogin = () => {
   );
 
   const submitLoginData = useCallback(async () => {
-    const { id, password } = loginData;
+    const { id, pw } = loginData;
 
     const validLoginData: Login = {
       id,
-      password: sha512(password),
+      pw: sha512(pw),
     };
 
     try {

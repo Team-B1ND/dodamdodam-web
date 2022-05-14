@@ -2,7 +2,7 @@ import { UserInfo } from "../common/common.type";
 
 export type Login = {
   id: string;
-  password: string;
+  pw: string;
 };
 
 export type LoginResponse = Response & {

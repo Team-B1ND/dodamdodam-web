@@ -13,8 +13,8 @@ const Login = () => {
       />
       <input
         placeholder="password"
-        name="password"
-        value={loginData.password}
+        name="pw"
+        value={loginData.pw}
         onChange={handleLoginData}
       />
       <button onClick={submitLoginData}>로그인</button>

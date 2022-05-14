@@ -9,5 +9,7 @@ export type Notice = {
 };
 
 export type NoticeResponse = Response & {
-  data: Notice[];
+  data: {
+    notice: Notice[];
+  };
 };
