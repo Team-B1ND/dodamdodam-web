@@ -10,14 +10,26 @@ import {
   LoginKeepCheckBox,
   LoginWrap,
   LoginKeepText,
+  LoginKeepCheckBoxIcon,
+  LoginSubmitButton,
+  LgoinSignupWrap,
+  LoginSignupText,
+  LoginSignupButton,
 } from "./style";
+import { FiCheck } from "react-icons/fi";
 
 type Props = {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
 };
 
 const Login = ({ setIsLogin }: Props) => {
-  const { loginData, handleLoginData, submitLoginData } = useLogin();
+  const {
+    loginData,
+    handleLoginData,
+    loginKeep,
+    handleLoginKeep,
+    submitLoginData,
+  } = useLogin();
 
   return (
     <LoginContainer>
@@ -37,15 +49,27 @@ const Login = ({ setIsLogin }: Props) => {
               name="pw"
               value={loginData.pw}
               onChange={handleLoginData}
+              type="password"
             />
           </LoginInputWrap>
-          <LoginKeepWrap>
-            <LoginKeepCheckBox />
-            <LoginKeepText>로그인 유지</LoginKeepText>
-          </LoginKeepWrap>
         </LoginInputForm>
-        <button onClick={submitLoginData}>로그인</button>
-        <button onClick={() => setIsLogin(false)}>회원가입으로 가기</button>
+        <LoginKeepWrap>
+          <LoginKeepCheckBox onClick={handleLoginKeep} isCheck={loginKeep}>
+            {loginKeep && (
+              <LoginKeepCheckBoxIcon>
+                <FiCheck />
+              </LoginKeepCheckBoxIcon>
+            )}
+          </LoginKeepCheckBox>
+          <LoginKeepText>로그인 유지</LoginKeepText>
+        </LoginKeepWrap>
+        <LoginSubmitButton onClick={submitLoginData}>Sign In</LoginSubmitButton>
+        <LgoinSignupWrap>
+          <LoginSignupText>아직 계정이 없으신가요?</LoginSignupText>
+          <LoginSignupButton onClick={() => setIsLogin(false)}>
+            Sign Up
+          </LoginSignupButton>
+        </LgoinSignupWrap>
       </LoginWrap>
     </LoginContainer>
   );

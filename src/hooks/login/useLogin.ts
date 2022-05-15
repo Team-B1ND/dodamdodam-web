@@ -18,9 +18,11 @@ const useLogin = () => {
     id: "",
     pw: "",
   });
+  const [loginKeep, setLoginKeep] = useState<boolean>(false);
 
   const [profileData, setProfileData] = useRecoilState(profileAtom);
 
+  const handleLoginKeep = () => setLoginKeep((prev) => !prev);
   const handleLoginData = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       const { value, name } = e.target;
@@ -56,6 +58,8 @@ const useLogin = () => {
   return {
     loginData,
     handleLoginData,
+    loginKeep,
+    handleLoginKeep,
     submitLoginData,
   };
 };
