@@ -50,7 +50,6 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
     text-decoration: none;
     font-size: 18px;
     color: ${({ theme }) => theme.contrast2};
-    font-weight: bold;
     padding: 0px 7px;
     box-sizing: content-box;
     white-space: nowrap;
