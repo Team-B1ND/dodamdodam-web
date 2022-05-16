@@ -13,7 +13,9 @@ export const AuthBackground = styled.div`
 export const AuthContainer = styled.div`
   width: 1200px;
   height: 640px;
+  border-radius: 3px;
   display: flex;
+  overflow: hidden;
 `;
 
 export const AuthPanelWrap = styled.div`

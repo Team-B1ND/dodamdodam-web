@@ -4,7 +4,6 @@ import { LoginParam } from "./auth.param";
 
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {
-    console.log(loginData);
     const { data } = await tokenAxios.post("/auth/login", loginData);
     return data;
   }
