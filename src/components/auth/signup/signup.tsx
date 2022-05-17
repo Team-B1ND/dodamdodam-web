@@ -28,7 +28,6 @@ const Signup = ({ setIsLogin }: Props) => {
 
   const signupComponents: ReactNode[] = [
     <SignupFirst
-      setPart={setPart}
       signupData={signupData}
       handleSignupData={handleSignupData}
       submitSignupDataFirst={submitSignupDataFirst}

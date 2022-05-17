@@ -11,14 +11,12 @@ import { SignupSchoolInput, SignupSchoolInputWrap } from "./style";
 import { FiChevronRight } from "react-icons/fi";
 
 type Props = {
-  setPart: Dispatch<SetStateAction<string>>;
   signupData: Signup;
   handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitSignupDataFirst: () => void;
 };
 
 const SignupFirst = ({
-  setPart,
   signupData,
   handleSignupData,
   submitSignupDataFirst,
@@ -46,7 +44,7 @@ const SignupFirst = ({
           />
         </AuthInputWrap>
         <AuthInputWrap style={{ height: "auto", minHeight: 56 }}>
-          <AuthInputTitle>학번</AuthInputTitle>
+          <AuthInputTitle>학번 & 기수</AuthInputTitle>
           <SignupSchoolInputWrap>
             <SignupSchoolInput
               name="grade"
@@ -67,6 +65,13 @@ const SignupFirst = ({
               onChange={handleSignupData}
               name="number"
               placeholder="번호"
+              type="number"
+            />
+            <SignupSchoolInput
+              value={signupData.generation}
+              onChange={handleSignupData}
+              name="generation"
+              placeholder="기수"
               type="number"
             />
           </SignupSchoolInputWrap>

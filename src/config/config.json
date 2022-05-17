@@ -1,4 +1,5 @@
 {
-  "DODAM_SERVER": "http://dodam.b1nd.com/api/v2",
+  "DODAM_SERVER_V2": "http://dodam.b1nd.com/api/v2",
+  "DODAM_SERVER_V3": "http://10.80.163.131:3000",
   "AUTH_SERVER": "http://auth.dodam.b1nd.com"
 }

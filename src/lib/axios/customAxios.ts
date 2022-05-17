@@ -23,8 +23,15 @@ export const tokenAxios = createAxiosInstance({
   baseURL: config.AUTH_SERVER,
 });
 
-export const dodamAxios = createAxiosInstance({
-  baseURL: config.DODAM_SERVER,
+export const dodamV2Axios = createAxiosInstance({
+  baseURL: config.DODAM_SERVER_V2,
+  headers: {
+    [REQUEST_TOKEN_KEY]: token.getToken(ACCESS_TOKEN_KEY)!,
+  },
+});
+
+export const dodamV3Axios = createAxiosInstance({
+  baseURL: config.DODAM_SERVER_V3,
   headers: {
     [REQUEST_TOKEN_KEY]: token.getToken(ACCESS_TOKEN_KEY)!,
   },

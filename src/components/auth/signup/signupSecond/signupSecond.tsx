@@ -41,23 +41,35 @@ const SignupSecond = ({
     return [first, second];
   }, [agrees]);
 
-  const agree1 = true;
-  const agree2 = false;
-
   return (
     <>
       <SignupInputForm style={{ marginBottom: 24 }}>
         <AuthInputWrap>
           <AuthInputTitle>E-mail</AuthInputTitle>
-          <AuthInput placeholder="EX) b1nd@dgsw.hs.kr" />
+          <AuthInput
+            name="email"
+            value={signupData.email}
+            onChange={handleSignupData}
+            placeholder="EX) b1nd@dgsw.hs.kr"
+          />
         </AuthInputWrap>
         <AuthInputWrap>
           <AuthInputTitle>전화번호</AuthInputTitle>
-          <AuthInput placeholder="EX) 01012341234" />
+          <AuthInput
+            name="phone"
+            value={signupData.phone}
+            onChange={handleSignupData}
+            placeholder="EX) 01012341234"
+          />
         </AuthInputWrap>
         <AuthInputWrap>
           <AuthInputTitle>이름</AuthInputTitle>
-          <AuthInput placeholder="EX) 홍길동" />
+          <AuthInput
+            name="name"
+            value={signupData.name}
+            onChange={handleSignupData}
+            placeholder="EX) 홍길동"
+          />
         </AuthInputWrap>
       </SignupInputForm>
       {SIGNUP_AGREE.map((agree, idx) => (
@@ -87,7 +99,7 @@ const SignupSecond = ({
           </SignupPartButtonIcon>
           이전
         </SignupPartButton>
-        <SignupPartButton direction="next">
+        <SignupPartButton direction="next" onClick={submitSignupDataSecond}>
           Sign Up
           <SignupPartButtonIcon>
             <FiChevronRight />
