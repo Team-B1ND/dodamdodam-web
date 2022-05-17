@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Signup } from "../../types/signup/signup.type";
+import patternCheck from "../../util/pattern/patternCheck";
 
 const useSignup = () => {
   const [part, setPart] = useState("first");
@@ -31,7 +32,17 @@ const useSignup = () => {
     const { id, pw, grade, room, number } = signupData;
 
     if (id === "" || pw === "" || grade === 0 || room === 0 || number === 0) {
-      window.alert("형식을 지켜주세요");
+      window.alert("양식이 비어있습니다.");
+      return;
+    }
+
+    if (!patternCheck.idCheck(id)) {
+      window.alert("아이디 형식을 지켜주세요.");
+      return;
+    }
+
+    if (!patternCheck.pwCheck(pw)) {
+      window.alert("비밀번호 형식을 지켜주세요.");
       return;
     }
 

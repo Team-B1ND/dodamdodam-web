@@ -10,7 +10,6 @@ export const SignupContainer = styled.div`
 
 export const SignupWrap = styled.div`
   width: 400px;
-  height: 393px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,6 +17,7 @@ export const SignupWrap = styled.div`
 
 export const SignupInputForm = styled.div`
   width: 350px;
+  min-height: 340px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,7 @@ export const SignupPartButtonWrap = styled.div`
   min-height: 45px;
   display: flex;
   margin-top: auto;
+  margin-bottom: 20px;
 `;
 
 export const SignupPartButton = styled.div<{ direction: "prev" | "next" }>`
@@ -42,6 +43,7 @@ export const SignupPartButton = styled.div<{ direction: "prev" | "next" }>`
   border-radius: 5px;
   font-size: 16px;
   column-gap: 10px;
+  cursor: pointer;
 
   ${({ direction }) =>
     direction === "prev"

@@ -4,6 +4,7 @@ export const SignupSchoolInputWrap = styled.div`
   width: 200px;
   height: 32px;
   display: flex;
+  margin-bottom: 32px;
 
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {

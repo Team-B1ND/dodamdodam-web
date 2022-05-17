@@ -43,7 +43,7 @@ const SignupFirst = ({
             type="password"
           />
         </AuthInputWrap>
-        <AuthInputWrap>
+        <AuthInputWrap style={{ height: "auto", minHeight: 56 }}>
           <AuthInputTitle>학번</AuthInputTitle>
           <SignupSchoolInputWrap>
             <SignupSchoolInput
