@@ -1,0 +1,85 @@
+import React, { Dispatch, SetStateAction } from "react";
+import { Signup } from "../../../../types/signup/signup.type";
+import { AuthInput, AuthInputTitle, AuthInputWrap } from "../../style";
+import {
+  SignupInputForm,
+  SignupPartButton,
+  SignupPartButtonIcon,
+  SignupPartButtonWrap,
+} from "../style";
+import { SignupSchoolInput, SignupSchoolInputWrap } from "./style";
+import { FiChevronRight } from "react-icons/fi";
+
+type Props = {
+  setPart: Dispatch<SetStateAction<string>>;
+  signupData: Signup;
+  handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submitSignupDataFirst: () => void;
+};
+
+const SignupFirst = ({
+  setPart,
+  signupData,
+  handleSignupData,
+  submitSignupDataFirst,
+}: Props) => {
+  return (
+    <>
+      <SignupInputForm>
+        <AuthInputWrap>
+          <AuthInputTitle>ID</AuthInputTitle>
+          <AuthInput
+            name="id"
+            value={signupData.id}
+            onChange={handleSignupData}
+          />
+        </AuthInputWrap>
+        <AuthInputWrap>
+          <AuthInputTitle>비밀번호</AuthInputTitle>
+          <AuthInput
+            name="pw"
+            value={signupData.pw}
+            onChange={handleSignupData}
+            type="password"
+          />
+        </AuthInputWrap>
+        <AuthInputWrap>
+          <AuthInputTitle>학번</AuthInputTitle>
+          <SignupSchoolInputWrap>
+            <SignupSchoolInput
+              name="grade"
+              value={signupData.grade}
+              onChange={handleSignupData}
+              placeholder="학년"
+              type="number"
+            />
+            <SignupSchoolInput
+              name="room"
+              value={signupData.room}
+              onChange={handleSignupData}
+              placeholder="반"
+              type="number"
+            />
+            <SignupSchoolInput
+              value={signupData.number}
+              onChange={handleSignupData}
+              name="number"
+              placeholder="번호"
+              type="number"
+            />
+          </SignupSchoolInputWrap>
+        </AuthInputWrap>
+      </SignupInputForm>
+      <SignupPartButtonWrap>
+        <SignupPartButton direction="next" onClick={submitSignupDataFirst}>
+          다음
+          <SignupPartButtonIcon>
+            <FiChevronRight />
+          </SignupPartButtonIcon>
+        </SignupPartButton>
+      </SignupPartButtonWrap>
+    </>
+  );
+};
+
+export default React.memo(SignupFirst);
