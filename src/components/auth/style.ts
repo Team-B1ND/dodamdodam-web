@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { palette } from "../../style/palette";
 
 export const AuthBackground = styled.div`
@@ -98,6 +98,11 @@ export const AuthInput = styled.input`
   outline: none;
   border-bottom: 1px solid #a1a1a1;
   font-size: 18px;
+
+  &::placeholder {
+    font-size: 14px;
+    opacity: 30%;
+  }
 `;
 
 export const AuthOppositePartWrap = styled.div`
@@ -117,4 +122,15 @@ export const AuthOppositePartButton = styled.button`
   color: ${palette.main};
   background: none;
   border: 0px;
+  cursor: pointer;
+`;
+
+export const AuthPartFade = keyframes`
+  from {
+    transform: translate3d(-50px, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 `;

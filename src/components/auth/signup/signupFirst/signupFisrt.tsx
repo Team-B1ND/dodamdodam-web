@@ -25,13 +25,14 @@ const SignupFirst = ({
 }: Props) => {
   return (
     <>
-      <SignupInputForm>
+      <SignupInputForm style={{ minHeight: 340 }}>
         <AuthInputWrap>
           <AuthInputTitle>ID</AuthInputTitle>
           <AuthInput
             name="id"
             value={signupData.id}
             onChange={handleSignupData}
+            placeholder="dgsw1234"
           />
         </AuthInputWrap>
         <AuthInputWrap>
@@ -41,6 +42,7 @@ const SignupFirst = ({
             value={signupData.pw}
             onChange={handleSignupData}
             type="password"
+            placeholder="abcdefg1234"
           />
         </AuthInputWrap>
         <AuthInputWrap style={{ height: "auto", minHeight: 56 }}>

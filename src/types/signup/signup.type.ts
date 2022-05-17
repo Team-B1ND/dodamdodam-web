@@ -12,3 +12,8 @@ export type Signup = {
   tel: string;
   position: string;
 };
+
+export type SignupAgree = {
+  first: boolean;
+  second: boolean;
+};

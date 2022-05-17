@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { palette } from "../../../style/palette";
+import { AuthPartFade } from "../style";
 
 export const LoginContainer = styled.div`
   width: 100%;
@@ -13,6 +14,7 @@ export const LoginWrap = styled.div`
   width: 350px;
   display: flex;
   flex-direction: column;
+  animation: ${AuthPartFade} 1s;
 `;
 
 export const LoginInputForm = styled.div`

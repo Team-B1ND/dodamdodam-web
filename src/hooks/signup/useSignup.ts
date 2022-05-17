@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Signup } from "../../types/signup/signup.type";
+import { Signup, SignupAgree } from "../../types/signup/signup.type";
 import patternCheck from "../../util/pattern/patternCheck";
 
 const useSignup = () => {
@@ -18,6 +18,11 @@ const useSignup = () => {
     number: 0,
     tel: "",
     position: "",
+  });
+
+  const [agrees, setAgrees] = useState<SignupAgree>({
+    first: false,
+    second: false,
   });
 
   const handleSignupData = useCallback(
@@ -47,12 +52,21 @@ const useSignup = () => {
     }
 
     if (grade > 3 || room > 4 || number > 20) {
-      window.alert("올바른 학년을 입력해주세요");
+      window.alert("올바른 학급정보를 입력해주세요");
       return;
     }
 
     setPart("second");
   }, [signupData]);
+
+  const handleSignupAgree = useCallback(
+    (agree: string) =>
+      setAgrees(<T extends object, U extends keyof T>(prev: T) => ({
+        ...prev,
+        [agree as U]: !prev[agree as U],
+      })),
+    []
+  );
 
   const submitSignupDataSecond = async () => {};
 
@@ -62,6 +76,8 @@ const useSignup = () => {
     signupData,
     handleSignupData,
     submitSignupDataFirst,
+    agrees,
+    handleSignupAgree,
     submitSignupDataSecond,
   };
 };

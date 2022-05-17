@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { AuthPartFade } from "../style";
 
 export const SignupContainer = styled.div`
   width: 100%;
@@ -13,11 +14,11 @@ export const SignupWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${AuthPartFade} 1s;
 `;
 
 export const SignupInputForm = styled.div`
   width: 350px;
-  min-height: 340px;
   height: 100%;
   display: flex;
   flex-direction: column;

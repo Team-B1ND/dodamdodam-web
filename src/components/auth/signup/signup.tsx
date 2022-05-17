@@ -21,6 +21,8 @@ const Signup = ({ setIsLogin }: Props) => {
     signupData,
     handleSignupData,
     submitSignupDataFirst,
+    agrees,
+    handleSignupAgree,
     submitSignupDataSecond,
   } = useSignup();
 
@@ -36,6 +38,9 @@ const Signup = ({ setIsLogin }: Props) => {
       setPart={setPart}
       signupData={signupData}
       handleSignupData={handleSignupData}
+      agrees={agrees}
+      handleSignupAgree={handleSignupAgree}
+      submitSignupDataSecond={submitSignupDataSecond}
       key="signupSecondPart"
     />,
   ];
