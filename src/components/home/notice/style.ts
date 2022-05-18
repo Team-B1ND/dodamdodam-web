@@ -40,6 +40,6 @@ export const NoticeIndex = styled.span`
 `;
 
 export const NoticeTitle = styled.p`
-  color: ${({ theme }) => theme.contrast2};
+  color: ${({ theme }) => theme.contrast};
   font-size: 14px;
 `;

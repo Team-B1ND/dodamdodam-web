@@ -6,7 +6,7 @@ export const lightTheme: DefaultTheme = {
 
   backgroundColor: "#f0f2f4",
   backgroundColor2: "#ffffff",
-  borderColor: "#3d3d3d",
+  borderColor: "#d2d2d2",
   contrast: "#000000",
   contrast2: "#5c5c5c",
   hoverColor: "#e2e2e2",

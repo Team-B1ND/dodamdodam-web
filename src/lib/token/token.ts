@@ -3,15 +3,16 @@ import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
 } from "../../constants/token/token.constant";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 class Token {
   public getToken(key: string): string | undefined {
     return cookie.getCookie(key);
   }
 
-  // public decodeToken(key: string) {
-  //   return jwt.decode(this.getToken(key)!) as JwtPayload;
-  // }
+  public decodeToken(key: string) {
+    return jwt.decode(this.getToken(key)!) as JwtPayload;
+  }
 
   public setToken(key: string, token: string): void {
     cookie.setCookie(key, token);
