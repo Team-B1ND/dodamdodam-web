@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Signup } from "../../../../types/signup/signup.type";
 import { AuthInput, AuthInputTitle, AuthInputWrap } from "../../style";
 import {

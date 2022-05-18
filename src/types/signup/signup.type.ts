@@ -9,8 +9,6 @@ export type Signup = {
   grade: number;
   room: number;
   number: number;
-  tel: string;
-  position: string;
 };
 
 export type SignupAgree = {

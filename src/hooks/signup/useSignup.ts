@@ -1,13 +1,11 @@
+import { sha512 } from "js-sha512";
 import React, { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import authRepository from "../../repository/auth/auth.repository";
 import { Signup, SignupAgree } from "../../types/signup/signup.type";
 import schoolDataCheck from "../../util/data/schoolDataCheck";
 import patternCheck from "../../util/pattern/patternCheck";
 
 const useSignup = () => {
-  const navigate = useNavigate();
-
   const [part, setPart] = useState("first");
 
   const [signupData, setSignupData] = useState<Signup>({
@@ -17,12 +15,10 @@ const useSignup = () => {
     email: "",
     name: "",
     phone: "",
-    role: "",
+    role: "student",
     grade: 0,
     room: 0,
     number: 0,
-    tel: "",
-    position: "",
   });
 
   const [agrees, setAgrees] = useState<SignupAgree>({
@@ -86,7 +82,8 @@ const useSignup = () => {
   );
 
   const submitSignupDataSecond = useCallback(async () => {
-    const { email, phone, name } = signupData;
+    const { email, phone, name, pw, generation, grade, room, number } =
+      signupData;
     const { first, second } = agrees;
 
     if (email === "" || phone === "" || name === "") {
@@ -114,14 +111,23 @@ const useSignup = () => {
       return;
     }
 
+    const validSignupData: Signup = {
+      ...signupData,
+      pw: sha512(pw),
+      generation: Number(generation),
+      grade: Number(grade),
+      room: Number(room),
+      number: Number(number),
+    };
+
     try {
-      await authRepository.signup(signupData);
-      navigate("/");
+      await authRepository.signup(validSignupData);
       window.alert("회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)");
+      window.location.reload();
     } catch (error) {
       window.alert("회원가입에 실패했습니다.");
     }
-  }, [agrees, signupData, navigate]);
+  }, [agrees, signupData]);
 
   return {
     part,

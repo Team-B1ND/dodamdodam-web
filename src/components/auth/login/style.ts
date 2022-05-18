@@ -70,4 +70,5 @@ export const LoginSubmitButton = styled.button`
   color: white;
   border-radius: 5px;
   margin-bottom: 33px;
+  cursor: pointer;
 `;
