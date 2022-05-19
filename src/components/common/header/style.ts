@@ -46,7 +46,7 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
   align-items: top;
   padding-top: 48px;
 
-  a {
+  span {
     text-decoration: none;
     font-size: 18px;
     color: ${({ theme }) => theme.contrast2};

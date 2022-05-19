@@ -26,9 +26,7 @@ const Header = () => {
               isSelect={link.name === currentSelect}
               key={`header/${link.name}Item`}
             >
-              <a href={link.link}>
-                <span>{link.name}</span>
-              </a>
+              <span onClick={() => window.open(link.link)}>{link.name}</span>
             </HeaderItem>
           ))}
         </HeaderItemWrap>

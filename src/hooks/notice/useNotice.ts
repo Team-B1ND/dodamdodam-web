@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import noticeRepository from "../../repository/notice/notice.repository";
 
@@ -6,6 +6,7 @@ const useNotice = () => {
   const { data, isLoading } = useQuery("notice/getNotice", () =>
     noticeRepository.getNotice()
   );
+  const funcRef = useRef<typeof handleNoticeIndex>();
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
@@ -29,6 +30,17 @@ const useNotice = () => {
     },
     [data?.data, noticeIndex]
   );
+
+  useEffect(() => {
+    funcRef.current = handleNoticeIndex;
+  }, [handleNoticeIndex]);
+
+  useEffect(() => {
+    if (data !== undefined) {
+      const noticeTimer = setInterval(() => funcRef.current!("right"), 4000);
+      return () => clearInterval(noticeTimer);
+    }
+  }, [handleNoticeIndex, data]);
 
   return {
     data: data?.data.notice,
