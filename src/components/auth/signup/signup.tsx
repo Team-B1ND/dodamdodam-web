@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { SIGNUP_PART_NAME } from "../../../constants/signup/signup.constant";
+import { SIGNUP_SECTION_NAME } from "../../../constants/signup/signup.constant";
 import useSignup from "../../../hooks/signup/useSignup";
 import {
   AuthOppositePartButton,
@@ -16,8 +16,8 @@ type Props = {
 
 const Signup = ({ setIsLogin }: Props) => {
   const {
-    part,
-    setPart,
+    section,
+    setSection,
     signupData,
     handleSignupData,
     submitSignupDataFirst,
@@ -34,7 +34,7 @@ const Signup = ({ setIsLogin }: Props) => {
       key="signupFisrtPart"
     />,
     <SignupSecond
-      setPart={setPart}
+      setSection={setSection}
       signupData={signupData}
       handleSignupData={handleSignupData}
       agrees={agrees}
@@ -47,8 +47,9 @@ const Signup = ({ setIsLogin }: Props) => {
   return (
     <SignupContainer>
       <SignupWrap>
-        {signupComponents.map((comp, idx) => {
-          return part === SIGNUP_PART_NAME[idx].title && comp;
+        {signupComponents.map((component, idx) => {
+          return section === SIGNUP_SECTION_NAME[idx].title && component;
+          // 회원가입 섹션이 2개가 있는데, 일일이 &&연산자로 하면 코드가 더러울거 같아서 배열에 담아서 map을 돌렸음.
         })}
         <AuthOppositePartWrap>
           <AuthOppositePartText>이미 계정이 있으신가요?</AuthOppositePartText>

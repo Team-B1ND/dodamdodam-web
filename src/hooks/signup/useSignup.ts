@@ -6,7 +6,7 @@ import schoolDataCheck from "../../util/data/schoolDataCheck";
 import patternCheck from "../../util/pattern/patternCheck";
 
 const useSignup = () => {
-  const [part, setPart] = useState("first");
+  const [section, setSection] = useState("first");
 
   const [signupData, setSignupData] = useState<Signup>({
     id: "",
@@ -69,7 +69,7 @@ const useSignup = () => {
       return;
     }
 
-    setPart("second");
+    setSection("second");
   }, [signupData]);
 
   const handleSignupAgree = useCallback(
@@ -130,8 +130,8 @@ const useSignup = () => {
   }, [agrees, signupData]);
 
   return {
-    part,
-    setPart,
+    section,
+    setSection,
     signupData,
     handleSignupData,
     submitSignupDataFirst,

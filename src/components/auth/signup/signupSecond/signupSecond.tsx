@@ -19,7 +19,7 @@ import {
 import { SIGNUP_AGREE } from "../../../../constants/signup/signup.constant";
 
 type Props = {
-  setPart: Dispatch<SetStateAction<string>>;
+  setSection: Dispatch<SetStateAction<string>>;
   signupData: Signup;
   handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   agrees: SignupAgree;
@@ -28,13 +28,14 @@ type Props = {
 };
 
 const SignupSecond = ({
-  setPart,
+  setSection,
   signupData,
   handleSignupData,
   agrees,
   handleSignupAgree,
   submitSignupDataSecond,
 }: Props) => {
+  //회원가입쪽과 같은 로직으로, map을 돌리기 위해 object인 agrees를 배열로 만들어 리턴함.
   const agreesList = useMemo(() => {
     const { first, second } = agrees;
 
@@ -93,7 +94,7 @@ const SignupSecond = ({
         </SignupAgreeWrap>
       ))}
       <SignupPartButtonWrap>
-        <SignupPartButton direction="prev" onClick={() => setPart("first")}>
+        <SignupPartButton direction="prev" onClick={() => setSection("first")}>
           <SignupPartButtonIcon>
             <FiChevronLeft />
           </SignupPartButtonIcon>

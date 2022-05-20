@@ -1,4 +1,4 @@
-export const SIGNUP_PART_NAME = [
+export const SIGNUP_SECTION_NAME = [
   {
     title: "first",
   },
