@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { palette } from "../../../style/palette";
+import { AuthPartFade } from "../style";
 
 export const LoginContainer = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +14,7 @@ export const LoginWrap = styled.div`
   width: 350px;
   display: flex;
   flex-direction: column;
+  animation: ${AuthPartFade} 1s;
 `;
 
 export const LoginInputForm = styled.div`
@@ -21,31 +22,6 @@ export const LoginInputForm = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 28px;
-`;
-
-export const LoginInputWrap = styled.div`
-  height: 56px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
-`;
-
-export const LoginInputTitle = styled.h1`
-  font-size: 14px;
-  color: #a1a1a1;
-  line-height: 18px;
-`;
-
-export const LoginInput = styled.input`
-  width: calc(100% - 16px);
-  height: 100%;
-  margin: 0px 8px;
-  padding: 2px 5px;
-  padding-top: 0px;
-  border: 0px;
-  outline: none;
-  border-bottom: 1px solid #a1a1a1;
-  font-size: 18px;
 `;
 
 export const LoginKeepWrap = styled.div`
@@ -93,23 +69,6 @@ export const LoginSubmitButton = styled.button`
   font-size: 16px;
   color: white;
   border-radius: 5px;
-`;
-
-export const LgoinSignupWrap = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 7px;
-  margin-top: 33px;
-`;
-
-export const LoginSignupText = styled.p`
-  color: #cccccc;
-  font-size: 14px;
-`;
-
-export const LoginSignupButton = styled.button`
-  font-size: 14px;
-  color: ${palette.main};
-  background: none;
-  border: 0px;
+  margin-bottom: 33px;
+  cursor: pointer;
 `;
