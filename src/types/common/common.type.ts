@@ -5,8 +5,6 @@ export type UserInfo = {
   name: string;
   permissions: string[];
   profileImage: string;
-  refreshToken: string;
-  token: string;
 };
 
 export type UserInfoDetail = {

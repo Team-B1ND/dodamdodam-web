@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { palette } from "../../../style/palette";
 
 export const MyInfoContainer = styled.div`
-  width: 384px;
+  width: 386px;
   height: 450px;
   display: flex;
   flex-direction: column;
@@ -11,7 +12,7 @@ export const MyInfoContainer = styled.div`
 
 export const MyInfoHeaderWrap = styled.div`
   width: 100%;
-  height: 111px;
+  min-height: 111px;
   display: flex;
   align-items: center;
   padding: 0px 15px;
@@ -66,4 +67,53 @@ export const MyInfoLogoutButton = styled.button`
   border: 1px solid ${({ theme }) => theme.borderColor2};
   margin-top: 34px;
   cursor: pointer;
+`;
+
+export const MyInfoItemsWrap = styled.div`
+  width: 100%;
+  min-height: 38px;
+  display: flex;
+`;
+
+export const MyInfoItem = styled.div<{ isSelect: boolean }>`
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  color: ${({ theme }) => theme.contrast};
+  border-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.desableBackground};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.hoverColor};
+  }
+
+  &:nth-child(2) {
+    border: 1px solid ${({ theme }) => theme.borderColor};
+    border-top: 0px;
+
+    ${({ isSelect }) =>
+      isSelect &&
+      css`
+        border-bottom: 0px;
+      `}
+  }
+
+  ${({ isSelect }) =>
+    isSelect
+      ? css`
+          color: ${palette.main};
+          border-bottom: 0px;
+          background-color: ${({ theme }) => theme.backgroundColor2};
+        `
+      : css`
+          border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+        `}
+`;
+
+export const MyInfoListWrap = styled.div`
+  width: 100%;
+  height: 100%;
 `;

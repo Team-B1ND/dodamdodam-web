@@ -1,4 +1,7 @@
-import DataTransform from "../../../util/data/dataTransform";
+import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
+import useMyInfo from "../../../hooks/myInfo/useMyInfo";
+import DataTransform from "../../../util/data/transform/dataTransform";
+import MyInfoWakeupSong from "./myInfoWakeupSong/myInfoWakeupSong";
 import {
   MyInfoContainer,
   MyInfoHeaderWrap,
@@ -8,9 +11,14 @@ import {
   MyInfoHeaderNameWrap,
   MyInfoHeaderRedirectText,
   MyInfoHeaderClassWrap,
+  MyInfoItemsWrap,
+  MyInfoItem,
+  MyInfoListWrap,
 } from "./style";
 
 const MyInfo = () => {
+  const { section, setSection } = useMyInfo();
+
   return (
     <MyInfoContainer style={{ marginLeft: "auto" }}>
       <MyInfoHeaderWrap>
@@ -29,6 +37,19 @@ const MyInfo = () => {
         </MyInfoHeaderInfoWrap>
         <MyInfoLogoutButton>로그아웃</MyInfoLogoutButton>
       </MyInfoHeaderWrap>
+      <MyInfoItemsWrap>
+        {MYINFO_ITEMS.map((item) => (
+          <MyInfoItem
+            onClick={() => setSection(item)}
+            isSelect={section === item}
+          >
+            {item}
+          </MyInfoItem>
+        ))}
+      </MyInfoItemsWrap>
+      <MyInfoListWrap>
+        <MyInfoWakeupSong />
+      </MyInfoListWrap>
     </MyInfoContainer>
   );
 };

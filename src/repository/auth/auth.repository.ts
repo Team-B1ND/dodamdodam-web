@@ -5,6 +5,7 @@ import { LoginParam, SignupParam } from "./auth.param";
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {
     const { data } = await tokenAxios.post("/auth/login", loginData);
+
     return data;
   }
 

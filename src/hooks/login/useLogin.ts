@@ -40,16 +40,19 @@ const useLogin = () => {
     };
 
     try {
-      const { data } = await authRepository.login(validLoginData);
+      const {
+        data: { member, token: accessToken, refreshToken },
+      } = await authRepository.login(validLoginData);
 
-      const { token: accessToken, refreshToken } = data;
+      console.log(member);
 
       token.setToken(ACCESS_TOKEN_KEY, accessToken);
       token.setToken(REFRESH_TOKEN_KEY, refreshToken);
 
       window.alert("로그인 성공");
       navigate("/");
-      setProfileData(data);
+
+      setProfileData(member);
     } catch (error) {
       window.alert("로그인 실패");
     }

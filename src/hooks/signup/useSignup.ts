@@ -2,7 +2,7 @@ import { sha512 } from "js-sha512";
 import React, { useCallback, useState } from "react";
 import authRepository from "../../repository/auth/auth.repository";
 import { Signup, SignupAgree } from "../../types/signup/signup.type";
-import schoolDataCheck from "../../util/data/schoolDataCheck";
+import schoolDataCheck from "../../util/data/check/schoolDataCheck";
 import patternCheck from "../../util/pattern/patternCheck";
 
 const useSignup = () => {

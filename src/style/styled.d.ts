@@ -6,10 +6,12 @@ declare module "styled-components" {
     backgroundColor2: string;
     backgroundColor3: string;
     backgroundColor4: string;
+    desableBackground: string;
     borderColor: string;
     borderColor2: string;
     contrast: string;
     contrast2: string;
+    contrast3: string;
     hoverColor: string;
     headerBoxShadow: string;
     darkmodeButtonColor: string;
