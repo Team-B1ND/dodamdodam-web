@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { palette } from "../../style/palette";
 
 export const AuthBackground = styled.div`
@@ -73,4 +73,64 @@ export const AuthWrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
+`;
+
+export const AuthInputWrap = styled.div`
+  height: 56px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+`;
+
+export const AuthInputTitle = styled.div`
+  font-size: 14px;
+  color: #a1a1a1;
+  line-height: 18px;
+`;
+
+export const AuthInput = styled.input`
+  width: calc(100% - 16px);
+  height: 100%;
+  margin: 0px 8px;
+  padding: 2px 5px;
+  padding-top: 0px;
+  border: 0px;
+  outline: none;
+  border-bottom: 1px solid #a1a1a1;
+  font-size: 18px;
+
+  &::placeholder {
+    font-size: 14px;
+    opacity: 30%;
+  }
+`;
+
+export const AuthOppositePartWrap = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+  margin-right: auto;
+`;
+
+export const AuthOppositePartText = styled.p`
+  color: #cccccc;
+  font-size: 14px;
+`;
+
+export const AuthOppositePartButton = styled.button`
+  font-size: 14px;
+  color: ${palette.main};
+  background: none;
+  border: 0px;
+  cursor: pointer;
+`;
+
+export const AuthPartFade = keyframes`
+  from {
+    transform: translate3d(-50px, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 `;
