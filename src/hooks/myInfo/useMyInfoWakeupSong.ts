@@ -7,8 +7,8 @@ import { profileAtom } from "../../store/profile/profileStore";
 const useMyInfoWakeupSong = () => {
   const profileData = useRecoilValue(profileAtom);
 
-  const { data, isLoading } = useQuery("wakeupSong/getWakeupSongs", () =>
-    WakeupSongRepository.getWakeupSongs({ userId: profileData.id })
+  const { data, isLoading } = useQuery("wakeupSong/getMyWakeupSongs", () =>
+    WakeupSongRepository.getMyWakeupSongs({ userId: profileData.id })
   );
 
   const notApprovedWakeupSongs = useMemo(() => {

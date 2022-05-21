@@ -12,6 +12,10 @@ class DateTransform {
   public slash(date?: string): string {
     return dayjs(date).format("YYYY/MM/DD");
   }
+
+  public fullDate(date?: string): string {
+    return dayjs(date).format("YYYY-MM-DD HH:mm");
+  }
 }
 
 export default new DateTransform();

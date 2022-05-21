@@ -44,7 +44,7 @@ export const MyInfoWakeupSongItemSubInfoWrap = styled.div`
   justify-content: space-between;
 `;
 
-export const MyInfoWakeupSongItemSubTitle = styled.p`
+export const MyInfoWakeupSongItemSubTitle = styled.span`
   line-height: 16px;
   font-size: 12px;
   color: ${({ theme }) => theme.contrast2};

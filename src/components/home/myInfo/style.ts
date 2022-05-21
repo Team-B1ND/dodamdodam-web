@@ -17,7 +17,7 @@ export const MyInfoHeaderWrap = styled.div`
   align-items: center;
   padding: 0px 15px;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  background-color: ${({ theme }) => theme.backgroundColor4};
+  background-color: ${({ theme }) => theme.backgroundColor2};
 `;
 
 export const MyInfoHeaderProfileImg = styled.img`
@@ -106,7 +106,7 @@ export const MyInfoItem = styled.div<{ isSelect: boolean }>`
       ? css`
           color: ${palette.main};
           border-bottom: 0px;
-          background-color: ${({ theme }) => theme.backgroundColor2};
+          background-color: ${({ theme }) => theme.backgroundColor3};
         `
       : css`
           border-bottom: 1px solid ${({ theme }) => theme.borderColor};

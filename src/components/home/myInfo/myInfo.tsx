@@ -1,6 +1,7 @@
 import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
 import useMyInfo from "../../../hooks/myInfo/useMyInfo";
 import DataTransform from "../../../util/data/transform/dataTransform";
+import MyInfoLostStuff from "./myInfoLostStuff/myInfoLostStuff";
 import MyInfoWakeupSong from "./myInfoWakeupSong/myInfoWakeupSong";
 import {
   MyInfoContainer,
@@ -48,7 +49,8 @@ const MyInfo = () => {
         ))}
       </MyInfoItemsWrap>
       <MyInfoListWrap>
-        <MyInfoWakeupSong />
+        {/* <MyInfoWakeupSong /> */}
+        <MyInfoLostStuff />
       </MyInfoListWrap>
     </MyInfoContainer>
   );

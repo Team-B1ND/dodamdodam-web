@@ -14,7 +14,7 @@ export type WakeupSong = {
   videoUrl: string;
 };
 
-export type WakeupSongsResponse = Response & {
+export type MyWakeupSongsResponse = Response & {
   data: {
     videos: WakeupSong[];
   };

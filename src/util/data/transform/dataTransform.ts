@@ -19,6 +19,17 @@ class DataTransform {
         return "대기";
     }
   }
+
+  public lostStuffTypeTransform(state: number): string {
+    switch (state) {
+      case 0:
+        return "습득물";
+      case 1:
+        return "분실물";
+      default:
+        return "습득물";
+    }
+  }
 }
 
 export default new DataTransform();
