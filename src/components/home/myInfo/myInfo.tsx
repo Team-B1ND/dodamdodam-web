@@ -1,7 +1,10 @@
+import React from "react";
+import { ReactNode } from "react";
 import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
 import useMyInfo from "../../../hooks/myInfo/useMyInfo";
 import DataTransform from "../../../util/data/transform/dataTransform";
 import MyInfoLostStuff from "./myInfoLostStuff/myInfoLostStuff";
+import MyInfoNotice from "./myInfoNotice/myInfoNotice";
 import MyInfoWakeupSong from "./myInfoWakeupSong/myInfoWakeupSong";
 import {
   MyInfoContainer,
@@ -18,7 +21,13 @@ import {
 } from "./style";
 
 const MyInfo = () => {
-  const { section, setSection } = useMyInfo();
+  const { section, setSection, logOut } = useMyInfo();
+
+  const myInfoItemComponents: ReactNode[] = [
+    <MyInfoNotice key="myInfoNotice" />,
+    <MyInfoWakeupSong key="myInfoWakeupSong" />,
+    <MyInfoLostStuff key="myInfoLostStuff" />,
+  ];
 
   return (
     <MyInfoContainer style={{ marginLeft: "auto" }}>
@@ -36,7 +45,7 @@ const MyInfo = () => {
             {DataTransform.schoolInfoTransform("2", "1", "17")}
           </MyInfoHeaderClassWrap>
         </MyInfoHeaderInfoWrap>
-        <MyInfoLogoutButton>로그아웃</MyInfoLogoutButton>
+        <MyInfoLogoutButton onClick={logOut}>로그아웃</MyInfoLogoutButton>
       </MyInfoHeaderWrap>
       <MyInfoItemsWrap>
         {MYINFO_ITEMS.map((item) => (
@@ -49,11 +58,12 @@ const MyInfo = () => {
         ))}
       </MyInfoItemsWrap>
       <MyInfoListWrap>
-        {/* <MyInfoWakeupSong /> */}
-        <MyInfoLostStuff />
+        {myInfoItemComponents.map((component, idx) => {
+          return section === MYINFO_ITEMS[idx] && component;
+        })}
       </MyInfoListWrap>
     </MyInfoContainer>
   );
 };
 
-export default MyInfo;
+export default React.memo(MyInfo);

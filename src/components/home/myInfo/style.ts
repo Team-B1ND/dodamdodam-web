@@ -105,6 +105,7 @@ export const MyInfoItem = styled.div<{ isSelect: boolean }>`
     isSelect
       ? css`
           color: ${palette.main};
+          font-weight: bold;
           border-bottom: 0px;
           background-color: ${({ theme }) => theme.backgroundColor3};
         `
