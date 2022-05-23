@@ -1,4 +1,4 @@
-export type WakeupSong = {
+export interface WakeupSong {
   applyMemberId: string;
   channelTitle: string;
   checkMemberId: string;
@@ -12,10 +12,10 @@ export type WakeupSong = {
   videoId: string;
   videoTitle: string;
   videoUrl: string;
-};
+}
 
-export type MyWakeupSongsResponse = Response & {
+export interface MyWakeupSongsResponse extends Response {
   data: {
     videos: WakeupSong[];
   };
-};
+}

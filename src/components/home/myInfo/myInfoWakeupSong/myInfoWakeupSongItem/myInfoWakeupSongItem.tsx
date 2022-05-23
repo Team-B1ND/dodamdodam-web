@@ -12,9 +12,9 @@ import {
   MyInfoWakeupSongItemTitle,
 } from "./style";
 
-type Props = {
+interface Props {
   wakeupSongData: WakeupSong;
-};
+}
 
 const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
   return (

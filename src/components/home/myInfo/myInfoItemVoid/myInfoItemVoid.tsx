@@ -5,10 +5,10 @@ import {
   MyInfoItemVoidTitle,
 } from "./style";
 
-type Props = {
+interface Props {
   title: string;
   subTitle: string;
-};
+}
 
 const MyInfoItemVoid = ({ title, subTitle }: Props) => {
   return (

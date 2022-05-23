@@ -10,9 +10,9 @@ import {
   MyInfoLostStuffItemTitle,
 } from "./style";
 
-type Props = {
+interface Props {
   lostStuff: LostStuff;
-};
+}
 
 const MyInfoLostStuffItem = ({ lostStuff }: Props) => {
   return (

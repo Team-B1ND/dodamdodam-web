@@ -1,3 +1,3 @@
-export type RefreshResponse = Response & {
+export interface RefreshResponse extends Response {
   data: string;
-};
+}

@@ -18,14 +18,14 @@ import {
 } from "./style";
 import { SIGNUP_AGREE } from "../../../../constants/signup/signup.constant";
 
-type Props = {
+interface Props {
   setSection: Dispatch<SetStateAction<string>>;
   signupData: Signup;
   handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   agrees: SignupAgree;
   handleSignupAgree: (agree: string) => void;
   submitSignupDataSecond: () => void;
-};
+}
 
 const SignupSecond = ({
   setSection,

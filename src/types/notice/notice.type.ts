@@ -1,4 +1,4 @@
-export type Notice = {
+export interface Notice {
   content: string;
   createdAt: string;
   expireTime: string;
@@ -6,10 +6,10 @@ export type Notice = {
   memberId: string;
   popUp: boolean;
   title: string;
-};
+}
 
-export type NoticeResponse = Response & {
+export interface NoticeResponse extends Response {
   data: {
     notice: Notice[];
   };
-};
+}

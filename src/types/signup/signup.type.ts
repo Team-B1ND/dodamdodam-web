@@ -1,4 +1,4 @@
-export type Signup = {
+export interface Signup {
   id: string;
   pw: string;
   generation: number;
@@ -9,9 +9,9 @@ export type Signup = {
   grade: number;
   room: number;
   number: number;
-};
+}
 
-export type SignupAgree = {
+export interface SignupAgree {
   first: boolean;
   second: boolean;
-};
+}

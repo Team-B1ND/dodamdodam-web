@@ -20,9 +20,9 @@ import {
   AuthOppositePartWrap,
 } from "../style";
 
-type Props = {
+interface Props {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const Login = ({ setIsLogin }: Props) => {
   const {

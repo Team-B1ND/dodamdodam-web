@@ -10,11 +10,11 @@ import {
 import { SignupSchoolInput, SignupSchoolInputWrap } from "./style";
 import { FiChevronRight } from "react-icons/fi";
 
-type Props = {
+interface Props {
   signupData: Signup;
   handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitSignupDataFirst: () => void;
-};
+}
 
 const SignupFirst = ({
   signupData,

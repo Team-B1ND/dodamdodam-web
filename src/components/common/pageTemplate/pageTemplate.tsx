@@ -3,9 +3,9 @@ import DarkModeButton from "../drakmodeButton/darkmodeButton";
 import Header from "../header/header";
 import { PageTemplateContainer, PageTemplateWrap } from "./style";
 
-type Props = {
+interface Props {
   children: ReactNode;
-};
+}
 
 const PageTemplate = ({ children }: Props) => {
   return (

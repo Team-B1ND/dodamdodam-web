@@ -1,3 +1,3 @@
-export type wakeupSongsParam = {
+export interface wakeupSongsParam {
   userId: string;
-};
+}

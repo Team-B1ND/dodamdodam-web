@@ -1,27 +1,29 @@
 import { Response } from "../util/response.type";
 
-export type LostStuff = {
+export interface LostStuff {
   comment: LostStuffComment[];
   contact: any;
   content: string;
   idx: number;
   memberId: string;
   modifyTime: null | string;
-  picture: {
-    originalName: string;
-    thumbnail: string;
-    type: string;
-    uploadName: string;
-    url: string;
-  }[];
+  picture: LostStuffPicture[];
   place: string;
   profileImage: string;
   title: string;
   type: number;
   uploadTime: string;
-};
+}
 
-export type LostStuffComment = {
+export interface LostStuffPicture {
+  originalName: string;
+  thumbnail: string;
+  type: string;
+  uploadName: string;
+  url: string;
+}
+
+export interface LostStuffComment {
   comment: string;
   idx: string;
   isUpdate: number;
@@ -29,10 +31,10 @@ export type LostStuffComment = {
   memberId: string;
   profileImage: string;
   writeTime: string;
-};
+}
 
-export type MyLostStuffsResponse = Response & {
+export interface MyLostStuffsResponse extends Response {
   data: {
     result: LostStuff[];
   };
-};
+}

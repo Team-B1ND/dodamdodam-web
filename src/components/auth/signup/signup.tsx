@@ -10,9 +10,9 @@ import SignupFirst from "./signupFirst/signupFisrt";
 import SignupSecond from "./signupSecond/signupSecond";
 import { SignupContainer, SignupWrap } from "./style";
 
-type Props = {
+interface Props {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const Signup = ({ setIsLogin }: Props) => {
   const {
