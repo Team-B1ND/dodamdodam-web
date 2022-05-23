@@ -16,7 +16,7 @@
     "react-icons": "^4.3.1",
     "react-query": "^3.39.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^4.0.3",
     "recoil": "^0.7.3-alpha.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4",
@@ -27,7 +27,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +58,9 @@
     "@types/node": "^17.0.32",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
-    "@types/styled-components": "^5.1.25"
+    "@types/styled-components": "^5.1.25",
+    "cra-bundle-analyzer": "^0.1.1",
+    "react-error-overlay": "6.0.9",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
