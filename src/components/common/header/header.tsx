@@ -7,7 +7,7 @@ import {
   HeaderItemWrap,
   HeaderItem,
 } from "./style";
-import Logo from "../../../assets/logo/dodam_text_logo.svg";
+import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
 
@@ -18,7 +18,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderWrap>
         <HeaderLogo>
-          <img src={Logo} alt={"header/headerLogo"} />
+          <img src={logo} alt={"header/headerLogo"} />
         </HeaderLogo>
         <HeaderItemWrap>
           {HEADER_LINKS.map((link) => (

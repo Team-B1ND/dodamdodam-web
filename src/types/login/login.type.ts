@@ -6,5 +6,9 @@ export type Login = {
 };
 
 export type LoginResponse = Response & {
-  data: UserInfo;
+  data: {
+    member: UserInfo;
+    refreshToken: string;
+    token: string;
+  };
 };
