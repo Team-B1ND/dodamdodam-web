@@ -1,10 +1,7 @@
-import { useQuery } from "react-query";
-import lostStuffRepository from "../../repository/lostStuff/lostStuff.repository";
+import { useGetMyLostStuff } from "../../querys/lostStuff/lostStuff.query";
 
 const useMyInfoLostStuff = () => {
-  const { data, isLoading } = useQuery("losgStuff/getMyLostStuff", () =>
-    lostStuffRepository.getMyLostStuffs()
-  );
+  const { data, isLoading } = useGetMyLostStuff();
 
   return {
     notFoundLostStuff: data?.data.result,

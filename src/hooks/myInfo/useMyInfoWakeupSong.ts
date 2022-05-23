@@ -1,15 +1,12 @@
 import { useMemo } from "react";
-import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import WakeupSongRepository from "../../repository/wakeupSong/wakeupSong.repository";
+import { useGetMyWakeupSongs } from "../../querys/wakeupSong/wakeupSong.query";
 import { profileAtom } from "../../store/profile/profileStore";
 
 const useMyInfoWakeupSong = () => {
   const profileData = useRecoilValue(profileAtom);
 
-  const { data, isLoading } = useQuery("wakeupSong/getMyWakeupSongs", () =>
-    WakeupSongRepository.getMyWakeupSongs({ userId: profileData.id })
-  );
+  const { data, isLoading } = useGetMyWakeupSongs({ userId: profileData.id });
 
   const notApprovedWakeupSongs = useMemo(() => {
     return data?.data.videos.filter((wakeupSong) => wakeupSong.isAllow === 0);

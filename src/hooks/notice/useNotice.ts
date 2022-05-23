@@ -1,11 +1,8 @@
 import { useCallback, useState } from "react";
-import { useQuery } from "react-query";
-import noticeRepository from "../../repository/notice/notice.repository";
+import { useGetNotice } from "../../querys/notice/notice.query";
 
 const useNotice = () => {
-  const { data, isLoading } = useQuery("notice/getNotice", () =>
-    noticeRepository.getNotice()
-  );
+  const { data, isLoading } = useGetNotice();
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
