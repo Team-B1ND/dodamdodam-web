@@ -2,7 +2,10 @@ import { useCallback, useState } from "react";
 import { useGetNotice } from "../../querys/notice/notice.query";
 
 const useNotice = () => {
-  const { data, isLoading } = useGetNotice();
+  const { data, isLoading } = useGetNotice({
+    staleTime: 1000 * 60 * 60,
+    cacheTime: 1000 * 60 * 60,
+  });
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
