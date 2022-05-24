@@ -9,7 +9,7 @@ export const lightTheme: DefaultTheme = {
   backgroundColor3: "#ffffff",
   backgroundColor4: "#f0f2f4",
   desableBackground: "#f7f7f7",
-  borderColor: "#3d3d3d",
+  borderColor: "#d2d2d2",
   borderColor2: "#3d3d3d",
   contrast: "#000000",
   contrast2: "#5c5c5c",

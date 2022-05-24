@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
       font-family: 'NotoSansKR-Regular' !important;
     }
 
+    a {
+      text-decoration: none;
+    }
+
     ${reset}
 `;
 

@@ -1,11 +1,15 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetNotice } from "../../querys/notice/notice.query";
 
 const useNotice = () => {
-  const { data, isLoading } = useGetNotice({
-    staleTime: 1000 * 60 * 60,
-    cacheTime: 1000 * 60 * 60,
-  });
+  const useNotice = () => {
+    const { data, isLoading } = useGetNotice({
+      staleTime: 1000 * 60 * 60,
+      cacheTime: 1000 * 60 * 60,
+    });
+
+  const handleIdxFunc = useRef<typeof handleNoticeIndex>();
+
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
@@ -29,6 +33,20 @@ const useNotice = () => {
     },
     [data?.data, noticeIndex]
   );
+
+  useEffect(() => {
+    handleIdxFunc.current = handleNoticeIndex;
+  }, [handleNoticeIndex]);
+
+  useEffect(() => {
+    if (data !== undefined) {
+      const noticeTimer = setInterval(
+        () => handleIdxFunc.current!("right"),
+        4000
+      );
+      return () => clearInterval(noticeTimer);
+    }
+  }, [handleNoticeIndex, data]);
 
   return {
     data: data?.data.notice,
