@@ -52,6 +52,7 @@ const MyInfo = () => {
           <MyInfoItem
             onClick={() => setSection(item)}
             isSelect={section === item}
+            key={`myinfoItem ${item}`}
           >
             {item}
           </MyInfoItem>
