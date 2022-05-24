@@ -5,6 +5,13 @@ class DataCheck {
     }
     return false;
   }
+
+  public voidCheck<T>(array: T[]): boolean {
+    if (array.length === 0) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export default new DataCheck();

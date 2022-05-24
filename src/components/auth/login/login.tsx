@@ -2,25 +2,27 @@ import { Dispatch, SetStateAction } from "react";
 import useLogin from "../../../hooks/login/useLogin";
 import {
   LoginContainer,
-  LoginInput,
   LoginInputForm,
-  LoginInputTitle,
-  LoginInputWrap,
   LoginKeepWrap,
   LoginKeepCheckBox,
   LoginWrap,
   LoginKeepText,
   LoginKeepCheckBoxIcon,
   LoginSubmitButton,
-  LgoinSignupWrap,
-  LoginSignupText,
-  LoginSignupButton,
 } from "./style";
 import { FiCheck } from "react-icons/fi";
+import {
+  AuthInput,
+  AuthInputTitle,
+  AuthInputWrap,
+  AuthOppositePartButton,
+  AuthOppositePartText,
+  AuthOppositePartWrap,
+} from "../style";
 
-type Props = {
+interface Props {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const Login = ({ setIsLogin }: Props) => {
   const {
@@ -35,23 +37,23 @@ const Login = ({ setIsLogin }: Props) => {
     <LoginContainer>
       <LoginWrap>
         <LoginInputForm>
-          <LoginInputWrap>
-            <LoginInputTitle>ID</LoginInputTitle>
-            <LoginInput
+          <AuthInputWrap>
+            <AuthInputTitle>ID</AuthInputTitle>
+            <AuthInput
               name="id"
               value={loginData.id}
               onChange={handleLoginData}
             />
-          </LoginInputWrap>
-          <LoginInputWrap>
-            <LoginInputTitle>비밀번호</LoginInputTitle>
-            <LoginInput
+          </AuthInputWrap>
+          <AuthInputWrap>
+            <AuthInputTitle>비밀번호</AuthInputTitle>
+            <AuthInput
               name="pw"
               value={loginData.pw}
               onChange={handleLoginData}
               type="password"
             />
-          </LoginInputWrap>
+          </AuthInputWrap>
         </LoginInputForm>
         <LoginKeepWrap>
           <LoginKeepCheckBox onClick={handleLoginKeep} isCheck={loginKeep}>
@@ -64,12 +66,12 @@ const Login = ({ setIsLogin }: Props) => {
           <LoginKeepText>로그인 유지</LoginKeepText>
         </LoginKeepWrap>
         <LoginSubmitButton onClick={submitLoginData}>Sign In</LoginSubmitButton>
-        <LgoinSignupWrap>
-          <LoginSignupText>아직 계정이 없으신가요?</LoginSignupText>
-          <LoginSignupButton onClick={() => setIsLogin(false)}>
+        <AuthOppositePartWrap>
+          <AuthOppositePartText>아직 계정이 없으신가요?</AuthOppositePartText>
+          <AuthOppositePartButton onClick={() => setIsLogin(false)}>
             Sign Up
-          </LoginSignupButton>
-        </LgoinSignupWrap>
+          </AuthOppositePartButton>
+        </AuthOppositePartWrap>
       </LoginWrap>
     </LoginContainer>
   );

@@ -10,8 +10,6 @@ export const profileAtom = atom<UserInfo>({
     name: "",
     permissions: [],
     profileImage: "",
-    refreshToken: "",
-    token: "",
   },
 });
 

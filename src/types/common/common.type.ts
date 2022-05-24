@@ -1,15 +1,13 @@
-export type UserInfo = {
+export interface UserInfo {
   accessLevel: number;
   email: string;
   id: string;
   name: string;
   permissions: string[];
   profileImage: string;
-  refreshToken: string;
-  token: string;
-};
+}
 
-export type UserInfoDetail = {
+export interface UserInfoDetail {
   accessLevel: number;
   allowed: number;
   classroomIdx: number;
@@ -24,4 +22,4 @@ export type UserInfoDetail = {
   placeIdx: number;
   profileImage: string;
   room: number;
-};
+}

@@ -14,7 +14,7 @@ const Notice = () => {
   return (
     <NoticeContainer>
       <NoticeLabel>공지사항</NoticeLabel>
-      {!isLoading && (
+      {!isLoading && data && (
         <>
           <NoticeChangeButton onClick={() => handleNoticeIndex("left")}>
             <FiChevronLeft />

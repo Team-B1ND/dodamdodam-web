@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.2",
     "js-cookie": "^3.0.1",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
@@ -29,6 +30,9 @@
     "eject": "react-scripts eject",
     "preinstall": "npx npm-force-resolutions"
   },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -47,9 +51,6 @@
       "last 1 safari version"
     ]
   },
-  "resolutions": {
-    "react-error-overlay": "6.0.9"
-  },
   "devDependencies": {
     "react-error-overlay": "6.0.9",
     "@types/jest": "^27.5.1",
@@ -58,6 +59,8 @@
     "@types/node": "^17.0.32",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
-    "@types/styled-components": "^5.1.25"
+    "@types/styled-components": "^5.1.25",
+    "cra-bundle-analyzer": "^0.1.1",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }

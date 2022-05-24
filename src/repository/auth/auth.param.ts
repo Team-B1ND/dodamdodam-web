@@ -1,6 +1,6 @@
 import { Login } from "../../types/login/login.type";
 import { Signup } from "../../types/signup/signup.type";
 
-export type LoginParam = Login;
+export interface LoginParam extends Login {}
 
-export type SignupParam = Signup;
+export interface SignupParam extends Signup {}
