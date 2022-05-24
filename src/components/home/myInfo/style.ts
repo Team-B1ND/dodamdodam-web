@@ -64,7 +64,7 @@ export const MyInfoLogoutButton = styled.button`
   background-color: ${({ theme }) => theme.backgroundColor3};
   font-size: 12px;
   color: ${({ theme }) => theme.contrast};
-  border: 1px solid ${({ theme }) => theme.borderColor2};
+  border: 1px solid ${({ theme }) => theme.borderColor};
   margin-top: 34px;
   cursor: pointer;
 `;

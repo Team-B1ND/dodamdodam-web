@@ -10,9 +10,9 @@ const Home = () => {
       <Column>
         <Row>
           <TodaySchedule />
+          <MyInfo />
         </Row>
       </Column>
-      <MyInfo />
     </>
   );
 };
