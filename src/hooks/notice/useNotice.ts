@@ -6,7 +6,7 @@ const useNotice = () => {
   const { data, isLoading } = useQuery("notice/getNotice", () =>
     noticeRepository.getNotice()
   );
-  const funcRef = useRef<typeof handleNoticeIndex>();
+  const handleIdxFunc = useRef<typeof handleNoticeIndex>();
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
@@ -32,12 +32,15 @@ const useNotice = () => {
   );
 
   useEffect(() => {
-    funcRef.current = handleNoticeIndex;
+    handleIdxFunc.current = handleNoticeIndex;
   }, [handleNoticeIndex]);
 
   useEffect(() => {
     if (data !== undefined) {
-      const noticeTimer = setInterval(() => funcRef.current!("right"), 4000);
+      const noticeTimer = setInterval(
+        () => handleIdxFunc.current!("right"),
+        4000
+      );
       return () => clearInterval(noticeTimer);
     }
   }, [handleNoticeIndex, data]);
