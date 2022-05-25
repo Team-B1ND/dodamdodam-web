@@ -29,6 +29,7 @@ export const CardTitleText = styled.h1`
   color: ${({ theme }) => theme.contrast};
   cursor: pointer;
   font-weight: bold;
+  margin-right: 10px;
 `;
 
 export const CardTitleRedirectWrap = styled.span`
