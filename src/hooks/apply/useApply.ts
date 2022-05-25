@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useStudyRoom = () => {
+const useApply = () => {
   const [section, setSection] = useState("자습실");
 
   return { section, setSection };
 };
 
-export default useStudyRoom;
+export default useApply;

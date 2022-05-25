@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { palette } from "../../../style/palette";
 
-export const StudyRoomContainer = styled.div`
+export const ApplyContainer = styled.div`
   width: 505px;
   height: 320px;
   display: flex;
@@ -10,16 +10,16 @@ export const StudyRoomContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor3};
 `;
 
-export const StudyRoomTitleWrap = styled.div`
+export const ApplyTitleWrap = styled.div`
   width: 100%;
-  height: 56px;
+  min-height: 56px;
   padding-left: 15px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-export const StudyRoomTitleIcon = styled.div`
+export const ApplyTitleIcon = styled.div`
   width: 18px;
   height: 18px;
   display: flex;
@@ -33,7 +33,7 @@ export const StudyRoomTitleIcon = styled.div`
   }
 `;
 
-export const StudyRoomTitleText = styled.h1`
+export const ApplyTitleText = styled.h1`
   font-size: 14px;
   color: ${({ theme }) => theme.contrast};
   cursor: pointer;
@@ -41,7 +41,7 @@ export const StudyRoomTitleText = styled.h1`
   margin-right: 10px;
 `;
 
-export const StudyRoomTitleItemWrap = styled.div`
+export const ApplyTitleItemWrap = styled.div`
   width: 276px;
   height: 100%;
   display: flex;
@@ -49,7 +49,7 @@ export const StudyRoomTitleItemWrap = styled.div`
   margin-left: auto;
 `;
 
-export const StudyRoomTitleItem = styled.div<{ isSelect: Boolean }>`
+export const ApplyTitleItem = styled.div<{ isSelect: Boolean }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -74,4 +74,10 @@ export const StudyRoomTitleItem = styled.div<{ isSelect: Boolean }>`
         border-bottom: 3px solid ${palette.main};
       `};
   }
+`;
+
+export const ApplyFormWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
 `;
