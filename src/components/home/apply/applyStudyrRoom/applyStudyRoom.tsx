@@ -1,74 +1,44 @@
+import { useMemo } from "react";
+import { APPLY_STUDY_ROOMS_TIMETABLE } from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
+import ApplyStudyRoomSelect from "./applyStudyRoomSelect/applyStudyRoomSelect";
+import ApplyStudyRoomVoid from "./applyStudyRoomVoid/applyStudyRoomVoid";
 import {
   ApplyStudyRoomContainer,
-  ApplyStudyRoomInput,
-  ApplyStudyRoomInputColumnWrap,
-  ApplyStudyRoomInputRowWrap,
-  ApplyStudyRoomInputTime,
-  ApplyStudyRoomInputTitle,
-  ApplyStudyRoomInputTitleWrap,
   ApplyStudyRoomInputWrap,
   ApplyStudyRoomSubmitButton,
 } from "./style";
 
 const ApplyStudyRoom = () => {
-  const { studyRoomsData } = useApplyStudyRoom();
+  const { myApplyStudyRooms, studyRoomsData, studyRoomsDataIsLoading } =
+    useApplyStudyRoom();
 
-  console.log(studyRoomsData);
+  //컴포넌트 쪽에서 map을 돌려야 하기 때문에 리스트로 변환
+  const myApplyStudyRoomList = useMemo(() => {
+    const { 1: place1, 2: place2, 3: place3, 4: place4 } = myApplyStudyRooms;
+
+    return [place1, place2, place3, place4];
+  }, [myApplyStudyRooms]);
 
   return (
     <ApplyStudyRoomContainer>
-      <ApplyStudyRoomInputWrap>
-        <ApplyStudyRoomInputRowWrap>
-          <ApplyStudyRoomInputColumnWrap>
-            <ApplyStudyRoomInputTitleWrap>
-              <ApplyStudyRoomInputTitle>8교시</ApplyStudyRoomInputTitle>
-              <ApplyStudyRoomInputTime>17:00 ~ 17:20</ApplyStudyRoomInputTime>
-            </ApplyStudyRoomInputTitleWrap>
-            <ApplyStudyRoomInput>
-              {studyRoomsData?.map((room) => (
-                <option>{room.name}</option>
-              ))}
-            </ApplyStudyRoomInput>
-          </ApplyStudyRoomInputColumnWrap>
-          <ApplyStudyRoomInputColumnWrap>
-            <ApplyStudyRoomInputTitleWrap>
-              <ApplyStudyRoomInputTitle>9교시</ApplyStudyRoomInputTitle>
-              <ApplyStudyRoomInputTime>17:30 ~ 18:20</ApplyStudyRoomInputTime>
-            </ApplyStudyRoomInputTitleWrap>
-            <ApplyStudyRoomInput>
-              {studyRoomsData?.map((room) => (
-                <option>{room.name}</option>
-              ))}
-            </ApplyStudyRoomInput>
-          </ApplyStudyRoomInputColumnWrap>
-        </ApplyStudyRoomInputRowWrap>
-        <ApplyStudyRoomInputRowWrap>
-          <ApplyStudyRoomInputColumnWrap>
-            <ApplyStudyRoomInputTitleWrap>
-              <ApplyStudyRoomInputTitle>10교시</ApplyStudyRoomInputTitle>
-              <ApplyStudyRoomInputTime>19:10 ~ 20:00</ApplyStudyRoomInputTime>
-            </ApplyStudyRoomInputTitleWrap>
-            <ApplyStudyRoomInput>
-              {studyRoomsData?.map((room) => (
-                <option>{room.name}</option>
-              ))}
-            </ApplyStudyRoomInput>
-          </ApplyStudyRoomInputColumnWrap>
-          <ApplyStudyRoomInputColumnWrap>
-            <ApplyStudyRoomInputTitleWrap>
-              <ApplyStudyRoomInputTitle>11교시</ApplyStudyRoomInputTitle>
-              <ApplyStudyRoomInputTime>20:10 ~ 21:00</ApplyStudyRoomInputTime>
-            </ApplyStudyRoomInputTitleWrap>
-            <ApplyStudyRoomInput>
-              {studyRoomsData?.map((room) => (
-                <option>{room.name}</option>
-              ))}
-            </ApplyStudyRoomInput>
-          </ApplyStudyRoomInputColumnWrap>
-        </ApplyStudyRoomInputRowWrap>
-      </ApplyStudyRoomInputWrap>
-      <ApplyStudyRoomSubmitButton>수정</ApplyStudyRoomSubmitButton>
+      {studyRoomsDataIsLoading ? (
+        <ApplyStudyRoomVoid />
+      ) : (
+        <>
+          <ApplyStudyRoomInputWrap>
+            {APPLY_STUDY_ROOMS_TIMETABLE.map((item, idx) => (
+              <ApplyStudyRoomSelect
+                timeTitle={item.timeTitle}
+                time={item.time}
+                myApplyStudyRoom={myApplyStudyRoomList[idx]}
+                studyRoomsData={studyRoomsData!}
+              />
+            ))}
+          </ApplyStudyRoomInputWrap>
+          <ApplyStudyRoomSubmitButton>수정</ApplyStudyRoomSubmitButton>
+        </>
+      )}
     </ApplyStudyRoomContainer>
   );
 };

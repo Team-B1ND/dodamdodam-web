@@ -8,48 +8,14 @@ export const ApplyStudyRoomContainer = styled.div`
 `;
 
 export const ApplyStudyRoomInputWrap = styled.div`
+  width: 382px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 20px;
   row-gap: 35px;
   padding: 16px;
-`;
-
-export const ApplyStudyRoomInputRowWrap = styled.div`
-  width: 350px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const ApplyStudyRoomInputColumnWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 3px;
-`;
-
-export const ApplyStudyRoomInputTitleWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const ApplyStudyRoomInputTitle = styled.h1`
-  font-size: 16px;
-  color: ${({ theme }) => theme.contrast};
-`;
-
-export const ApplyStudyRoomInputTime = styled.p`
-  font-size: 12px;
-  color: ${({ theme }) => theme.contrast};
-  margin-left: 5px;
-`;
-
-export const ApplyStudyRoomInput = styled.select`
-  width: 165px;
-  height: 30px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  padding-left: 13px;
-  outline: none;
-  cursor: pointer;
+  margin: 0px auto;
 `;
 
 export const ApplyStudyRoomSubmitButton = styled.button`
