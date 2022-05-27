@@ -19,6 +19,10 @@ export interface ApplyStudyRoom {
   studentIdx: number;
   timeTableIdx: number;
 }
+export interface validApplyStudyRoom {
+  idx: number;
+  applyStudyData: StudyRoom | null;
+}
 
 export interface ApplyStudyRoomsResponse extends Response {
   data: {

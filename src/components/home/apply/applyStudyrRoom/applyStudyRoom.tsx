@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { APPLY_STUDY_ROOMS_TIMETABLE } from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
 import ApplyStudyRoomSelect from "./applyStudyRoomSelect/applyStudyRoomSelect";
@@ -10,15 +9,13 @@ import {
 } from "./style";
 
 const ApplyStudyRoom = () => {
-  const { myApplyStudyRooms, studyRoomsData, studyRoomsDataIsLoading } =
-    useApplyStudyRoom();
-
-  //컴포넌트 쪽에서 map을 돌려야 하기 때문에 리스트로 변환
-  const myApplyStudyRoomList = useMemo(() => {
-    const { 1: place1, 2: place2, 3: place3, 4: place4 } = myApplyStudyRooms;
-
-    return [place1, place2, place3, place4];
-  }, [myApplyStudyRooms]);
+  const {
+    isDefault,
+    validMyApplyStudyRooms,
+    studyRoomsData,
+    studyRoomsDataIsLoading,
+    handleApplyStudyRoomData,
+  } = useApplyStudyRoom();
 
   return (
     <ApplyStudyRoomContainer>
@@ -29,14 +26,24 @@ const ApplyStudyRoom = () => {
           <ApplyStudyRoomInputWrap>
             {APPLY_STUDY_ROOMS_TIMETABLE.map((item, idx) => (
               <ApplyStudyRoomSelect
+                applyStudyRoomIdx={idx + 1}
                 timeTitle={item.timeTitle}
                 time={item.time}
-                myApplyStudyRoom={myApplyStudyRoomList[idx]}
+                timeOut={item.timeOut}
+                myApplyStudyRoom={validMyApplyStudyRooms[idx]}
                 studyRoomsData={studyRoomsData!}
+                handleApplyStudyRoomData={handleApplyStudyRoomData}
+                key={`applyStudyRoomSelect ${item.timeTitle}`}
               />
             ))}
           </ApplyStudyRoomInputWrap>
-          <ApplyStudyRoomSubmitButton>수정</ApplyStudyRoomSubmitButton>
+          {isDefault ? (
+            <ApplyStudyRoomSubmitButton>
+              기본위치로 신청
+            </ApplyStudyRoomSubmitButton>
+          ) : (
+            <ApplyStudyRoomSubmitButton>수정</ApplyStudyRoomSubmitButton>
+          )}
         </>
       )}
     </ApplyStudyRoomContainer>
