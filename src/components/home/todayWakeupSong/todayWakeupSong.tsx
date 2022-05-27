@@ -6,7 +6,6 @@ import { TodayWakeupSongContainer } from "./style";
 const TodayWakeupSong = () => {
   const { data } = useTodayWakeupSong();
 
-  console.log(data);
   return (
     <TodayWakeupSongContainer>
       <CardTitle
