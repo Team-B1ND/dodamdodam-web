@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { myApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
+import { getMyApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
   ApplyStudyRoomsResponse,
@@ -22,7 +22,7 @@ export const useGetStudyRooms = (
   );
 
 export const useGetMyApplyStudyRooms = (
-  { date }: myApplyStudyRoomsParam,
+  { date }: getMyApplyStudyRoomsParam,
   options?: UseQueryOptions<
     ApplyStudyRoomsResponse,
     AxiosError,

@@ -1,4 +1,7 @@
-import { APPLY_STUDY_ROOMS_TIMETABLE } from "../../../../constants/apply/apply.constant";
+import {
+  APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY,
+  APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
+} from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
 import ApplyStudyRoomSelect from "./applyStudyRoomSelect/applyStudyRoomSelect";
 import ApplyStudyRoomVoid from "./applyStudyRoomVoid/applyStudyRoomVoid";
@@ -15,6 +18,7 @@ const ApplyStudyRoom = () => {
     studyRoomsData,
     studyRoomsDataIsLoading,
     handleApplyStudyRoomData,
+    submitApplyStudyRoomData,
   } = useApplyStudyRoom();
 
   return (
@@ -24,9 +28,9 @@ const ApplyStudyRoom = () => {
       ) : (
         <>
           <ApplyStudyRoomInputWrap>
-            {APPLY_STUDY_ROOMS_TIMETABLE.map((item, idx) => (
+            {APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND.map((item, idx) => (
               <ApplyStudyRoomSelect
-                applyStudyRoomIdx={idx + 1}
+                applyStudyRoomIdx={item.timeTableIdx}
                 timeTitle={item.timeTitle}
                 time={item.time}
                 timeOut={item.timeOut}
@@ -42,7 +46,9 @@ const ApplyStudyRoom = () => {
               기본위치로 신청
             </ApplyStudyRoomSubmitButton>
           ) : (
-            <ApplyStudyRoomSubmitButton>수정</ApplyStudyRoomSubmitButton>
+            <ApplyStudyRoomSubmitButton onClick={submitApplyStudyRoomData}>
+              수정
+            </ApplyStudyRoomSubmitButton>
           )}
         </>
       )}

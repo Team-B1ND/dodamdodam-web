@@ -35,8 +35,14 @@ const ApplyStudyRoomSelect = ({
   studyRoomsData,
   handleApplyStudyRoomData,
 }: Props) => {
-  const validTimeOut = `${dateTransform.hyphen()} ${timeOut}`;
-  const isAfter = dayjs(validTimeOut).isBefore(dateTransform.hyphen());
+  const validTimeOut = dayjs(`${dateTransform.hyphen()} ${timeOut}`).format(
+    "YYYY-MM-DD HH:mm"
+  );
+
+  const isAfter = dayjs(dateTransform.fullDate()).isAfter(
+    validTimeOut,
+    "minutes"
+  );
 
   return (
     <ApplyStudyRoomSelectWrap>
@@ -46,21 +52,27 @@ const ApplyStudyRoomSelect = ({
       </ApplyStudyRoomSelectTitleWrap>
       <ApplyStudyRoomSelectInput
         onChange={(e) => handleApplyStudyRoomData(e, applyStudyRoomIdx)}
-        disabled={isAfter}
+        // disabled={isAfter}
+        defaultValue={
+          isAfter ? `${timeTitle} 시간지남` : `${timeTitle} 선택안됨`
+        }
       >
-        {myApplyStudyRoom?.applyStudyData === null && (
-          <>
-            {isAfter ? (
-              <option key={`${timeTitle} 시간 지남`} disabled hidden selected>
-                시간대가 지났습니다
-              </option>
-            ) : (
-              <option key={`${timeTitle} 선택안됨`} hidden selected>
-                선택해주세요
-              </option>
-            )}
-          </>
-        )}
+        <option
+          key={`${timeTitle} 시간지남`}
+          disabled
+          hidden
+          value={`${timeTitle} 시간지남`}
+        >
+          시간대가 지났습니다
+        </option>
+        <option
+          key={`${timeTitle} 선택안됨`}
+          hidden
+          selected
+          value={`${timeTitle} 선택안됨`}
+        >
+          선택해주세요
+        </option>
         {studyRoomsData?.map((room) => (
           <option
             key={`${timeTitle} ${room.name}`}

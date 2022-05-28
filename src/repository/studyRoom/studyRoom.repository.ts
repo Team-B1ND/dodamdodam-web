@@ -3,7 +3,10 @@ import {
   ApplyStudyRoomsResponse,
   StudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
-import { myApplyStudyRoomsParam } from "./studyRoom.param";
+import {
+  getMyApplyStudyRoomsParam,
+  putApplyStudyRoomsParam,
+} from "./studyRoom.param";
 
 class StudyRoomRepository {
   public async getStudyRooms(): Promise<StudyRoomsResponse> {
@@ -13,11 +16,17 @@ class StudyRoomRepository {
 
   public async getMyApplyStudyRooms({
     date,
-  }: myApplyStudyRoomsParam): Promise<ApplyStudyRoomsResponse> {
+  }: getMyApplyStudyRoomsParam): Promise<ApplyStudyRoomsResponse> {
     const { data } = await dodamV2Axios.get<ApplyStudyRoomsResponse>(
       `location/my?date=${date}`
     );
     return data;
+  }
+
+  public async putApplyStudyRooms({
+    applyStudyRooms,
+  }: putApplyStudyRoomsParam): Promise<void> {
+    await dodamV2Axios.put("/location", applyStudyRooms);
   }
 }
 
