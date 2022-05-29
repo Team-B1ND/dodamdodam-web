@@ -5,3 +5,5 @@ class LeaveRepository {
     const { data } = await dodamV2Axios.get("/offbase/date?date");
   }
 }
+
+export default new LeaveRepository();

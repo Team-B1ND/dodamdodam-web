@@ -1,7 +1,7 @@
 import React from "react";
 import {
   StudyRoom,
-  validApplyStudyRoom,
+  ApplyStudyRoom,
 } from "../../../../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../../../../util/date/dateTransform";
 import {
@@ -18,7 +18,7 @@ interface Props {
   timeTitle: string;
   time: string;
   timeOut: string;
-  myApplyStudyRoom: validApplyStudyRoom;
+  myApplyStudyRoom: ApplyStudyRoom;
   studyRoomsData: StudyRoom[];
   handleApplyStudyRoomData: (
     e: React.ChangeEvent<HTMLSelectElement>,

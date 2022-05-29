@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import {
-  useGetMyApplyStudyRooms,
+  useGetMyStudyRooms,
   useGetStudyRooms,
 } from "../../querys/studyRoom/studyRoom.query";
-import { validApplyStudyRoom as validApplyStudyRoomType } from "../../types/studyRoom/studyRoom.type";
+import { ApplyStudyRoom } from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/date/dateTransform";
-import dayjs from "dayjs";
 import dateCheck from "../../util/date/dateCheck";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 
 const useApplyStudyRoom = () => {
-  const { data: myApplyStudyRoomsData } = useGetMyApplyStudyRooms(
+  const myAppliedStudyRoomsData = useGetMyStudyRooms(
     {
       date: dateTransform.hyphen(),
     },
     { staleTime: 1000 * 30 }
-  );
+  ).data?.data.locations;
+
   const { data: studyRoomsData, isLoading: studyRoomsDataIsLoading } =
     useGetStudyRooms({
       cacheTime: 1000 * 60 * 60,
@@ -25,37 +25,36 @@ const useApplyStudyRoom = () => {
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(true);
 
-  const [validMyApplyStudyRooms, setValidMyApplyStudyRooms] = useState<
-    validApplyStudyRoomType[]
-  >([]);
+  const [myApplyStudyRooms, setMyApplyStudyRooms] = useState<ApplyStudyRoom[]>(
+    []
+  );
 
   //사용자가 자습실을 바꾸지 않고 다시 신청했을 때 확인하기 위해 신청한 자습실을 복사한 데이터
   const [tempMyApplyStudyRooms, setTempMyApplyStudyRooms] = useState<
-    validApplyStudyRoomType[]
+    ApplyStudyRoom[]
   >([]);
 
   //처음 들어왔을때 내가 신청했던 자습실을 토대로 발리데이션 해주는 코드
   useEffect(() => {
     //내가 신청한 자습실 및 자습실 정보까지 모두 불러와졌을때
-    if (myApplyStudyRoomsData && studyRoomsData) {
-      const { locations: myApplyStudyRooms } = myApplyStudyRoomsData.data;
+    if (myAppliedStudyRoomsData && studyRoomsData) {
       const { places: StudyRooms } = studyRoomsData?.data;
 
-      setValidMyApplyStudyRooms([]);
+      setMyApplyStudyRooms([]);
       setTempMyApplyStudyRooms([]);
 
-      // 내가 신청한 자습실 만큼(4번) 돌리는데
       const isWeekDay = dateCheck.weekDayCheck(dateTransform.hyphen());
 
-      for (let i = 1; i <= myApplyStudyRooms.length; i++) {
+      // 내가 신청한 자습실 만큼(4번) 돌리는데
+      for (let i = 1; i <= myAppliedStudyRoomsData.length; i++) {
         //내가 자습실을 신청하지 않았다면 기본값이 null이기 때문에 그냥 넘긴다.
-
-        if (myApplyStudyRooms[i - 1] === null) {
+        if (myAppliedStudyRoomsData[i - 1] === null) {
+          //평일일땐 idx가 1,2,3,4 이고 주말일땐 5,6,7,8
           const validApplyStudyRoom = {
             idx: isWeekDay ? i : i + 4,
             applyStudyData: null,
           };
-          setValidMyApplyStudyRooms((prev) => {
+          setMyApplyStudyRooms((prev) => {
             return [...prev, validApplyStudyRoom];
           });
           setTempMyApplyStudyRooms((prev) => {
@@ -66,12 +65,12 @@ const useApplyStudyRoom = () => {
 
         //null이 아니라면 신청한 자습실 placeIdx로 자습실 정보에서 찾아서 저장
         const validApplyStudyRoom = {
-          idx: myApplyStudyRooms[i - 1]?.timeTableIdx!,
+          idx: myAppliedStudyRoomsData[i - 1]?.timeTableIdx!,
           applyStudyData: StudyRooms.find(
-            (place) => place.idx === myApplyStudyRooms[i - 1]!.placeIdx
+            (place) => place.idx === myAppliedStudyRoomsData[i - 1]!.placeIdx
           )!,
         };
-        setValidMyApplyStudyRooms((prev) => {
+        setMyApplyStudyRooms((prev) => {
           return [...prev, validApplyStudyRoom];
         });
 
@@ -80,17 +79,22 @@ const useApplyStudyRoom = () => {
         });
       }
     }
-  }, [myApplyStudyRoomsData, studyRoomsData]);
+  }, [myAppliedStudyRoomsData, studyRoomsData]);
 
   useEffect(() => {
     if (tempMyApplyStudyRooms.length !== 0) {
-      const [place1, place2, place3, place4] = tempMyApplyStudyRooms;
+      const [
+        applyStudyRoom1,
+        applyStudyRoom2,
+        applyStudyRoom3,
+        applyStudyRoom4,
+      ] = tempMyApplyStudyRooms;
 
       if (
-        place1?.applyStudyData === null ||
-        place2?.applyStudyData === null ||
-        place3?.applyStudyData === null ||
-        place4?.applyStudyData === null
+        applyStudyRoom1?.applyStudyData === null ||
+        applyStudyRoom2?.applyStudyData === null ||
+        applyStudyRoom3?.applyStudyData === null ||
+        applyStudyRoom4?.applyStudyData === null
       ) {
         setIsDefault(true);
       } else {
@@ -106,14 +110,13 @@ const useApplyStudyRoom = () => {
     const { value } = e.target;
     const { places: StudyRooms } = studyRoomsData?.data!;
 
-    console.log(idx);
-
-    const validApplyStudyRoom: validApplyStudyRoomType = {
+    const validApplyStudyRoom: ApplyStudyRoom = {
       idx: idx,
       applyStudyData: StudyRooms.find((place) => place.name === value)!,
     };
+
     //사용자가 바꾼 자습실 이름을 가지고 자습실 정보에서 찾아서 저장
-    setValidMyApplyStudyRooms((prev) =>
+    setMyApplyStudyRooms((prev) =>
       prev.map((item) => (item.idx === idx ? validApplyStudyRoom : item))
     );
 
@@ -121,7 +124,7 @@ const useApplyStudyRoom = () => {
   };
 
   const submitApplyStudyRoomData = async () => {
-    const [place1, place2, place3, place4] = validMyApplyStudyRooms;
+    const [place1, place2, place3, place4] = myApplyStudyRooms;
     const [tempPlace1, tempPlace2, tempPlace3, tempPlace4] =
       tempMyApplyStudyRooms;
 
@@ -137,33 +140,33 @@ const useApplyStudyRoom = () => {
 
     let validApplyStudyRoomList = [];
 
-    for (let i = 0; i < validMyApplyStudyRooms.length; i++) {
-      if (validMyApplyStudyRooms[i] !== tempMyApplyStudyRooms[i]) {
+    for (let i = 0; i < myApplyStudyRooms.length; i++) {
+      if (myApplyStudyRooms[i] !== tempMyApplyStudyRooms[i]) {
         const validMyAllyStudyRoom = {
-          timeTableIdx: validMyApplyStudyRooms[i].idx,
-          placeIdx: validMyApplyStudyRooms[i].applyStudyData?.idx || null,
+          timeTableIdx: myApplyStudyRooms[i].idx,
+          placeIdx: myApplyStudyRooms[i].applyStudyData?.idx || null,
         };
         validApplyStudyRoomList.push(validMyAllyStudyRoom);
       }
     }
 
     try {
-      await studyRoomRepository.putApplyStudyRooms({
+      await studyRoomRepository.postApplyStudyRooms({
         locations: validApplyStudyRoomList,
       });
       window.alert("성공");
-      setTempMyApplyStudyRooms(validMyApplyStudyRooms);
+      setTempMyApplyStudyRooms(myApplyStudyRooms);
     } catch (error) {
-      setValidMyApplyStudyRooms(tempMyApplyStudyRooms);
+      setMyApplyStudyRooms(tempMyApplyStudyRooms);
       window.alert("실패");
     }
 
-    console.log(validMyApplyStudyRooms);
+    console.log(myApplyStudyRooms);
   };
 
   return {
     isDefault,
-    validMyApplyStudyRooms,
+    validMyApplyStudyRooms: myApplyStudyRooms,
     studyRoomsData: studyRoomsData?.data.places,
     studyRoomsDataIsLoading,
     handleApplyStudyRoomData,

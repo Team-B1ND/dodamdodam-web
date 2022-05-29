@@ -10,7 +10,7 @@ export interface StudyRoomsResponse extends Response {
   };
 }
 
-export interface ApplyStudyRoom {
+export interface AppliedStudyRoom {
   checkedTeacherIdx: number | null;
   date: string;
   idx: number;
@@ -19,13 +19,14 @@ export interface ApplyStudyRoom {
   studentIdx: number;
   timeTableIdx: number;
 }
-export interface validApplyStudyRoom {
+
+export interface ApplyStudyRoom {
   idx: number;
   applyStudyData: StudyRoom | null;
 }
 
-export interface ApplyStudyRoomsResponse extends Response {
+export interface MyStudyRoomsResponse extends Response {
   data: {
-    locations: (ApplyStudyRoom | null)[];
+    locations: (AppliedStudyRoom | null)[];
   };
 }

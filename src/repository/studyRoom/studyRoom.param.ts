@@ -1,4 +1,4 @@
-export interface getMyApplyStudyRoomsParam {
+export interface getMyStudyRoomsParam {
   date: string;
 }
 

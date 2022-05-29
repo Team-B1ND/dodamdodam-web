@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
-import { getMyApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
+import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import { getMyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
-  ApplyStudyRoomsResponse,
+  MyStudyRoomsResponse,
   StudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
 
@@ -14,24 +14,24 @@ export const useGetStudyRooms = (
     StudyRoomsResponse,
     "studyRoom/getStudyRooms"
   >
-) =>
+): UseQueryResult<StudyRoomsResponse, AxiosError> =>
   useQuery(
     "studyRoom/getStudyRooms",
     () => studyRoomRepository.getStudyRooms(),
     options
   );
 
-export const useGetMyApplyStudyRooms = (
-  { date }: getMyApplyStudyRoomsParam,
+export const useGetMyStudyRooms = (
+  { date }: getMyStudyRoomsParam,
   options?: UseQueryOptions<
-    ApplyStudyRoomsResponse,
+    MyStudyRoomsResponse,
     AxiosError,
-    ApplyStudyRoomsResponse,
-    "studyRoom/getMyApplyStudyRooms"
+    MyStudyRoomsResponse,
+    "studyRoom/getMyStudyRooms"
   >
-) =>
+): UseQueryResult<MyStudyRoomsResponse, AxiosError> =>
   useQuery(
-    "studyRoom/getMyApplyStudyRooms",
-    () => studyRoomRepository.getMyApplyStudyRooms({ date }),
+    "studyRoom/getMyStudyRooms",
+    () => studyRoomRepository.getMyStudyRooms({ date }),
     options
   );
