@@ -3,5 +3,5 @@ export interface getMyApplyStudyRoomsParam {
 }
 
 export interface putApplyStudyRoomsParam {
-  applyStudyRooms: { timeTableIdx: number; placeIdx: number | null }[];
+  locations: { timeTableIdx: number; placeIdx: number | null }[];
 }

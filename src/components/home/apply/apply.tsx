@@ -1,6 +1,10 @@
+import { ReactNode } from "react";
 import { FcSurvey } from "react-icons/fc";
 import { APPLY_ITEMS } from "../../../constants/apply/apply.constant";
 import useApply from "../../../hooks/apply/useApply";
+import ApplyBus from "./applyBus/applyBus";
+import ApplyLeave from "./applyLeave/applyLeave";
+import ApplyPass from "./applyPass/applyPass";
 import ApplyStudyRoom from "./applyStudyrRoom/applyStudyRoom";
 import {
   ApplyContainer,
@@ -14,6 +18,13 @@ import {
 
 const Apply = () => {
   const { section, setSection } = useApply();
+
+  const applyItemComponents: ReactNode[] = [
+    <ApplyStudyRoom key="applyStudyRoom" />,
+    <ApplyPass key="applyPass" />,
+    <ApplyLeave key="applyLeave" />,
+    <ApplyBus key="applyBus" />,
+  ];
 
   return (
     <ApplyContainer>
@@ -35,7 +46,9 @@ const Apply = () => {
         </ApplyTitleItemWrap>
       </ApplyTitleWrap>
       <ApplyFormWrap>
-        <ApplyStudyRoom />
+        {applyItemComponents.map((component, idx) => {
+          return section === APPLY_ITEMS[idx] && component;
+        })}
       </ApplyFormWrap>
     </ApplyContainer>
   );

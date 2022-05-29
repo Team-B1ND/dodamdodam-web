@@ -149,7 +149,7 @@ const useApplyStudyRoom = () => {
 
     try {
       await studyRoomRepository.putApplyStudyRooms({
-        applyStudyRooms: validApplyStudyRoomList,
+        locations: validApplyStudyRoomList,
       });
       window.alert("성공");
       setTempMyApplyStudyRooms(validMyApplyStudyRooms);

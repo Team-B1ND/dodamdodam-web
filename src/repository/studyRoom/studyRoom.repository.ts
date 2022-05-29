@@ -24,9 +24,9 @@ class StudyRoomRepository {
   }
 
   public async putApplyStudyRooms({
-    applyStudyRooms,
+    locations,
   }: putApplyStudyRoomsParam): Promise<void> {
-    await dodamV2Axios.put("/location", applyStudyRooms);
+    await dodamV2Axios.post("/location", { locations });
   }
 }
 

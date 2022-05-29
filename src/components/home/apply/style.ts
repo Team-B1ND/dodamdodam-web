@@ -80,4 +80,6 @@ export const ApplyFormWrap = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 20px;
+  position: relative;
+  overflow: hidden;
 `;

@@ -52,7 +52,7 @@ const ApplyStudyRoomSelect = ({
       </ApplyStudyRoomSelectTitleWrap>
       <ApplyStudyRoomSelectInput
         onChange={(e) => handleApplyStudyRoomData(e, applyStudyRoomIdx)}
-        // disabled={isAfter}
+        disabled={isAfter}
         defaultValue={
           isAfter ? `${timeTitle} 시간지남` : `${timeTitle} 선택안됨`
         }
