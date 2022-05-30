@@ -12,9 +12,11 @@ export interface AppliedPass {
 }
 
 export interface ApplyPass {
-  endTime: string;
   reason: string;
-  startTime: string;
+  startTimeHour: string;
+  startTimeMinute: string;
+  endTimeHour: string;
+  endTimeMinute: string;
 }
 
 export interface MyPassesResponse extends Response {

@@ -83,3 +83,17 @@ export const ApplyFormWrap = styled.div`
   position: relative;
   overflow: hidden;
 `;
+
+export const ApplyFormSubmitButton = styled.button`
+  width: 110px;
+  height: 35px;
+  margin: 16px;
+  margin-top: auto;
+  margin-left: auto;
+  background-color: #0067bcd9;
+  border: 0px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+`;

@@ -12,6 +12,18 @@ class DataCheck {
     }
     return false;
   }
+
+  public timeFormatCheck<T1, T2>(hour: T1, minute: T2) {
+    if (
+      Number(hour) >= 24 ||
+      Number(hour) <= 0 ||
+      Number(minute) >= 60 ||
+      Number(minute) <= -1
+    ) {
+      return false;
+    }
+    return true;
+  }
 }
 
 export default new DataCheck();

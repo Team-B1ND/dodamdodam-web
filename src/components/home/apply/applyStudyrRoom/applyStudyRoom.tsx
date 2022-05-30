@@ -3,13 +3,10 @@ import {
   APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
 } from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
+import { ApplyFormSubmitButton } from "../style";
 import ApplyStudyRoomSelect from "./applyStudyRoomSelect/applyStudyRoomSelect";
 import ApplyStudyRoomVoid from "./applyStudyRoomVoid/applyStudyRoomVoid";
-import {
-  ApplyStudyRoomContainer,
-  ApplyStudyRoomInputWrap,
-  ApplyStudyRoomSubmitButton,
-} from "./style";
+import { ApplyStudyRoomContainer, ApplyStudyRoomInputWrap } from "./style";
 
 const ApplyStudyRoom = () => {
   const {
@@ -42,13 +39,11 @@ const ApplyStudyRoom = () => {
             ))}
           </ApplyStudyRoomInputWrap>
           {isDefault ? (
-            <ApplyStudyRoomSubmitButton>
-              기본위치로 신청
-            </ApplyStudyRoomSubmitButton>
+            <ApplyFormSubmitButton>기본위치로 신청</ApplyFormSubmitButton>
           ) : (
-            <ApplyStudyRoomSubmitButton onClick={submitApplyStudyRoomData}>
+            <ApplyFormSubmitButton onClick={submitApplyStudyRoomData}>
               수정
-            </ApplyStudyRoomSubmitButton>
+            </ApplyFormSubmitButton>
           )}
         </>
       )}

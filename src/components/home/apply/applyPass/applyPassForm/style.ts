@@ -2,15 +2,13 @@ import styled from "styled-components";
 import { palette } from "../../../../../style/palette";
 
 export const ApplyPassFormContainer = styled.div<{ isFold: boolean }>`
-  width: 302px;
+  width: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0px auto;
-  margin-top: 10px;
-  transition: left 0.3s ease 0s;
-
   ${({ isFold }) => !isFold && "margin-left : 160px"};
+  transition: left 0.3s ease 0s;
 `;
 
 export const ApplyPassFormColumnWrap = styled.div`
@@ -80,5 +78,16 @@ export const ApplyPassFormTimeInputTilde = styled.span`
 
 export const ApplyPassFormNoticeText = styled.p`
   font-size: 12px;
+  line-height: 16px;
   color: ${palette.red[500]};
+`;
+
+export const ApplyPassFormTextArea = styled.textarea`
+  width: 310px;
+  height: 65px;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  resize: none;
+  margin-top: 3px;
+  padding: 5px;
+  outline: none;
 `;

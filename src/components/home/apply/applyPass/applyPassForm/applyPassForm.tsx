@@ -9,6 +9,7 @@ import {
   ApplyPassFormTimeInputTilde,
   ApplyPassFormInputWrap,
   ApplyPassFormNoticeText,
+  ApplyPassFormTextArea,
 } from "./style";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -16,14 +17,25 @@ import dayjs from "dayjs";
 import { IoMdCalendar } from "react-icons/io";
 import dateTransform from "../../../../../util/date/dateTransform";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { ApplyPass } from "../../../../../types/pass/pass.type";
 
 interface Props {
   isFold: boolean;
+  passData: ApplyPass;
   passDataDate: string;
+  handlePassData: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handlePassDataReason: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handlePassDataDate: (e: MaterialUiPickersDate) => void;
 }
 
-const ApplyPassForm = ({ isFold, passDataDate, handlePassDataDate }: Props) => {
+const ApplyPassForm = ({
+  isFold,
+  passData,
+  handlePassData,
+  passDataDate,
+  handlePassDataDate,
+  handlePassDataReason,
+}: Props) => {
   return (
     <ApplyPassFormContainer isFold={isFold}>
       <ApplyPassFormColumnWrap style={{ marginBottom: 16 }}>
@@ -54,24 +66,52 @@ const ApplyPassForm = ({ isFold, passDataDate, handlePassDataDate }: Props) => {
           </ApplyPassFormDatePickerWrap>
         </ApplyPassFormInputWrap>
       </ApplyPassFormColumnWrap>
-      <ApplyPassFormColumnWrap style={{ marginBottom: 10 }}>
+      <ApplyPassFormColumnWrap style={{ marginBottom: 5 }}>
         <ApplyPassFormColumnTitle>외출 시간</ApplyPassFormColumnTitle>
         <ApplyPassFormInputWrap>
           <ApplyPassFormTimeInputWrap>
-            <ApplyPassFormTimeInput placeholder="0 ~ 23" />
+            <ApplyPassFormTimeInput
+              placeholder="0 ~ 23"
+              value={passData.startTimeHour}
+              name="startTimeHour"
+              onChange={handlePassData}
+            />
             :
-            <ApplyPassFormTimeInput placeholder="0 ~ 59" />
+            <ApplyPassFormTimeInput
+              placeholder="0 ~ 59"
+              value={passData.startTimeMinute}
+              name="startTimeMinute"
+              onChange={handlePassData}
+            />
           </ApplyPassFormTimeInputWrap>
           <ApplyPassFormTimeInputTilde>~</ApplyPassFormTimeInputTilde>
           <ApplyPassFormTimeInputWrap>
-            <ApplyPassFormTimeInput placeholder="0 ~ 23" />
+            <ApplyPassFormTimeInput
+              placeholder="0 ~ 23"
+              value={passData.endTimeHour}
+              name="endTimeHour"
+              onChange={handlePassData}
+            />
             :
-            <ApplyPassFormTimeInput placeholder="0 ~ 59" />
+            <ApplyPassFormTimeInput
+              placeholder="0 ~ 59"
+              value={passData.endTimeMinute}
+              name="endTimeMinute"
+              onChange={handlePassData}
+            />
           </ApplyPassFormTimeInputWrap>
         </ApplyPassFormInputWrap>
       </ApplyPassFormColumnWrap>
       <ApplyPassFormNoticeText>
         ※시간은 24시간 형태로 작성해야합니다.
+      </ApplyPassFormNoticeText>
+      <ApplyPassFormTextArea
+        value={passData.reason}
+        name="reason"
+        onChange={handlePassDataReason}
+      />
+      <ApplyPassFormNoticeText>
+        ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
       </ApplyPassFormNoticeText>
     </ApplyPassFormContainer>
   );
