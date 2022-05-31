@@ -53,3 +53,21 @@ export const ApplyPassNotApproveFoldIcon = styled.div`
   color: ${palette.main};
   font-size: 17px;
 `;
+
+export const ApplyPassNotApproveVoidWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ApplyPassNotApproveVoidIcon = styled.div`
+  width: 42px;
+  height: 42px;
+  font-size: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.borderColor};
+`;

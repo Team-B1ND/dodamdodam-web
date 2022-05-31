@@ -6,9 +6,12 @@ import {
   ApplyPassNotApproveContainer,
   ApplyPassNotApproveFoldButton,
   ApplyPassNotApproveFoldIcon,
+  ApplyPassNotApproveVoidIcon,
+  ApplyPassNotApproveVoidWrap,
   ApplyPassNotApproveWrap,
 } from "./style";
 import { IoOptionsOutline } from "react-icons/io5";
+import { AiOutlineFolderOpen } from "react-icons/ai";
 
 interface Props {
   fold: boolean;
@@ -30,7 +33,11 @@ const ApplyPassNotApprove = ({
       <ApplyPassNotApproveWrap>
         {dataCheck.undefinedCheck(notApprovedPasses) ||
         dataCheck.voidCheck(notApprovedPasses!) ? (
-          <div>비엇음</div>
+          <ApplyPassNotApproveVoidWrap>
+            <ApplyPassNotApproveVoidIcon>
+              <AiOutlineFolderOpen />
+            </ApplyPassNotApproveVoidIcon>
+          </ApplyPassNotApproveVoidWrap>
         ) : (
           <>
             {notApprovedPasses?.map((pass) => (

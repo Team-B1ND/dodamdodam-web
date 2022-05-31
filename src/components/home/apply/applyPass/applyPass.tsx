@@ -28,6 +28,7 @@ const ApplyPass = () => {
         loadNotApprovedPass={loadNotApprovedPass}
         deleteNotApprovedPass={deleteNotApprovedPass}
       />
+
       <ApplyPassForm
         passData={passData}
         handlePassData={handlePassData}
@@ -35,13 +36,13 @@ const ApplyPass = () => {
         passDataDate={passDataDate}
         handlePassDataDate={handlePassDataDate}
         handlePassDataReason={handlePassDataReason}
+        notApprovePassesLength={notApprovedPasses.length}
       />
-      {fold ? (
+
+      {!(notApprovedPasses.length === 0 && !fold) && (
         <ApplyFormSubmitButton onClick={submitPassData}>
-          신청
+          {fold ? "신청" : "수정"}
         </ApplyFormSubmitButton>
-      ) : (
-        <ApplyFormSubmitButton>수정</ApplyFormSubmitButton>
       )}
     </ApplyPassContainer>
   );

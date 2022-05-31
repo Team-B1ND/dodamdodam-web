@@ -17,6 +17,7 @@ export interface ApplyPass {
   startTimeMinute: string;
   endTimeHour: string;
   endTimeMinute: string;
+  idx: number;
 }
 
 export interface MyPassesResponse extends Response {

@@ -23,8 +23,8 @@ class PassRepository {
     await dodamV2Axios.post("/offbase/pass", passData);
   }
 
-  public async putMyPass({ passIdx, passData }: putMyPassParam): Promise<void> {
-    await dodamV2Axios.put("/offbase/pass", { passIdx, passData });
+  public async putMyPass(passData: putMyPassParam): Promise<void> {
+    await dodamV2Axios.put("/offbase/pass", passData);
   }
 }
 

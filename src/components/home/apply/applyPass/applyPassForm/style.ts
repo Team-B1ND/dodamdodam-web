@@ -1,14 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { palette } from "../../../../../style/palette";
 
 export const ApplyPassFormContainer = styled.div<{ isFold: boolean }>`
   width: 340px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px auto;
-  ${({ isFold }) => !isFold && "margin-left : 160px"};
+  justify-content: center;
   transition: left 0.3s ease 0s;
+  position: relative;
+  color: ${({ theme }) => theme.contrast};
+  ${({ isFold }) =>
+    isFold
+      ? css`
+          left: 84px;
+        `
+      : css`
+          left: 144px;
+        `};
 `;
 
 export const ApplyPassFormColumnWrap = styled.div`
@@ -70,6 +80,7 @@ export const ApplyPassFormTimeInput = styled.input`
   outline: none;
   text-align: center;
   font-size: 12px;
+  background-color: ${({ theme }) => theme.backgroundColor3};
 `;
 
 export const ApplyPassFormTimeInputTilde = styled.span`
@@ -79,7 +90,7 @@ export const ApplyPassFormTimeInputTilde = styled.span`
 export const ApplyPassFormNoticeText = styled.p`
   font-size: 12px;
   line-height: 16px;
-  color: ${palette.red[500]};
+  color: ${palette.red[300]};
 `;
 
 export const ApplyPassFormTextArea = styled.textarea`
@@ -90,4 +101,9 @@ export const ApplyPassFormTextArea = styled.textarea`
   margin-top: 3px;
   padding: 5px;
   outline: none;
+  background-color: ${({ theme }) => theme.backgroundColor3};
+
+  ::-webkit-input-placeholder {
+    color: ${({ theme }) => theme.contrast2};
+  }
 `;

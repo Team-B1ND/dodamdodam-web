@@ -12,5 +12,7 @@ export interface postApplyPassParam {
 
 export interface putMyPassParam {
   passIdx: string;
-  passData: { endTime: string; reason: string; startTime: string };
+  endTime: string;
+  reason: string;
+  startTime: string;
 }

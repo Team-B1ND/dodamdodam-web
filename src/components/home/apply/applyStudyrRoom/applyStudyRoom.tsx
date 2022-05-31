@@ -3,6 +3,8 @@ import {
   APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
 } from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
+import dateCheck from "../../../../util/date/dateCheck";
+import dateTransform from "../../../../util/date/dateTransform";
 import { ApplyFormSubmitButton } from "../style";
 import ApplyStudyRoomSelect from "./applyStudyRoomSelect/applyStudyRoomSelect";
 import ApplyStudyRoomVoid from "./applyStudyRoomVoid/applyStudyRoomVoid";
@@ -25,18 +27,37 @@ const ApplyStudyRoom = () => {
       ) : (
         <>
           <ApplyStudyRoomInputWrap>
-            {APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND.map((item, idx) => (
-              <ApplyStudyRoomSelect
-                applyStudyRoomIdx={item.timeTableIdx}
-                timeTitle={item.timeTitle}
-                time={item.time}
-                timeOut={item.timeOut}
-                myApplyStudyRoom={validMyApplyStudyRooms[idx]}
-                studyRoomsData={studyRoomsData!}
-                handleApplyStudyRoomData={handleApplyStudyRoomData}
-                key={`applyStudyRoomSelect ${item.timeTitle}`}
-              />
-            ))}
+            {dateCheck.weekDayCheck(dateTransform.hyphen()) ? (
+              <>
+                {APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY.map((item, idx) => (
+                  <ApplyStudyRoomSelect
+                    applyStudyRoomIdx={item.timeTableIdx}
+                    timeTitle={item.timeTitle}
+                    time={item.time}
+                    timeOut={item.timeOut}
+                    myApplyStudyRoom={validMyApplyStudyRooms[idx]}
+                    studyRoomsData={studyRoomsData!}
+                    handleApplyStudyRoomData={handleApplyStudyRoomData}
+                    key={`applyStudyRoomSelect ${item.timeTitle}`}
+                  />
+                ))}
+              </>
+            ) : (
+              <>
+                {APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND.map((item, idx) => (
+                  <ApplyStudyRoomSelect
+                    applyStudyRoomIdx={item.timeTableIdx}
+                    timeTitle={item.timeTitle}
+                    time={item.time}
+                    timeOut={item.timeOut}
+                    myApplyStudyRoom={validMyApplyStudyRooms[idx]}
+                    studyRoomsData={studyRoomsData!}
+                    handleApplyStudyRoomData={handleApplyStudyRoomData}
+                    key={`applyStudyRoomSelect ${item.timeTitle}`}
+                  />
+                ))}
+              </>
+            )}
           </ApplyStudyRoomInputWrap>
           {isDefault ? (
             <ApplyFormSubmitButton>기본위치로 신청</ApplyFormSubmitButton>

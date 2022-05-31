@@ -21,6 +21,7 @@ const useApplyPass = () => {
     endTimeHour: "",
     endTimeMinute: "",
     reason: "",
+    idx: 0,
   });
   const [passDataDate, setPassDataDate] = useState<string>(
     dateTransform.hyphen()
@@ -28,6 +29,7 @@ const useApplyPass = () => {
 
   const [notApprovedPasses, setNotApprovedPasses] = useState<AppliedPass[]>([]);
 
+  //승인되지 않은 외출들을 담아주는 부분
   useEffect(() => {
     if (appliedPasses) {
       const validNotApprovedPasses = appliedPasses?.filter(
@@ -56,9 +58,11 @@ const useApplyPass = () => {
       reason,
       endTimeHour: validEndTime[0],
       endTimeMinute: validEndTime[1],
+      idx: 0,
     };
   };
 
+  //외출 리스트를 껐다 켰다 했을 때 첫번째 외출 정보가 input에 담기는 부분
   useEffect(() => {
     if (fold) {
       setPassData({
@@ -67,11 +71,12 @@ const useApplyPass = () => {
         reason: "",
         startTimeHour: "",
         startTimeMinute: "",
+        idx: 0,
       });
       setPassDataDate(dateTransform.hyphen());
     } else {
       if (notApprovedPasses?.length !== 0) {
-        const { reason, startTime } = notApprovedPasses![0];
+        const { reason, startTime, idx } = notApprovedPasses![0];
 
         //2022-05-03 09:00 이 형식에서 날짜와 시간을 추출
         const passDate = dateTransform.fullDate(startTime).slice(0, 10);
@@ -86,12 +91,14 @@ const useApplyPass = () => {
           reason,
           endTimeHour,
           endTimeMinute,
+          idx,
         });
         setPassDataDate(passDate);
       }
     }
   }, [fold, notApprovedPasses]);
 
+  //외출 리스트에서 외출을 눌렀을때 인풋에 담기는 함수
   const loadNotApprovedPass = (idx: number) => {
     const notApprovePass: AppliedPass = appliedPasses?.filter(
       (pass) => pass.idx === idx
@@ -108,10 +115,12 @@ const useApplyPass = () => {
       reason,
       endTimeHour,
       endTimeMinute,
+      idx,
     });
     setPassDataDate(passDate);
   };
 
+  //외출 리스트에서 외출 삭제하는 함수
   const deleteNotApprovedPass = async (idx: number) => {
     try {
       await passRepository.deleteMyPass({ idx: idx + "" });
@@ -124,23 +133,27 @@ const useApplyPass = () => {
     }
   };
 
+  // datePicker 핸들링 함수
   const handlePassDataDate = (e: MaterialUiPickersDate) => {
     setPassDataDate(dayjs(e).format("YYYY-MM-DD"));
   };
 
+  // 외출 데이터 핸들링 함수
   const handlePassData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setPassData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 외출 데이터 사유 핸들링 함수
   const handlePassDataReason = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
 
     setPassData((prev) => ({ ...prev, reason: value }));
   };
 
-  const submitPassData = () => {
+  //외출 신청 함수
+  const submitPassData = async () => {
     const validApplyPass = {
       reason: passData.reason,
       startTime: dayjs(
@@ -177,9 +190,38 @@ const useApplyPass = () => {
     if (!dayjs(validApplyPass.endTime).isAfter(validApplyPass.startTime)) {
       window.alert("복귀시간이 출발시간보다 빨라요!");
     }
-    try {
-      //   passRepository.postApplyPass();
-    } catch (error) {}
+
+    //외출 수정인지 외출 신청인지 구분하는 함수
+    if (fold) {
+      try {
+        await passRepository.postApplyPass({ passData: validApplyPass });
+        window.alert("외출 신청이 되었습니다");
+        setPassData({
+          startTimeHour: "",
+          startTimeMinute: "",
+          reason: "",
+          endTimeHour: "",
+          endTimeMinute: "",
+          idx: 0,
+        });
+      } catch (error) {
+        window.alert("외출 신청 실패");
+      }
+    } else {
+      const passIdx = notApprovedPasses.find(
+        (notApprovePass) => notApprovePass.idx === passData.idx
+      )?.idx;
+
+      try {
+        await passRepository.putMyPass({
+          ...validApplyPass,
+          passIdx: String(passIdx),
+        });
+        window.alert("외출 수정이 되었습니다.");
+      } catch (error) {
+        window.alert("외출 수정 실패");
+      }
+    }
   };
 
   return {

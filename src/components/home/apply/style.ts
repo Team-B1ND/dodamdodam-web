@@ -86,7 +86,7 @@ export const ApplyFormWrap = styled.div`
 
 export const ApplyFormSubmitButton = styled.button`
   width: 110px;
-  height: 35px;
+  min-height: 35px;
   margin: 16px;
   margin-top: auto;
   margin-left: auto;
