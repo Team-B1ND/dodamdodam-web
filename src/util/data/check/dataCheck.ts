@@ -6,7 +6,7 @@ class DataCheck {
     return false;
   }
 
-  public voidCheck<T>(array: T[]): boolean {
+  public voidCheck(array: any[]): boolean {
     if (array.length === 0) {
       return true;
     }

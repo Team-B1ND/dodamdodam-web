@@ -1,5 +1,27 @@
+import useApplyLeave from "../../../../hooks/apply/useApplyLeave";
+import ApplyNotApproveList from "../applyNotApproveList/applyNotApproveList";
+import { ApplyLeaveContainer } from "./style";
+
 const ApplyLeave = () => {
-  return <div>외박 신청</div>;
+  const {
+    fold,
+    setFold,
+    notApprovedLeaves,
+    loadNotApprovedLeave,
+    deleteNotApprovedLeave,
+  } = useApplyLeave();
+
+  return (
+    <ApplyLeaveContainer>
+      <ApplyNotApproveList
+        fold={fold}
+        setFold={setFold}
+        notApproveItems={notApprovedLeaves}
+        loadNotApprovedItem={loadNotApprovedLeave}
+        deleteNotApprovedItem={deleteNotApprovedLeave}
+      />
+    </ApplyLeaveContainer>
+  );
 };
 
 export default ApplyLeave;

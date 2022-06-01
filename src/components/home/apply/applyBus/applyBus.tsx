@@ -1,5 +1,7 @@
+import { ApplyBusContainer } from "./style";
+
 const ApplyBus = () => {
-  return <div>버스 신청</div>;
+  return <ApplyBusContainer>버스 신청</ApplyBusContainer>;
 };
 
 export default ApplyBus;

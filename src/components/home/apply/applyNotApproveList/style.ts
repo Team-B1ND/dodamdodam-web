@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { palette } from "../../../../../style/palette";
+import { palette } from "../../../../style/palette";
 
-export const ApplyPassNotApproveFoldButton = styled.button`
+export const ApplyNotApproveListFoldButton = styled.button`
   width: 28px;
   height: 28px;
   padding: 5px;
@@ -15,7 +15,7 @@ export const ApplyPassNotApproveFoldButton = styled.button`
   outline: none;
 `;
 
-export const ApplyPassNotApproveContainer = styled.div<{ fold: boolean }>`
+export const ApplyNotApproveListContainer = styled.div<{ fold: boolean }>`
   top: 0px;
   position: absolute;
   display: flex;
@@ -26,7 +26,7 @@ export const ApplyPassNotApproveContainer = styled.div<{ fold: boolean }>`
       ? css`
           left: -124px;
 
-          ${ApplyPassNotApproveFoldButton}:hover & {
+          ${ApplyNotApproveListFoldButton}:hover & {
             left: -116px;
           }
         `
@@ -35,7 +35,7 @@ export const ApplyPassNotApproveContainer = styled.div<{ fold: boolean }>`
         `}
 `;
 
-export const ApplyPassNotApproveWrap = styled.div`
+export const ApplyNotApproveListWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 124px;
@@ -44,7 +44,7 @@ export const ApplyPassNotApproveWrap = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor3};
 `;
 
-export const ApplyPassNotApproveFoldIcon = styled.div`
+export const ApplyNotApproveListFoldIcon = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -54,7 +54,7 @@ export const ApplyPassNotApproveFoldIcon = styled.div`
   font-size: 17px;
 `;
 
-export const ApplyPassNotApproveVoidWrap = styled.div`
+export const ApplyNotApproveListVoidWrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -62,7 +62,7 @@ export const ApplyPassNotApproveVoidWrap = styled.div`
   justify-content: center;
 `;
 
-export const ApplyPassNotApproveVoidIcon = styled.div`
+export const ApplyNotApproveListVoidIcon = styled.div`
   width: 42px;
   height: 42px;
   font-size: 42px;

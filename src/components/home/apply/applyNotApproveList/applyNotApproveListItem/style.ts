@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ApplyPassNotApproveItemContainer = styled.div`
+export const ApplyNotApproveListItemContainer = styled.div`
   width: 100%;
   height: 24px;
   display: flex;
@@ -8,12 +8,12 @@ export const ApplyPassNotApproveItemContainer = styled.div`
   cursor: pointer;
 `;
 
-export const ApplyPassNotApproveItemText = styled.span`
+export const ApplyNotApproveListItemText = styled.span`
   font-size: 12px;
   color: ${({ theme }) => theme.contrast};
 `;
 
-export const ApplyPassNotApproveItemDeleteButton = styled.button`
+export const ApplyNotApproveListItemDeleteButton = styled.button`
   width: 18px;
   height: 18px;
   display: flex;
@@ -25,12 +25,12 @@ export const ApplyPassNotApproveItemDeleteButton = styled.button`
   background: none;
   outline: none;
 
-  ${ApplyPassNotApproveItemContainer}:hover & {
+  ${ApplyNotApproveListItemContainer}:hover & {
     display: flex;
   }
 `;
 
-export const ApplyPassNotApproveItemDeleteIcon = styled.div`
+export const ApplyNotApproveListItemDeleteIcon = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

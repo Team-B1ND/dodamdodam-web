@@ -1,7 +1,7 @@
 import useApplyPass from "../../../../hooks/apply/useApplyPass";
+import ApplyNotApproveList from "../applyNotApproveList/applyNotApproveList";
 import { ApplyFormSubmitButton } from "../style";
 import ApplyPassForm from "./applyPassForm/applyPassForm";
-import ApplyPassNotApprove from "./applyPassNotApprove/applyPassNotApprove";
 import { ApplyPassContainer } from "./style";
 
 const ApplyPass = () => {
@@ -21,12 +21,12 @@ const ApplyPass = () => {
 
   return (
     <ApplyPassContainer>
-      <ApplyPassNotApprove
+      <ApplyNotApproveList
         fold={fold}
         setFold={setFold}
-        notApprovedPasses={notApprovedPasses}
-        loadNotApprovedPass={loadNotApprovedPass}
-        deleteNotApprovedPass={deleteNotApprovedPass}
+        notApproveItems={notApprovedPasses}
+        loadNotApprovedItem={loadNotApprovedPass}
+        deleteNotApprovedItem={deleteNotApprovedPass}
       />
 
       <ApplyPassForm
