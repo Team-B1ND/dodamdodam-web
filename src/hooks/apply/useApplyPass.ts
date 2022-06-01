@@ -42,7 +42,7 @@ const useApplyPass = () => {
   const transformNotApprovedPass = (
     notApprovedPass: AppliedPass
   ): ApplyPass => {
-    const { endTime, reason, startTime } = notApprovedPass;
+    const { endTime, startTime } = notApprovedPass;
 
     //시간은 05:30 이 형식일텐데 여기서 ':'기준으로 구분하여 시간과 분을 추출
     const validStartTime = dateTransform
@@ -55,14 +55,13 @@ const useApplyPass = () => {
     return {
       startTimeHour: validStartTime[0],
       startTimeMinute: validStartTime[1],
-      reason,
       endTimeHour: validEndTime[0],
       endTimeMinute: validEndTime[1],
-      idx: 0,
+      ...notApprovedPass,
     };
   };
 
-  //외출 리스트를 껐다 켰다 했을 때 첫번째 외출 정보가 input에 담기는 부분
+  //외출 리스트를 켯을 때 첫번째 외출 정보가 input에 담기는 부분
   useEffect(() => {
     if (fold) {
       setPassData({
@@ -76,23 +75,15 @@ const useApplyPass = () => {
       setPassDataDate(dateTransform.hyphen());
     } else {
       if (notApprovedPasses?.length !== 0) {
-        const { reason, startTime, idx } = notApprovedPasses![0];
+        const { startTime } = notApprovedPasses![0];
 
-        //2022-05-03 09:00 이 형식에서 날짜와 시간을 추출
         const passDate = dateTransform.fullDate(startTime).slice(0, 10);
-        //시간은 05:30 이 형식일텐데 여기서 ':'기준으로 구분하여 시간과 분을 추출
-
-        const { startTimeHour, startTimeMinute, endTimeHour, endTimeMinute } =
-          transformNotApprovedPass(notApprovedPasses![0]);
 
         setPassData({
-          startTimeHour,
-          startTimeMinute,
-          reason,
-          endTimeHour,
-          endTimeMinute,
-          idx,
+          ...transformNotApprovedPass(notApprovedPasses![0]),
+          ...notApprovedPasses![0],
         });
+
         setPassDataDate(passDate);
       }
     }
@@ -104,18 +95,11 @@ const useApplyPass = () => {
       (pass) => pass.idx === idx
     )[0]!;
 
-    const { reason, startTime } = notApprovePass;
+    const { startTime } = notApprovePass;
     const passDate = dateTransform.fullDate(startTime).slice(0, 10);
-    const { startTimeHour, startTimeMinute, endTimeHour, endTimeMinute } =
-      transformNotApprovedPass(notApprovePass);
-
     setPassData({
-      startTimeHour,
-      startTimeMinute,
-      reason,
-      endTimeHour,
-      endTimeMinute,
-      idx,
+      ...transformNotApprovedPass(notApprovePass),
+      ...notApprovePass,
     });
     setPassDataDate(passDate);
   };
