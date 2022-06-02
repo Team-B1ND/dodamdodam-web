@@ -2,6 +2,7 @@ import { dodamV2Axios } from "../../lib/axios/customAxios";
 import {
   deleteMyLeaveParam,
   getMyLeavesParam,
+  postApplyLeaveParam,
   putMyLeaveParam,
 } from "./leave.param";
 
@@ -11,8 +12,14 @@ class LeaveRepository {
     return data;
   }
 
+  public async postApplyLeave({
+    leaveData,
+  }: postApplyLeaveParam): Promise<void> {
+    await dodamV2Axios.post("/offbase/leave", leaveData);
+  }
+
   public async deleteMyLeave({ idx }: deleteMyLeaveParam): Promise<void> {
-    await dodamV2Axios.post(`/offbase/leave?idx=${idx}`);
+    await dodamV2Axios.delete(`/offbase/leave?idx=${idx}`);
   }
 
   public async putMyLeave(leaveData: putMyLeaveParam): Promise<void> {

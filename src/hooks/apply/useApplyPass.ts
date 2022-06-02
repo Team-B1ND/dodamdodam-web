@@ -138,14 +138,22 @@ const useApplyPass = () => {
 
   //외출 신청 함수
   const submitPassData = async () => {
+    const {
+      startTimeHour,
+      startTimeMinute,
+      endTimeHour,
+      endTimeMinute,
+      reason,
+    } = passData;
+
     const validApplyPass = {
-      reason: passData.reason,
+      reason,
       startTime: dayjs(
-        `${passDataDate} ${passData.startTimeHour}:${passData.startTimeMinute}`
+        `${passDataDate} ${startTimeHour}:${startTimeMinute}`
       ).format("YYYY-MM-DD HH:mm:ss"),
-      endTime: dayjs(
-        `${passDataDate} ${passData.endTimeHour}:${passData.endTimeMinute}`
-      ).format("YYYY-MM-DD HH:mm:ss"),
+      endTime: dayjs(`${passDataDate} ${endTimeHour}:${endTimeMinute}`).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
     };
 
     const startTimeIsAfter = dayjs(validApplyPass.startTime).isAfter(
@@ -156,11 +164,8 @@ const useApplyPass = () => {
     );
 
     if (
-      !dataCheck.timeFormatCheck(
-        passData.startTimeHour,
-        passData.startTimeMinute
-      ) ||
-      !dataCheck.timeFormatCheck(passData.endTimeHour, passData.endTimeMinute)
+      !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
+      !dataCheck.timeFormatCheck(endTimeHour, endTimeMinute)
     ) {
       window.alert("올바른 양식을 입력해주세요!");
       return;
@@ -173,6 +178,7 @@ const useApplyPass = () => {
 
     if (!dayjs(validApplyPass.endTime).isAfter(validApplyPass.startTime)) {
       window.alert("복귀시간이 출발시간보다 빨라요!");
+      return;
     }
 
     //외출 수정인지 외출 신청인지 구분하는 함수
@@ -180,14 +186,9 @@ const useApplyPass = () => {
       try {
         await passRepository.postApplyPass({ passData: validApplyPass });
         window.alert("외출 신청이 되었습니다");
-        setPassData({
-          startTimeHour: "",
-          startTimeMinute: "",
-          reason: "",
-          endTimeHour: "",
-          endTimeMinute: "",
-          idx: 0,
-        });
+        for (let key in passData) {
+          setPassData((prev) => ({ ...prev, [key]: "" }));
+        }
       } catch (error) {
         window.alert("외출 신청 실패");
       }

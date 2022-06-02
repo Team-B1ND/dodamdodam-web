@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useGetMyLeaves } from "../../querys/leave/leave.query";
 import leaveRepository from "../../repository/leave/leave.repository";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
+import dataCheck from "../../util/data/check/dataCheck";
 import dateTransform from "../../util/date/dateTransform";
 
 const useApplyLeave = () => {
@@ -11,7 +12,7 @@ const useApplyLeave = () => {
 
   const appliedLeaves = useGetMyLeaves(
     { date: dateTransform.hyphen() },
-    { staleTime: 1000 * 30 }
+    { staleTime: 1000 * 30, cacheTime: 1000 * 3 }
   ).data?.data.leave;
 
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(
@@ -19,7 +20,7 @@ const useApplyLeave = () => {
   );
 
   const [leaveData, setLeaveData] = useState<ApplyLeave>({
-    startDate: dateTransform.hyphen(),
+    startTimeDate: dateTransform.hyphen(),
     startTimeHour: "",
     startTimeMinute: "",
     endTimeDate: dateTransform.hyphen(),
@@ -53,7 +54,7 @@ const useApplyLeave = () => {
     const validEndTime = dateTransform.fullDate(endTime).slice(10).split(":");
 
     return {
-      startDate: validStartDate,
+      startTimeDate: validStartDate,
       startTimeHour: validStartTime[0],
       startTimeMinute: validStartTime[1],
       endTimeDate: validEndDate,
@@ -66,7 +67,7 @@ const useApplyLeave = () => {
   useEffect(() => {
     if (fold) {
       setLeaveData({
-        startDate: dateTransform.hyphen(),
+        startTimeDate: dateTransform.hyphen(),
         startTimeHour: "",
         startTimeMinute: "",
         endTimeDate: dateTransform.hyphen(),
@@ -116,7 +117,7 @@ const useApplyLeave = () => {
     if (scope === "start") {
       setLeaveData((prev) => ({
         ...prev,
-        startDate: dayjs(e).format("YYYY-MM-DD"),
+        startTimeDate: dayjs(e).format("YYYY-MM-DD"),
       }));
     } else {
       setLeaveData((prev) => ({
@@ -139,7 +140,97 @@ const useApplyLeave = () => {
   };
 
   //외박신청 함수
-  const submitLeaveData = () => {};
+  const submitLeaveData = async () => {
+    const {
+      reason,
+      startTimeDate,
+      startTimeHour,
+      startTimeMinute,
+      endTimeDate,
+      endTimeHour,
+      endTimeMinute,
+      idx,
+    } = leaveData;
+
+    const validApplyLeave = {
+      reason,
+      startTime: dayjs(
+        `${startTimeDate} ${startTimeHour}:${startTimeMinute}`
+      ).format("YYYY-MM-DD HH:mm:ss"),
+      endTime: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
+    };
+
+    const startTimeIsAfter = dayjs(validApplyLeave.startTime).isAfter(
+      dateTransform.fullDate()
+    );
+
+    const endTimeIsAfter = dayjs(validApplyLeave.endTime).isAfter(
+      dateTransform.fullDate()
+    );
+
+    if (
+      !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
+      !dataCheck.timeFormatCheck(endTimeHour, endTimeMinute)
+    ) {
+      window.alert("올바른 양식을 입력해주세요!");
+      return;
+    }
+
+    if (!startTimeIsAfter || !endTimeIsAfter) {
+      window.alert("현재 시간 이후로 입력해주세요!");
+      return;
+    }
+
+    if (!dayjs(validApplyLeave.endTime).isAfter(validApplyLeave.startTime)) {
+      window.alert("복귀시간이 출발시간보다 빨라요!");
+      return;
+    }
+
+    if (dayjs(startTimeDate).isSame(endTimeDate)) {
+      window.alert("출발시간과 복귀시간이 같아요!");
+      return;
+    }
+
+    if (fold) {
+      try {
+        await leaveRepository.postApplyLeave({ leaveData: validApplyLeave });
+        window.alert("외박 신청이 되었습니다");
+        for (let key in leaveData) {
+          setLeaveData((prev) => ({ ...prev, [key]: "" }));
+        }
+        setLeaveData((prev) => ({
+          ...prev,
+          startTimeDate: dateTransform.hyphen(),
+        }));
+        setLeaveData((prev) => ({
+          ...prev,
+          endTimeDate: dateTransform.hyphen(),
+        }));
+      } catch (error) {
+        window.alert("외출 신청 실패");
+      }
+    } else {
+      const leaveIdx = notApprovedLeaves.find(
+        (notApproveLeave) => notApproveLeave.idx === idx
+      )?.idx;
+
+      try {
+        await leaveRepository.putMyLeave({
+          ...validApplyLeave,
+          leaveIdx: String(leaveIdx),
+        });
+        window.alert("외박 수정이 되었습니다.");
+      } catch (error) {
+        window.alert("외박 수정 실패");
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log(leaveData);
+  }, [leaveData]);
 
   return {
     fold,

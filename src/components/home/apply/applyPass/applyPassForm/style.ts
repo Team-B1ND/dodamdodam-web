@@ -28,17 +28,17 @@ export const ApplyPassFormColumnWrap = styled.div`
   justify-content: space-between;
 `;
 
-export const ApplyPassFormInputWrap = styled.div`
-  width: 222px;
-  display: flex;
-  align-items: center;
-`;
-
 export const ApplyPassFormColumnTitle = styled.h1`
   font-size: 16px;
   color: ${({ theme }) => theme.contrast};
   margin-right: 10px;
   line-height: 21px;
+`;
+
+export const ApplyPassFormInputWrap = styled.div`
+  width: 222px;
+  display: flex;
+  align-items: center;
 `;
 
 export const ApplyPassFormDatePickerWrap = styled.div`

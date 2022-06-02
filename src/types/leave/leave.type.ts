@@ -18,7 +18,7 @@ export interface AppliedLeave {
 
 export interface ApplyLeave {
   reason: string;
-  startDate: string;
+  startTimeDate: string;
   startTimeHour: string;
   startTimeMinute: string;
   endTimeDate: string;
