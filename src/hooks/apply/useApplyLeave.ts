@@ -1,6 +1,6 @@
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useGetMyLeaves } from "../../querys/leave/leave.query";
 import leaveRepository from "../../repository/leave/leave.repository";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
@@ -86,18 +86,21 @@ const useApplyLeave = () => {
     }
   }, [fold, notApprovedLeaves]);
 
-  const loadNotApprovedLeave = (idx: number) => {
-    const notApproveLeave: AppliedLeave = appliedLeaves?.filter(
-      (leave) => leave.idx === idx
-    )[0]!;
+  const loadNotApprovedLeave = useCallback(
+    (idx: number) => {
+      const notApproveLeave: AppliedLeave = appliedLeaves?.filter(
+        (leave) => leave.idx === idx
+      )[0]!;
 
-    setLeaveData({
-      ...transformNotApproveLeave(notApproveLeave),
-      ...notApproveLeave,
-    });
-  };
+      setLeaveData({
+        ...transformNotApproveLeave(notApproveLeave),
+        ...notApproveLeave,
+      });
+    },
+    [appliedLeaves]
+  );
 
-  const deleteNotApprovedLeave = async (idx: number) => {
+  const deleteNotApprovedLeave = useCallback(async (idx: number) => {
     try {
       await leaveRepository.deleteMyLeave({ idx: idx + "" });
       setNotApprovedLeaves((prev) =>
@@ -107,40 +110,46 @@ const useApplyLeave = () => {
     } catch (error) {
       window.alert("외박 삭제 실패");
     }
-  };
+  }, []);
 
   //datePicker 핸들링 함수
-  const handleLeaveDataDate = (
-    e: MaterialUiPickersDate,
-    scope: "start" | "end"
-  ) => {
-    if (scope === "start") {
-      setLeaveData((prev) => ({
-        ...prev,
-        startTimeDate: dayjs(e).format("YYYY-MM-DD"),
-      }));
-    } else {
-      setLeaveData((prev) => ({
-        ...prev,
-        endTimeDate: dayjs(e).format("YYYY-MM-DD"),
-      }));
-    }
-  };
+  const handleLeaveDataDate = useCallback(
+    (e: MaterialUiPickersDate, scope: "start" | "end") => {
+      if (scope === "start") {
+        setLeaveData((prev) => ({
+          ...prev,
+          startTimeDate: dayjs(e).format("YYYY-MM-DD"),
+        }));
+      } else {
+        setLeaveData((prev) => ({
+          ...prev,
+          endTimeDate: dayjs(e).format("YYYY-MM-DD"),
+        }));
+      }
+    },
+    []
+  );
 
   //외박 데이터 핸들링 함수
-  const handleLeaveData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLeaveData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleLeaveData = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setLeaveData((prev) => ({ ...prev, [name]: value }));
+    },
+    []
+  );
 
   //외박 데이터 사유 핸들링 함수
-  const handleLeaveDataReason = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setLeaveData((prev) => ({ ...prev, reason: value }));
-  };
+  const handleLeaveDataReason = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { value } = e.target;
+      setLeaveData((prev) => ({ ...prev, reason: value }));
+    },
+    []
+  );
 
   //외박신청 함수
-  const submitLeaveData = async () => {
+  const submitLeaveData = useCallback(async () => {
     const {
       reason,
       startTimeDate,
@@ -193,6 +202,11 @@ const useApplyLeave = () => {
       return;
     }
 
+    if (reason.length > 50) {
+      window.alert("사유의 길이를 50자 이내로 적어주세요!");
+      return;
+    }
+
     if (fold) {
       try {
         await leaveRepository.postApplyLeave({ leaveData: validApplyLeave });
@@ -226,7 +240,7 @@ const useApplyLeave = () => {
         window.alert("외박 수정 실패");
       }
     }
-  };
+  }, [fold, leaveData, notApprovedLeaves]);
 
   useEffect(() => {
     console.log(leaveData);

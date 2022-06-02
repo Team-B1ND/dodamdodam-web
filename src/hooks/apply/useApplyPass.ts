@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useGetMyPasses } from "../../querys/pass/pass.query";
 import passRepository from "../../repository/pass/pass.repository";
 import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
@@ -90,22 +90,25 @@ const useApplyPass = () => {
   }, [fold, notApprovedPasses]);
 
   //외출 리스트에서 외출을 눌렀을때 인풋에 담기는 함수
-  const loadNotApprovedPass = (idx: number) => {
-    const notApprovePass: AppliedPass = appliedPasses?.filter(
-      (pass) => pass.idx === idx
-    )[0]!;
+  const loadNotApprovedPass = useCallback(
+    (idx: number) => {
+      const notApprovePass: AppliedPass = appliedPasses?.filter(
+        (pass) => pass.idx === idx
+      )[0]!;
 
-    const { startTime } = notApprovePass;
-    const passDate = dateTransform.fullDate(startTime).slice(0, 10);
-    setPassData({
-      ...transformNotApprovedPass(notApprovePass),
-      ...notApprovePass,
-    });
-    setPassDataDate(passDate);
-  };
+      const { startTime } = notApprovePass;
+      const passDate = dateTransform.fullDate(startTime).slice(0, 10);
+      setPassData({
+        ...transformNotApprovedPass(notApprovePass),
+        ...notApprovePass,
+      });
+      setPassDataDate(passDate);
+    },
+    [appliedPasses]
+  );
 
   //외출 리스트에서 외출 삭제하는 함수
-  const deleteNotApprovedPass = async (idx: number) => {
+  const deleteNotApprovedPass = useCallback(async (idx: number) => {
     try {
       await passRepository.deleteMyPass({ idx: idx + "" });
       setNotApprovedPasses((prev) =>
@@ -115,29 +118,35 @@ const useApplyPass = () => {
     } catch (error) {
       window.alert("외출 삭제 실패");
     }
-  };
+  }, []);
 
   // datePicker 핸들링 함수
-  const handlePassDataDate = (e: MaterialUiPickersDate) => {
+  const handlePassDataDate = useCallback((e: MaterialUiPickersDate) => {
     setPassDataDate(dayjs(e).format("YYYY-MM-DD"));
-  };
+  }, []);
 
   // 외출 데이터 핸들링 함수
-  const handlePassData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handlePassData = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
 
-    setPassData((prev) => ({ ...prev, [name]: value }));
-  };
+      setPassData((prev) => ({ ...prev, [name]: value }));
+    },
+    []
+  );
 
   // 외출 데이터 사유 핸들링 함수
-  const handlePassDataReason = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
+  const handlePassDataReason = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { value } = e.target;
 
-    setPassData((prev) => ({ ...prev, reason: value }));
-  };
+      setPassData((prev) => ({ ...prev, reason: value }));
+    },
+    []
+  );
 
   //외출 신청 함수
-  const submitPassData = async () => {
+  const submitPassData = useCallback(async () => {
     const {
       startTimeHour,
       startTimeMinute,
@@ -181,6 +190,11 @@ const useApplyPass = () => {
       return;
     }
 
+    if (reason.length > 50) {
+      window.alert("사유의 길이를 50자 이내로 적어주세요!");
+      return;
+    }
+
     //외출 수정인지 외출 신청인지 구분하는 함수
     if (fold) {
       try {
@@ -207,7 +221,7 @@ const useApplyPass = () => {
         window.alert("외출 수정 실패");
       }
     }
-  };
+  }, [fold, notApprovedPasses, passData, passDataDate]);
 
   return {
     fold,
