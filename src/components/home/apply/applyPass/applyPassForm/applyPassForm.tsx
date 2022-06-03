@@ -10,6 +10,8 @@ import {
   ApplyPassFormInputWrap,
   ApplyPassFormNoticeText,
   ApplyPassFormTextArea,
+  ApplyPassFormTextAreaWrap,
+  ApplyPassFormTextAreaLength,
 } from "./style";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -111,12 +113,17 @@ const ApplyPassForm = ({
           <ApplyPassFormNoticeText>
             ※시간은 24시간 형태로 작성해야합니다.
           </ApplyPassFormNoticeText>
-          <ApplyPassFormTextArea
-            value={passData.reason}
-            name="reason"
-            onChange={handlePassDataReason}
-            placeholder="사유를 입력해주세요."
-          />
+          <ApplyPassFormTextAreaWrap>
+            <ApplyPassFormTextArea
+              value={passData.reason}
+              name="reason"
+              onChange={handlePassDataReason}
+              placeholder="사유를 입력해주세요."
+            />
+            <ApplyPassFormTextAreaLength isExcess={passData.reason.length > 50}>
+              {passData.reason.length}/50
+            </ApplyPassFormTextAreaLength>
+          </ApplyPassFormTextAreaWrap>
           <ApplyPassFormNoticeText>
             ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
           </ApplyPassFormNoticeText>

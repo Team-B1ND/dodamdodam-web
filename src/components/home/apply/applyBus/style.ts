@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { customScrollBar } from "../../../../style/libStyle";
 
 export const ApplyBusContainer = styled.div`
   width: 100%;
@@ -14,10 +15,19 @@ export const ApplyBusDate = styled.span`
   color: ${({ theme }) => theme.contrast};
 `;
 
+export const ApplyBusItemContainer = styled.div`
+  width: 100%;
+  height: 191px;
+  padding: 0px 3px;
+`;
+
 export const ApplyBusItemWrap = styled.div`
   width: 100%;
+  height: 191px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+
+  ${customScrollBar}
 `;

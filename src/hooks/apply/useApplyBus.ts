@@ -10,8 +10,10 @@ const useApplyBus = () => {
     cacheTime: 1000 * 3,
   });
 
+  //버스 리스트를 담는 상태
   const [busList, setBusList] = useState<Bus[]>([]);
   const [busDate, setBusDate] = useState<string>("");
+  //사용자가 버스를 눌렀을때 누른 버스 정보를 담는 상태
   const [busData, setBusData] = useState<AppliedBus>({
     busName: "",
     description: "",
@@ -20,6 +22,7 @@ const useApplyBus = () => {
     peopleLimit: 0,
     timeRequired: "",
   });
+  //원래 신청했던걸 담는 상태
   const [wasCheckedIdx, setWasCheckedIdx] = useState<number>(0);
 
   useEffect(() => {
@@ -69,6 +72,7 @@ const useApplyBus = () => {
   };
 
   const submitMyBus = async () => {
+    //원래 신청했었다가 다른 걸 골라서 수정하는 경우
     if (wasCheckedIdx !== 0 && wasCheckedIdx !== busData.idx) {
       try {
         await busRepository.putMyBus({

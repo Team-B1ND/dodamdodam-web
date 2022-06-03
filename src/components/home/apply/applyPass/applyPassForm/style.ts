@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { customScrollBar } from "../../../../../style/libStyle";
 import { palette } from "../../../../../style/palette";
 
 export const ApplyPassFormContainer = styled.div<{ isFold: boolean }>`
@@ -93,12 +94,18 @@ export const ApplyPassFormNoticeText = styled.p`
   color: ${palette.red[300]};
 `;
 
-export const ApplyPassFormTextArea = styled.textarea`
+export const ApplyPassFormTextAreaWrap = styled.div`
   width: 310px;
   height: 65px;
+  margin-top: 3px;
+  position: relative;
+`;
+
+export const ApplyPassFormTextArea = styled.textarea`
+  width: 100%;
+  height: 100%;
   border: 1px solid ${({ theme }) => theme.borderColor};
   resize: none;
-  margin-top: 3px;
   padding: 5px;
   outline: none;
   background-color: ${({ theme }) => theme.backgroundColor3};
@@ -106,4 +113,16 @@ export const ApplyPassFormTextArea = styled.textarea`
   ::-webkit-input-placeholder {
     color: ${({ theme }) => theme.contrast2};
   }
+
+  ${customScrollBar}
+`;
+
+export const ApplyPassFormTextAreaLength = styled.span<{ isExcess: boolean }>`
+  position: absolute;
+  font-size: 12px;
+  color: ${({ theme }) => theme.contrast};
+  bottom: 5px;
+  right: 10px;
+
+  ${({ isExcess }) => isExcess && `color : ${palette.red[300]}`};
 `;

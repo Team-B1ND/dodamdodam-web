@@ -10,8 +10,10 @@ import {
   ApplyLeaveFormDatePickerWrap,
   ApplyLeaveFormNoticeText,
   ApplyLeaveFormTextArea,
+  ApplyLeaveFormTextAreaWrap,
   ApplyLeaveFormTimeInput,
   ApplyLeaveFormTimeInputWrap,
+  ApplyPassFormTextAreaLength,
 } from "./style";
 import DateFnsUtils from "@date-io/date-fns";
 import dayjs from "dayjs";
@@ -127,12 +129,19 @@ const ApplyLeaveForm = ({
           <ApplyLeaveFormNoticeText>
             ※시간은 24시간 형태로 작성해야합니다.
           </ApplyLeaveFormNoticeText>
-          <ApplyLeaveFormTextArea
-            value={leaveData.reason}
-            name="reason"
-            onChange={handleLeaveDataReason}
-            placeholder="사유를 입력해주세요."
-          />
+          <ApplyLeaveFormTextAreaWrap>
+            <ApplyLeaveFormTextArea
+              value={leaveData.reason}
+              name="reason"
+              onChange={handleLeaveDataReason}
+              placeholder="사유를 입력해주세요."
+            />
+            <ApplyPassFormTextAreaLength
+              isExcess={leaveData.reason.length > 50}
+            >
+              {leaveData.reason.length}/50
+            </ApplyPassFormTextAreaLength>
+          </ApplyLeaveFormTextAreaWrap>
           <ApplyLeaveFormNoticeText>
             ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
           </ApplyLeaveFormNoticeText>
