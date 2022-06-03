@@ -7,6 +7,11 @@ import { ApplyStudyRoom } from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/date/dateTransform";
 import dateCheck from "../../util/date/dateCheck";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
+import {
+  APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY,
+  APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
+} from "../../constants/apply/apply.constant";
+import dayjs from "dayjs";
 
 const useApplyStudyRoom = () => {
   const myAppliedStudyRoomsData = useGetMyStudyRooms(
@@ -90,11 +95,30 @@ const useApplyStudyRoom = () => {
         applyStudyRoom4,
       ] = tempMyApplyStudyRooms;
 
+      const [timeOut1, timeOut2, timeOut3, timeOut4] = dateCheck.weekDayCheck(
+        dateTransform.hyphen()
+      )
+        ? APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY
+        : APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND;
+
+      const applyStudyRoomAfterCheck = (timeOut: string): boolean =>
+        dayjs(dateTransform.fullDate()).isAfter(
+          dayjs(`${dateTransform.hyphen()} ${timeOut}`).format(
+            "YYYY-MM-DD HH:mm"
+          )
+        );
+
+      const applyStudyRoom1IsAfter = applyStudyRoomAfterCheck(timeOut1.timeOut);
+      const applyStudyRoom2IsAfter = applyStudyRoomAfterCheck(timeOut2.timeOut);
+      const applyStudyRoom3IsAfter = applyStudyRoomAfterCheck(timeOut3.timeOut);
+      const applyStudyRoom4IsAfter = applyStudyRoomAfterCheck(timeOut4.timeOut);
+
       if (
-        applyStudyRoom1?.applyStudyData === null ||
-        applyStudyRoom2?.applyStudyData === null ||
-        applyStudyRoom3?.applyStudyData === null ||
-        applyStudyRoom4?.applyStudyData === null
+        //자습실 신청이 되지 않았고, 시간이 지나지 않았을때
+        (applyStudyRoom1?.applyStudyData === null && !applyStudyRoom1IsAfter) ||
+        (applyStudyRoom2?.applyStudyData === null && !applyStudyRoom2IsAfter) ||
+        (applyStudyRoom3?.applyStudyData === null && !applyStudyRoom3IsAfter) ||
+        (applyStudyRoom4?.applyStudyData === null && !applyStudyRoom4IsAfter)
       ) {
         setIsDefault(true);
       } else {
