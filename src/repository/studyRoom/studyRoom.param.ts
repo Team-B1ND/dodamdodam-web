@@ -6,6 +6,6 @@ export interface getMyDefaultStudyRoomsParam {
   dayIdx: string;
 }
 
-export interface putApplyStudyRoomsParam {
+export interface postApplyStudyRoomsParam {
   locations: { timeTableIdx: number; placeIdx: number | null }[];
 }

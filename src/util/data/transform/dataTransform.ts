@@ -49,7 +49,7 @@ class DataTransform {
     } else if (validDate === "Saturday") {
       return "6";
     } else if (validDate === "Sunday") {
-      return "7";
+      return "0";
     } else {
       return "1";
     }

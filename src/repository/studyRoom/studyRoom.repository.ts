@@ -7,7 +7,7 @@ import {
 import {
   getMyDefaultStudyRoomsParam,
   getMyStudyRoomsParam,
-  putApplyStudyRoomsParam,
+  postApplyStudyRoomsParam,
 } from "./studyRoom.param";
 
 class StudyRoomRepository {
@@ -36,7 +36,7 @@ class StudyRoomRepository {
 
   public async postApplyStudyRooms({
     locations,
-  }: putApplyStudyRoomsParam): Promise<void> {
+  }: postApplyStudyRoomsParam): Promise<void> {
     await dodamV2Axios.post("/location", { locations });
   }
 }

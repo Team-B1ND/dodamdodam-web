@@ -18,6 +18,7 @@ const ApplyStudyRoom = () => {
     studyRoomsDataIsLoading,
     handleApplyStudyRoomData,
     submitApplyStudyRoomData,
+    submitDefaultSutdyRoom,
   } = useApplyStudyRoom();
 
   return (
@@ -60,7 +61,9 @@ const ApplyStudyRoom = () => {
             )}
           </ApplyStudyRoomInputWrap>
           {isDefault ? (
-            <ApplyFormSubmitButton>기본위치로 신청</ApplyFormSubmitButton>
+            <ApplyFormSubmitButton onClick={submitDefaultSutdyRoom}>
+              기본위치로 신청
+            </ApplyFormSubmitButton>
           ) : (
             <ApplyFormSubmitButton onClick={submitApplyStudyRoomData}>
               수정

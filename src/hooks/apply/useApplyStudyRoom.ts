@@ -3,6 +3,7 @@ import {
   useGetMyDefaultStudyRooms,
   useGetMyStudyRooms,
   useGetStudyRooms,
+  usePostApplyStudyRooms,
 } from "../../querys/studyRoom/studyRoom.query";
 import {
   ApplyStudyRoom,
@@ -10,15 +11,17 @@ import {
 } from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/date/dateTransform";
 import dateCheck from "../../util/date/dateCheck";
-import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
   APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY,
   APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
 } from "../../constants/apply/apply.constant";
 import dayjs from "dayjs";
 import dataTransform from "../../util/data/transform/dataTransform";
+import { useQueryClient } from "react-query";
 
 const useApplyStudyRoom = () => {
+  const queryClient = useQueryClient();
+
   const myAppliedStudyRoomsData = useGetMyStudyRooms(
     {
       date: dateTransform.hyphen(),
@@ -42,17 +45,16 @@ const useApplyStudyRoom = () => {
     }
   ).data?.data.defaultLocations;
 
+  const myAppliedStudyRoomMutation = usePostApplyStudyRooms();
+
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(true);
-
   const [myApplyStudyRooms, setMyApplyStudyRooms] = useState<ApplyStudyRoom[]>(
     []
   );
-
   const [myDefaultApplyStudyRooms, setMyDefaultApplyStudyRooms] = useState<
     DefaultStudyRoom[]
   >([]);
-
   //사용자가 자습실을 바꾸지 않고 다시 신청했을 때 확인하기 위해 신청한 자습실을 복사한 데이터
   const [tempMyApplyStudyRooms, setTempMyApplyStudyRooms] = useState<
     ApplyStudyRoom[]
@@ -147,6 +149,12 @@ const useApplyStudyRoom = () => {
     }
   }, [tempMyApplyStudyRooms]);
 
+  useEffect(() => {
+    if (myDefaultApplyStudyRoomsData) {
+      setMyDefaultApplyStudyRooms(myDefaultApplyStudyRoomsData);
+    }
+  }, [myDefaultApplyStudyRoomsData]);
+
   const handleApplyStudyRoomData = (
     e: React.ChangeEvent<HTMLSelectElement>,
     idx: number
@@ -167,7 +175,35 @@ const useApplyStudyRoom = () => {
     setIsDefault(false);
   };
 
-  const submitDefaultSutdyRoom = () => {};
+  const submitDefaultSutdyRoom = async () => {
+    let validApplyStudyRoomList = [];
+
+    for (let i = 0; i < myApplyStudyRooms.length; i++) {
+      if (myApplyStudyRooms[i].applyStudyData === null) {
+        const { timeTableIdx, placeIdx } = myDefaultApplyStudyRooms[i];
+        const validDefaultApplyStudyRoom = {
+          timeTableIdx,
+          placeIdx,
+        };
+        validApplyStudyRoomList.push(validDefaultApplyStudyRoom);
+      }
+    }
+
+    try {
+      myAppliedStudyRoomMutation.mutateAsync(
+        {
+          locations: validApplyStudyRoomList,
+        },
+        {
+          onSuccess: () =>
+            queryClient.invalidateQueries("studyRoom/getMyStudyRooms"),
+        }
+      );
+      window.alert("기본 위치 신청 성공");
+    } catch (error) {
+      window.alert("기본 위치 신청 실패");
+    }
+  };
 
   const submitApplyStudyRoomData = async () => {
     const [place1, place2, place3, place4] = myApplyStudyRooms;
@@ -186,6 +222,7 @@ const useApplyStudyRoom = () => {
 
     let validApplyStudyRoomList = [];
 
+    // 바꾼 자습실만 validApplyStudyRoomList에 넣어주는 함수
     for (let i = 0; i < myApplyStudyRooms.length; i++) {
       if (myApplyStudyRooms[i] !== tempMyApplyStudyRooms[i]) {
         const validMyAllyStudyRoom = {
@@ -197,17 +234,21 @@ const useApplyStudyRoom = () => {
     }
 
     try {
-      await studyRoomRepository.postApplyStudyRooms({
-        locations: validApplyStudyRoomList,
-      });
+      myAppliedStudyRoomMutation.mutateAsync(
+        {
+          locations: validApplyStudyRoomList,
+        },
+        {
+          onSuccess: () =>
+            queryClient.invalidateQueries("studyRoom/getMyStudyRooms"),
+        }
+      );
       window.alert("성공");
       setTempMyApplyStudyRooms(myApplyStudyRooms);
     } catch (error) {
       setMyApplyStudyRooms(tempMyApplyStudyRooms);
       window.alert("실패");
     }
-
-    console.log(myApplyStudyRooms);
   };
 
   return {
@@ -217,6 +258,7 @@ const useApplyStudyRoom = () => {
     studyRoomsDataIsLoading,
     handleApplyStudyRoomData,
     submitApplyStudyRoomData,
+    submitDefaultSutdyRoom,
   };
 };
 

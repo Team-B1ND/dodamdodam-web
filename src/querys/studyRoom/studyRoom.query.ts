@@ -1,8 +1,14 @@
 import { AxiosError } from "axios";
-import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import {
+  useMutation,
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from "react-query";
 import {
   getMyDefaultStudyRoomsParam,
   getMyStudyRoomsParam,
+  postApplyStudyRoomsParam,
 } from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
@@ -54,3 +60,11 @@ export const useGetMyDefaultStudyRooms = (
     () => studyRoomRepository.getMyDefaultStudyRooms({ dayIdx }),
     options
   );
+
+export const usePostApplyStudyRooms = () => {
+  const mutation = useMutation((locations: postApplyStudyRoomsParam) =>
+    studyRoomRepository.postApplyStudyRooms(locations)
+  );
+
+  return mutation;
+};
