@@ -1,16 +1,18 @@
 import { dodamV2Axios } from "../../lib/axios/customAxios";
 import {
+  MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
   StudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
 import {
+  getMyDefaultStudyRoomsParam,
   getMyStudyRoomsParam,
   putApplyStudyRoomsParam,
 } from "./studyRoom.param";
 
 class StudyRoomRepository {
   public async getStudyRooms(): Promise<StudyRoomsResponse> {
-    const { data } = await dodamV2Axios.get<StudyRoomsResponse>("place");
+    const { data } = await dodamV2Axios.get<StudyRoomsResponse>("/place");
     return data;
   }
 
@@ -18,7 +20,16 @@ class StudyRoomRepository {
     date,
   }: getMyStudyRoomsParam): Promise<MyStudyRoomsResponse> {
     const { data } = await dodamV2Axios.get<MyStudyRoomsResponse>(
-      `location/my?date=${date}`
+      `/location/my?date=${date}`
+    );
+    return data;
+  }
+
+  public async getMyDefaultStudyRooms({
+    dayIdx,
+  }: getMyDefaultStudyRoomsParam): Promise<MyDefaultStudyRoomResponse> {
+    const { data } = await dodamV2Axios.get<MyDefaultStudyRoomResponse>(
+      `/location/default/${dayIdx}`
     );
     return data;
   }

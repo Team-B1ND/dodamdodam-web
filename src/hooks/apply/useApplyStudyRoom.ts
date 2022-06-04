@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import {
+  useGetMyDefaultStudyRooms,
   useGetMyStudyRooms,
   useGetStudyRooms,
 } from "../../querys/studyRoom/studyRoom.query";
-import { ApplyStudyRoom } from "../../types/studyRoom/studyRoom.type";
+import {
+  ApplyStudyRoom,
+  DefaultStudyRoom,
+} from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/date/dateTransform";
 import dateCheck from "../../util/date/dateCheck";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
@@ -12,6 +16,7 @@ import {
   APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
 } from "../../constants/apply/apply.constant";
 import dayjs from "dayjs";
+import dataTransform from "../../util/data/transform/dataTransform";
 
 const useApplyStudyRoom = () => {
   const myAppliedStudyRoomsData = useGetMyStudyRooms(
@@ -27,12 +32,26 @@ const useApplyStudyRoom = () => {
       staleTime: 1000 * 60 * 60,
     });
 
+  const myDefaultApplyStudyRoomsData = useGetMyDefaultStudyRooms(
+    {
+      dayIdx: dataTransform.dayIdxTransform(dateTransform.hyphen()),
+    },
+    {
+      cacheTime: 1000 * 60 * 60,
+      staleTime: 1000 * 60 * 60,
+    }
+  ).data?.data.defaultLocations;
+
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(true);
 
   const [myApplyStudyRooms, setMyApplyStudyRooms] = useState<ApplyStudyRoom[]>(
     []
   );
+
+  const [myDefaultApplyStudyRooms, setMyDefaultApplyStudyRooms] = useState<
+    DefaultStudyRoom[]
+  >([]);
 
   //사용자가 자습실을 바꾸지 않고 다시 신청했을 때 확인하기 위해 신청한 자습실을 복사한 데이터
   const [tempMyApplyStudyRooms, setTempMyApplyStudyRooms] = useState<
@@ -86,6 +105,7 @@ const useApplyStudyRoom = () => {
     }
   }, [myAppliedStudyRoomsData, studyRoomsData]);
 
+  //4개의 자습실을 다 신청했으면 수정 버튼을 띄우고, 하나라도 하지 않았으면 기본 위치 신청 버튼을 뛰우는 부분
   useEffect(() => {
     if (tempMyApplyStudyRooms.length !== 0) {
       const [
@@ -146,6 +166,8 @@ const useApplyStudyRoom = () => {
 
     setIsDefault(false);
   };
+
+  const submitDefaultSutdyRoom = () => {};
 
   const submitApplyStudyRoomData = async () => {
     const [place1, place2, place3, place4] = myApplyStudyRooms;

@@ -30,3 +30,16 @@ export interface MyStudyRoomsResponse extends Response {
     locations: (AppliedStudyRoom | null)[];
   };
 }
+
+export interface DefaultStudyRoom {
+  day: number;
+  placeIdx: number;
+  studentIdx: number;
+  timeTableIdx: number;
+}
+
+export interface MyDefaultStudyRoomResponse {
+  data: {
+    defaultLocations: DefaultStudyRoom[];
+  };
+}

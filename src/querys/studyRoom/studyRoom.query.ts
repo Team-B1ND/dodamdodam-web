@@ -1,8 +1,12 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import { getMyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
+import {
+  getMyDefaultStudyRoomsParam,
+  getMyStudyRoomsParam,
+} from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
+  MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
   StudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
@@ -33,5 +37,20 @@ export const useGetMyStudyRooms = (
   useQuery(
     "studyRoom/getMyStudyRooms",
     () => studyRoomRepository.getMyStudyRooms({ date }),
+    options
+  );
+
+export const useGetMyDefaultStudyRooms = (
+  { dayIdx }: getMyDefaultStudyRoomsParam,
+  options?: UseQueryOptions<
+    MyDefaultStudyRoomResponse,
+    AxiosError,
+    MyDefaultStudyRoomResponse,
+    "studyRoom/getMyDefaultStudyRooms"
+  >
+): UseQueryResult<MyDefaultStudyRoomResponse, AxiosError> =>
+  useQuery(
+    "studyRoom/getMyDefaultStudyRooms",
+    () => studyRoomRepository.getMyDefaultStudyRooms({ dayIdx }),
     options
   );
