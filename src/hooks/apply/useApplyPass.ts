@@ -1,14 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useGetMyPasses } from "../../querys/pass/pass.query";
-import passRepository from "../../repository/pass/pass.repository";
+import {
+  useDeleteMyPass,
+  useGetMyPasses,
+  usePostApplyPass,
+  usePutApplyPass,
+} from "../../querys/pass/pass.query";
 import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
 import dateTransform from "../../util/date/dateTransform";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import dataCheck from "../../util/data/check/dataCheck";
+import { useQueryClient } from "react-query";
 
 const useApplyPass = () => {
-  const [fold, setFold] = useState(true);
+  const queryClient = useQueryClient();
 
   const appliedPasses = useGetMyPasses(
     { date: dateTransform.hyphen() },
@@ -23,6 +28,13 @@ const useApplyPass = () => {
     reason: "",
     idx: 0,
   });
+
+  const postApplyPassMutation = usePostApplyPass();
+  const putApplyPassMutation = usePutApplyPass();
+  const deleteMyPassMutation = useDeleteMyPass();
+
+  const [fold, setFold] = useState(true);
+
   const [passDataDate, setPassDataDate] = useState<string>(
     dateTransform.hyphen()
   );
@@ -108,17 +120,22 @@ const useApplyPass = () => {
   );
 
   //외출 리스트에서 외출 삭제하는 함수
-  const deleteNotApprovedPass = useCallback(async (idx: number) => {
-    try {
-      await passRepository.deleteMyPass({ idx: idx + "" });
-      setNotApprovedPasses((prev) =>
-        prev.filter((notApprovePass) => notApprovePass.idx !== idx)
-      );
-      window.alert("외출 삭제 성공");
-    } catch (error) {
-      window.alert("외출 삭제 실패");
-    }
-  }, []);
+  const deleteNotApprovedPass = useCallback(
+    async (idx: number) => {
+      try {
+        deleteMyPassMutation.mutateAsync(
+          { idx: idx + "" },
+          {
+            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
+          }
+        );
+        window.alert("외출 삭제 성공");
+      } catch (error) {
+        window.alert("외출 삭제 실패");
+      }
+    },
+    [deleteMyPassMutation, queryClient]
+  );
 
   // datePicker 핸들링 함수
   const handlePassDataDate = useCallback((e: MaterialUiPickersDate) => {
@@ -198,7 +215,14 @@ const useApplyPass = () => {
     //외출 수정인지 외출 신청인지 구분하는 함수
     if (fold) {
       try {
-        await passRepository.postApplyPass({ passData: validApplyPass });
+        postApplyPassMutation.mutateAsync(
+          {
+            passData: validApplyPass,
+          },
+          {
+            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
+          }
+        );
         window.alert("외출 신청이 되었습니다");
         for (let key in passData) {
           setPassData((prev) => ({ ...prev, [key]: "" }));
@@ -212,16 +236,30 @@ const useApplyPass = () => {
       )?.idx;
 
       try {
-        await passRepository.putMyPass({
-          ...validApplyPass,
-          passIdx: String(passIdx),
-        });
+        putApplyPassMutation.mutateAsync(
+          {
+            ...validApplyPass,
+            passIdx: String(passIdx),
+          },
+          {
+            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
+          }
+        );
+
         window.alert("외출 수정이 되었습니다.");
       } catch (error) {
         window.alert("외출 수정 실패");
       }
     }
-  }, [fold, notApprovedPasses, passData, passDataDate]);
+  }, [
+    fold,
+    notApprovedPasses,
+    passData,
+    passDataDate,
+    postApplyPassMutation,
+    putApplyPassMutation,
+    queryClient,
+  ]);
 
   return {
     fold,

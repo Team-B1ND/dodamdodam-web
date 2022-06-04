@@ -45,7 +45,7 @@ const useApplyStudyRoom = () => {
     }
   ).data?.data.defaultLocations;
 
-  const myAppliedStudyRoomMutation = usePostApplyStudyRooms();
+  const postApplyStudyRoomsMutation = usePostApplyStudyRooms();
 
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(true);
@@ -190,7 +190,7 @@ const useApplyStudyRoom = () => {
     }
 
     try {
-      myAppliedStudyRoomMutation.mutateAsync(
+      postApplyStudyRoomsMutation.mutateAsync(
         {
           locations: validApplyStudyRoomList,
         },
@@ -234,7 +234,7 @@ const useApplyStudyRoom = () => {
     }
 
     try {
-      myAppliedStudyRoomMutation.mutateAsync(
+      postApplyStudyRoomsMutation.mutateAsync(
         {
           locations: validApplyStudyRoomList,
         },

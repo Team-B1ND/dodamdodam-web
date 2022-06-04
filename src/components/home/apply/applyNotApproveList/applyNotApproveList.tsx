@@ -13,6 +13,7 @@ import {
   ApplyNotApproveListVoidIcon,
 } from "./style";
 import { AiOutlineFolderOpen } from "react-icons/ai";
+import React from "react";
 
 interface Props {
   fold: boolean;
@@ -60,4 +61,4 @@ const ApplyNotApproveList = ({
   );
 };
 
-export default ApplyNotApproveList;
+export default React.memo(ApplyNotApproveList);

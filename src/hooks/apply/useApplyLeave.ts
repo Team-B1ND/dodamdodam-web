@@ -1,24 +1,34 @@
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
-import { useGetMyLeaves } from "../../querys/leave/leave.query";
+import { useQueryClient } from "react-query";
+import {
+  useDeleteApplyLeave,
+  useGetMyLeaves,
+  usePostApplyLeave,
+  usePutApplyLeave,
+} from "../../querys/leave/leave.query";
 import leaveRepository from "../../repository/leave/leave.repository";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
 import dataCheck from "../../util/data/check/dataCheck";
 import dateTransform from "../../util/date/dateTransform";
 
 const useApplyLeave = () => {
-  const [fold, setFold] = useState(true);
+  const queryClient = useQueryClient();
 
   const appliedLeaves = useGetMyLeaves(
     { date: dateTransform.hyphen() },
     { staleTime: 1000 * 30, cacheTime: 1000 * 3 }
   ).data?.data.leave;
 
+  const postApplyLeaveMutation = usePostApplyLeave();
+  const deleteApplyLeaveMutation = useDeleteApplyLeave();
+  const putApplyLeaveMutation = usePutApplyLeave();
+
+  const [fold, setFold] = useState(true);
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(
     []
   );
-
   const [leaveData, setLeaveData] = useState<ApplyLeave>({
     startTimeDate: dateTransform.hyphen(),
     startTimeHour: "",
@@ -100,17 +110,25 @@ const useApplyLeave = () => {
     [appliedLeaves]
   );
 
-  const deleteNotApprovedLeave = useCallback(async (idx: number) => {
-    try {
-      await leaveRepository.deleteMyLeave({ idx: idx + "" });
-      setNotApprovedLeaves((prev) =>
-        prev.filter((notApprovePass) => notApprovePass.idx !== idx)
-      );
-      window.alert("외박 삭제 성공");
-    } catch (error) {
-      window.alert("외박 삭제 실패");
-    }
-  }, []);
+  const deleteNotApprovedLeave = useCallback(
+    async (idx: number) => {
+      try {
+        deleteApplyLeaveMutation.mutateAsync(
+          { idx: idx + "" },
+          {
+            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
+          }
+        );
+        setNotApprovedLeaves((prev) =>
+          prev.filter((notApprovePass) => notApprovePass.idx !== idx)
+        );
+        window.alert("외박 삭제 성공");
+      } catch (error) {
+        window.alert("외박 삭제 실패");
+      }
+    },
+    [deleteApplyLeaveMutation, queryClient]
+  );
 
   //datePicker 핸들링 함수
   const handleLeaveDataDate = useCallback(
@@ -209,7 +227,12 @@ const useApplyLeave = () => {
 
     if (fold) {
       try {
-        await leaveRepository.postApplyLeave({ leaveData: validApplyLeave });
+        postApplyLeaveMutation.mutateAsync(
+          { leaveData: validApplyLeave },
+          {
+            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
+          }
+        );
         window.alert("외박 신청이 되었습니다");
         for (let key in leaveData) {
           setLeaveData((prev) => ({ ...prev, [key]: "" }));
@@ -231,6 +254,16 @@ const useApplyLeave = () => {
       )?.idx;
 
       try {
+        putApplyLeaveMutation.mutateAsync(
+          {
+            ...validApplyLeave,
+            leaveIdx: String(leaveIdx),
+          },
+          {
+            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
+          }
+        );
+
         await leaveRepository.putMyLeave({
           ...validApplyLeave,
           leaveIdx: String(leaveIdx),
@@ -240,7 +273,14 @@ const useApplyLeave = () => {
         window.alert("외박 수정 실패");
       }
     }
-  }, [fold, leaveData, notApprovedLeaves]);
+  }, [
+    fold,
+    leaveData,
+    notApprovedLeaves,
+    postApplyLeaveMutation,
+    putApplyLeaveMutation,
+    queryClient,
+  ]);
 
   useEffect(() => {
     console.log(leaveData);

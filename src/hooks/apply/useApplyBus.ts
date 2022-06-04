@@ -1,14 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
-import { useGetBuses, useGetMyBus } from "../../querys/bus/bus.query";
+import { useQueryClient } from "react-query";
+import {
+  useDeleteMyBus,
+  useGetBuses,
+  useGetMyBus,
+  usePostMyBus,
+  usePutMyBus,
+} from "../../querys/bus/bus.query";
 import busRepository from "../../repository/bus/bus.repository";
 import { AppliedBus, Bus } from "../../types/bus/bus.type";
 
 const useApplyBus = () => {
+  const queryClient = useQueryClient();
+
   const { data: busesData, isLoading: busesDataIsLoading } = useGetBuses();
   const { data: myBusData, isLoading: myBusDataIsLoading } = useGetMyBus({
     staleTime: 1000 * 30,
     cacheTime: 1000 * 3,
   });
+
+  const postMyBusMutation = usePostMyBus();
+  const deleteMyBusMutation = useDeleteMyBus();
+  const putMyBusMutation = usePutMyBus();
 
   //버스 리스트를 담는 상태
   const [busList, setBusList] = useState<Bus[]>([]);
@@ -55,8 +68,12 @@ const useApplyBus = () => {
 
   const deleteMyBus = async () => {
     try {
-      await busRepository.deleteMyBus({ idx: String(busData.idx) });
-      setWasCheckedIdx(0);
+      deleteMyBusMutation.mutateAsync(
+        { idx: String(busData.idx) },
+        {
+          onSuccess: () => queryClient.invalidateQueries("bus/getMyBus"),
+        }
+      );
       setBusData({
         busName: "",
         description: "",
@@ -75,20 +92,26 @@ const useApplyBus = () => {
     //원래 신청했었다가 다른 걸 골라서 수정하는 경우
     if (wasCheckedIdx !== 0 && wasCheckedIdx !== busData.idx) {
       try {
-        await busRepository.putMyBus({
-          idx: String(busData.idx),
-          originIdx: String(wasCheckedIdx),
-        });
-        setWasCheckedIdx(busData.idx);
+        putMyBusMutation.mutateAsync(
+          {
+            idx: String(busData.idx),
+            originIdx: String(wasCheckedIdx),
+          },
+          {
+            onSuccess: () => queryClient.invalidateQueries("bus/getMyBus"),
+          }
+        );
         window.alert("버스 신청 수정");
       } catch (error) {
         window.alert("버스 신청 수정 실패");
       }
     } else {
       try {
-        await busRepository.postMyBus({ idx: String(busData.idx) });
+        postMyBusMutation.mutateAsync(
+          { idx: String(busData.idx) },
+          { onSuccess: () => queryClient.invalidateQueries("bus/getMyBus") }
+        );
         window.alert("버스 신청 성공");
-        setWasCheckedIdx(busData.idx);
       } catch (error) {
         window.alert("버스 신청 실패");
       }

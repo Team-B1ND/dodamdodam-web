@@ -8,6 +8,7 @@ import {
 } from "./style";
 import dateTransform from "../../../../../util/date/dateTransform";
 import { CgTrash } from "react-icons/cg";
+import React from "react";
 
 interface Props {
   notApproveItemData: AppliedPass | AppliedLeave;
@@ -38,4 +39,4 @@ const ApplyNotApproveListItem = ({
   );
 };
 
-export default ApplyNotApproveListItem;
+export default React.memo(ApplyNotApproveListItem);
