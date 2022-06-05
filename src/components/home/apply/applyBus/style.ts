@@ -31,3 +31,9 @@ export const ApplyBusItemWrap = styled.div`
 
   ${customScrollBar}
 `;
+
+export const ApplyBusVoidText = styled.p`
+  font-size: 16px;
+  color: ${({ theme }) => theme.contrast};
+  margin: auto;
+`;

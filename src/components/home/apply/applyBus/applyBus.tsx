@@ -8,6 +8,7 @@ import {
   ApplyBusDate,
   ApplyBusItemContainer,
   ApplyBusItemWrap,
+  ApplyBusVoidText,
 } from "./style";
 
 const ApplyBus = () => {
@@ -23,26 +24,30 @@ const ApplyBus = () => {
 
   return (
     <ApplyBusContainer>
-      <ApplyBusItemContainer>
-        {dataCheck.voidCheck(busList) ? (
-          <>버스 정보가 없습니다.</>
-        ) : (
-          <ApplyBusItemWrap>
-            <ApplyBusDate>{dateTransform.period(busDate)}</ApplyBusDate>
-            {busList.map((busInfo) => (
-              <ApplyBusItem
-                currentSelectBusIdx={busData.idx}
-                isCheck={busInfo.idx === busData.idx}
-                busData={busInfo}
-                wasChecked={wasCheckedIdx}
-                handleBusData={handleBusData}
-                deleteMyBus={deleteMyBus}
-              />
-            ))}
-          </ApplyBusItemWrap>
-        )}
-      </ApplyBusItemContainer>
-      <ApplyFormSubmitButton onClick={submitMyBus}>신청</ApplyFormSubmitButton>
+      {dataCheck.voidCheck(busList) ? (
+        <ApplyBusVoidText>버스 정보가 없습니다.</ApplyBusVoidText>
+      ) : (
+        <>
+          <ApplyBusItemContainer>
+            <ApplyBusItemWrap>
+              <ApplyBusDate>{dateTransform.period(busDate)}</ApplyBusDate>
+              {busList.map((busInfo) => (
+                <ApplyBusItem
+                  currentSelectBusIdx={busData.idx}
+                  isCheck={busInfo.idx === busData.idx}
+                  busData={busInfo}
+                  wasChecked={wasCheckedIdx}
+                  handleBusData={handleBusData}
+                  deleteMyBus={deleteMyBus}
+                />
+              ))}
+            </ApplyBusItemWrap>
+          </ApplyBusItemContainer>
+          <ApplyFormSubmitButton onClick={submitMyBus}>
+            신청
+          </ApplyFormSubmitButton>
+        </>
+      )}
     </ApplyBusContainer>
   );
 };
