@@ -1,3 +1,4 @@
+import Apply from "./apply/apply";
 import MyInfo from "./myInfo/myInfo";
 import Notice from "./notice/notice";
 import { Column, Row } from "./style";
@@ -10,7 +11,12 @@ const Home = () => {
       <Notice />
       <Column>
         <Row>
-          <TodaySchedule />
+          <Column>
+            <Row>
+              <TodaySchedule />
+              <Apply />
+            </Row>
+          </Column>
           <MyInfo />
         </Row>
         <TodayWakeupSong />

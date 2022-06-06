@@ -1,1 +1,1 @@
-export const MYINFO_ITEMS = ["알림", "기상송", "분실물"];
+export const MYINFO_ITEMS = ["알림", "기상송", "분실물"] as const;

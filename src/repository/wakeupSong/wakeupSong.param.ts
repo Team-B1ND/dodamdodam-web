@@ -1,4 +1,4 @@
-export interface wakeupSongsParam {
+export interface getWakeupSongsParam {
   userId: string;
 }
 

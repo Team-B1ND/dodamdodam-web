@@ -9,4 +9,4 @@ export const HEADER_LINKS = [
   { name: "IT을지도", link: "https://iteuljido.com/" },
   { name: "위키", link: "https://sh031224.github.io/ask-for-information/" },
   { name: "DGIT", link: "http://dgit.b1nd.com/" },
-];
+] as const;

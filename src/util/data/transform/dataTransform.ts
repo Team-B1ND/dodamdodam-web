@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 class DataTransform {
   public schoolInfoTransform<T, T2, T3>(
     gradeNum: T,
@@ -28,6 +30,28 @@ class DataTransform {
         return "분실물";
       default:
         return "습득물";
+    }
+  }
+
+  public dayIdxTransform(date: string): string {
+    const validDate = dayjs(date).format("dddd");
+
+    if (validDate === "Monday") {
+      return "1";
+    } else if (validDate === "TuedDay") {
+      return "2";
+    } else if (validDate === "Wednesday") {
+      return "3";
+    } else if (validDate === "Thursday") {
+      return "4";
+    } else if (validDate === "Friday") {
+      return "5";
+    } else if (validDate === "Saturday") {
+      return "6";
+    } else if (validDate === "Sunday") {
+      return "0";
+    } else {
+      return "1";
     }
   }
 }
