@@ -6,15 +6,7 @@ import ApplyBus from "./applyBus/applyBus";
 import ApplyLeave from "./applyLeave/applyLeave";
 import ApplyPass from "./applyPass/applyPass";
 import ApplyStudyRoom from "./applyStudyrRoom/applyStudyRoom";
-import {
-  ApplyContainer,
-  ApplyFormWrap,
-  ApplyTitleIcon,
-  ApplyTitleItem,
-  ApplyTitleItemWrap,
-  ApplyTitleText,
-  ApplyTitleWrap,
-} from "./style";
+import * as S from "./style";
 
 const Apply = () => {
   const { section, setSection } = useApply();
@@ -27,30 +19,30 @@ const Apply = () => {
   ];
 
   return (
-    <ApplyContainer>
-      <ApplyTitleWrap>
-        <ApplyTitleIcon>
+    <S.ApplyContainer>
+      <S.ApplyTitleWrap>
+        <S.ApplyTitleIcon>
           <FcSurvey />
-        </ApplyTitleIcon>
-        <ApplyTitleText>신청</ApplyTitleText>
-        <ApplyTitleItemWrap>
+        </S.ApplyTitleIcon>
+        <S.ApplyTitleText>신청</S.ApplyTitleText>
+        <S.ApplyTitleItemWrap>
           {APPLY_ITEMS.map((item) => (
-            <ApplyTitleItem
+            <S.ApplyTitleItem
               isSelect={section === item}
               onClick={() => setSection(item)}
               key={`applyTitleItem ${item}`}
             >
               <span>{item}</span>
-            </ApplyTitleItem>
+            </S.ApplyTitleItem>
           ))}
-        </ApplyTitleItemWrap>
-      </ApplyTitleWrap>
-      <ApplyFormWrap>
+        </S.ApplyTitleItemWrap>
+      </S.ApplyTitleWrap>
+      <S.ApplyFormWrap>
         {applyItemComponents.map((component, idx) => {
           return section === APPLY_ITEMS[idx] && component;
         })}
-      </ApplyFormWrap>
-    </ApplyContainer>
+      </S.ApplyFormWrap>
+    </S.ApplyContainer>
   );
 };
 

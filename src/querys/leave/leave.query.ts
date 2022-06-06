@@ -2,7 +2,6 @@ import { AxiosError } from "axios";
 import {
   useMutation,
   useQuery,
-  useQueryClient,
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";

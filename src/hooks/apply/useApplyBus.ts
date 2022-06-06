@@ -7,7 +7,6 @@ import {
   usePostMyBus,
   usePutMyBus,
 } from "../../querys/bus/bus.query";
-import busRepository from "../../repository/bus/bus.repository";
 import { AppliedBus, Bus } from "../../types/bus/bus.type";
 
 const useApplyBus = () => {

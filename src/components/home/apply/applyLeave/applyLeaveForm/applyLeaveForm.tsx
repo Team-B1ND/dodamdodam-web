@@ -2,19 +2,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import React from "react";
 import { ApplyLeave } from "../../../../../types/leave/leave.type";
-import {
-  ApplyLeaveFormColumnTitle,
-  ApplyLeaveFormColumnWrap,
-  ApplyLeaveFormContainer,
-  ApplyLeaveFormDatePickerIcon,
-  ApplyLeaveFormDatePickerWrap,
-  ApplyLeaveFormNoticeText,
-  ApplyLeaveFormTextArea,
-  ApplyLeaveFormTextAreaWrap,
-  ApplyLeaveFormTimeInput,
-  ApplyLeaveFormTimeInputWrap,
-  ApplyPassFormTextAreaLength,
-} from "./style";
+import * as S from "./style";
 import DateFnsUtils from "@date-io/date-fns";
 import dayjs from "dayjs";
 import dateTransform from "../../../../../util/date/dateTransform";
@@ -41,14 +29,14 @@ const ApplyLeaveForm = ({
   notApproveLeavesLength,
 }: Props) => {
   return (
-    <ApplyLeaveFormContainer isFold={isFold}>
+    <S.ApplyLeaveFormContainer isFold={isFold}>
       {!isFold && notApproveLeavesLength === 0 ? (
         <>수정할 외박 정보가 없습니다.</>
       ) : (
         <>
-          <ApplyLeaveFormColumnWrap style={{ marginBottom: 10 }}>
-            <ApplyLeaveFormColumnTitle>출발 일자</ApplyLeaveFormColumnTitle>
-            <ApplyLeaveFormDatePickerWrap>
+          <S.ApplyLeaveFormColumnWrap style={{ marginBottom: 10 }}>
+            <S.ApplyLeaveFormColumnTitle>출발 일자</S.ApplyLeaveFormColumnTitle>
+            <S.ApplyLeaveFormDatePickerWrap>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
                   disableToolbar
@@ -66,29 +54,29 @@ const ApplyLeaveForm = ({
                   maxDate={dayjs(dateTransform.hyphen()).format("YYYY-12-31")}
                 />
               </MuiPickersUtilsProvider>
-              <ApplyLeaveFormDatePickerIcon htmlFor="startDatePicker">
+              <S.ApplyLeaveFormDatePickerIcon htmlFor="startDatePicker">
                 <IoMdCalendar />
-              </ApplyLeaveFormDatePickerIcon>
-            </ApplyLeaveFormDatePickerWrap>
-            <ApplyLeaveFormTimeInputWrap>
-              <ApplyLeaveFormTimeInput
+              </S.ApplyLeaveFormDatePickerIcon>
+            </S.ApplyLeaveFormDatePickerWrap>
+            <S.ApplyLeaveFormTimeInputWrap>
+              <S.ApplyLeaveFormTimeInput
                 placeholder="0 ~ 23"
                 value={leaveData.startTimeHour}
                 name="startTimeHour"
                 onChange={handleLeaveData}
               />
               :
-              <ApplyLeaveFormTimeInput
+              <S.ApplyLeaveFormTimeInput
                 placeholder="0 ~ 59"
                 value={leaveData.startTimeMinute}
                 name="startTimeMinute"
                 onChange={handleLeaveData}
               />
-            </ApplyLeaveFormTimeInputWrap>
-          </ApplyLeaveFormColumnWrap>
-          <ApplyLeaveFormColumnWrap style={{ marginBottom: 5 }}>
-            <ApplyLeaveFormColumnTitle>도착 일자</ApplyLeaveFormColumnTitle>
-            <ApplyLeaveFormDatePickerWrap>
+            </S.ApplyLeaveFormTimeInputWrap>
+          </S.ApplyLeaveFormColumnWrap>
+          <S.ApplyLeaveFormColumnWrap style={{ marginBottom: 5 }}>
+            <S.ApplyLeaveFormColumnTitle>도착 일자</S.ApplyLeaveFormColumnTitle>
+            <S.ApplyLeaveFormDatePickerWrap>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
                   disableToolbar
@@ -106,48 +94,48 @@ const ApplyLeaveForm = ({
                   maxDate={dayjs(dateTransform.hyphen()).format("YYYY-12-31")}
                 />
               </MuiPickersUtilsProvider>
-              <ApplyLeaveFormDatePickerIcon htmlFor="endDatePicker">
+              <S.ApplyLeaveFormDatePickerIcon htmlFor="endDatePicker">
                 <IoMdCalendar />
-              </ApplyLeaveFormDatePickerIcon>
-            </ApplyLeaveFormDatePickerWrap>
-            <ApplyLeaveFormTimeInputWrap>
-              <ApplyLeaveFormTimeInput
+              </S.ApplyLeaveFormDatePickerIcon>
+            </S.ApplyLeaveFormDatePickerWrap>
+            <S.ApplyLeaveFormTimeInputWrap>
+              <S.ApplyLeaveFormTimeInput
                 placeholder="0 ~ 23"
                 value={leaveData.endTimeHour}
                 name="endTimeHour"
                 onChange={handleLeaveData}
               />
               :
-              <ApplyLeaveFormTimeInput
+              <S.ApplyLeaveFormTimeInput
                 placeholder="0 ~ 59"
                 value={leaveData.endTimeMinute}
                 name="endTimeMinute"
                 onChange={handleLeaveData}
               />
-            </ApplyLeaveFormTimeInputWrap>
-          </ApplyLeaveFormColumnWrap>
-          <ApplyLeaveFormNoticeText>
+            </S.ApplyLeaveFormTimeInputWrap>
+          </S.ApplyLeaveFormColumnWrap>
+          <S.ApplyLeaveFormNoticeText>
             ※시간은 24시간 형태로 작성해야합니다.
-          </ApplyLeaveFormNoticeText>
-          <ApplyLeaveFormTextAreaWrap>
-            <ApplyLeaveFormTextArea
+          </S.ApplyLeaveFormNoticeText>
+          <S.ApplyLeaveFormTextAreaWrap>
+            <S.ApplyLeaveFormTextArea
               value={leaveData.reason}
               name="reason"
               onChange={handleLeaveDataReason}
               placeholder="사유를 입력해주세요."
             />
-            <ApplyPassFormTextAreaLength
+            <S.ApplyPassFormTextAreaLength
               isExcess={leaveData.reason.length > 50}
             >
               {leaveData.reason.length}/50
-            </ApplyPassFormTextAreaLength>
-          </ApplyLeaveFormTextAreaWrap>
-          <ApplyLeaveFormNoticeText>
+            </S.ApplyPassFormTextAreaLength>
+          </S.ApplyLeaveFormTextAreaWrap>
+          <S.ApplyLeaveFormNoticeText>
             ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
-          </ApplyLeaveFormNoticeText>
+          </S.ApplyLeaveFormNoticeText>
         </>
       )}
-    </ApplyLeaveFormContainer>
+    </S.ApplyLeaveFormContainer>
   );
 };
 

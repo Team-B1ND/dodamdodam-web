@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { palette } from "../../../../../style/palette";
 
 export const ApplyStudyRoomSelectWrap = styled.div`
   display: flex;
@@ -32,4 +33,8 @@ export const ApplyStudyRoomSelectInput = styled.select`
   outline: none;
   cursor: pointer;
   color: ${({ theme }) => theme.contrast};
+
+  :focus {
+    border: 1px solid ${palette.main};
+  }
 `;

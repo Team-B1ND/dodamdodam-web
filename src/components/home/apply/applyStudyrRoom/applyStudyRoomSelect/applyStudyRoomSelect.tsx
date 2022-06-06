@@ -4,13 +4,7 @@ import {
   ApplyStudyRoom,
 } from "../../../../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../../../../util/date/dateTransform";
-import {
-  ApplyStudyRoomSelectTime,
-  ApplyStudyRoomSelectTitle,
-  ApplyStudyRoomSelectTitleWrap,
-  ApplyStudyRoomSelectWrap,
-  ApplyStudyRoomSelectInput,
-} from "./style";
+import * as S from "./style";
 import dayjs from "dayjs";
 
 interface Props {
@@ -45,12 +39,12 @@ const ApplyStudyRoomSelect = ({
   );
 
   return (
-    <ApplyStudyRoomSelectWrap>
-      <ApplyStudyRoomSelectTitleWrap>
-        <ApplyStudyRoomSelectTitle>{timeTitle}</ApplyStudyRoomSelectTitle>
-        <ApplyStudyRoomSelectTime>{time}</ApplyStudyRoomSelectTime>
-      </ApplyStudyRoomSelectTitleWrap>
-      <ApplyStudyRoomSelectInput
+    <S.ApplyStudyRoomSelectWrap>
+      <S.ApplyStudyRoomSelectTitleWrap>
+        <S.ApplyStudyRoomSelectTitle>{timeTitle}</S.ApplyStudyRoomSelectTitle>
+        <S.ApplyStudyRoomSelectTime>{time}</S.ApplyStudyRoomSelectTime>
+      </S.ApplyStudyRoomSelectTitleWrap>
+      <S.ApplyStudyRoomSelectInput
         onChange={(e) => handleApplyStudyRoomData(e, applyStudyRoomIdx)}
         disabled={isAfter}
         defaultValue={
@@ -81,8 +75,8 @@ const ApplyStudyRoomSelect = ({
             {room.name}
           </option>
         ))}
-      </ApplyStudyRoomSelectInput>
-    </ApplyStudyRoomSelectWrap>
+      </S.ApplyStudyRoomSelectInput>
+    </S.ApplyStudyRoomSelectWrap>
   );
 };
 

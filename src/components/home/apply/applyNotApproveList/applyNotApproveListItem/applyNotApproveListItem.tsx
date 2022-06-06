@@ -1,11 +1,6 @@
 import { AppliedPass } from "../../../../../types/pass/pass.type";
 import { AppliedLeave } from "../../../../../types/leave/leave.type";
-import {
-  ApplyNotApproveListItemContainer,
-  ApplyNotApproveListItemDeleteIcon,
-  ApplyNotApproveListItemText,
-  ApplyNotApproveListItemDeleteButton,
-} from "./style";
+import * as S from "./style";
 import dateTransform from "../../../../../util/date/dateTransform";
 import { CgTrash } from "react-icons/cg";
 import React from "react";
@@ -24,18 +19,20 @@ const ApplyNotApproveListItem = ({
   const { startTime, idx } = notApproveItemData;
 
   return (
-    <ApplyNotApproveListItemContainer onClick={() => loadNotApprovedItem(idx)}>
-      <ApplyNotApproveListItemText>
+    <S.ApplyNotApproveListItemContainer
+      onClick={() => loadNotApprovedItem(idx)}
+    >
+      <S.ApplyNotApproveListItemText>
         {dateTransform.fullDate(startTime)}
-      </ApplyNotApproveListItemText>
-      <ApplyNotApproveListItemDeleteButton
+      </S.ApplyNotApproveListItemText>
+      <S.ApplyNotApproveListItemDeleteButton
         onClick={() => deleteNotApprovedItem(idx)}
       >
-        <ApplyNotApproveListItemDeleteIcon>
+        <S.ApplyNotApproveListItemDeleteIcon>
           <CgTrash />
-        </ApplyNotApproveListItemDeleteIcon>
-      </ApplyNotApproveListItemDeleteButton>
-    </ApplyNotApproveListItemContainer>
+        </S.ApplyNotApproveListItemDeleteIcon>
+      </S.ApplyNotApproveListItemDeleteButton>
+    </S.ApplyNotApproveListItemContainer>
   );
 };
 

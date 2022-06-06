@@ -4,14 +4,7 @@ import { AppliedPass } from "../../../../types/pass/pass.type";
 import dataCheck from "../../../../util/data/check/dataCheck";
 import ApplyNotApproveListItem from "./applyNotApproveListItem/applyNotApproveListItem";
 import { IoOptionsOutline } from "react-icons/io5";
-import {
-  ApplyNotApproveListContainer,
-  ApplyNotApproveListFoldButton,
-  ApplyNotApproveListFoldIcon,
-  ApplyNotApproveListWrap,
-  ApplyNotApproveListVoidWrap,
-  ApplyNotApproveListVoidIcon,
-} from "./style";
+import * as S from "./style";
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import React from "react";
 
@@ -31,15 +24,15 @@ const ApplyNotApproveList = ({
   deleteNotApprovedItem,
 }: Props) => {
   return (
-    <ApplyNotApproveListContainer fold={fold}>
-      <ApplyNotApproveListWrap>
+    <S.ApplyNotApproveListContainer fold={fold}>
+      <S.ApplyNotApproveListWrap>
         {dataCheck.undefinedCheck(notApproveItems) ||
         dataCheck.voidCheck(notApproveItems!) ? (
-          <ApplyNotApproveListVoidWrap>
-            <ApplyNotApproveListVoidIcon>
+          <S.ApplyNotApproveListVoidWrap>
+            <S.ApplyNotApproveListVoidIcon>
               <AiOutlineFolderOpen />
-            </ApplyNotApproveListVoidIcon>
-          </ApplyNotApproveListVoidWrap>
+            </S.ApplyNotApproveListVoidIcon>
+          </S.ApplyNotApproveListVoidWrap>
         ) : (
           <>
             {notApproveItems?.map((notApproveITem) => (
@@ -51,13 +44,13 @@ const ApplyNotApproveList = ({
             ))}
           </>
         )}
-      </ApplyNotApproveListWrap>
-      <ApplyNotApproveListFoldButton onClick={() => setFold((prev) => !prev)}>
-        <ApplyNotApproveListFoldIcon>
+      </S.ApplyNotApproveListWrap>
+      <S.ApplyNotApproveListFoldButton onClick={() => setFold((prev) => !prev)}>
+        <S.ApplyNotApproveListFoldIcon>
           <IoOptionsOutline />
-        </ApplyNotApproveListFoldIcon>
-      </ApplyNotApproveListFoldButton>
-    </ApplyNotApproveListContainer>
+        </S.ApplyNotApproveListFoldIcon>
+      </S.ApplyNotApproveListFoldButton>
+    </S.ApplyNotApproveListContainer>
   );
 };
 

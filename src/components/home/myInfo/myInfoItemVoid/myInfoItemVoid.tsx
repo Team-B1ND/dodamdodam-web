@@ -1,9 +1,4 @@
-import {
-  MyInfoItemVoidContainer,
-  MyInfoItemVoidSubTitle,
-  MyInfoItemVoidTextWrap,
-  MyInfoItemVoidTitle,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   title: string;
@@ -12,12 +7,12 @@ interface Props {
 
 const MyInfoItemVoid = ({ title, subTitle }: Props) => {
   return (
-    <MyInfoItemVoidContainer>
-      <MyInfoItemVoidTextWrap>
-        <MyInfoItemVoidTitle>{title}</MyInfoItemVoidTitle>
-        <MyInfoItemVoidSubTitle>{subTitle}</MyInfoItemVoidSubTitle>
-      </MyInfoItemVoidTextWrap>
-    </MyInfoItemVoidContainer>
+    <S.MyInfoItemVoidContainer>
+      <S.MyInfoItemVoidTextWrap>
+        <S.MyInfoItemVoidTitle>{title}</S.MyInfoItemVoidTitle>
+        <S.MyInfoItemVoidSubTitle>{subTitle}</S.MyInfoItemVoidSubTitle>
+      </S.MyInfoItemVoidTextWrap>
+    </S.MyInfoItemVoidContainer>
   );
 };
 

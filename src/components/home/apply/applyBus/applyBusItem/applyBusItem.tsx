@@ -2,13 +2,7 @@ import dayjs from "dayjs";
 import { FiCheck } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { Bus } from "../../../../../types/bus/bus.type";
-import {
-  ApplyBusItemCheckIcon,
-  ApplyBusItemContainer,
-  ApplyBusItemDeleteButton,
-  ApplyBusItemDeleteIcon,
-  ApplyBusItemText,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   currentSelectBusIdx: number;
@@ -28,21 +22,21 @@ const ApplyBusItem = ({
   wasChecked,
 }: Props) => {
   return (
-    <ApplyBusItemContainer onClick={() => handleBusData(busData.idx)}>
-      <ApplyBusItemText>
+    <S.ApplyBusItemContainer onClick={() => handleBusData(busData.idx)}>
+      <S.ApplyBusItemText>
         {busData.busName} ({dayjs(busData.leaveTime).format("HH:mm")})
-      </ApplyBusItemText>
-      <ApplyBusItemCheckIcon check={isCheck}>
+      </S.ApplyBusItemText>
+      <S.ApplyBusItemCheckIcon check={isCheck}>
         <FiCheck />
-      </ApplyBusItemCheckIcon>
+      </S.ApplyBusItemCheckIcon>
       {wasChecked === busData.idx && wasChecked === currentSelectBusIdx && (
-        <ApplyBusItemDeleteButton onClick={deleteMyBus}>
-          <ApplyBusItemDeleteIcon>
+        <S.ApplyBusItemDeleteButton onClick={deleteMyBus}>
+          <S.ApplyBusItemDeleteIcon>
             <IoMdTrash />
-          </ApplyBusItemDeleteIcon>
-        </ApplyBusItemDeleteButton>
+          </S.ApplyBusItemDeleteIcon>
+        </S.ApplyBusItemDeleteButton>
       )}
-    </ApplyBusItemContainer>
+    </S.ApplyBusItemContainer>
   );
 };
 
