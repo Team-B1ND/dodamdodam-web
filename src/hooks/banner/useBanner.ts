@@ -4,8 +4,8 @@ import { Banner } from "../../types/banner/banner.type";
 
 const useBanner = () => {
   const bannersData = useGetBanners({
-    // cacheTime: 1000 * 60 * 60,
-    // staleTime: 1000 * 60 * 30,
+    cacheTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 30,
   }).data?.data.banners;
 
   const [approveBanners, setApproveBanners] = useState<Banner[]>([]);

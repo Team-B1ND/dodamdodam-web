@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import useBanner from "../../../hooks/banner/useBanner";
 import { BannerContainer } from "./style";
 import Slider from "react-slick";
