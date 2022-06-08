@@ -1,4 +1,5 @@
 import Apply from "./apply/apply";
+import Banner from "./banner/banner";
 import MyInfo from "./myInfo/myInfo";
 import Notice from "./notice/notice";
 import { Column, Row } from "./style";
@@ -16,6 +17,7 @@ const Home = () => {
               <TodaySchedule />
               <Apply />
             </Row>
+            <Banner />
           </Column>
           <MyInfo />
         </Row>
