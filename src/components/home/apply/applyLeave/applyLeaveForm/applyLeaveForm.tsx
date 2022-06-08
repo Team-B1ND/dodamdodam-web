@@ -42,7 +42,7 @@ const ApplyLeaveForm = ({
                   disableToolbar
                   variant="inline"
                   id="startDatePicker"
-                  format="yyyy/MM/dd"
+                  format="yyyy.MM.dd"
                   value={leaveData.startTimeDate}
                   style={{
                     width: 137,
@@ -82,7 +82,7 @@ const ApplyLeaveForm = ({
                   disableToolbar
                   variant="inline"
                   id="endDatePicker"
-                  format="yyyy/MM/dd"
+                  format="yyyy.MM.dd"
                   value={leaveData.endTimeDate}
                   style={{
                     width: 137,
