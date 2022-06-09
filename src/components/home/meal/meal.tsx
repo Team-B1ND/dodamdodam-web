@@ -1,9 +1,10 @@
 import useMeal from "../../../hooks/meal/useMeal";
 import MealDatePicker from "./mealDatePicker/mealDatePicker";
-import { MealContainer } from "./style";
+import { MealContainer, MealItemWrap } from "./style";
 
 const Meal = () => {
-  const { date, handleMealDate, prevMealDate, nextMealDate } = useMeal();
+  const { date, validMeal, handleMealDate, prevMealDate, nextMealDate } =
+    useMeal();
 
   return (
     <MealContainer>
@@ -13,6 +14,7 @@ const Meal = () => {
         prevMealDate={prevMealDate}
         nextMealDate={nextMealDate}
       />
+      <MealItemWrap></MealItemWrap>
     </MealContainer>
   );
 };
