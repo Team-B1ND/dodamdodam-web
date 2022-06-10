@@ -40,6 +40,7 @@ const Banner = () => {
             title={banner.title}
             imgSrc={banner.image}
             redirectURL={banner.url}
+            key={banner.idx}
           />
         ))}
       </Slider>
