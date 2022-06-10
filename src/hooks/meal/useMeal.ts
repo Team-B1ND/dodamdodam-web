@@ -22,6 +22,7 @@ const useMeal = () => {
     setValidMeal(meals[Number(date.split("-")[2]) - 1]);
   }, [date, meals]);
 
+  //날짜를 바꾸다가 월이 달라졌을때를 확인하는 부분
   useEffect(() => {
     const month = date.split("-")[1];
 
@@ -43,6 +44,7 @@ const useMeal = () => {
     } catch (error) {}
   }, [tempMonth]);
 
+  //월이 달라졌을 때 바뀐 월에 맞게 리퀘스트 하는 부분
   useEffect(() => {
     requestMeals();
   }, [requestMeals, tempMonth]);
