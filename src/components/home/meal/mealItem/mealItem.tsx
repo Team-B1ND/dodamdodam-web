@@ -1,14 +1,33 @@
+import React from "react";
 import { EMealType } from "../../../../enum/meal/meal.enum";
-import { Meal } from "../../../../types/meal/meal.type";
-import { MealItemContainer } from "./style";
+import {
+  MealItemContainer,
+  MealItemIcon,
+  MealItemIconLabel,
+  MealItemIconWrap,
+  MealItemTextWrap,
+} from "./style";
 
 interface Props {
-  mealData: Meal;
+  mealData: string;
   mealType: EMealType;
+  mealIconSrc: string;
 }
 
-const MealItem = () => {
-  return <MealItemContainer></MealItemContainer>;
+const MealItem = ({ mealData, mealType, mealIconSrc }: Props) => {
+  return (
+    <MealItemContainer>
+      <MealItemIconWrap>
+        <MealItemIcon src={mealIconSrc} alt={`MealItem ${String(mealType)}`} />
+        <MealItemIconLabel mealType={mealType}>
+          {String(mealType)}
+        </MealItemIconLabel>
+      </MealItemIconWrap>
+      <MealItemTextWrap>
+        {mealData || `${String(mealType)}이 없습니다.`}
+      </MealItemTextWrap>
+    </MealItemContainer>
+  );
 };
 
-export default MealItem;
+export default React.memo(MealItem);

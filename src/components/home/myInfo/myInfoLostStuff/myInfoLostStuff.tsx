@@ -5,28 +5,21 @@ import MyInfoLostStuffItem from "./myInfoLostStuffItem/myInfoLostStuffItem";
 import { MyInfoLostStuffContainer } from "./style";
 
 const MyInfoLostStuff = () => {
-  const { notFoundLostStuff, isLoading } = useMyInfoLostStuff();
+  const { notFoundLostStuffs, isLoading } = useMyInfoLostStuff();
 
   return (
     <MyInfoLostStuffContainer>
-      {!isLoading && notFoundLostStuff && (
+      {!isLoading && !dataCheck.voidCheck(notFoundLostStuffs) ? (
         <>
-          {dataCheck.voidCheck(notFoundLostStuff) ? (
-            <MyInfoItemVoid
-              title="분실물 작성내역이 없습니다."
-              subTitle="잃어버린 물건이 있다면 작성해주세요!"
-            />
-          ) : (
-            <>
-              {notFoundLostStuff.map((lostStuff) => (
-                <MyInfoLostStuffItem
-                  lostStuff={lostStuff}
-                  key={lostStuff.idx}
-                />
-              ))}
-            </>
-          )}
+          {notFoundLostStuffs.map((lostStuff) => (
+            <MyInfoLostStuffItem lostStuff={lostStuff} key={lostStuff.idx} />
+          ))}
         </>
+      ) : (
+        <MyInfoItemVoid
+          title="분실물 작성내역이 없습니다."
+          subTitle="잃어버린 물건이 있다면 작성해주세요!"
+        />
       )}
     </MyInfoLostStuffContainer>
   );

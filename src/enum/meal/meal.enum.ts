@@ -1,5 +1,5 @@
 export enum EMealType {
-  BREAKFAST = "BREAKFAST",
-  LUNCH = "LUNCH",
-  DINNER = "DINNER",
+  BREAKFAST = "조식",
+  LUNCH = "중식",
+  DINNER = "석식",
 }

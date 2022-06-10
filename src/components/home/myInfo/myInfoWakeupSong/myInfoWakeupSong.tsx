@@ -9,24 +9,20 @@ const MyInfoWakeupSong = () => {
 
   return (
     <MyInfoWakeupSongContainer>
-      {!isLoading && notApprovedWakeupSongs && (
+      {!isLoading && !dataCheck.voidCheck(notApprovedWakeupSongs) ? (
         <>
-          {dataCheck.voidCheck(notApprovedWakeupSongs) ? (
-            <MyInfoItemVoid
-              title="신청내역이 없습니다."
-              subTitle="신청하시면 생활이 윤택해질 거에요!"
+          {notApprovedWakeupSongs.map((wakeupSong) => (
+            <MyInfoWakeupSongItem
+              wakeupSongData={wakeupSong}
+              key={wakeupSong.idx}
             />
-          ) : (
-            <>
-              {notApprovedWakeupSongs.map((wakeupSong) => (
-                <MyInfoWakeupSongItem
-                  wakeupSongData={wakeupSong}
-                  key={wakeupSong.idx}
-                />
-              ))}
-            </>
-          )}
+          ))}
         </>
+      ) : (
+        <MyInfoItemVoid
+          title="신청내역이 없습니다."
+          subTitle="신청하시면 생활이 윤택해질 거에요!"
+        />
       )}
     </MyInfoWakeupSongContainer>
   );
