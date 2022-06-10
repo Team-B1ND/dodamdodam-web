@@ -1,12 +1,28 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { EMealType } from "../../../../enum/meal/meal.enum";
 
-export const MealItemContainer = styled.div`
+export const MealItemContainer = styled.div<{
+  isMealTime: boolean;
+  mealType: EMealType;
+}>`
   width: 100%;
   height: 75px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  ${({ isMealTime, mealType }) =>
+    isMealTime &&
+    css`
+      ${mealType === EMealType.BREAKFAST &&
+      "background-color :rgba(252, 168, 0, 0.1)"};
+
+      ${mealType === EMealType.LUNCH &&
+      "background-color :rgba(61, 189, 229, 0.1)"};
+
+      ${mealType === EMealType.DINNER &&
+      "background-color :rgba(162, 82, 225, 0.1)"};
+    `}
 `;
 
 export const MealItemIconWrap = styled.div`

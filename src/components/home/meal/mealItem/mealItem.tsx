@@ -12,11 +12,12 @@ interface Props {
   mealData: string;
   mealType: EMealType;
   mealIconSrc: string;
+  isMealTime: boolean;
 }
 
-const MealItem = ({ mealData, mealType, mealIconSrc }: Props) => {
+const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
   return (
-    <MealItemContainer>
+    <MealItemContainer isMealTime={isMealTime} mealType={mealType}>
       <MealItemIconWrap>
         <MealItemIcon src={mealIconSrc} alt={`MealItem ${String(mealType)}`} />
         <MealItemIconLabel mealType={mealType}>
