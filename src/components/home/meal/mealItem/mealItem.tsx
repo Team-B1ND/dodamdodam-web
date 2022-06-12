@@ -16,6 +16,10 @@ interface Props {
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
+  const validMealData = mealData
+    ?.split("\n")
+    ?.map((meal) => meal?.split(" ")[0]);
+
   return (
     <MealItemContainer isMealTime={isMealTime} mealType={mealType}>
       <MealItemIconWrap>
@@ -25,7 +29,12 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
         </MealItemIconLabel>
       </MealItemIconWrap>
       <MealItemTextWrap>
-        {mealData || `${String(mealType)}이 없습니다.`}
+        {validMealData?.map((meal, idx) => {
+          if (idx === validMealData.length - 1) {
+            return <span>{meal}</span>;
+          }
+          return <span>{meal}, </span>;
+        }) || `${String(mealType)}이 없습니다.`}
       </MealItemTextWrap>
     </MealItemContainer>
   );

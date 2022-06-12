@@ -1,7 +1,9 @@
 import React from "react";
 import { ReactNode } from "react";
+import { useRecoilValue } from "recoil";
 import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
 import useMyInfo from "../../../hooks/myInfo/useMyInfo";
+import { profileAtom } from "../../../store/profile/profileStore";
 import DataTransform from "../../../util/data/transform/dataTransform";
 import MyInfoLostStuff from "./myInfoLostStuff/myInfoLostStuff";
 import MyInfoNotice from "./myInfoNotice/myInfoNotice";
@@ -10,6 +12,7 @@ import * as S from "./style";
 
 const MyInfo = () => {
   const { section, setSection, logOut } = useMyInfo();
+  const profileData = useRecoilValue(profileAtom);
 
   const myInfoItemComponents: ReactNode[] = [
     <MyInfoNotice key="myInfoNotice" />,
@@ -26,11 +29,15 @@ const MyInfo = () => {
         />
         <S.MyInfoHeaderInfoWrap>
           <S.MyInfoHeaderNameWrap>
-            임동현
+            {profileData.name}
             <S.MyInfoHeaderRedirectText>내 정보</S.MyInfoHeaderRedirectText>
           </S.MyInfoHeaderNameWrap>
           <S.MyInfoHeaderClassWrap>
-            {DataTransform.schoolInfoTransform("2", "1", "17")}
+            {DataTransform.schoolInfoTransform(
+              profileData.grade,
+              profileData.room,
+              profileData.number
+            )}
           </S.MyInfoHeaderClassWrap>
         </S.MyInfoHeaderInfoWrap>
         <S.MyInfoLogoutButton onClick={logOut}>로그아웃</S.MyInfoLogoutButton>

@@ -25,6 +25,7 @@ export const MealDatePickerInputWrap = styled.div`
 export const MealDatePickerDayText = styled.span`
   font-size: 14px;
   font-weight: bold;
+  color: ${({ theme }) => theme.contrast};
 `;
 
 export const MealDatePickerIcon = styled.label`
@@ -36,6 +37,7 @@ export const MealDatePickerIcon = styled.label`
   justify-content: center;
   cursor: pointer;
   border-radius: 100%;
+  color: ${({ theme }) => theme.contrast};
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);

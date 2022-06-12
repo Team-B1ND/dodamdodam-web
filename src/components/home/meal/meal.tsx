@@ -33,31 +33,37 @@ const Meal = () => {
           mealData={validMeal?.breakfast!}
           mealType={BREAKFAST}
           mealIconSrc={MealBreakfastIcon}
-          isMealTime={currentDate.isBetween(
-            `${date} 05:00`,
-            `${date} 07:50`,
-            "minute"
-          )}
+          isMealTime={
+            currentDate.isBetween(
+              `${dateTransform.hyphen()} 05:00`,
+              `${dateTransform.hyphen()} 07:50`,
+              "minute"
+            ) && validMeal?.breakfast! !== null
+          }
         />
         <MealItem
           mealData={validMeal?.lunch!}
           mealType={LUNCH}
           mealIconSrc={MealLunchIcon}
-          isMealTime={currentDate.isBetween(
-            `${date} 07:50`,
-            `${date} 13:20`,
-            "minute"
-          )}
+          isMealTime={
+            currentDate.isBetween(
+              `${dateTransform.hyphen()} 07:50`,
+              `${dateTransform.hyphen()} 13:20`,
+              "minute"
+            ) && validMeal?.lunch! !== null
+          }
         />
         <MealItem
           mealData={validMeal?.dinner!}
           mealType={DINNER}
           mealIconSrc={MealDinnerIcon}
-          isMealTime={currentDate.isBetween(
-            `${date} 13:20`,
-            `${date} 19:10`,
-            "minute"
-          )}
+          isMealTime={
+            currentDate.isBetween(
+              `${dateTransform.hyphen()} 13:20`,
+              `${dateTransform.hyphen()} 19:10`,
+              "minute"
+            ) && validMeal?.dinner! !== null
+          }
         />
       </MealItemWrap>
     </MealContainer>
