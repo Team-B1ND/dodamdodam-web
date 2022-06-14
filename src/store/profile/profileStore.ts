@@ -1,20 +1,8 @@
 import { atom } from "recoil";
-import { UserInfo, UserInfoDetail } from "../../types/common/common.type";
+import { Profile } from "../../types/profile/profile.type";
 
-export const profileAtom = atom<UserInfo>({
+export const profileAtom = atom<Profile>({
   key: "profile/profileAtom",
-  default: {
-    accessLevel: 0,
-    email: "",
-    id: "",
-    name: "",
-    permissions: [],
-    profileImage: "",
-  },
-});
-
-export const detailProfileAtom = atom<UserInfoDetail>({
-  key: "profile/detailProfileAtom",
   default: {
     accessLevel: 0,
     allowed: 0,

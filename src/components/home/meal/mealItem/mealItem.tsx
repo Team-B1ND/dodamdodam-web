@@ -1,12 +1,6 @@
 import React from "react";
 import { EMealType } from "../../../../enum/meal/meal.enum";
-import {
-  MealItemContainer,
-  MealItemIcon,
-  MealItemIconLabel,
-  MealItemIconWrap,
-  MealItemTextWrap,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   mealData: string;
@@ -16,18 +10,30 @@ interface Props {
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
+  const validMealData = mealData
+    ?.split("\n")
+    ?.map((meal) => meal?.split(" ")[0]);
+
   return (
-    <MealItemContainer isMealTime={isMealTime} mealType={mealType}>
-      <MealItemIconWrap>
-        <MealItemIcon src={mealIconSrc} alt={`MealItem ${String(mealType)}`} />
-        <MealItemIconLabel mealType={mealType}>
+    <S.MealItemContainer isMealTime={isMealTime} mealType={mealType}>
+      <S.MealItemIconWrap>
+        <S.MealItemIcon
+          src={mealIconSrc}
+          alt={`MealItem ${String(mealType)}`}
+        />
+        <S.MealItemIconLabel mealType={mealType}>
           {String(mealType)}
-        </MealItemIconLabel>
-      </MealItemIconWrap>
-      <MealItemTextWrap>
-        {mealData || `${String(mealType)}이 없습니다.`}
-      </MealItemTextWrap>
-    </MealItemContainer>
+        </S.MealItemIconLabel>
+      </S.MealItemIconWrap>
+      <S.MealItemTextWrap>
+        {validMealData?.map((meal, idx) => {
+          if (idx === validMealData.length - 1) {
+            return <span>{meal}</span>;
+          }
+          return <span>{meal}, </span>;
+        }) || `${String(mealType)}이 없습니다.`}
+      </S.MealItemTextWrap>
+    </S.MealItemContainer>
   );
 };
 

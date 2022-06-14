@@ -62,6 +62,14 @@ export const MealItemIconLabel = styled.div<{ mealType: EMealType }>`
 
 export const MealItemTextWrap = styled.div`
   width: 310px;
-  font-size: 14px;
   margin-right: 5px;
+  color: ${({ theme }) => theme.contrast};
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+
+  span {
+    font-size: 14px;
+    line-height: 18px;
+  }
 `;
