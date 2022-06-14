@@ -1,27 +1,21 @@
 import { WakeupSong } from "../../../../types/wakeupSong/wakeupSong.type";
-import {
-  TodayWakeupSongItemBackground,
-  TodayWakeupSongItemBackgroundWrap,
-  TodayWakeupSongItemContainer,
-  TodayWakeupSongItemText,
-  TodayWakeupSongItemTextWrap,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   wakeupSongData: WakeupSong;
 }
 
 const TodayWakeupSongItem = ({ wakeupSongData }: Props) => (
-  <TodayWakeupSongItemContainer>
-    <TodayWakeupSongItemBackgroundWrap>
-      <TodayWakeupSongItemBackground src={wakeupSongData.thumbnail} />
-      <TodayWakeupSongItemTextWrap>
-        <TodayWakeupSongItemText>
+  <S.TodayWakeupSongItemContainer>
+    <S.TodayWakeupSongItemBackgroundWrap>
+      <S.TodayWakeupSongItemBackground src={wakeupSongData.thumbnail} />
+      <S.TodayWakeupSongItemTextWrap>
+        <S.TodayWakeupSongItemText>
           {wakeupSongData.videoTitle}
-        </TodayWakeupSongItemText>
-      </TodayWakeupSongItemTextWrap>
-    </TodayWakeupSongItemBackgroundWrap>
-  </TodayWakeupSongItemContainer>
+        </S.TodayWakeupSongItemText>
+      </S.TodayWakeupSongItemTextWrap>
+    </S.TodayWakeupSongItemBackgroundWrap>
+  </S.TodayWakeupSongItemContainer>
 );
 
 export default TodayWakeupSongItem;

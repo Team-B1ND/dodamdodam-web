@@ -4,14 +4,7 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import { IoMdCalendar } from "react-icons/io";
 import dataTransform from "../../../../util/data/transform/dataTransform";
-import {
-  MealDatePickerArrowIcon,
-  MealDatePickerContainer,
-  MealDatePickerDayText,
-  MealDatePickerIcon,
-  MealDatePickerInputWrap,
-  MealDatePickerWrap,
-} from "./style";
+import * as S from "./style";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 interface Props {
@@ -28,16 +21,16 @@ const MealDatePicker = ({
   nextMealDate,
 }: Props) => {
   return (
-    <MealDatePickerContainer>
-      <MealDatePickerWrap>
-        <MealDatePickerArrowIcon
+    <S.MealDatePickerContainer>
+      <S.MealDatePickerWrap>
+        <S.MealDatePickerArrowIcon
           onClick={prevMealDate}
           style={{ marginRight: 14 }}
         >
           <MdKeyboardArrowLeft />
-        </MealDatePickerArrowIcon>
+        </S.MealDatePickerArrowIcon>
 
-        <MealDatePickerInputWrap>
+        <S.MealDatePickerInputWrap>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar
@@ -56,25 +49,25 @@ const MealDatePicker = ({
               maxDate={dayjs(date).format("YYYY-12-31")}
             />
           </MuiPickersUtilsProvider>
-        </MealDatePickerInputWrap>
+        </S.MealDatePickerInputWrap>
 
-        <MealDatePickerDayText>
+        <S.MealDatePickerDayText>
           (
           {dataTransform.dayNameTransform(
             dayjs(date).locale("ko").format("dddd")
           )}
           )
-        </MealDatePickerDayText>
+        </S.MealDatePickerDayText>
 
-        <MealDatePickerIcon htmlFor="mealDatePicker">
+        <S.MealDatePickerIcon htmlFor="mealDatePicker">
           <IoMdCalendar />
-        </MealDatePickerIcon>
+        </S.MealDatePickerIcon>
 
-        <MealDatePickerArrowIcon onClick={nextMealDate}>
+        <S.MealDatePickerArrowIcon onClick={nextMealDate}>
           <MdKeyboardArrowRight />
-        </MealDatePickerArrowIcon>
-      </MealDatePickerWrap>
-    </MealDatePickerContainer>
+        </S.MealDatePickerArrowIcon>
+      </S.MealDatePickerWrap>
+    </S.MealDatePickerContainer>
   );
 };
 
