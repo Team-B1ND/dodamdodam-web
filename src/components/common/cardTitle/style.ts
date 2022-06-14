@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CardTitleContainer = styled.div`
   width: calc(100% - 32px);
-  height: 56px;
+  min-height: 56px;
   margin: 0px auto;
   display: flex;
   align-items: center;
