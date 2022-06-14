@@ -18,3 +18,9 @@ export const TodayWakeupSongItemWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const TodayWakeupSongVoidText = styled.p`
+  font-size: 14px;
+  color: ${({ theme }) => theme.contrast};
+  margin: auto 0px;
+`;

@@ -2,7 +2,11 @@ import { FcHeadset } from "react-icons/fc";
 import useTodayWakeupSong from "../../../hooks/todayWakeupSong/useTodayWakeupSong";
 import dataCheck from "../../../util/data/check/dataCheck";
 import CardTitle from "../../common/cardTitle/cardTitle";
-import { TodayWakeupSongContainer, TodayWakeupSongItemWrap } from "./style";
+import {
+  TodayWakeupSongContainer,
+  TodayWakeupSongItemWrap,
+  TodayWakeupSongVoidText,
+} from "./style";
 import TodayWakeupSongItem from "./todayWakeupSongItem/todayWakeupSongItem";
 
 const TodayWakeupSong = () => {
@@ -16,7 +20,9 @@ const TodayWakeupSong = () => {
         redirectURL={"http://dodam.b1nd.com/wakesong"}
       />
       {dataCheck.voidCheck(todayAllowWakeupSongs) ? (
-        <>승인된 기상송이 없습니다.</>
+        <TodayWakeupSongVoidText>
+          승인된 기상송이 없습니다.
+        </TodayWakeupSongVoidText>
       ) : (
         <TodayWakeupSongItemWrap>
           {todayAllowWakeupSongs.slice(0, 2).map((wakeupSong) => (
