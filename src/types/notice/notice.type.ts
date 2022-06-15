@@ -1,3 +1,5 @@
+import { Response } from "types/util/response.type";
+
 export interface Notice {
   content: string;
   createdAt: string;
