@@ -3,7 +3,6 @@ import { palette } from "../../../style/palette";
 
 export const MyInfoContainer = styled.div`
   width: 384px;
-  height: 446px;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.backgroundColor3};
