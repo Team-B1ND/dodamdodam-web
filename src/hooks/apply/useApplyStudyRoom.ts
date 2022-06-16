@@ -178,8 +178,21 @@ const useApplyStudyRoom = () => {
   const submitDefaultSutdyRoom = async () => {
     let validApplyStudyRoomList = [];
 
+    //기본위치 신청을 할 때 지나지 않은 것만 신청하게 위해 평일과 주말을 비교해 타임 데이터를 가지고옴
+    const comparisonDates = dateCheck.weekDayCheck(dateTransform.hyphen())
+      ? APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY
+      : APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND;
+
     for (let i = 0; i < myApplyStudyRooms.length; i++) {
-      if (myApplyStudyRooms[i].applyStudyData === null) {
+      //해당 교시가 시간이 지났는지 안 지났는지 확인하는 변수
+      const placeIdxisAfter = dayjs(dateTransform.fullDate()).isAfter(
+        dayjs(`${dateTransform.hyphen()} ${comparisonDates[i].timeOut}`).format(
+          "YYYY-MM-DD HH:mm"
+        )
+      );
+
+      //해당 자습실이 신청이 안돼있고, 시간이 안 지났을때
+      if (myApplyStudyRooms[i].applyStudyData === null && !placeIdxisAfter) {
         const { timeTableIdx, placeIdx } = myDefaultApplyStudyRooms[i];
         const validDefaultApplyStudyRoom = {
           timeTableIdx,
@@ -189,20 +202,20 @@ const useApplyStudyRoom = () => {
       }
     }
 
-    try {
-      postApplyStudyRoomsMutation.mutateAsync(
-        {
-          locations: validApplyStudyRoomList,
+    postApplyStudyRoomsMutation.mutateAsync(
+      {
+        locations: validApplyStudyRoomList,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries("studyRoom/getMyStudyRooms");
+          window.alert("기본 위치 신청 성공");
         },
-        {
-          onSuccess: () =>
-            queryClient.invalidateQueries("studyRoom/getMyStudyRooms"),
-        }
-      );
-      window.alert("기본 위치 신청 성공");
-    } catch (error) {
-      window.alert("기본 위치 신청 실패");
-    }
+        onError: () => {
+          window.alert("기본 위치 신청 실패");
+        },
+      }
+    );
   };
 
   const submitApplyStudyRoomData = async () => {

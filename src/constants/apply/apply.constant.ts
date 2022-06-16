@@ -25,7 +25,7 @@ export const APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY = [
     timeOut: "20:10",
     timeTableIdx: 4,
   },
-];
+] as const;
 
 export const APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND = [
   {
@@ -52,4 +52,4 @@ export const APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND = [
     timeOut: "15:00",
     timeTableIdx: 8,
   },
-];
+] as const;
