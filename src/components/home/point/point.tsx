@@ -3,8 +3,13 @@ import { useState } from "react";
 import { FcRules } from "react-icons/fc";
 import CardTitle from "../../common/cardTitle/cardTitle";
 import {
+  PointCategoryItemCircle,
+  PointCategoryItemWrap,
+  PointCategoryWrap,
+  PointChangeButton,
   PointContainer,
   PointGraph,
+  PointGraphPointText,
   PointGraphWrap,
   PointLeftWrap,
   PointRightWrap,
@@ -14,6 +19,7 @@ import {
 const Point = () => {
   const { schoolPoint, dormitoryPoint } = usePoint();
   const [isMeritView, setIsMeritView] = useState(true); // true은 기숙사, false은 학교
+  console.log(schoolPoint, dormitoryPoint);
 
   return (
     <PointContainer>
@@ -26,19 +32,19 @@ const Point = () => {
         <PointLeftWrap>
           {isMeritView ? (
             <>
-              <PointGraphWrap style={{}}>
-                <div style={{ display: "flex", width: "35px" }}>
+              <PointGraphWrap>
+                <PointGraphPointText>
                   {dormitoryPoint.dormitoryMerit}점
-                </div>
+                </PointGraphPointText>
                 <PointGraph
                   point={dormitoryPoint.dormitoryMerit}
                   isMerit={true}
                 />
               </PointGraphWrap>
               <PointGraphWrap>
-                <div style={{ display: "flex", width: "35px" }}>
+                <PointGraphPointText>
                   {dormitoryPoint.dormitoryDemerit}점
-                </div>
+                </PointGraphPointText>
                 <PointGraph
                   point={dormitoryPoint.dormitoryDemerit}
                   isMerit={false}
@@ -48,23 +54,37 @@ const Point = () => {
           ) : (
             <>
               <PointGraphWrap>
-                {schoolPoint.schoolMerit}점
+                <PointGraphPointText>
+                  {schoolPoint.schoolMerit}점
+                </PointGraphPointText>
                 <PointGraph point={schoolPoint.schoolMerit} isMerit={true} />
               </PointGraphWrap>
               <PointGraphWrap>
-                {schoolPoint.schoolDemerit}점
+                <PointGraphPointText>
+                  {schoolPoint.schoolDemerit}점
+                </PointGraphPointText>
                 <PointGraph point={schoolPoint.schoolDemerit} isMerit={false} />
               </PointGraphWrap>
             </>
           )}
         </PointLeftWrap>
         <PointRightWrap>
-          <button
-            style={{ display: "flex" }}
+          <PointCategoryWrap>
+            <PointCategoryItemWrap>
+              <PointCategoryItemCircle style={{ backgroundColor: "#0067bc" }} />
+              상점
+            </PointCategoryItemWrap>
+            <PointCategoryItemWrap>
+              <PointCategoryItemCircle style={{ backgroundColor: "#f97e6d" }} />
+              벌점
+            </PointCategoryItemWrap>
+          </PointCategoryWrap>
+          <PointChangeButton
+            isSchool={isMeritView}
             onClick={() => setIsMeritView((prev) => !prev)}
           >
             {isMeritView ? "기숙사" : "학교"}
-          </button>
+          </PointChangeButton>
         </PointRightWrap>
       </PointWrap>
     </PointContainer>

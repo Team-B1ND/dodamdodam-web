@@ -6,8 +6,14 @@ import {
 import { useEffect, useState } from "react";
 
 const usePoint = () => {
-  const meritsData = useGetMyMerit().data?.data.point.score;
-  const demeritsData = useGetMyDemerit().data?.data.point.score;
+  const meritsData = useGetMyMerit({
+    cacheTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 60,
+  }).data?.data.point.score;
+  const demeritsData = useGetMyDemerit({
+    cacheTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 60,
+  }).data?.data.point.score;
   const { data: offsetPointsData } = useGetMyOffsetPoint();
 
   const [schoolPoint, setSchoolPoint] = useState<{
@@ -32,13 +38,13 @@ const usePoint = () => {
       const demerit = demeritsData;
 
       setDormitoryPoint({
-        dormitoryMerit: merits[0],
-        dormitoryDemerit: demerit[0],
+        dormitoryMerit: merits[0] || 0,
+        dormitoryDemerit: demerit[0] || 0,
       });
 
       setSchoolPoint({
-        schoolMerit: merits[1],
-        schoolDemerit: demerit[1],
+        schoolMerit: merits[1] || 0,
+        schoolDemerit: demerit[1] || 0,
       });
 
       // 0 은 기숙사
