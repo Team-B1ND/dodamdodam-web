@@ -3,12 +3,15 @@ import {
   MyWakeupSongsResponse,
   TodayWakeupSongsResponse,
 } from "../../types/wakeupSong/wakeupSong.type";
-import { getTodayWakeupSongParam, wakeupSongsParam } from "./wakeupSong.param";
+import {
+  getTodayWakeupSongParam,
+  getWakeupSongsParam,
+} from "./wakeupSong.param";
 
 class WakeupSongRepository {
   public async getMyWakeupSongs({
     userId,
-  }: wakeupSongsParam): Promise<MyWakeupSongsResponse> {
+  }: getWakeupSongsParam): Promise<MyWakeupSongsResponse> {
     const { data } = await dodamV2Axios.get<MyWakeupSongsResponse>(
       `/wakeup-song/user?id=${userId}`
     );

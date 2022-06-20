@@ -6,5 +6,5 @@ export const TodayScheduleContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid ${({ theme }) => theme.borderColor};
-  background-color: ${({ theme }) => theme.backgroundColor2};
+  background-color: ${({ theme }) => theme.backgroundColor3};
 `;

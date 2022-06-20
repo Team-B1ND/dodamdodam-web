@@ -1,34 +1,28 @@
 import useNotice from "../../../hooks/notice/useNotice";
-import {
-  NoticeChangeButton,
-  NoticeContainer,
-  NoticeIndex,
-  NoticeLabel,
-  NoticeTitle,
-} from "./style";
+import * as S from "./style";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const Notice = () => {
   const { data, isLoading, noticeIndex, handleNoticeIndex } = useNotice();
 
   return (
-    <NoticeContainer>
-      <NoticeLabel>공지사항</NoticeLabel>
+    <S.NoticeContainer>
+      <S.NoticeLabel>공지사항</S.NoticeLabel>
       {!isLoading && data && (
         <>
-          <NoticeChangeButton onClick={() => handleNoticeIndex("left")}>
+          <S.NoticeChangeButton onClick={() => handleNoticeIndex("left")}>
             <FiChevronLeft />
-          </NoticeChangeButton>
-          <NoticeIndex>
+          </S.NoticeChangeButton>
+          <S.NoticeIndex>
             {noticeIndex + 1}/{data?.length}
-          </NoticeIndex>
-          <NoticeChangeButton onClick={() => handleNoticeIndex("right")}>
+          </S.NoticeIndex>
+          <S.NoticeChangeButton onClick={() => handleNoticeIndex("right")}>
             <FiChevronRight />
-          </NoticeChangeButton>
-          <NoticeTitle>{data![noticeIndex].title}</NoticeTitle>
+          </S.NoticeChangeButton>
+          <S.NoticeTitle>{data![noticeIndex].title}</S.NoticeTitle>
         </>
       )}
-    </NoticeContainer>
+    </S.NoticeContainer>
   );
 };
 

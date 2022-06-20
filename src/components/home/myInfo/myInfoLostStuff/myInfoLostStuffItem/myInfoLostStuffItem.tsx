@@ -1,14 +1,7 @@
 import { LostStuff } from "../../../../../types/lostStuff/lostStuff.type";
 import dataTransform from "../../../../../util/data/transform/dataTransform";
 import dateTransform from "../../../../../util/date/dateTransform";
-import {
-  MyInfoLostStuffItemContainer,
-  MyInfoLostStuffItemImg,
-  MyInfoLostStuffItemInfoWrap,
-  MyInfoLostStuffItemSubInfoWrap,
-  MyInfoLostStuffItemSubTitle,
-  MyInfoLostStuffItemTitle,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   lostStuff: LostStuff;
@@ -16,23 +9,25 @@ interface Props {
 
 const MyInfoLostStuffItem = ({ lostStuff }: Props) => {
   return (
-    <MyInfoLostStuffItemContainer>
-      <MyInfoLostStuffItemImg
+    <S.MyInfoLostStuffItemContainer>
+      <S.MyInfoLostStuffItemImg
         src={lostStuff.picture[0].thumbnail}
         alt="myInfoLostStuffItem/myInfoLostStuffItemImg"
       />
-      <MyInfoLostStuffItemInfoWrap>
-        <MyInfoLostStuffItemTitle>{lostStuff.title}</MyInfoLostStuffItemTitle>
-        <MyInfoLostStuffItemSubInfoWrap>
-          <MyInfoLostStuffItemSubTitle>
+      <S.MyInfoLostStuffItemInfoWrap>
+        <S.MyInfoLostStuffItemTitle>
+          {lostStuff.title}
+        </S.MyInfoLostStuffItemTitle>
+        <S.MyInfoLostStuffItemSubInfoWrap>
+          <S.MyInfoLostStuffItemSubTitle>
             {dateTransform.fullDate(lostStuff.uploadTime)}
-          </MyInfoLostStuffItemSubTitle>
-          <MyInfoLostStuffItemSubTitle>
+          </S.MyInfoLostStuffItemSubTitle>
+          <S.MyInfoLostStuffItemSubTitle>
             {dataTransform.lostStuffTypeTransform(lostStuff.type)}
-          </MyInfoLostStuffItemSubTitle>
-        </MyInfoLostStuffItemSubInfoWrap>
-      </MyInfoLostStuffItemInfoWrap>
-    </MyInfoLostStuffItemContainer>
+          </S.MyInfoLostStuffItemSubTitle>
+        </S.MyInfoLostStuffItemSubInfoWrap>
+      </S.MyInfoLostStuffItemInfoWrap>
+    </S.MyInfoLostStuffItemContainer>
   );
 };
 

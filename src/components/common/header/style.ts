@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   box-shadow: ${({ theme }) => theme.headerBoxShadow};
+  z-index: 2;
 `;
 
 export const HeaderWrap = styled.div`

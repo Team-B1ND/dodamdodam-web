@@ -17,6 +17,7 @@ export const lightTheme: DefaultTheme = {
   hoverColor: "#e2e2e2",
   headerBoxShadow: "0 1px 1px 0 hsl(0deg 0% 80% / 80%)",
   darkmodeButtonColor: "#efefef",
+  footerBackground: "#292c33",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -35,4 +36,5 @@ export const darkTheme: DefaultTheme = {
   hoverColor: "#3d3d3d",
   headerBoxShadow: "0 1px 1px 0 rgba(61,61,61,.8)",
   darkmodeButtonColor: "#3d3d3d",
+  footerBackground: "#292929",
 };

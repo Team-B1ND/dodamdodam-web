@@ -5,6 +5,7 @@ import {
   REQUEST_TOKEN_KEY,
 } from "../../constants/token/token.constant";
 import token from "../token/token";
+import { requestHandler } from "./requestHandler";
 
 const createAxiosInstance = (config?: AxiosRequestConfig) => {
   const baseConfig: AxiosRequestConfig = {
@@ -36,3 +37,6 @@ export const dodamV3Axios = createAxiosInstance({
     [REQUEST_TOKEN_KEY]: token.getToken(ACCESS_TOKEN_KEY)!,
   },
 });
+
+dodamV2Axios.interceptors.request.use(requestHandler);
+dodamV3Axios.interceptors.request.use(requestHandler);

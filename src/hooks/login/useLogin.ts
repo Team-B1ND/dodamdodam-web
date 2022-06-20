@@ -1,9 +1,7 @@
 import { sha512 } from "js-sha512";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import authRepository from "../../repository/auth/auth.repository";
-import { profileAtom } from "../../store/profile/profileStore";
 import { Login } from "../../types/login/login.type";
 import token from "../../lib/token/token";
 import {
@@ -20,9 +18,8 @@ const useLogin = () => {
   });
   const [loginKeep, setLoginKeep] = useState<boolean>(false);
 
-  const [profileData, setProfileData] = useRecoilState(profileAtom);
-
   const handleLoginKeep = () => setLoginKeep((prev) => !prev);
+
   const handleLoginData = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       const { value, name } = e.target;
@@ -51,12 +48,10 @@ const useLogin = () => {
 
       window.alert("로그인 성공");
       navigate("/");
-
-      setProfileData(member);
     } catch (error) {
       window.alert("로그인 실패");
     }
-  }, [loginData, navigate, setProfileData]);
+  }, [loginData, navigate]);
 
   return {
     loginData,
