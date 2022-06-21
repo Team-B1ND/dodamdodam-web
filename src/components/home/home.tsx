@@ -25,7 +25,10 @@ const Home = () => {
         </Row>
         <Row>
           <TodayWakeupSong />
-          <Point />
+          <Meal />
+          <Column>
+            <Point />
+          </Column>
         </Row>
       </Column>
     </>

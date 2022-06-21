@@ -3,18 +3,23 @@ import { useState } from "react";
 import { FcRules } from "react-icons/fc";
 import CardTitle from "../../common/cardTitle/cardTitle";
 import {
-  DormitoryDemeritPointGraph,
-  DormitoryMeritPointGraph,
-  DormitoryPointWrap,
+  PointCategoryItemCircle,
+  PointCategoryItemWrap,
+  PointCategoryWrap,
+  PointChangeButton,
   PointContainer,
-  SchoolDemeritPointGraph,
-  SchoolMeritPointGraph,
-  SchoolPointWrap,
+  PointGraph,
+  PointGraphPointText,
+  PointGraphWrap,
+  PointLeftWrap,
+  PointRightWrap,
+  PointWrap,
 } from "./style";
 
 const Point = () => {
   const { schoolPoint, dormitoryPoint } = usePoint();
-  const [pointView, setPointView] = useState(true); // true은 기숙사, false은 학교
+  const [isMeritView, setIsMeritView] = useState(true); // true은 기숙사, false은 학교
+  console.log(schoolPoint, dormitoryPoint);
 
   return (
     <PointContainer>
@@ -23,42 +28,65 @@ const Point = () => {
         titleIcon={<FcRules />}
         redirectURL={"http://dodam.b1nd.com/dormitory-point"}
       />
-      {pointView && (
-        <>
-          <DormitoryPointWrap style={{}}>
-            <div style={{ display: "flex", width: "35px" }}>
-              {dormitoryPoint.dormitoryMerit}점
-            </div>
-            <DormitoryMeritPointGraph point={dormitoryPoint.dormitoryMerit} />
-          </DormitoryPointWrap>
-          <DormitoryPointWrap>
-            <div style={{ display: "flex", width: "35px" }}>
-              {dormitoryPoint.dormitoryDemerit}점
-            </div>
-            <DormitoryDemeritPointGraph
-              point={dormitoryPoint.dormitoryDemerit}
-            />
-          </DormitoryPointWrap>
-        </>
-      )}
-      {!pointView && (
-        <>
-          <SchoolPointWrap>
-            <div style={{ display: "flex" }}>{schoolPoint.schoolMerit}점</div>
-            <SchoolMeritPointGraph point={schoolPoint.schoolMerit} />
-          </SchoolPointWrap>
-          <SchoolPointWrap>
-            <div style={{ display: "flex" }}>{schoolPoint.schoolDemerit}점</div>
-            <SchoolDemeritPointGraph point={schoolPoint.schoolDemerit} />
-          </SchoolPointWrap>
-        </>
-      )}
-      <button
-        style={{ display: "flex" }}
-        onClick={() => setPointView((prev) => !prev)}
-      >
-        {pointView ? "기숙사" : "학교"}
-      </button>
+      <PointWrap>
+        <PointLeftWrap>
+          {isMeritView ? (
+            <>
+              <PointGraphWrap>
+                <PointGraphPointText>
+                  {dormitoryPoint.dormitoryMerit}점
+                </PointGraphPointText>
+                <PointGraph
+                  point={dormitoryPoint.dormitoryMerit}
+                  isMerit={true}
+                />
+              </PointGraphWrap>
+              <PointGraphWrap>
+                <PointGraphPointText>
+                  {dormitoryPoint.dormitoryDemerit}점
+                </PointGraphPointText>
+                <PointGraph
+                  point={dormitoryPoint.dormitoryDemerit}
+                  isMerit={false}
+                />
+              </PointGraphWrap>
+            </>
+          ) : (
+            <>
+              <PointGraphWrap>
+                <PointGraphPointText>
+                  {schoolPoint.schoolMerit}점
+                </PointGraphPointText>
+                <PointGraph point={schoolPoint.schoolMerit} isMerit={true} />
+              </PointGraphWrap>
+              <PointGraphWrap>
+                <PointGraphPointText>
+                  {schoolPoint.schoolDemerit}점
+                </PointGraphPointText>
+                <PointGraph point={schoolPoint.schoolDemerit} isMerit={false} />
+              </PointGraphWrap>
+            </>
+          )}
+        </PointLeftWrap>
+        <PointRightWrap>
+          <PointCategoryWrap>
+            <PointCategoryItemWrap>
+              <PointCategoryItemCircle style={{ backgroundColor: "#0067bc" }} />
+              상점
+            </PointCategoryItemWrap>
+            <PointCategoryItemWrap>
+              <PointCategoryItemCircle style={{ backgroundColor: "#f97e6d" }} />
+              벌점
+            </PointCategoryItemWrap>
+          </PointCategoryWrap>
+          <PointChangeButton
+            isSchool={isMeritView}
+            onClick={() => setIsMeritView((prev) => !prev)}
+          >
+            {isMeritView ? "기숙사" : "학교"}
+          </PointChangeButton>
+        </PointRightWrap>
+      </PointWrap>
     </PointContainer>
   );
 };
