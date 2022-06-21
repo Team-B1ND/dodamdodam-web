@@ -7,8 +7,6 @@ import ThemeProviderContainer from "./components/common/themeProviderContainer/t
 
 const queryClient = new QueryClient();
 
-console.log(queryClient);
-
 function Root() {
   return (
     <StrictMode>

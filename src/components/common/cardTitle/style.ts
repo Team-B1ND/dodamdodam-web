@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CardTitleContainer = styled.div`
   width: calc(100% - 32px);
-  height: 56px;
+  min-height: 56px;
   margin: 0px auto;
   display: flex;
   align-items: center;
@@ -29,6 +29,7 @@ export const CardTitleText = styled.h1`
   color: ${({ theme }) => theme.contrast};
   cursor: pointer;
   font-weight: bold;
+  margin-right: 10px;
 `;
 
 export const CardTitleRedirectWrap = styled.span`

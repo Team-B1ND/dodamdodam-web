@@ -15,5 +15,6 @@ declare module "styled-components" {
     hoverColor: string;
     headerBoxShadow: string;
     darkmodeButtonColor: string;
+    footerBackground: string;
   }
 }

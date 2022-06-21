@@ -2,8 +2,9 @@ import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 import {
   getTodayWakeupSongParam,
-  wakeupSongsParam,
+  getWakeupSongsParam,
 } from "../../repository/wakeupSong/wakeupSong.param";
+
 import wakeupSongRepository from "../../repository/wakeupSong/wakeupSong.repository";
 import {
   MyWakeupSongsResponse,
@@ -11,7 +12,7 @@ import {
 } from "../../types/wakeupSong/wakeupSong.type";
 
 export const useGetMyWakeupSongs = (
-  { userId }: wakeupSongsParam,
+  { userId }: getWakeupSongsParam,
   options?: UseQueryOptions<
     MyWakeupSongsResponse,
     AxiosError,

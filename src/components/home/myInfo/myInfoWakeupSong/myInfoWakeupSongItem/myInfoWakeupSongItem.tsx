@@ -2,15 +2,7 @@ import React from "react";
 import { WakeupSong } from "../../../../../types/wakeupSong/wakeupSong.type";
 import dataTransform from "../../../../../util/data/transform/dataTransform";
 import dateTransform from "../../../../../util/date/dateTransform";
-import {
-  MyInfoWakeupSongItemApproveLabel,
-  MyInfoWakeupSongItemContainer,
-  MyInfoWakeupSongItemImg,
-  MyInfoWakeupSongItemInfoWrap,
-  MyInfoWakeupSongItemSubInfoWrap,
-  MyInfoWakeupSongItemSubTitle,
-  MyInfoWakeupSongItemTitle,
-} from "./style";
+import * as S from "./style";
 
 interface Props {
   wakeupSongData: WakeupSong;
@@ -18,30 +10,30 @@ interface Props {
 
 const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
   return (
-    <MyInfoWakeupSongItemContainer
+    <S.MyInfoWakeupSongItemContainer
       onClick={() => window.open(wakeupSongData.videoUrl)}
     >
-      <MyInfoWakeupSongItemImg
+      <S.MyInfoWakeupSongItemImg
         src={wakeupSongData.thumbnail}
         alt={"myInfoWakeupSongItem/myInfoWakeupSongItemImg"}
       />
-      <MyInfoWakeupSongItemInfoWrap>
-        <MyInfoWakeupSongItemTitle>
+      <S.MyInfoWakeupSongItemInfoWrap>
+        <S.MyInfoWakeupSongItemTitle>
           {wakeupSongData.videoTitle}
-        </MyInfoWakeupSongItemTitle>
-        <MyInfoWakeupSongItemSubInfoWrap>
-          <MyInfoWakeupSongItemSubTitle>
+        </S.MyInfoWakeupSongItemTitle>
+        <S.MyInfoWakeupSongItemSubInfoWrap>
+          <S.MyInfoWakeupSongItemSubTitle>
             {wakeupSongData.channelTitle}
-          </MyInfoWakeupSongItemSubTitle>
-          <MyInfoWakeupSongItemSubTitle>
+          </S.MyInfoWakeupSongItemSubTitle>
+          <S.MyInfoWakeupSongItemSubTitle>
             신청일 {dateTransform.hyphen(wakeupSongData.submitDate)}
-          </MyInfoWakeupSongItemSubTitle>
-        </MyInfoWakeupSongItemSubInfoWrap>
-      </MyInfoWakeupSongItemInfoWrap>
-      <MyInfoWakeupSongItemApproveLabel isAllow={wakeupSongData.isAllow}>
+          </S.MyInfoWakeupSongItemSubTitle>
+        </S.MyInfoWakeupSongItemSubInfoWrap>
+      </S.MyInfoWakeupSongItemInfoWrap>
+      <S.MyInfoWakeupSongItemApproveLabel isAllow={wakeupSongData.isAllow}>
         {dataTransform.wakeupSongApproveTransform(wakeupSongData.isAllow)}
-      </MyInfoWakeupSongItemApproveLabel>
-    </MyInfoWakeupSongItemContainer>
+      </S.MyInfoWakeupSongItemApproveLabel>
+    </S.MyInfoWakeupSongItemContainer>
   );
 };
 
