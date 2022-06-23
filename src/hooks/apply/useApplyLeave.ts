@@ -196,6 +196,10 @@ const useApplyLeave = () => {
     const endTimeIsAfter = dayjs(validApplyLeave.endTime).isAfter(
       dateTransform.fullDate()
     );
+    if (notApprovedLeaves.length > 4) {
+      window.alert("외박신청은 최대 4개까지 가능해요!");
+      return;
+    }
 
     if (
       !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
