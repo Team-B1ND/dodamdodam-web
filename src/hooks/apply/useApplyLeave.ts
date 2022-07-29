@@ -29,6 +29,7 @@ const useApplyLeave = () => {
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(
     []
   );
+
   const [leaveData, setLeaveData] = useState<ApplyLeave>({
     startTimeDate: dateTransform.hyphen(),
     startTimeHour: "",
