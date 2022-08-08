@@ -6,6 +6,7 @@ import { IoMdCalendar } from "react-icons/io";
 import dateTransform from "../../../../../util/date/dateTransform";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { ApplyPass } from "../../../../../types/pass/pass.type";
+import { TextArea } from "@team-b1nd/dodamdodam_web_component_library";
 
 interface Props {
   isFold: boolean;
@@ -99,19 +100,16 @@ const ApplyPassForm = ({
           <S.ApplyPassFormNoticeText>
             ※시간은 24시간 형태로 작성해야합니다.
           </S.ApplyPassFormNoticeText>
-          <S.ApplyPassFormTextAreaWrap>
-            <S.ApplyPassFormTextArea
-              value={passData.reason}
-              name="reason"
-              onChange={handlePassDataReason}
-              placeholder="사유를 입력해주세요."
-            />
-            <S.ApplyPassFormTextAreaLength
-              isExcess={passData.reason.length > 50}
-            >
-              {passData.reason.length}/50
-            </S.ApplyPassFormTextAreaLength>
-          </S.ApplyPassFormTextAreaWrap>
+          <TextArea
+            width={315}
+            height={65}
+            onChange={handlePassDataReason}
+            placeHolder="사유를 입력해주세요."
+            textMaxLength={50}
+            text={passData.reason}
+            textAreaFontSize={12}
+            customStyle={{ fontSize: 12, marginTop: 3 }}
+          />
           <S.ApplyPassFormNoticeText>
             ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
           </S.ApplyPassFormNoticeText>

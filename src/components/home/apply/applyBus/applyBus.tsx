@@ -1,7 +1,7 @@
+import { Button } from "@team-b1nd/dodamdodam_web_component_library";
 import useApplyBus from "../../../../hooks/apply/useApplyBus";
 import dataCheck from "../../../../util/data/check/dataCheck";
 import dateTransform from "../../../../util/date/dateTransform";
-import { ApplyFormSubmitButton } from "../style";
 import ApplyBusItem from "./applyBusItem/applyBusItem";
 import {
   ApplyBusContainer,
@@ -43,9 +43,21 @@ const ApplyBus = () => {
               ))}
             </ApplyBusItemWrap>
           </ApplyBusItemContainer>
-          <ApplyFormSubmitButton onClick={submitMyBus}>
+          <Button
+            width={110}
+            height={35}
+            type="primary"
+            onClick={submitMyBus}
+            customStyle={{
+              fontSize: 14,
+              margin: 16,
+              marginLeft: "auto",
+              marginTop: "auto",
+              minHeight: 35,
+            }}
+          >
             신청
-          </ApplyFormSubmitButton>
+          </Button>
         </>
       )}
     </ApplyBusContainer>

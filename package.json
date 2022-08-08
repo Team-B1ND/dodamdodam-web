@@ -6,6 +6,7 @@
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.12.4",
     "@material-ui/pickers": "^3.3.10",
+    "@team-b1nd/dodamdodam_web_component_library": "^1.1.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",

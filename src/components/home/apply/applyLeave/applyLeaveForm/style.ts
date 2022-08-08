@@ -84,36 +84,3 @@ export const ApplyLeaveFormNoticeText = styled.p`
   line-height: 16px;
   color: ${palette.red[300]};
 `;
-
-export const ApplyLeaveFormTextAreaWrap = styled.div`
-  width: 310px;
-  height: 65px;
-  margin-top: 3px;
-  position: relative;
-`;
-
-export const ApplyLeaveFormTextArea = styled.textarea`
-  width: 100%;
-  height: 100%;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  resize: none;
-  padding: 5px;
-  outline: none;
-  background-color: ${({ theme }) => theme.backgroundColor3};
-
-  ::-webkit-input-placeholder {
-    color: ${({ theme }) => theme.contrast2};
-  }
-
-  ${customScrollBar}
-`;
-
-export const ApplyPassFormTextAreaLength = styled.span<{ isExcess: boolean }>`
-  position: absolute;
-  font-size: 12px;
-  color: ${({ theme }) => theme.contrast};
-  bottom: 5px;
-  right: 10px;
-
-  ${({ isExcess }) => isExcess && `color : ${palette.red[300]}`};
-`;

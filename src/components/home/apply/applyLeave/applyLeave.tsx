@@ -1,6 +1,6 @@
+import { Button } from "@team-b1nd/dodamdodam_web_component_library";
 import useApplyLeave from "../../../../hooks/apply/useApplyLeave";
 import ApplyNotApproveList from "../applyNotApproveList/applyNotApproveList";
-import { ApplyFormSubmitButton } from "../style";
 import ApplyLeaveForm from "./applyLeaveForm/applyLeaveForm";
 import { ApplyLeaveContainer } from "./style";
 
@@ -38,9 +38,21 @@ const ApplyLeave = () => {
       />
 
       {!(notApprovedLeaves.length === 0 && !fold) && (
-        <ApplyFormSubmitButton onClick={submitLeaveData}>
+        <Button
+          width={110}
+          height={35}
+          type="primary"
+          onClick={submitLeaveData}
+          customStyle={{
+            fontSize: 14,
+            margin: 16,
+            marginLeft: "auto",
+            marginTop: "auto",
+            minHeight: 35,
+          }}
+        >
           {fold ? "신청" : "수정"}
-        </ApplyFormSubmitButton>
+        </Button>
       )}
     </ApplyLeaveContainer>
   );

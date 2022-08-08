@@ -1,6 +1,6 @@
+import { Button } from "@team-b1nd/dodamdodam_web_component_library";
 import useApplyPass from "../../../../hooks/apply/useApplyPass";
 import ApplyNotApproveList from "../applyNotApproveList/applyNotApproveList";
-import { ApplyFormSubmitButton } from "../style";
 import ApplyPassForm from "./applyPassForm/applyPassForm";
 import { ApplyPassContainer } from "./style";
 
@@ -40,9 +40,21 @@ const ApplyPass = () => {
       />
 
       {!(notApprovedPasses.length === 0 && !fold) && (
-        <ApplyFormSubmitButton onClick={submitPassData}>
+        <Button
+          width={110}
+          height={35}
+          type="primary"
+          onClick={submitPassData}
+          customStyle={{
+            fontSize: 14,
+            margin: 16,
+            marginLeft: "auto",
+            marginTop: "auto",
+            minHeight: 35,
+          }}
+        >
           {fold ? "신청" : "수정"}
-        </ApplyFormSubmitButton>
+        </Button>
       )}
     </ApplyPassContainer>
   );

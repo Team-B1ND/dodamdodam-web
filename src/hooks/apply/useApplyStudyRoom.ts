@@ -156,20 +156,21 @@ const useApplyStudyRoom = () => {
   }, [myDefaultApplyStudyRoomsData]);
 
   const handleApplyStudyRoomData = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    idx: number
+    e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const { value } = e.target;
+    const { value, name } = e.target;
     const { places: StudyRooms } = studyRoomsData?.data!;
 
     const validApplyStudyRoom: ApplyStudyRoom = {
-      idx: idx,
+      idx: Number(name),
       applyStudyData: StudyRooms.find((place) => place.name === value)!,
     };
 
     //사용자가 바꾼 자습실 이름을 가지고 자습실 정보에서 찾아서 저장
     setMyApplyStudyRooms((prev) =>
-      prev.map((item) => (item.idx === idx ? validApplyStudyRoom : item))
+      prev.map((item) =>
+        item.idx === Number(name) ? validApplyStudyRoom : item
+      )
     );
 
     setIsDefault(false);

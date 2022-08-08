@@ -7,6 +7,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import dayjs from "dayjs";
 import dateTransform from "../../../../../util/date/dateTransform";
 import { IoMdCalendar } from "react-icons/io";
+import { TextArea } from "@team-b1nd/dodamdodam_web_component_library";
 
 interface Props {
   isFold: boolean;
@@ -117,19 +118,16 @@ const ApplyLeaveForm = ({
           <S.ApplyLeaveFormNoticeText>
             ※시간은 24시간 형태로 작성해야합니다.
           </S.ApplyLeaveFormNoticeText>
-          <S.ApplyLeaveFormTextAreaWrap>
-            <S.ApplyLeaveFormTextArea
-              value={leaveData.reason}
-              name="reason"
-              onChange={handleLeaveDataReason}
-              placeholder="사유를 입력해주세요."
-            />
-            <S.ApplyPassFormTextAreaLength
-              isExcess={leaveData.reason.length > 50}
-            >
-              {leaveData.reason.length}/50
-            </S.ApplyPassFormTextAreaLength>
-          </S.ApplyLeaveFormTextAreaWrap>
+          <TextArea
+            width={315}
+            height={65}
+            onChange={handleLeaveDataReason}
+            placeHolder="사유를 입력해주세요."
+            textMaxLength={50}
+            text={leaveData.reason}
+            textAreaFontSize={12}
+            customStyle={{ fontSize: 12, marginTop: 3 }}
+          />
           <S.ApplyLeaveFormNoticeText>
             ※학생 관리자를 포함한 서비스 관리자가 해당 정보를 볼 수 있습니다.
           </S.ApplyLeaveFormNoticeText>
