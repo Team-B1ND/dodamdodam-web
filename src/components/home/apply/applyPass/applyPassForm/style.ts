@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { customScrollBar } from "../../../../../style/libStyle";
 import { palette } from "../../../../../style/palette";
 
 export const ApplyPassFormContainer = styled.div<{ isFold: boolean }>`
