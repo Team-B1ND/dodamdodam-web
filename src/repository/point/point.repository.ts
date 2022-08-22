@@ -1,5 +1,5 @@
-import { dodamV2Axios } from "lib/axios/customAxios";
-import { PointResponse } from "types/point/point.type";
+import { dodamV2Axios } from "../../lib/axios/customAxios";
+import { PointResponse } from "../../types/point/point.type";
 
 class PointRepository {
   public async getMyMerit(): Promise<PointResponse> {

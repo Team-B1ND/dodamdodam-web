@@ -1,4 +1,4 @@
-import { Response } from "types/util/response.type";
+import { Response } from "../util/response.type";
 
 export interface PointLog {
   givenTime: string;

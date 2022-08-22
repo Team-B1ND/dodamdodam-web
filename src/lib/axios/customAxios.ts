@@ -38,5 +38,7 @@ export const dodamV3Axios = createAxiosInstance({
   },
 });
 
+dodamV3Axios.defaults.withCredentials = true;
+
 dodamV2Axios.interceptors.request.use(requestHandler);
 dodamV3Axios.interceptors.request.use(requestHandler);

@@ -1,6 +1,6 @@
-import usePoint from "hooks/point/usePoint";
 import { useState } from "react";
 import { FcRules } from "react-icons/fc";
+import usePoint from "../../../hooks/point/usePoint";
 import CardTitle from "../../common/cardTitle/cardTitle";
 import {
   PointCategoryItemCircle,
