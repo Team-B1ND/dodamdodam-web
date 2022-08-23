@@ -5,7 +5,8 @@ import {
   CardTitleRedirectWrap,
   CardTitleText,
 } from "./style";
-import { FiChevronRight } from "react-icons/fi";
+import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";
+
 import { ReactNode } from "react";
 
 type Props = {

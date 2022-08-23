@@ -7,7 +7,6 @@ import {
 } from "../../querys/pass/pass.query";
 import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
 import dateTransform from "../../util/date/dateTransform";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import dataCheck from "../../util/data/check/dataCheck";
 import { useQueryClient } from "react-query";
@@ -138,7 +137,7 @@ const useApplyPass = () => {
   );
 
   // datePicker 핸들링 함수
-  const handlePassDataDate = useCallback((e: MaterialUiPickersDate) => {
+  const handlePassDataDate = useCallback((e: Date) => {
     setPassDataDate(dayjs(e).format("YYYY-MM-DD"));
   }, []);
 

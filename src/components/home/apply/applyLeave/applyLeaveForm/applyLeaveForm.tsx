@@ -1,23 +1,17 @@
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import React from "react";
 import { ApplyLeave } from "../../../../../types/leave/leave.type";
 import * as S from "./style";
-import DateFnsUtils from "@date-io/date-fns";
-import dayjs from "dayjs";
-import dateTransform from "../../../../../util/date/dateTransform";
-import { IoMdCalendar } from "react-icons/io";
-import { TextArea } from "@team-b1nd/dodamdodam_web_component_library";
+import {
+  TextArea,
+  DatePicker,
+} from "@team-b1nd/dodamdodam_web_component_library";
 
 interface Props {
   isFold: boolean;
   leaveData: ApplyLeave;
   handleLeaveData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLeaveDataReason: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleLeaveDataDate: (
-    e: MaterialUiPickersDate,
-    scope: "start" | "end"
-  ) => void;
+  handleLeaveDataDate: (e: Date, scope: "start" | "end") => void;
   notApproveLeavesLength: number;
 }
 
@@ -38,26 +32,17 @@ const ApplyLeaveForm = ({
           <S.ApplyLeaveFormColumnWrap style={{ marginBottom: 10 }}>
             <S.ApplyLeaveFormColumnTitle>출발 일자</S.ApplyLeaveFormColumnTitle>
             <S.ApplyLeaveFormDatePickerWrap>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  disableToolbar
-                  variant="inline"
-                  id="startDatePicker"
-                  format="yyyy/MM/dd"
-                  value={leaveData.startTimeDate}
-                  style={{
-                    width: 137,
-                    fontSize: 16,
-                    height: 32,
-                  }}
-                  onChange={(e) => handleLeaveDataDate(e, "start")}
-                  minDate={dateTransform.hyphen()}
-                  maxDate={dayjs(dateTransform.hyphen()).format("YYYY-12-31")}
-                />
-              </MuiPickersUtilsProvider>
-              <S.ApplyLeaveFormDatePickerIcon htmlFor="startDatePicker">
-                <IoMdCalendar />
-              </S.ApplyLeaveFormDatePickerIcon>
+              <DatePicker
+                itemKey="startDatePicker"
+                width={137}
+                height={32}
+                customStyle={{
+                  fontSize: 16,
+                }}
+                onChange={(e) => handleLeaveDataDate(e, "start")}
+                value={leaveData.startTimeDate}
+                splitCharacter={"-"}
+              />
             </S.ApplyLeaveFormDatePickerWrap>
             <S.ApplyLeaveFormTimeInputWrap>
               <S.ApplyLeaveFormTimeInput
@@ -78,26 +63,17 @@ const ApplyLeaveForm = ({
           <S.ApplyLeaveFormColumnWrap style={{ marginBottom: 5 }}>
             <S.ApplyLeaveFormColumnTitle>도착 일자</S.ApplyLeaveFormColumnTitle>
             <S.ApplyLeaveFormDatePickerWrap>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  disableToolbar
-                  variant="inline"
-                  id="endDatePicker"
-                  format="yyyy/MM/dd"
-                  value={leaveData.endTimeDate}
-                  style={{
-                    width: 137,
-                    fontSize: 16,
-                    height: 32,
-                  }}
-                  onChange={(e) => handleLeaveDataDate(e, "end")}
-                  minDate={dayjs(dateTransform.hyphen()).format("YYYY-01-01")}
-                  maxDate={dayjs(dateTransform.hyphen()).format("YYYY-12-31")}
-                />
-              </MuiPickersUtilsProvider>
-              <S.ApplyLeaveFormDatePickerIcon htmlFor="endDatePicker">
-                <IoMdCalendar />
-              </S.ApplyLeaveFormDatePickerIcon>
+              <DatePicker
+                itemKey="endDatePicker"
+                width={137}
+                height={32}
+                customStyle={{
+                  fontSize: 16,
+                }}
+                onChange={(e) => handleLeaveDataDate(e, "end")}
+                value={leaveData.endTimeDate}
+                splitCharacter={"-"}
+              />
             </S.ApplyLeaveFormDatePickerWrap>
             <S.ApplyLeaveFormTimeInputWrap>
               <S.ApplyLeaveFormTimeInput

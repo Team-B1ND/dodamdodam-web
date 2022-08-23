@@ -1,12 +1,9 @@
 import * as S from "./style";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import dayjs from "dayjs";
-import { IoMdCalendar } from "react-icons/io";
-import dateTransform from "../../../../../util/date/dateTransform";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { ApplyPass } from "../../../../../types/pass/pass.type";
-import { TextArea } from "@team-b1nd/dodamdodam_web_component_library";
+import {
+  DatePicker,
+  TextArea,
+} from "@team-b1nd/dodamdodam_web_component_library";
 
 interface Props {
   isFold: boolean;
@@ -14,7 +11,7 @@ interface Props {
   passDataDate: string;
   handlePassData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePassDataReason: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handlePassDataDate: (e: MaterialUiPickersDate) => void;
+  handlePassDataDate: (e: Date) => void;
   notApprovePassesLength: number;
 }
 
@@ -37,27 +34,15 @@ const ApplyPassForm = ({
             <S.ApplyPassFormColumnTitle>신청 일자</S.ApplyPassFormColumnTitle>
             <S.ApplyPassFormInputWrap>
               <S.ApplyPassFormDatePickerWrap>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <DatePicker
-                    disableToolbar
-                    variant="inline"
-                    id="datePicker"
-                    format="yyyy/MM/dd"
-                    value={passDataDate}
-                    style={{
-                      width: 222,
-                      fontSize: 16,
-                      height: 32,
-                    }}
-                    onChange={handlePassDataDate}
-                    minDate={dayjs(dateTransform.hyphen()).format("YYYY-01-01")}
-                    maxDate={dayjs(dateTransform.hyphen()).format("YYYY-12-31")}
-                  />
-
-                  <S.ApplyPassFormDatePickerIcon htmlFor="datePicker">
-                    <IoMdCalendar />
-                  </S.ApplyPassFormDatePickerIcon>
-                </MuiPickersUtilsProvider>
+                <DatePicker
+                  itemKey="datePicker"
+                  width={222}
+                  height={32}
+                  customStyle={{ fontSize: 16 }}
+                  onChange={handlePassDataDate}
+                  value={passDataDate}
+                  splitCharacter={"-"}
+                />
               </S.ApplyPassFormDatePickerWrap>
             </S.ApplyPassFormInputWrap>
           </S.ApplyPassFormColumnWrap>

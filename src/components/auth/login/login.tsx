@@ -10,7 +10,7 @@ import {
   LoginKeepCheckBoxIcon,
   LoginSubmitButton,
 } from "./style";
-import { FiCheck } from "react-icons/fi";
+import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import {
   AuthInput,
   AuthInputTitle,

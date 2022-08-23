@@ -1,4 +1,3 @@
-import { FcHeadset } from "react-icons/fc";
 import useTodayWakeupSong from "../../../hooks/todayWakeupSong/useTodayWakeupSong";
 import dataCheck from "../../../util/data/check/dataCheck";
 import CardTitle from "../../common/cardTitle/cardTitle";
@@ -8,6 +7,7 @@ import {
   TodayWakeupSongVoidText,
 } from "./style";
 import TodayWakeupSongItem from "./todayWakeupSongItem/todayWakeupSongItem";
+import { FcHeadset } from "@react-icons/all-files/fc/FcHeadset";
 
 const TodayWakeupSong = () => {
   const { todayAllowWakeupSongs } = useTodayWakeupSong();

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import dateTransform from "../../util/date/dateTransform";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";
@@ -49,7 +48,7 @@ const useMeal = () => {
     requestMeals();
   }, [requestMeals, tempMonth]);
 
-  const handleMealDate = (e: MaterialUiPickersDate) => {
+  const handleMealDate = (e: Date) => {
     setDate(dayjs(e).format("YYYY-MM-DD"));
   };
 
