@@ -1,6 +1,6 @@
-import usePoint from "hooks/point/usePoint";
 import { useState } from "react";
-import { FcRules } from "react-icons/fc";
+import { FcRules } from "@react-icons/all-files/fc/FcRules";
+import usePoint from "../../../hooks/point/usePoint";
 import CardTitle from "../../common/cardTitle/cardTitle";
 import {
   PointCategoryItemCircle,
@@ -19,7 +19,6 @@ import {
 const Point = () => {
   const { schoolPoint, dormitoryPoint } = usePoint();
   const [isMeritView, setIsMeritView] = useState(true); // true은 기숙사, false은 학교
-  console.log(schoolPoint, dormitoryPoint);
 
   return (
     <PointContainer>

@@ -3,9 +3,9 @@ import { AppliedLeave } from "../../../../types/leave/leave.type";
 import { AppliedPass } from "../../../../types/pass/pass.type";
 import dataCheck from "../../../../util/data/check/dataCheck";
 import ApplyNotApproveListItem from "./applyNotApproveListItem/applyNotApproveListItem";
-import { IoOptionsOutline } from "react-icons/io5";
+import { IoOptionsOutline } from "@react-icons/all-files/io5/IoOptionsOutline";
 import * as S from "./style";
-import { AiOutlineFolderOpen } from "react-icons/ai";
+import { AiOutlineFolderOpen } from "@react-icons/all-files/ai/AiOutlineFolderOpen";
 import React from "react";
 
 interface Props {

@@ -1,9 +1,9 @@
-import {
-  useGetMyMerit,
-  useGetMyDemerit,
-  useGetMyOffsetPoint,
-} from "querys/point/point.query";
 import { useEffect, useState } from "react";
+import {
+  useGetMyDemerit,
+  useGetMyMerit,
+  useGetMyOffsetPoint,
+} from "../../querys/point/point.query";
 
 const usePoint = () => {
   const meritsData = useGetMyMerit({

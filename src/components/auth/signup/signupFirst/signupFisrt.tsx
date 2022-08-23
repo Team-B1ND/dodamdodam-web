@@ -8,7 +8,7 @@ import {
   SignupPartButtonWrap,
 } from "../style";
 import { SignupSchoolInput, SignupSchoolInputWrap } from "./style";
-import { FiChevronRight } from "react-icons/fi";
+import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";
 
 interface Props {
   signupData: Signup;

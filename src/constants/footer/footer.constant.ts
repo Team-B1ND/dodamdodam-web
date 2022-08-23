@@ -1,4 +1,5 @@
-import { RiGooglePlayFill, RiAppleFill } from "react-icons/ri";
+import { RiGooglePlayFill } from "@react-icons/all-files/ri/RiGooglePlayFill";
+import { RiAppleFill } from "@react-icons/all-files/ri/RiAppleFill";
 
 export const FOOTER_ITEMS = [
   {

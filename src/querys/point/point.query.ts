@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import pointRepository from "repository/point/point.repository";
-import { PointResponse } from "types/point/point.type";
+import pointRepository from "../../repository/point/point.repository";
+import { PointResponse } from "../../types/point/point.type";
 
 export const useGetMyMerit = (
   options?: UseQueryOptions<

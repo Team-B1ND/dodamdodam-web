@@ -1,4 +1,3 @@
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
@@ -131,22 +130,19 @@ const useApplyLeave = () => {
   );
 
   //datePicker 핸들링 함수
-  const handleLeaveDataDate = useCallback(
-    (e: MaterialUiPickersDate, scope: "start" | "end") => {
-      if (scope === "start") {
-        setLeaveData((prev) => ({
-          ...prev,
-          startTimeDate: dayjs(e).format("YYYY-MM-DD"),
-        }));
-      } else {
-        setLeaveData((prev) => ({
-          ...prev,
-          endTimeDate: dayjs(e).format("YYYY-MM-DD"),
-        }));
-      }
-    },
-    []
-  );
+  const handleLeaveDataDate = useCallback((e: Date, scope: "start" | "end") => {
+    if (scope === "start") {
+      setLeaveData((prev) => ({
+        ...prev,
+        startTimeDate: dayjs(e).format("YYYY-MM-DD"),
+      }));
+    } else {
+      setLeaveData((prev) => ({
+        ...prev,
+        endTimeDate: dayjs(e).format("YYYY-MM-DD"),
+      }));
+    }
+  }, []);
 
   //외박 데이터 핸들링 함수
   const handleLeaveData = useCallback(
@@ -285,10 +281,6 @@ const useApplyLeave = () => {
     putApplyLeaveMutation,
     queryClient,
   ]);
-
-  useEffect(() => {
-    console.log(leaveData);
-  }, [leaveData]);
 
   return {
     fold,

@@ -1,15 +1,14 @@
-import DateFnsUtils from "@date-io/date-fns";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import dayjs from "dayjs";
-import { IoMdCalendar } from "react-icons/io";
 import dataTransform from "../../../../util/data/transform/dataTransform";
 import * as S from "./style";
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
+import { MdKeyboardArrowLeft } from "@react-icons/all-files/md/MdKeyboardArrowLeft";
+
+import { DatePicker } from "@team-b1nd/dodamdodam_web_component_library";
 
 interface Props {
   date: string;
-  handleMealDate: (e: MaterialUiPickersDate) => void;
+  handleMealDate: (e: Date) => void;
   prevMealDate: () => void;
   nextMealDate: () => void;
 }
@@ -20,6 +19,8 @@ const MealDatePicker = ({
   prevMealDate,
   nextMealDate,
 }: Props) => {
+  console.log(date);
+
   return (
     <S.MealDatePickerContainer>
       <S.MealDatePickerWrap>
@@ -30,38 +31,24 @@ const MealDatePicker = ({
           <MdKeyboardArrowLeft />
         </S.MealDatePickerArrowIcon>
 
-        <S.MealDatePickerInputWrap>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy.MM.dd"
-              inputVariant="outlined"
-              id="mealDatePicker"
-              value={date}
-              onChange={handleMealDate}
-              style={{
-                border: "none",
-                fontSize: "14px",
-                fontWeight: "bold",
-              }}
-              minDate={dayjs(date).format("YYYY-01-01")}
-              maxDate={dayjs(date).format("YYYY-12-31")}
-            />
-          </MuiPickersUtilsProvider>
-        </S.MealDatePickerInputWrap>
-
-        <S.MealDatePickerDayText>
-          (
-          {dataTransform.dayNameTransform(
-            dayjs(date).locale("ko").format("dddd")
-          )}
-          )
-        </S.MealDatePickerDayText>
-
-        <S.MealDatePickerIcon htmlFor="mealDatePicker">
-          <IoMdCalendar />
-        </S.MealDatePickerIcon>
+        <DatePicker
+          itemKey="mealDatePicker"
+          width={140}
+          height={25}
+          customStyle={{ fontSize: 14, border: 0, fontWeight: "bold" }}
+          onChange={handleMealDate}
+          value={date}
+          splitCharacter={"-"}
+          children={
+            <S.MealDatePickerDayText>
+              (
+              {dataTransform.dayNameTransform(
+                dayjs(date).locale("ko").format("dddd")
+              )}
+              )
+            </S.MealDatePickerDayText>
+          }
+        />
 
         <S.MealDatePickerArrowIcon onClick={nextMealDate}>
           <MdKeyboardArrowRight />
