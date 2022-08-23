@@ -9,20 +9,20 @@ const useNotice = () => {
 
   const handleIdxFunc = useRef<typeof handleNoticeIndex>();
 
-  const [noticeIndex, setNoticeIndex] = useState(0);
+  const [noticeIndex, setNoticeIndex] = useState(data?.data.length ? 0 : -1);
 
   const handleNoticeIndex = useCallback(
     (method: "left" | "right") => {
-      const { notice } = data?.data!;
+      const notice = data?.data!;
 
       if (method === "left") {
         if (noticeIndex <= 0) {
-          setNoticeIndex(notice.length - 1);
+          setNoticeIndex(notice?.length - 1);
           return;
         }
         setNoticeIndex((prev) => prev - 1);
       } else if (method === "right") {
-        if (noticeIndex >= notice.length - 1) {
+        if (noticeIndex >= notice?.length - 1) {
           setNoticeIndex(0);
           return;
         }
@@ -47,7 +47,7 @@ const useNotice = () => {
   }, [handleNoticeIndex, data]);
 
   return {
-    data: data?.data.notice,
+    data: data?.data,
     isLoading,
     noticeIndex,
     handleNoticeIndex,

@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@react-icons/all-files": "^4.1.0",
-    "@team-b1nd/dodamdodam_web_component_library": "^1.1.9",
+    "@team-b1nd/dodamdodam_web_component_library": "^1.2.2",
     "axios": "^0.27.2",
     "buffer": "^6.0.3",
     "date-fns": "^2.29.2",

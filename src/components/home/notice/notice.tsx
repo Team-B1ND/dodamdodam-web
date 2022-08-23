@@ -20,7 +20,7 @@ const Notice = () => {
           <S.NoticeChangeButton onClick={() => handleNoticeIndex("right")}>
             <FiChevronRight />
           </S.NoticeChangeButton>
-          <S.NoticeTitle>{data![noticeIndex].title}</S.NoticeTitle>
+          <S.NoticeTitle>{data![noticeIndex]?.title}</S.NoticeTitle>
         </>
       )}
     </S.NoticeContainer>

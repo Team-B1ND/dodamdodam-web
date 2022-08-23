@@ -1,14 +1,13 @@
+import { useGetMyMember } from "../../querys/member/member.query";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import { useGetMyWakeupSongs } from "../../querys/wakeupSong/wakeupSong.query";
-import { profileAtom } from "../../store/profile/profileStore";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
 
 const useMyInfoWakeupSong = () => {
-  const profileData = useRecoilValue(profileAtom);
+  const myMemberData = useGetMyMember().data?.data;
 
   const { data: myAppliedWakeupSongsData, isLoading } = useGetMyWakeupSongs(
-    { userId: profileData.id },
+    { userId: String(myMemberData?.id) },
     { staleTime: 10000, cacheTime: 1000 * 60 * 10 }
   );
 

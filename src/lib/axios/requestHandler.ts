@@ -44,7 +44,7 @@ export const requestHandler = async (
         try {
           const { data: newAccessToken } =
             await tokenRepository.getRefreshToken({
-              refreshToken: usingRefreshToken,
+              token: usingRefreshToken,
             });
 
           config.headers![REQUEST_TOKEN_KEY] = newAccessToken;
@@ -76,13 +76,13 @@ export const requestHandler = async (
       //어떤 요청이 리프레쉬 작업중이라면 여기로 와서 refreshSubscribers에 요청을 넣어줌
       return new Promise((resolve) => {
         addRefreshSubscriber((accessToken: string) => {
-          config.headers![REFRESH_TOKEN_KEY] = accessToken;
+          config.headers![REFRESH_TOKEN_KEY] = `Bearer ${accessToken}`;
           resolve(config);
         });
       });
     }
   }
 
-  config.headers![REQUEST_TOKEN_KEY] = accessToken!;
+  config.headers![REQUEST_TOKEN_KEY] = `Bearer ${accessToken}`!;
   return config;
 };

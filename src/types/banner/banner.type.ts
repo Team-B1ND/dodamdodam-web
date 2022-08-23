@@ -2,17 +2,15 @@ import { Response } from "../util/response.type";
 
 export interface Banner {
   bannerOrder: number | null;
-  createdAt: string;
-  expireTime: string;
-  idx: number;
+  readonly createdAt: string;
+  expiryDateTime: string;
+  readonly idx: number;
   image: string;
-  isValid: number;
+  redirectUrl: string;
+  status: "ACTIVE" | "DEACTIVETED";
   title: string;
-  url: string;
 }
 
 export interface BannersResponse extends Response {
-  data: {
-    banners: Banner[];
-  };
+  data: Banner[];
 }

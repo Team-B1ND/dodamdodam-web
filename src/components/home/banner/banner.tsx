@@ -39,7 +39,7 @@ const Banner = () => {
           <BannerItem
             title={banner.title}
             imgSrc={banner.image}
-            redirectURL={banner.url}
+            redirectURL={banner.redirectUrl}
             key={banner.idx}
           />
         ))}

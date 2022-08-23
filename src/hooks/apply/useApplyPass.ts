@@ -188,7 +188,7 @@ const useApplyPass = () => {
       dateTransform.fullDate()
     );
 
-    if (notApprovedPasses.length > 4) {
+    if (notApprovedPasses?.length > 4) {
       window.alert("외출신청은 최대 4개까지 가능해요!");
       return;
     }
@@ -211,7 +211,7 @@ const useApplyPass = () => {
       return;
     }
 
-    if (reason.length > 50) {
+    if (reason?.length > 50) {
       window.alert("사유의 길이를 50자 이내로 적어주세요!");
       return;
     }

@@ -7,7 +7,7 @@ import {
   usePostMyBus,
   usePutMyBus,
 } from "../../querys/bus/bus.query";
-import { AppliedBus, Bus } from "../../types/bus/bus.type";
+import { Bus } from "../../types/bus/bus.type";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();
@@ -26,40 +26,45 @@ const useApplyBus = () => {
   const [busList, setBusList] = useState<Bus[]>([]);
   const [busDate, setBusDate] = useState<string>("");
   //사용자가 버스를 눌렀을때 누른 버스 정보를 담는 상태
-  const [busData, setBusData] = useState<AppliedBus>({
+  const [busData, setBusData] = useState<Bus>({
     busName: "",
     description: "",
-    idx: 0,
+    id: 0,
     leaveTime: "",
     peopleLimit: 0,
-    timeRequired: "",
+    timeRequired: {
+      hour: 0,
+      minute: 0,
+      nano: 0,
+      second: 0,
+    },
   });
   //원래 신청했던걸 담는 상태
   const [wasCheckedIdx, setWasCheckedIdx] = useState<number>(0);
 
   useEffect(() => {
     if (!busesDataIsLoading) {
-      if (busesData?.data.busList.length !== 0) {
-        const validBusesData = busesData?.data.busList[0];
-        setBusDate(validBusesData?.date!);
-        setBusList(validBusesData?.bus!);
+      if (busesData?.data?.length !== 0) {
+        const validBusesData = busesData?.data[0];
+        setBusDate("");
+        setBusList([]);
       }
     }
   }, [busesData, busesDataIsLoading]);
 
   useEffect(() => {
     if (!myBusDataIsLoading) {
-      if (myBusData?.data.busList.length !== 0) {
-        const validMyBusData = myBusData?.data.busList[0];
-        setBusData(validMyBusData!);
-        setWasCheckedIdx(validMyBusData!.idx);
+      if (myBusData?.data?.length !== 0) {
+        const validMyBusData = myBusData?.data[0];
+        // setBusData(validMyBusData!);
+        // setWasCheckedIdx(validMyBusData!.id);
       }
     }
   }, [myBusData, myBusDataIsLoading]);
 
   const handleBusData = useCallback(
     (idx: number) => {
-      const validBusData = busList.find((bus) => bus.idx === idx);
+      const validBusData = busList.find((bus) => bus.id === idx);
       setBusData(validBusData!);
     },
     [busList]
@@ -68,7 +73,7 @@ const useApplyBus = () => {
   const deleteMyBus = async () => {
     try {
       deleteMyBusMutation.mutateAsync(
-        { idx: String(busData.idx) },
+        { idx: String(busData?.id) },
         {
           onSuccess: () => queryClient.invalidateQueries("bus/getMyBus"),
         }
@@ -76,10 +81,15 @@ const useApplyBus = () => {
       setBusData({
         busName: "",
         description: "",
-        idx: 0,
+        id: 0,
         leaveTime: "",
         peopleLimit: 0,
-        timeRequired: "",
+        timeRequired: {
+          hour: 0,
+          minute: 0,
+          nano: 0,
+          second: 0,
+        },
       });
       window.alert("버스 신청 취소");
     } catch (error) {
@@ -89,11 +99,11 @@ const useApplyBus = () => {
 
   const submitMyBus = async () => {
     //원래 신청했었다가 다른 걸 골라서 수정하는 경우
-    if (wasCheckedIdx !== 0 && wasCheckedIdx !== busData.idx) {
+    if (wasCheckedIdx !== 0 && wasCheckedIdx !== busData?.id) {
       try {
         putMyBusMutation.mutateAsync(
           {
-            idx: String(busData.idx),
+            idx: String(busData?.id),
             originIdx: String(wasCheckedIdx),
           },
           {
@@ -107,7 +117,7 @@ const useApplyBus = () => {
     } else {
       try {
         postMyBusMutation.mutateAsync(
-          { idx: String(busData.idx) },
+          { idx: String(busData?.id) },
           { onSuccess: () => queryClient.invalidateQueries("bus/getMyBus") }
         );
         window.alert("버스 신청 성공");

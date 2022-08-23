@@ -27,7 +27,7 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
       </S.MealItemIconWrap>
       <S.MealItemTextWrap>
         {validMealData?.map((meal, idx) => {
-          if (idx === validMealData.length - 1) {
+          if (idx === validMealData?.length - 1) {
             return <span>{meal}</span>;
           }
           return <span>{meal}, </span>;

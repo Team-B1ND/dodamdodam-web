@@ -72,7 +72,7 @@ const useApplyStudyRoom = () => {
       const isWeekDay = dateCheck.weekDayCheck(dateTransform.hyphen());
 
       // 내가 신청한 자습실 만큼(4번) 돌리는데
-      for (let i = 1; i <= myAppliedStudyRoomsData.length; i++) {
+      for (let i = 1; i <= myAppliedStudyRoomsData?.length; i++) {
         //내가 자습실을 신청하지 않았다면 기본값이 null이기 때문에 그냥 넘긴다.
         if (myAppliedStudyRoomsData[i - 1] === null) {
           //평일일땐 idx가 1,2,3,4 이고 주말일땐 5,6,7,8
@@ -109,7 +109,7 @@ const useApplyStudyRoom = () => {
 
   //4개의 자습실을 다 신청했으면 수정 버튼을 띄우고, 하나라도 하지 않았으면 기본 위치 신청 버튼을 뛰우는 부분
   useEffect(() => {
-    if (tempMyApplyStudyRooms.length !== 0) {
+    if (tempMyApplyStudyRooms?.length !== 0) {
       const [
         applyStudyRoom1,
         applyStudyRoom2,
@@ -184,7 +184,7 @@ const useApplyStudyRoom = () => {
       ? APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY
       : APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND;
 
-    for (let i = 0; i < myApplyStudyRooms.length; i++) {
+    for (let i = 0; i < myApplyStudyRooms?.length; i++) {
       //해당 교시가 시간이 지났는지 안 지났는지 확인하는 변수
       const placeIdxisAfter = dayjs(dateTransform.fullDate()).isAfter(
         dayjs(`${dateTransform.hyphen()} ${comparisonDates[i].timeOut}`).format(
@@ -237,7 +237,7 @@ const useApplyStudyRoom = () => {
     let validApplyStudyRoomList = [];
 
     // 바꾼 자습실만 validApplyStudyRoomList에 넣어주는 함수
-    for (let i = 0; i < myApplyStudyRooms.length; i++) {
+    for (let i = 0; i < myApplyStudyRooms?.length; i++) {
       if (myApplyStudyRooms[i] !== tempMyApplyStudyRooms[i]) {
         const validMyAllyStudyRoom = {
           timeTableIdx: myApplyStudyRooms[i].idx,

@@ -1,11 +1,11 @@
-import { dodamV2Axios } from "../../lib/axios/customAxios";
-import { MyProfileResponse } from "../../types/profile/profile.type";
+import { MyMemberResponse } from "types/member/member.type";
+import { dodamV3Axios } from "../../lib/axios/customAxios";
 
-class ProfileRepository {
-  public async getMyProfile(): Promise<MyProfileResponse> {
-    const { data } = await dodamV2Axios.get<MyProfileResponse>("/members/my");
+class MemberRepository {
+  public async getMyMember(): Promise<MyMemberResponse> {
+    const { data } = await dodamV3Axios.get<MyMemberResponse>("/members/my");
     return data;
   }
 }
 
-export default new ProfileRepository();
+export default new MemberRepository();
