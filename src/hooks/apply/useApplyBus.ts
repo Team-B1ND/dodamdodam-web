@@ -32,22 +32,17 @@ const useApplyBus = () => {
     id: 0,
     leaveTime: "",
     peopleLimit: 0,
-    timeRequired: {
-      hour: 0,
-      minute: 0,
-      nano: 0,
-      second: 0,
-    },
+    timeRequired: "",
   });
   //원래 신청했던걸 담는 상태
   const [wasCheckedIdx, setWasCheckedIdx] = useState<number>(0);
 
   useEffect(() => {
     if (!busesDataIsLoading) {
-      if (busesData?.data?.length !== 0) {
-        const validBusesData = busesData?.data[0];
-        setBusDate("");
-        setBusList([]);
+      if (busesData?.data) {
+        const validBusesData = busesData?.data;
+        setBusDate(validBusesData.date);
+        setBusList(validBusesData.bus);
       }
     }
   }, [busesData, busesDataIsLoading]);
@@ -56,8 +51,8 @@ const useApplyBus = () => {
     if (!myBusDataIsLoading) {
       if (myBusData?.data?.length !== 0) {
         const validMyBusData = myBusData?.data[0];
-        // setBusData(validMyBusData!);
-        // setWasCheckedIdx(validMyBusData!.id);
+        setBusData(validMyBusData!);
+        setWasCheckedIdx(validMyBusData!.id);
       }
     }
   }, [myBusData, myBusDataIsLoading]);
@@ -84,12 +79,7 @@ const useApplyBus = () => {
         id: 0,
         leaveTime: "",
         peopleLimit: 0,
-        timeRequired: {
-          hour: 0,
-          minute: 0,
-          nano: 0,
-          second: 0,
-        },
+        timeRequired: "",
       });
       window.alert("버스 신청 취소");
     } catch (error) {
@@ -100,30 +90,34 @@ const useApplyBus = () => {
   const submitMyBus = async () => {
     //원래 신청했었다가 다른 걸 골라서 수정하는 경우
     if (wasCheckedIdx !== 0 && wasCheckedIdx !== busData?.id) {
-      try {
-        putMyBusMutation.mutateAsync(
-          {
-            idx: String(busData?.id),
-            originIdx: String(wasCheckedIdx),
+      putMyBusMutation.mutateAsync(
+        {
+          idx: String(busData?.id),
+          originIdx: String(wasCheckedIdx),
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("bus/getMyBus");
+            window.alert("버스 신청 수정");
           },
-          {
-            onSuccess: () => queryClient.invalidateQueries("bus/getMyBus"),
-          }
-        );
-        window.alert("버스 신청 수정");
-      } catch (error) {
-        window.alert("버스 신청 수정 실패");
-      }
+          onError: () => {
+            window.alert("버스 신청 수정 실패");
+          },
+        }
+      );
     } else {
-      try {
-        postMyBusMutation.mutateAsync(
-          { idx: String(busData?.id) },
-          { onSuccess: () => queryClient.invalidateQueries("bus/getMyBus") }
-        );
-        window.alert("버스 신청 성공");
-      } catch (error) {
-        window.alert("버스 신청 실패");
-      }
+      postMyBusMutation.mutateAsync(
+        { idx: String(busData?.id) },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("bus/getMyBus");
+            window.alert("버스 신청 성공");
+          },
+          onError: () => {
+            window.alert("버스 신청 실패");
+          },
+        }
+      );
     }
   };
 

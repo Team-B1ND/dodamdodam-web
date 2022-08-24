@@ -14,7 +14,7 @@ class BusRepository {
   }
 
   public async postMyBus({ idx }: postMyBusParam): Promise<void> {
-    await dodamV3Axios.post("/bus/apply", { busId: idx });
+    await dodamV3Axios.post(`/bus/apply/${idx}`);
   }
 
   public async deleteMyBus({ idx }: deleteMyBusParam): Promise<void> {
@@ -22,9 +22,7 @@ class BusRepository {
   }
 
   public async putMyBus({ idx }: putMyBusParam): Promise<void> {
-    await dodamV3Axios.patch("/bus/apply", {
-      busId: idx,
-    });
+    await dodamV3Axios.patch(`/bus/apply/${idx}`);
   }
 }
 

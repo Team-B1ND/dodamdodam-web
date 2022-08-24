@@ -3,19 +3,19 @@ import { Response } from "../util/response.type";
 export interface Bus {
   busName: string;
   description: string;
-  id: number;
+  readonly id: number;
   leaveTime: string;
   peopleLimit: number;
-  timeRequired: {
-    hour: number;
-    minute: number;
-    nano: number;
-    second: number;
-  };
+  timeRequired: string;
+}
+
+export interface BusList {
+  date: string;
+  bus: Bus[];
 }
 
 export interface BusesResponse extends Response {
-  data: Bus[];
+  data: BusList;
 }
 
 export interface MyBusResponse extends Response {

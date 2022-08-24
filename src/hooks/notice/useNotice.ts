@@ -15,6 +15,10 @@ const useNotice = () => {
     (method: "left" | "right") => {
       const notice = data?.data!;
 
+      if (notice.length === 0) {
+        return;
+      }
+
       if (method === "left") {
         if (noticeIndex <= 0) {
           setNoticeIndex(notice?.length - 1);

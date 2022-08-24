@@ -39,15 +39,15 @@ export const PointGraphPointText = styled.span`
   justify-content: start;
 `;
 
-export const PointGraph = styled.div<{ point: number; isMerit: boolean }>`
+export const PointGraph = styled.div<{ point: number; isBonusPoint: boolean }>`
   display: flex;
   height: 13.81px;
   max-width: 100%;
   width: ${({ point }) => (point === 0 ? 1 : point * 4)}%;
   background-color: #0067bc;
 
-  ${({ isMerit }) =>
-    isMerit
+  ${({ isBonusPoint }) =>
+    isBonusPoint
       ? css`
           background-color: #0067bc;
         `
