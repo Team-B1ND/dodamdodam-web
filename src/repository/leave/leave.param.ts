@@ -1,22 +1,10 @@
-export interface getMyLeavesParam {
-  date: string;
-}
+import { Leave } from "types/leave/leave.type";
 
-export interface postApplyLeaveParam {
-  leaveData: {
-    endTime: string;
-    reason: string;
-    startTime: string;
-  };
-}
+export interface postApplyLeaveParam extends Leave {}
 
 export interface deleteMyLeaveParam {
-  idx: String;
+  outsleepingId: String;
 }
-
-export interface putMyLeaveParam {
-  leaveIdx: string;
-  startTime: string;
-  endTime: string;
-  reason: string;
+export interface putMyLeaveParam extends Leave {
+  outId: number;
 }

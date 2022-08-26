@@ -49,6 +49,7 @@
     "esbuild-loader": "^2.19.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "html-webpack-plugin": "^5.5.0",
+    "mini-svg-data-uri": "^1.4.4",
     "react-error-overlay": "^6.0.9",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",

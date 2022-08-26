@@ -16,17 +16,15 @@ const ApplyNotApproveListItem = ({
   loadNotApprovedItem,
   deleteNotApprovedItem,
 }: Props) => {
-  const { startTime, idx } = notApproveItemData;
+  const { startOutDate, id } = notApproveItemData;
 
   return (
-    <S.ApplyNotApproveListItemContainer
-      onClick={() => loadNotApprovedItem(idx)}
-    >
+    <S.ApplyNotApproveListItemContainer onClick={() => loadNotApprovedItem(id)}>
       <S.ApplyNotApproveListItemText>
-        {dateTransform.fullDate(startTime)}
+        {dateTransform.fullDate(startOutDate)}
       </S.ApplyNotApproveListItemText>
       <S.ApplyNotApproveListItemDeleteButton
-        onClick={() => deleteNotApprovedItem(idx)}
+        onClick={() => deleteNotApprovedItem(id)}
       >
         <S.ApplyNotApproveListItemDeleteIcon>
           <CgTrash />

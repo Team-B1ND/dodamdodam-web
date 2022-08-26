@@ -1,18 +1,11 @@
-export interface getMyPassesParam {
-  date: string;
-}
+import { Pass } from "types/pass/pass.type";
 
 export interface deleteMyPassParam {
-  idx: string;
+  outgoingId: string;
 }
 
-export interface postApplyPassParam {
-  passData: { endTime: string; reason: string; startTime: string };
-}
+export interface postApplyPassParam extends Pass {}
 
-export interface putMyPassParam {
-  passIdx: string;
-  startTime: string;
-  endTime: string;
-  reason: string;
+export interface putMyPassParam extends Pass {
+  outId: number;
 }

@@ -14,11 +14,7 @@ import { useQueryClient } from "react-query";
 const useApplyPass = () => {
   const queryClient = useQueryClient();
 
-  const appliedPasses = useGetMyPasses(
-    { date: dateTransform.hyphen() },
-    { staleTime: 1000 * 30 }
-  ).data?.data.pass;
-
+  const appliedPasses = useGetMyPasses({ staleTime: 1000 * 30 }).data?.data;
   const [passData, setPassData] = useState<ApplyPass>({
     startTimeHour: "",
     startTimeMinute: "",
@@ -44,26 +40,34 @@ const useApplyPass = () => {
   useEffect(() => {
     if (appliedPasses) {
       const validNotApprovedPasses = appliedPasses?.filter(
-        (pass) => pass.isAllow === 0
+        (pass) => pass.status === "NOT_ALLOWED"
       );
       setNotApprovedPasses(validNotApprovedPasses);
     }
   }, [appliedPasses]);
 
+  useEffect(() => {
+    console.log(notApprovedPasses);
+  }, [notApprovedPasses]);
+
   const transformNotApprovedPass = (
     notApprovedPass: AppliedPass
   ): ApplyPass => {
-    const { endTime, startTime } = notApprovedPass;
+    const { endOutDate, startOutDate, id } = notApprovedPass;
 
     //시간은 05:30 이 형식일텐데 여기서 ':'기준으로 구분하여 시간과 분을 추출
     const validStartTime = dateTransform
-      .fullDate(startTime)
+      .fullDate(startOutDate)
       .slice(10)
       .split(":");
 
-    const validEndTime = dateTransform.fullDate(endTime).slice(10).split(":");
+    const validEndTime = dateTransform
+      .fullDate(endOutDate)
+      .slice(10)
+      .split(":");
 
     return {
+      idx: id,
       startTimeHour: validStartTime[0],
       startTimeMinute: validStartTime[1],
       endTimeHour: validEndTime[0],
@@ -86,9 +90,9 @@ const useApplyPass = () => {
       setPassDataDate(dateTransform.hyphen());
     } else {
       if (notApprovedPasses?.length !== 0) {
-        const { startTime } = notApprovedPasses![0];
+        const { startOutDate } = notApprovedPasses![0];
 
-        const passDate = dateTransform.fullDate(startTime).slice(0, 10);
+        const passDate = dateTransform.fullDate(startOutDate).slice(0, 10);
 
         setPassData({
           ...transformNotApprovedPass(notApprovedPasses![0]),
@@ -104,11 +108,11 @@ const useApplyPass = () => {
   const loadNotApprovedPass = useCallback(
     (idx: number) => {
       const notApprovePass: AppliedPass = appliedPasses?.filter(
-        (pass) => pass.idx === idx
+        (pass) => pass.id === idx
       )[0]!;
 
-      const { startTime } = notApprovePass;
-      const passDate = dateTransform.fullDate(startTime).slice(0, 10);
+      const { startOutDate } = notApprovePass;
+      const passDate = dateTransform.fullDate(startOutDate).slice(0, 10);
       setPassData({
         ...transformNotApprovedPass(notApprovePass),
         ...notApprovePass,
@@ -123,7 +127,7 @@ const useApplyPass = () => {
     async (idx: number) => {
       try {
         deleteMyPassMutation.mutateAsync(
-          { idx: idx + "" },
+          { outgoingId: idx + "" },
           {
             onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
           }
@@ -173,18 +177,18 @@ const useApplyPass = () => {
 
     const validApplyPass = {
       reason,
-      startTime: dayjs(
+      startOutDate: dayjs(
         `${passDataDate} ${startTimeHour}:${startTimeMinute}`
-      ).format("YYYY-MM-DD HH:mm:ss"),
-      endTime: dayjs(`${passDataDate} ${endTimeHour}:${endTimeMinute}`).format(
-        "YYYY-MM-DD HH:mm:ss"
-      ),
+      ).format(),
+      endOutDate: dayjs(
+        `${passDataDate} ${endTimeHour}:${endTimeMinute}`
+      ).format(),
     };
 
-    const startTimeIsAfter = dayjs(validApplyPass.startTime).isAfter(
+    const startTimeIsAfter = dayjs(validApplyPass.startOutDate).isAfter(
       dateTransform.fullDate()
     );
-    const endTimeIsAfter = dayjs(validApplyPass.endTime).isAfter(
+    const endTimeIsAfter = dayjs(validApplyPass.endOutDate).isAfter(
       dateTransform.fullDate()
     );
 
@@ -206,7 +210,9 @@ const useApplyPass = () => {
       return;
     }
 
-    if (!dayjs(validApplyPass.endTime).isAfter(validApplyPass.startTime)) {
+    if (
+      !dayjs(validApplyPass.endOutDate).isAfter(validApplyPass.startOutDate)
+    ) {
       window.alert("복귀시간이 출발시간보다 빨라요!");
       return;
     }
@@ -218,42 +224,38 @@ const useApplyPass = () => {
 
     //외출 수정인지 외출 신청인지 구분하는 함수
     if (fold) {
-      try {
-        postApplyPassMutation.mutateAsync(
-          {
-            passData: validApplyPass,
-          },
-          {
-            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
+      postApplyPassMutation.mutateAsync(validApplyPass, {
+        onSuccess: () => {
+          queryClient.invalidateQueries("pass/getMyPasses");
+          window.alert("외출 신청이 되었습니다");
+          for (let key in passData) {
+            setPassData((prev) => ({ ...prev, [key]: "" }));
           }
-        );
-        window.alert("외출 신청이 되었습니다");
-        for (let key in passData) {
-          setPassData((prev) => ({ ...prev, [key]: "" }));
-        }
-      } catch (error) {
-        window.alert("외출 신청 실패");
-      }
+        },
+        onError: () => {
+          window.alert("외출 신청을 실패하였습니다.");
+        },
+      });
     } else {
       const passIdx = notApprovedPasses.find(
-        (notApprovePass) => notApprovePass.idx === passData.idx
-      )?.idx;
+        (notApprovePass) => notApprovePass.id === passData.idx
+      )?.id;
 
       try {
         putApplyPassMutation.mutateAsync(
           {
             ...validApplyPass,
-            passIdx: String(passIdx),
+            outId: passIdx!,
           },
           {
-            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
+            onSuccess: () => {
+              queryClient.invalidateQueries("pass/getMyPasses");
+              window.alert("외출 수정이 되었습니다.");
+            },
+            onError: () => window.alert("외출 수정 실패"),
           }
         );
-
-        window.alert("외출 수정이 되었습니다.");
-      } catch (error) {
-        window.alert("외출 수정 실패");
-      }
+      } catch (error) {}
     }
   }, [
     fold,

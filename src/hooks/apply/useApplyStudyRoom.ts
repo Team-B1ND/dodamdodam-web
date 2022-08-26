@@ -18,9 +18,14 @@ import {
 import dayjs from "dayjs";
 import dataTransform from "../../util/data/transform/dataTransform";
 import { useQueryClient } from "react-query";
+import { useGetTimeTable } from "../../querys/timeTable/timeTable.query";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
+
+  const timeTables = useGetTimeTable().data?.data;
+
+  console.log(timeTables);
 
   const myAppliedStudyRoomsData = useGetMyStudyRooms(
     {

@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const svgToMiniDataURI = require("mini-svg-data-uri");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -23,8 +24,18 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|svg|jpg|gif|mp4)$/,
+        test: /\.(png|jpg|gif|mp4)$/,
         type: "asset",
+      },
+      {
+        test: /\.svg/,
+        type: "asset",
+        generator: {
+          dataUrl: (content) => {
+            content = content.toString();
+            return svgToMiniDataURI(content);
+          },
+        },
       },
       {
         test: /\.css$/,

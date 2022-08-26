@@ -1,14 +1,20 @@
-export interface AppliedPass {
-  arrivedTime: null | string;
-  checkTeacherTime: null | string;
-  createAt: string;
-  endTime: string;
-  idx: number;
-  isAllow: number;
+export interface Pass {
+  endOutDate: string;
   reason: string;
-  startTime: string;
-  studentIdx: number;
-  teacherIdx: null | number;
+  startOutDate: string;
+}
+
+export interface AppliedPass extends Pass {
+  arrivedDate: null | string;
+  checkedDate: null | string;
+  id: number;
+  status: "ALLOWED" | "NOT_ALLOWED";
+  studenr: {
+    id: number;
+  };
+  teacher: {
+    id: number;
+  };
 }
 
 export interface ApplyPass {
@@ -21,7 +27,5 @@ export interface ApplyPass {
 }
 
 export interface MyPassesResponse extends Response {
-  data: {
-    pass: AppliedPass[];
-  };
+  data: AppliedPass[];
 }
