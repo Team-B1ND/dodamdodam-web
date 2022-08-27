@@ -1,6 +1,6 @@
 import useMyInfoProfile from "../../../../hooks/myInfo/useMyInfoProfile";
 import React from "react";
-import dataTransform from "../../../../util/data/transform/dataTransform";
+import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
 
 interface Props {

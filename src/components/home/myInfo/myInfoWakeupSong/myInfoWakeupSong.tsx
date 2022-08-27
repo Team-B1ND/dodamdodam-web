@@ -1,5 +1,5 @@
 import useMyInfoWakeupSong from "../../../../hooks/myInfo/useMyInfoWakeupSong";
-import dataCheck from "../../../../util/data/check/dataCheck";
+import dataCheck from "../../../../util/check/dataCheck";
 import MyInfoItemVoid from "../myInfoItemVoid/myInfoItemVoid";
 import MyInfoWakeupSongItem from "./myInfoWakeupSongItem/myInfoWakeupSongItem";
 import { MyInfoWakeupSongContainer } from "./style";

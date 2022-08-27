@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetTodayWakeupSong } from "../../querys/wakeupSong/wakeupSong.query";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
-import dateTransform from "../../util/date/dateTransform";
+import dateTransform from "../../util/transform/dateTransform";
 
 const useTodayWakeupSong = () => {
   const todayDate = dateTransform.hyphen().split("-");

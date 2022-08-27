@@ -1,7 +1,7 @@
 import { AppliedPass } from "../../../../../types/pass/pass.type";
 import { AppliedLeave } from "../../../../../types/leave/leave.type";
 import * as S from "./style";
-import dateTransform from "../../../../../util/date/dateTransform";
+import dateTransform from "../../../../../util/transform/dateTransform";
 import { CgTrash } from "@react-icons/all-files/cg/CgTrash";
 import React from "react";
 

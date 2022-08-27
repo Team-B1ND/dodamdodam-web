@@ -1,5 +1,5 @@
 import useMyInfoLostStuff from "../../../../hooks/myInfo/useMyInfoLostStuff";
-import dataCheck from "../../../../util/data/check/dataCheck";
+import dataCheck from "../../../../util/check/dataCheck";
 import MyInfoItemVoid from "../myInfoItemVoid/myInfoItemVoid";
 import MyInfoLostStuffItem from "./myInfoLostStuffItem/myInfoLostStuffItem";
 import { MyInfoLostStuffContainer } from "./style";

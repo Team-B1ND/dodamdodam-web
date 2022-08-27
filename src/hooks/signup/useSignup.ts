@@ -2,7 +2,7 @@ import { sha512 } from "js-sha512";
 import React, { useCallback, useState } from "react";
 import authRepository from "../../repository/auth/auth.repository";
 import { Signup, SignupAgree } from "../../types/signup/signup.type";
-import patternCheck from "../../util/pattern/patternCheck";
+import patternCheck from "../../util/check/patternCheck";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");

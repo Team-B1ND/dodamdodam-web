@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import dateTransform from "../../util/date/dateTransform";
+import dateTransform from "../../util/transform/dateTransform";
 import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";

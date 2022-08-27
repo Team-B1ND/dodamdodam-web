@@ -1,5 +1,5 @@
 import useTodayWakeupSong from "../../../hooks/todayWakeupSong/useTodayWakeupSong";
-import dataCheck from "../../../util/data/check/dataCheck";
+import dataCheck from "../../../util/check/dataCheck";
 import CardTitle from "../../common/cardTitle/cardTitle";
 import {
   TodayWakeupSongContainer,

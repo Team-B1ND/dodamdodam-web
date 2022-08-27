@@ -7,7 +7,7 @@ import MealBreakfastIcon from "../../../assets/icons/meal/morning.svg";
 import MealLunchIcon from "../../../assets/icons/meal/afternoon.svg";
 import MealDinnerIcon from "../../../assets/icons/meal/night.svg";
 import dayjs from "dayjs";
-import dateTransform from "../../../util/date/dateTransform";
+import dateTransform from "../../../util/transform/dateTransform";
 import isBetween from "dayjs/plugin/isBetween";
 dayjs.extend(isBetween);
 

@@ -6,17 +6,15 @@ import React, {
   useState,
 } from "react";
 import { useQueryClient } from "react-query";
-import { SourceMapDevToolPlugin } from "webpack";
 import {
   useDeleteApplyLeave,
   useGetMyLeaves,
   usePostApplyLeave,
   usePutApplyLeave,
 } from "../../querys/leave/leave.query";
-import leaveRepository from "../../repository/leave/leave.repository";
-import { AppliedLeave, ApplyLeave, Leave } from "../../types/leave/leave.type";
-import dataCheck from "../../util/data/check/dataCheck";
-import dateTransform from "../../util/date/dateTransform";
+import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
+import dataCheck from "../../util/check/dataCheck";
+import dateTransform from "../../util/transform/dateTransform";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();

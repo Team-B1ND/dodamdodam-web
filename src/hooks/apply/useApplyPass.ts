@@ -6,9 +6,9 @@ import {
   usePutApplyPass,
 } from "../../querys/pass/pass.query";
 import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
-import dateTransform from "../../util/date/dateTransform";
+import dateTransform from "../../util/transform/dateTransform";
 import dayjs from "dayjs";
-import dataCheck from "../../util/data/check/dataCheck";
+import dataCheck from "../../util/check/dataCheck";
 import { useQueryClient } from "react-query";
 
 const useApplyPass = () => {

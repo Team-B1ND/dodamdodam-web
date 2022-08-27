@@ -1,7 +1,7 @@
 import React from "react";
 import { WakeupSong } from "../../../../../types/wakeupSong/wakeupSong.type";
-import dataTransform from "../../../../../util/data/transform/dataTransform";
-import dateTransform from "../../../../../util/date/dateTransform";
+import dataTransform from "../../../../../util/transform/dataTransform";
+import dateTransform from "../../../../../util/transform/dateTransform";
 import * as S from "./style";
 
 interface Props {
