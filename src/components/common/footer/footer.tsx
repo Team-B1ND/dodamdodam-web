@@ -31,7 +31,10 @@ const Footer = () => {
           <S.FooterTextWrap>
             <S.FooterVersion>v 6.0.0</S.FooterVersion>
             {FOOTER_ITEMS.map((item) => (
-              <S.FooterItem onClick={() => navigate(item.link)}>
+              <S.FooterItem
+                onClick={() => navigate(item.link)}
+                key={`footerItem ${item.title}`}
+              >
                 {item.title}
               </S.FooterItem>
             ))}
@@ -40,7 +43,10 @@ const Footer = () => {
         <S.FooterMobileWrap>
           <S.FooterMobileTitle>Dodam Dodam Mobile</S.FooterMobileTitle>
           {FOOTER_MOBILE_ITEMS.map((item) => (
-            <S.FooterMobileItemWrap onClick={() => window.open(item.link)}>
+            <S.FooterMobileItemWrap
+              onClick={() => window.open(item.link)}
+              key={`footerMobileItem ${item.title}`}
+            >
               <S.FooterMobileItemLogo>
                 <item.icon />
               </S.FooterMobileItemLogo>

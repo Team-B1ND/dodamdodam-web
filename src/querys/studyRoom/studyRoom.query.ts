@@ -5,10 +5,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import {
-  getMyStudyRoomsParam,
-  postApplyStudyRoomsParam,
-} from "../../repository/studyRoom/studyRoom.param";
+import { postApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
   MyDefaultStudyRoomResponse,
@@ -16,7 +13,6 @@ import {
 } from "../../types/studyRoom/studyRoom.type";
 
 export const useGetMyStudyRooms = (
-  { date }: getMyStudyRoomsParam,
   options?: UseQueryOptions<
     MyStudyRoomsResponse,
     AxiosError,
@@ -26,7 +22,7 @@ export const useGetMyStudyRooms = (
 ): UseQueryResult<MyStudyRoomsResponse, AxiosError> =>
   useQuery(
     "studyRoom/getMyStudyRooms",
-    () => studyRoomRepository.getMyStudyRooms({ date }),
+    () => studyRoomRepository.getMyStudyRooms(),
     options
   );
 

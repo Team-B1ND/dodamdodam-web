@@ -19,8 +19,6 @@ const MealDatePicker = ({
   prevMealDate,
   nextMealDate,
 }: Props) => {
-  console.log(date);
-
   return (
     <S.MealDatePickerContainer>
       <S.MealDatePickerWrap>

@@ -14,10 +14,10 @@ export interface AppliedStudyRoom {
   status: "CHECKED" | "PENDING";
   student: {
     id: number;
-  };
+  } | null;
   teacher: {
     id: number;
-  };
+  } | null;
   timeTable: TimeTable;
 }
 
@@ -26,14 +26,7 @@ export interface ApplyStudyRoom {
   timeTableId: number;
 }
 
-export interface DefaultStudyRoom {
-  id: number;
-  place: Place;
-  student: {
-    id: number;
-  };
-  timeTable: TimeTable;
-}
+export interface DefaultStudyRoom extends AppliedStudyRoom {}
 
 export interface MyStudyRoomsResponse extends Response {
   data: AppliedStudyRoom[];

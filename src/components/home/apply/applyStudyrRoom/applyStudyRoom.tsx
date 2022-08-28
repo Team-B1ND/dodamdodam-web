@@ -18,9 +18,9 @@ const ApplyStudyRoom = () => {
     myApplyStudyRooms,
     studyRoomsData,
     studyRoomsDataIsLoading,
-    handleApplyStudyRoomData,
+    handleStudyRoomApply,
     submitApplyStudyRoomData,
-    // submitDefaultSutdyRoom,
+    submitDefaultSutdyRoom,
   } = useApplyStudyRoom();
 
   return (
@@ -53,7 +53,7 @@ const ApplyStudyRoom = () => {
                   }
                   name={String(timeTable.id)}
                   items={studyRoomsData!}
-                  onChange={handleApplyStudyRoomData}
+                  onChange={handleStudyRoomApply}
                   itemsValuePath={"name"}
                   key={`applyStudyRoomSelect ${timeTable.name}`}
                   label={
@@ -74,7 +74,9 @@ const ApplyStudyRoom = () => {
             width={110}
             height={35}
             type="primary"
-            onClick={isDefault ? () => {} : submitApplyStudyRoomData}
+            onClick={
+              isDefault ? submitDefaultSutdyRoom : submitApplyStudyRoomData
+            }
             customStyle={{
               fontSize: 14,
               margin: 16,
