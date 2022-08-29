@@ -46,10 +46,6 @@ const useApplyPass = () => {
     }
   }, [appliedPasses]);
 
-  useEffect(() => {
-    console.log(notApprovedPasses);
-  }, [notApprovedPasses]);
-
   const transformNotApprovedPass = (
     notApprovedPass: AppliedPass
   ): ApplyPass => {

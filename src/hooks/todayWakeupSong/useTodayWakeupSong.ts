@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { useGetTodayWakeupSong } from "../../querys/wakeupSong/wakeupSong.query";
+import { useGetTodayAllowedWakeupSong } from "../../querys/wakeupSong/wakeupSong.query";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
 import dateTransform from "../../util/transform/dateTransform";
 
 const useTodayWakeupSong = () => {
   const todayDate = dateTransform.hyphen().split("-");
-  const todayAllowWakeupSongsData = useGetTodayWakeupSong(
+  const todayAllowWakeupSongsData = useGetTodayAllowedWakeupSong(
     {
       year: todayDate[0],
       month: todayDate[1],
-      date: todayDate[2],
+      day: todayDate[2],
     },
     {
       cacheTime: 1000 * 60 * 60 * 24,
       staleTime: 1000 * 60 * 60 * 24,
     }
-  ).data?.data.allow;
+  ).data?.data;
 
   const [todayAllowWakeupSongs, setTodayAllowWakeupSongs] = useState<
     WakeupSong[]

@@ -1,29 +1,25 @@
+import { Member } from "types/member/member.type";
 import { Response } from "../util/response.type";
 
 export interface WakeupSong {
-  applyMemberId: string;
+  applyingMember: Member;
   channelTitle: string;
-  checkMemberId: string;
+  checkingMember: Member;
+  createdDate: string;
   duration: string;
-  idx: number;
-  isAllow: number;
-  name: string;
+  readonly id: number;
   playDate: string;
-  submitDate: string;
-  thumbnail: string;
-  videoId: string;
-  videoTitle: string;
-  videoUrl: string;
+  readonly status: "ALLOWED" | "PENDING" | "DENIED";
+  readonly thumbnailUrl: string;
+  readonly videoId: string;
+  readonly videoTitle: string;
+  readonly videoUrl: string;
 }
 
 export interface MyWakeupSongsResponse extends Response {
-  data: {
-    videos: WakeupSong[];
-  };
+  data: WakeupSong[];
 }
 
-export interface TodayWakeupSongsResponse extends Response {
-  data: {
-    allow: WakeupSong[];
-  };
+export interface TodayAllowedWakeupSongsResponse extends Response {
+  data: WakeupSong[];
 }

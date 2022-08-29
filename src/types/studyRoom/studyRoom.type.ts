@@ -2,7 +2,7 @@ import { Place } from "types/place/place.type";
 import { TimeTable } from "types/timeTable/timeTable.type";
 
 export interface StudyRoom {
-  idx: number;
+  readonly idx: number;
   name: string;
   placeType: number;
 }
@@ -11,7 +11,7 @@ export interface AppliedStudyRoom {
   date: string;
   id: number;
   place: Place;
-  status: "CHECKED" | "PENDING";
+  readonly status: "CHECKED" | "PENDING";
   student: {
     id: number;
   } | null;

@@ -46,7 +46,7 @@ const useApplyLeave = () => {
   useEffect(() => {
     if (appliedLeaves) {
       const validNotApprovedLeaves = appliedLeaves.filter(
-        (leave) => leave.status === "NOT_ALLOWED"
+        (leave) => leave.status === "PENDING"
       );
       setNotApprovedLeaves(validNotApprovedLeaves);
     }

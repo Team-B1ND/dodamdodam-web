@@ -14,7 +14,7 @@ const MyInfoWakeupSong = () => {
           {notApprovedWakeupSongs.map((wakeupSong) => (
             <MyInfoWakeupSongItem
               wakeupSongData={wakeupSong}
-              key={wakeupSong.idx}
+              key={wakeupSong.id}
             />
           ))}
         </>

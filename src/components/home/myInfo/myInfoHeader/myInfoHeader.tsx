@@ -23,9 +23,9 @@ const MyInfoHeader = ({ logOut }: Props) => {
         </S.MyInfoHeaderNameWrap>
         <S.MyInfoHeaderClassWrap>
           {dataTransform.schoolInfoTransform(
-            myMemberData?.classroom?.grade,
-            myMemberData?.classroom?.room,
-            myMemberData?.number
+            myMemberData?.classroom?.grade || 0,
+            myMemberData?.classroom?.room || 0,
+            myMemberData?.number || 0
           )}
         </S.MyInfoHeaderClassWrap>
       </S.MyInfoHeaderInfoWrap>

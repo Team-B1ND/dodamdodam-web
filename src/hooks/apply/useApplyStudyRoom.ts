@@ -70,7 +70,7 @@ const useApplyStudyRoom = () => {
   const initialStudyRoomMapping = useCallback(() => {
     //내가 신청한 자습실 및 자습실 정보까지 모두 불러와졌을때
     if (myAppliedStudyRoomsData && timeTables) {
-      // 내가 신청했던 자습실은 신청했던 상태로 저장하고 안 했던 것은 placeId를 null로 줌
+      // 내가 신청했던 자습실은 신청했던 상태로 저장하고 안 했던 것은 placeId를 null로해서 저장함
       let handleApplyStudyRooms: ApplyStudyRoom[] = timeTables?.map(
         (timeTable, idx) => {
           let handleApplyStudyRoom: ApplyStudyRoom;
@@ -96,23 +96,25 @@ const useApplyStudyRoom = () => {
     }
   }, [myAppliedStudyRoomsData, timeTables]);
 
-  //처음 들어왔을때 내가 신청했던 자습실을 토대로 발리데이션 해주는 코드
+  //처음 들어왔을때 내가 신청했던 자습실을 토대로 맵핑해주는 코드
   useEffect(() => {
     initialStudyRoomMapping();
   }, [initialStudyRoomMapping]);
 
   const studyRoomAllApplyCheck = useCallback(() => {
     if (tempMyApplyStudyRooms?.length !== 0 && timeTables) {
-      tempMyApplyStudyRooms.forEach(
-        (tempMyApplyStudyRoom, idx) =>
-          tempMyApplyStudyRoom.placeId &&
+      tempMyApplyStudyRooms.forEach((tempMyApplyStudyRoom, idx) => {
+        if (
+          tempMyApplyStudyRoom.placeId === null &&
           !dateCheck.dateIsAfterCheck(
             `${dateTransform.hyphen()} ${timeTables[idx].startTime}`,
             "YYYY-MM-DD HH:mm",
             "minute"
-          ) &&
-          setIsDefault(true)
-      );
+          )
+        ) {
+          setIsDefault(true);
+        }
+      });
     }
   }, [tempMyApplyStudyRooms, timeTables]);
 
@@ -187,13 +189,12 @@ const useApplyStudyRoom = () => {
       return;
     }
 
-    const handleApplyStudyRoomList: ApplyStudyRoom[] = myApplyStudyRooms.map(
-      (myApplyStudyRoom) => {
-        if (myApplyStudyRoom.placeId) {
-          return myApplyStudyRoom;
-        }
+    let handleApplyStudyRoomList: ApplyStudyRoom[] = [];
+    myApplyStudyRooms.forEach((myApplyStudyRoom) => {
+      if (myApplyStudyRoom.placeId) {
+        handleApplyStudyRoomList.push(myApplyStudyRoom);
       }
-    );
+    });
 
     postApplyStudyRoomsMutation.mutateAsync(
       {

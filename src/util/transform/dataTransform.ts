@@ -9,13 +9,16 @@ class DataTransform {
     return `${gradeNum}학년 ${classNum}반 ${studentNum}번`;
   }
 
-  public wakeupSongApproveTransform(state: number): string {
+  public wakeupSongApproveTransform(state: string): string {
     switch (state) {
-      case 0:
+      case "PENDING":
         return "대기";
 
-      case 1:
+      case "ALLOWED":
         return "승인";
+
+      case "DENIED":
+        return "거절";
 
       default:
         return "대기";

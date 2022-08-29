@@ -50,7 +50,9 @@ export const MyInfoWakeupSongItemSubTitle = styled.span`
   color: ${({ theme }) => theme.contrast2};
 `;
 
-export const MyInfoWakeupSongItemApproveLabel = styled.div<{ isAllow: number }>`
+export const MyInfoWakeupSongItemApproveLabel = styled.div<{
+  status: "PENDING" | "ALLOWED" | "DENIED";
+}>`
   min-width: 35px;
   height: 20px;
   border-radius: 10px;
@@ -60,6 +62,5 @@ export const MyInfoWakeupSongItemApproveLabel = styled.div<{ isAllow: number }>`
   align-items: center;
   justify-content: center;
 
-  ${({ isAllow }) => isAllow === 0 && "background-color : #ffa94d"};
-  ${({ isAllow }) => isAllow === 1 && "background-color : #69db7c"};
+  ${({ status }) => status === "PENDING" && "background-color : #ffa94d"};
 `;

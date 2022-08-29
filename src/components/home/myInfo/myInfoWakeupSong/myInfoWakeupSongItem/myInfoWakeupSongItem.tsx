@@ -14,7 +14,7 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
       onClick={() => window.open(wakeupSongData.videoUrl)}
     >
       <S.MyInfoWakeupSongItemImg
-        src={wakeupSongData.thumbnail}
+        src={wakeupSongData.thumbnailUrl}
         alt={"myInfoWakeupSongItem/myInfoWakeupSongItemImg"}
       />
       <S.MyInfoWakeupSongItemInfoWrap>
@@ -26,12 +26,12 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
             {wakeupSongData.channelTitle}
           </S.MyInfoWakeupSongItemSubTitle>
           <S.MyInfoWakeupSongItemSubTitle>
-            신청일 {dateTransform.hyphen(wakeupSongData.submitDate)}
+            신청일 {dateTransform.hyphen(wakeupSongData.createdDate)}
           </S.MyInfoWakeupSongItemSubTitle>
         </S.MyInfoWakeupSongItemSubInfoWrap>
       </S.MyInfoWakeupSongItemInfoWrap>
-      <S.MyInfoWakeupSongItemApproveLabel isAllow={wakeupSongData.isAllow}>
-        {dataTransform.wakeupSongApproveTransform(wakeupSongData.isAllow)}
+      <S.MyInfoWakeupSongItemApproveLabel status={wakeupSongData.status}>
+        {dataTransform.wakeupSongApproveTransform(wakeupSongData.status)}
       </S.MyInfoWakeupSongItemApproveLabel>
     </S.MyInfoWakeupSongItemContainer>
   );
