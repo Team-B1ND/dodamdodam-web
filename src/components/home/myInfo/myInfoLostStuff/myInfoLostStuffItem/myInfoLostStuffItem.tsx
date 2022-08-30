@@ -11,7 +11,7 @@ const MyInfoLostStuffItem = ({ lostStuff }: Props) => {
   return (
     <S.MyInfoLostStuffItemContainer>
       <S.MyInfoLostStuffItemImg
-        src={lostStuff.picture[0].thumbnail}
+        src={lostStuff.image}
         alt="myInfoLostStuffItem/myInfoLostStuffItemImg"
       />
       <S.MyInfoLostStuffItemInfoWrap>
@@ -20,7 +20,7 @@ const MyInfoLostStuffItem = ({ lostStuff }: Props) => {
         </S.MyInfoLostStuffItemTitle>
         <S.MyInfoLostStuffItemSubInfoWrap>
           <S.MyInfoLostStuffItemSubTitle>
-            {dateTransform.fullDate(lostStuff.uploadTime)}
+            {dateTransform.fullDate(lostStuff.createAt)}
           </S.MyInfoLostStuffItemSubTitle>
           <S.MyInfoLostStuffItemSubTitle>
             {dataTransform.lostStuffTypeTransform(lostStuff.type)}

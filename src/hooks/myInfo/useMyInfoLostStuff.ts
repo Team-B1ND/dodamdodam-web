@@ -12,7 +12,7 @@ const useMyInfoLostStuff = () => {
 
   useEffect(() => {
     if (myLostStuffs) {
-      setNotFoundLostStuffs(myLostStuffs.data.result);
+      setNotFoundLostStuffs(myLostStuffs.data);
     }
   }, [myLostStuffs]);
 

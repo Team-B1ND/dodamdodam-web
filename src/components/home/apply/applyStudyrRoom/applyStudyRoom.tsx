@@ -47,9 +47,9 @@ const ApplyStudyRoom = () => {
                   disabledItem={"시간대가 지났습니다"}
                   withDefault={true}
                   defaultItem={
-                    studyRoomsData?.filter(
+                    studyRoomsData?.find(
                       (room) => room.id === myApplyStudyRooms[idx]?.placeId
-                    )[0]?.name || "선택해주세요"
+                    )?.name || "선택해주세요"
                   }
                   name={String(timeTable.id)}
                   items={studyRoomsData!}

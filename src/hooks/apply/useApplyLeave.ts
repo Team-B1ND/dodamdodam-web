@@ -95,19 +95,16 @@ const useApplyLeave = () => {
       });
     } else {
       if (notApprovedLeaves.length !== 0) {
-        setLeaveData({
-          ...transformNotApproveLeave(notApprovedLeaves![0]),
-          ...notApprovedLeaves![0],
-        });
+        loadNotApprovedLeave(0);
       }
     }
   }, [fold, notApprovedLeaves]);
 
   const loadNotApprovedLeave = useCallback(
     (idx: number) => {
-      const notApproveLeave: AppliedLeave = appliedLeaves?.filter(
+      const notApproveLeave: AppliedLeave = appliedLeaves?.find(
         (leave) => leave.id === idx
-      )[0]!;
+      )!;
 
       setLeaveData({
         ...transformNotApproveLeave(notApproveLeave),
@@ -119,20 +116,21 @@ const useApplyLeave = () => {
 
   const deleteNotApprovedLeave = useCallback(
     async (idx: number) => {
-      try {
-        deleteApplyLeaveMutation.mutateAsync(
-          { outsleepingId: idx + "" },
-          {
-            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
-          }
-        );
-        setNotApprovedLeaves((prev) =>
-          prev.filter((notApprovePass) => notApprovePass.id !== idx)
-        );
-        window.alert("외박 삭제 성공");
-      } catch (error) {
-        window.alert("외박 삭제 실패");
-      }
+      deleteApplyLeaveMutation.mutateAsync(
+        { outsleepingId: idx + "" },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("leave/getMyLeaves");
+            setNotApprovedLeaves((prev) =>
+              prev.filter((notApprovePass) => notApprovePass.id !== idx)
+            );
+            window.alert("외박 삭제 성공");
+          },
+          onError: () => {
+            window.alert("외박 삭제 실패");
+          },
+        }
+      );
     },
     [deleteApplyLeaveMutation, queryClient]
   );
@@ -200,6 +198,7 @@ const useApplyLeave = () => {
     const endTimeIsAfter = dayjs(validApplyLeave.endOutDate).isAfter(
       dateTransform.fullDate()
     );
+
     if (notApprovedLeaves?.length > 4) {
       window.alert("외박신청은 최대 4개까지 가능해요!");
       return;

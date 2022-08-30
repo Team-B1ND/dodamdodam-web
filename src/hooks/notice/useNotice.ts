@@ -9,7 +9,7 @@ const useNotice = () => {
 
   const handleIdxFunc = useRef<typeof handleNoticeIndex>();
 
-  const [noticeIndex, setNoticeIndex] = useState(data?.data.length ? 0 : -1);
+  const [noticeIndex, setNoticeIndex] = useState(0);
 
   const handleNoticeIndex = useCallback(
     (method: "left" | "right") => {
@@ -37,6 +37,12 @@ const useNotice = () => {
   );
 
   useEffect(() => {
+    if (data && !isLoading) {
+      setNoticeIndex(data.data.length === 0 ? -1 : 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
     handleIdxFunc.current = handleNoticeIndex;
   }, [handleNoticeIndex]);
 
@@ -51,7 +57,7 @@ const useNotice = () => {
   }, [handleNoticeIndex, data]);
 
   return {
-    data: data?.data,
+    noticeData: data?.data,
     isLoading,
     noticeIndex,
     handleNoticeIndex,

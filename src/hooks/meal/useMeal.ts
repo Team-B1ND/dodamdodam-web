@@ -6,7 +6,7 @@ import mealRepository from "../../repository/meal/meal.repository";
 
 const useMeal = () => {
   const [date, setDate] = useState<string>(dateTransform.hyphen());
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [meal, setMeal] = useState<Meal>();
   const [validMeal, setValidMeal] = useState<Meal>();
   const [tempMonth, setTempMonth] = useState<string>(
     dateTransform.hyphen().split("-")[1]
@@ -17,43 +17,36 @@ const useMeal = () => {
   //     month: tempMonth,
   //   }).data?.data.meal;
 
-  useEffect(() => {
-    setValidMeal(meals[Number(date.split("-")[2]) - 1]);
-  }, [date, meals]);
+  // useEffect(() => {
+  //   setValidMeal(meals[Number(date.split("-")[2]) - 1]);
+  // }, [date, meals]);
 
   //날짜를 바꾸다가 월이 달라졌을때를 확인하는 부분
-  useEffect(() => {
-    const month = date.split("-")[1];
-
-    if (tempMonth !== month) {
-      setTempMonth(month);
-    }
-  }, [date, tempMonth]);
 
   const requestMeals = useCallback(async () => {
     try {
-      const {
-        data: { meal },
-      } = await mealRepository.getMeals({
-        year: dateTransform.hyphen().split("-")[0],
-        month: tempMonth,
+      const dates = date.split("-");
+
+      const { data } = await mealRepository.getMeal({
+        year: dates[0],
+        month: dates[1],
+        day: dates[2],
       });
 
-      setMeals(meal);
+      setMeal(data);
     } catch (error) {}
-  }, [tempMonth]);
+  }, [date]);
 
   //월이 달라졌을 때 바뀐 월에 맞게 리퀘스트 하는 부분
   useEffect(() => {
     requestMeals();
-  }, [requestMeals, tempMonth]);
+  }, [requestMeals]);
 
   const handleMealDate = (e: Date) => {
     setDate(dayjs(e).format("YYYY-MM-DD"));
   };
 
   const prevMealDate = () => {
-    dayjs(date).subtract(1, "day");
     setDate((prev) => dayjs(prev).subtract(1, "day").format("YYYY-MM-DD"));
   };
 
@@ -63,7 +56,7 @@ const useMeal = () => {
 
   return {
     date,
-    validMeal,
+    meal,
     handleMealDate,
     prevMealDate,
     nextMealDate,

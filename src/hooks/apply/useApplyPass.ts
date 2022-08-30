@@ -103,9 +103,9 @@ const useApplyPass = () => {
   //외출 리스트에서 외출을 눌렀을때 인풋에 담기는 함수
   const loadNotApprovedPass = useCallback(
     (idx: number) => {
-      const notApprovePass: AppliedPass = appliedPasses?.filter(
+      const notApprovePass: AppliedPass = appliedPasses?.find(
         (pass) => pass.id === idx
-      )[0]!;
+      )!;
 
       const { startOutDate } = notApprovePass;
       const passDate = dateTransform.fullDate(startOutDate).slice(0, 10);

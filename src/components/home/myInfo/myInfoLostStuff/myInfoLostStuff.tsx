@@ -12,7 +12,7 @@ const MyInfoLostStuff = () => {
       {!isLoading && !dataCheck.voidCheck(notFoundLostStuffs) ? (
         <>
           {notFoundLostStuffs.map((lostStuff) => (
-            <MyInfoLostStuffItem lostStuff={lostStuff} key={lostStuff.idx} />
+            <MyInfoLostStuffItem lostStuff={lostStuff} key={lostStuff.id} />
           ))}
         </>
       ) : (

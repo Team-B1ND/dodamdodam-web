@@ -10,9 +10,7 @@ interface Props {
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
-  const validMealData = mealData
-    ?.split("\n")
-    ?.map((meal) => meal?.split(" ")[0]);
+  const validMealData = mealData?.split(",");
 
   return (
     <S.MealItemContainer isMealTime={isMealTime} mealType={mealType}>

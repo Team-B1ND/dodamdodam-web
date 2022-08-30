@@ -25,11 +25,11 @@ class DataTransform {
     }
   }
 
-  public lostStuffTypeTransform(state: number): string {
+  public lostStuffTypeTransform(state: string): string {
     switch (state) {
-      case 0:
+      case "FOUND":
         return "습득물";
-      case 1:
+      case "LOST":
         return "분실물";
       default:
         return "습득물";

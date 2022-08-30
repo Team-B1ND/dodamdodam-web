@@ -40,7 +40,7 @@ export const MyInfoItem = styled.div<{ isSelect: boolean }>`
   }
 
   &:nth-child(2) {
-    border: 1px solid ${({ theme }) => theme.borderColor};
+    border-left: 1px solid ${({ theme }) => theme.borderColor};
     border-top: 0px;
 
     ${({ isSelect }) =>

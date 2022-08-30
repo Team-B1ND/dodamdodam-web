@@ -1,13 +1,11 @@
 export interface Meal {
-  breakfast: string;
-  date: string;
-  dinner: string;
-  exists: boolean;
-  lunch: string;
+  readonly breakfast: string;
+  readonly date: string;
+  readonly dinner: string;
+  readonly exists: boolean;
+  readonly lunch: string;
 }
 
-export interface MealsResponse {
-  data: {
-    meal: Meal[];
-  };
+export interface MealResponse {
+  data: Meal;
 }
