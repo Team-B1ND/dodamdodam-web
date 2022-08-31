@@ -4,11 +4,23 @@ import { FiChevronLeft } from "@react-icons/all-files/fi/FiChevronLeft";
 import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";
 
 const Notice = () => {
-  const { noticeData, isLoading, noticeIndex, handleNoticeIndex } = useNotice();
+  const {
+    noticeData,
+    isNoticeAuthority,
+    isLoading,
+    noticeIndex,
+    handleNoticeIndex,
+  } = useNotice();
 
   return (
     <S.NoticeContainer>
-      <S.NoticeLabel>공지사항</S.NoticeLabel>
+      <S.NoticeLabel
+        onClick={() =>
+          isNoticeAuthority && window.open("http://dodam.b1nd.com/notice")
+        }
+      >
+        공지사항
+      </S.NoticeLabel>
       {!isLoading && noticeData && (
         <>
           <S.NoticeChangeButton onClick={() => handleNoticeIndex("left")}>

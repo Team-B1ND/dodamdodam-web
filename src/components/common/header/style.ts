@@ -54,6 +54,7 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
     padding: 0px 7px;
     box-sizing: content-box;
     white-space: nowrap;
+    cursor: pointer;
 
     ${({ isSelect }) =>
       isSelect &&

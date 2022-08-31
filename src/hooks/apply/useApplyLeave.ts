@@ -95,7 +95,7 @@ const useApplyLeave = () => {
       });
     } else {
       if (notApprovedLeaves.length !== 0) {
-        loadNotApprovedLeave(0);
+        loadNotApprovedLeave(notApprovedLeaves[0].id);
       }
     }
   }, [fold, notApprovedLeaves]);

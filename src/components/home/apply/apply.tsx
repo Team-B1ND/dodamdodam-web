@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { FcSurvey } from "@react-icons/all-files/fc/FcSurvey";
 import { APPLY_ITEMS } from "../../../constants/apply/apply.constant";
 import useApply from "../../../hooks/apply/useApply";
 import ApplyBus from "./applyBus/applyBus";
@@ -7,6 +6,7 @@ import ApplyLeave from "./applyLeave/applyLeave";
 import ApplyPass from "./applyPass/applyPass";
 import ApplyStudyRoom from "./applyStudyrRoom/applyStudyRoom";
 import * as S from "./style";
+import ApplyMemo from "../../../assets/icons/apply/applyMemo.png";
 
 const Apply = () => {
   const { section, setSection } = useApply();
@@ -21,9 +21,7 @@ const Apply = () => {
   return (
     <S.ApplyContainer>
       <S.ApplyTitleWrap>
-        <S.ApplyTitleIcon>
-          <FcSurvey />
-        </S.ApplyTitleIcon>
+        <S.ApplyTitleIcon src={ApplyMemo} />
         <S.ApplyTitleText>신청</S.ApplyTitleText>
         <S.ApplyTitleItemWrap>
           {APPLY_ITEMS.map((item) => (

@@ -1,8 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const svgToMiniDataURI = require("mini-svg-data-uri");
 
 module.exports = {
@@ -66,12 +64,6 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       process: "process/browser",
-    }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      openAnalyzer: false,
-      generateStatsFile: true,
-      statsFilename: "bundle-report.json",
     }),
   ],
 };

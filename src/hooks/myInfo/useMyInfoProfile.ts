@@ -3,6 +3,7 @@ import token from "../../lib/token/token";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetMyMember } from "../../querys/member/member.query";
+import { useGetMyPermission } from "../../querys/permission/permission.query";
 
 const useMyInfoProfile = () => {
   const navigate = useNavigate();
@@ -17,6 +18,11 @@ const useMyInfoProfile = () => {
     },
   }).data?.data;
 
+  const myPermissionData = useGetMyPermission({
+    cacheTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 60,
+  }).data?.data;
+
   useEffect(() => {
     if (token.getToken(ACCESS_TOKEN_KEY) === undefined) {
       window.alert("토큰이 존재하지 않습니다");
@@ -24,7 +30,7 @@ const useMyInfoProfile = () => {
     }
   }, [navigate]);
 
-  return { myMemberData };
+  return { myMemberData, myPermissionData };
 };
 
 export default useMyInfoProfile;

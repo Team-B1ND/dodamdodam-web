@@ -15,6 +15,7 @@ import {
   PointRightWrap,
   PointWrap,
 } from "./style";
+import PointChartIcon from "../../../assets/icons/point/pointChart.png";
 
 const Point = () => {
   const { schoolPoint, dormitoryPoint } = usePoint();
@@ -24,7 +25,7 @@ const Point = () => {
     <PointContainer>
       <CardTitle
         title="나의 상벌점 현황"
-        titleIcon={<FcRules />}
+        titleIcon={PointChartIcon}
         redirectURL={"http://dodam.b1nd.com/dormitory-point"}
       />
       <PointWrap>

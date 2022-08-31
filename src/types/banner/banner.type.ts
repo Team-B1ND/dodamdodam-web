@@ -4,7 +4,7 @@ export interface Banner {
   bannerOrder: number | null;
   readonly createdAt: string;
   expiryDateTime: string;
-  readonly idx: number;
+  readonly id: number;
   image: string;
   redirectUrl: string;
   status: "ACTIVE" | "DEACTIVETED";

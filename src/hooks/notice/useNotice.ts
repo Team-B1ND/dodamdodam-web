@@ -1,3 +1,4 @@
+import { useGetMyPermission } from "../../querys/permission/permission.query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetNotice } from "../../querys/notice/notice.query";
 
@@ -6,6 +7,13 @@ const useNotice = () => {
     staleTime: 1000 * 60 * 60,
     cacheTime: 1000 * 60 * 60,
   });
+
+  const permissionData = useGetMyPermission({
+    cacheTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 30 * 24,
+  }).data?.data;
+
+  const [isNoticeAuthority, setIsNoticeAuthority] = useState(false);
 
   const handleIdxFunc = useRef<typeof handleNoticeIndex>();
 
@@ -43,6 +51,20 @@ const useNotice = () => {
   }, [data]);
 
   useEffect(() => {
+    if (permissionData) {
+      if (
+        permissionData.find(
+          (permission) => permission.permission === "CTRL_NOTICE"
+        )
+      ) {
+        setIsNoticeAuthority(true);
+      } else {
+        setIsNoticeAuthority(false);
+      }
+    }
+  }, [permissionData]);
+
+  useEffect(() => {
     handleIdxFunc.current = handleNoticeIndex;
   }, [handleNoticeIndex]);
 
@@ -60,6 +82,7 @@ const useNotice = () => {
     noticeData: data?.data,
     isLoading,
     noticeIndex,
+    isNoticeAuthority,
     handleNoticeIndex,
   };
 };

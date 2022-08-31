@@ -7,7 +7,7 @@ import {
   TodayWakeupSongVoidText,
 } from "./style";
 import TodayWakeupSongItem from "./todayWakeupSongItem/todayWakeupSongItem";
-import { FcHeadset } from "@react-icons/all-files/fc/FcHeadset";
+import TodayWakeupSongHeadPhoneIcon from "../../../assets/icons/todayWakeupSong/todayWakeupSongHeadPhone.png";
 
 const TodayWakeupSong = () => {
   const { todayAllowWakeupSongs } = useTodayWakeupSong();
@@ -16,7 +16,7 @@ const TodayWakeupSong = () => {
     <TodayWakeupSongContainer>
       <CardTitle
         title={"오늘의 기상송"}
-        titleIcon={<FcHeadset />}
+        titleIcon={TodayWakeupSongHeadPhoneIcon}
         redirectURL={"http://dodam.b1nd.com/wakesong"}
       />
       {dataCheck.voidCheck(todayAllowWakeupSongs) ? (

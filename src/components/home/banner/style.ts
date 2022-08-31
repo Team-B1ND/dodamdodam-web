@@ -1,3 +1,4 @@
+import { palette } from "../../../style/palette";
 import styled from "styled-components";
 
 export const BannerContainer = styled.div`
@@ -62,5 +63,27 @@ export const BannerContainer = styled.div`
 
   .slick-active {
     text-decoration: none;
+  }
+`;
+
+export const BannerManageButton = styled.button`
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  display: none;
+  border: 0px;
+  background-color: white;
+  border-radius: 0px 5px 5px 0px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: ${palette.main};
+  cursor: pointer;
+
+  ${BannerContainer}:hover & {
+    display: flex;
   }
 `;

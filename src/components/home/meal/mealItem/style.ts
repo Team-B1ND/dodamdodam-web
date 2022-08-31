@@ -35,8 +35,8 @@ export const MealItemIconWrap = styled.div`
 `;
 
 export const MealItemIcon = styled.img`
-  width: 38px;
-  height: 30px;
+  width: 43px;
+  height: 35px;
   object-fit: scale-down;
 `;
 

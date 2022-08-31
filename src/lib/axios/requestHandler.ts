@@ -33,8 +33,6 @@ export const requestHandler = async (
   if (accessToken !== undefined && usingRefreshToken !== undefined) {
     //원래있던 accessToken이 만료됐다면 리프레쉬를 시작함
     if (decodeToken?.exp! < currentTime) {
-      window.alert("액세스 만료");
-
       //아무 요청중 하나하도 리프레쉬 작업중이 아니라면
       if (!isRefreshing) {
         //리프레쉬 작업을 시작함
@@ -69,7 +67,7 @@ export const requestHandler = async (
           //리프레쉬 하다가 오류난거면 리프레쉬도 만료된 것이므로 다시 로그인
           window.alert("리프레쉬 만료");
           token.clearToken();
-          window.location.reload();
+          window.location.href = "http://dodam.b1nd.com/sign";
         }
       }
 

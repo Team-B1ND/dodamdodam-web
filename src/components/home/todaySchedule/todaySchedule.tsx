@@ -4,10 +4,10 @@ import {
   TodayScheduleItemWrap,
   TodayScheduleVoidText,
 } from "./style";
-import { FcCalendar } from "@react-icons/all-files/fc/FcCalendar";
 import useTodaySchedule from "../../../hooks/todaySchedule/useTodaySchedule";
 import dataCheck from "../../../util/check/dataCheck";
 import TodayScheduleItem from "./todayScheduleItem/todayScheduleItem";
+import TodayScheduleCanlendarIcon from "../../../assets/icons/todaySchedule/todayScheduleCanlendar.png";
 
 const TodaySchedule = () => {
   const { todaySchedules } = useTodaySchedule();
@@ -16,7 +16,7 @@ const TodaySchedule = () => {
     <TodayScheduleContainer>
       <CardTitle
         title="오늘의 일정"
-        titleIcon={<FcCalendar />}
+        titleIcon={TodayScheduleCanlendarIcon}
         redirectURL={"http://legacy.b1nd.com/schedule"}
       />
       {dataCheck.voidCheck(todaySchedules) ? (
@@ -24,7 +24,7 @@ const TodaySchedule = () => {
       ) : (
         <TodayScheduleItemWrap>
           {todaySchedules.map((todaySchedule) => (
-            <TodayScheduleItem data={todaySchedule} />
+            <TodayScheduleItem data={todaySchedule} key={todaySchedule.id} />
           ))}
         </TodayScheduleItemWrap>
       )}

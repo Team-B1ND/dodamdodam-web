@@ -31,12 +31,12 @@ const ApplyStudyRoom = () => {
         <>
           <ApplyStudyRoomInputWrap>
             {timeTables?.map((timeTable, idx) => {
-              // const handleStartTime = dayjs(
-              //   `${dateTransform.hyphen()} ${timeTable.startTime}`
-              // ).format("YYYY-MM-DD HH:mm");
+              const handleStartTime = dayjs(
+                `${dateTransform.hyphen()} ${timeTable.startTime}`
+              ).format("YYYY-MM-DD HH:mm");
 
               const isAfter = dayjs(dateTransform.fullDate()).isAfter(
-                "",
+                handleStartTime,
                 "minutes"
               );
 

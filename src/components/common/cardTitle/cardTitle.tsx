@@ -11,7 +11,7 @@ import { ReactNode } from "react";
 
 type Props = {
   title: string;
-  titleIcon: JSX.Element;
+  titleIcon: string;
   redirectURL: string;
   children?: ReactNode;
 };
@@ -19,7 +19,7 @@ type Props = {
 const CardTitle = ({ title, titleIcon, redirectURL, children }: Props) => {
   return (
     <CardTitleContainer>
-      <CardTitleIcon>{titleIcon}</CardTitleIcon>
+      <CardTitleIcon src={titleIcon} />
       <CardTitleText onClick={() => window.open(redirectURL)}>
         {title}
       </CardTitleText>

@@ -1,6 +1,8 @@
 const { merge } = require("webpack-merge");
 const webpackCommon = require("./webpack.common");
 const { ESBuildPlugin, ESBuildMinifyPlugin } = require("esbuild-loader");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = merge(webpackCommon, {
   mode: "production",
@@ -24,5 +26,13 @@ module.exports = merge(webpackCommon, {
       }),
     ],
   },
-  plugins: [new ESBuildPlugin()],
+  plugins: [
+    new ESBuildPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      openAnalyzer: false,
+      generateStatsFile: true,
+      statsFilename: "bundle-report.json",
+    }),
+  ],
 });

@@ -26,9 +26,9 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
       <S.MealItemTextWrap>
         {validMealData?.map((meal, idx) => {
           if (idx === validMealData?.length - 1) {
-            return <span>{meal}</span>;
+            return <span key={idx}>{meal}</span>;
           }
-          return <span>{meal}, </span>;
+          return <span key={idx}>{meal}, </span>;
         }) || `${String(mealType)}이 없습니다.`}
       </S.MealItemTextWrap>
     </S.MealItemContainer>
