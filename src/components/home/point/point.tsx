@@ -15,57 +15,55 @@ import {
   PointRightWrap,
   PointWrap,
 } from "./style";
+import PointChartIcon from "../../../assets/icons/point/pointChart.png";
 
 const Point = () => {
   const { schoolPoint, dormitoryPoint } = usePoint();
-  const [isMeritView, setIsMeritView] = useState(true); // true은 기숙사, false은 학교
+  const [isDormitoryView, setIsDormitoryView] = useState(true); // true은 기숙사, false은 학교
 
   return (
     <PointContainer>
       <CardTitle
         title="나의 상벌점 현황"
-        titleIcon={<FcRules />}
+        titleIcon={PointChartIcon}
         redirectURL={"http://dodam.b1nd.com/dormitory-point"}
       />
       <PointWrap>
         <PointLeftWrap>
-          {isMeritView ? (
-            <>
-              <PointGraphWrap>
-                <PointGraphPointText>
-                  {dormitoryPoint.dormitoryMerit}점
-                </PointGraphPointText>
-                <PointGraph
-                  point={dormitoryPoint.dormitoryMerit}
-                  isMerit={true}
-                />
-              </PointGraphWrap>
-              <PointGraphWrap>
-                <PointGraphPointText>
-                  {dormitoryPoint.dormitoryDemerit}점
-                </PointGraphPointText>
-                <PointGraph
-                  point={dormitoryPoint.dormitoryDemerit}
-                  isMerit={false}
-                />
-              </PointGraphWrap>
-            </>
-          ) : (
-            <>
-              <PointGraphWrap>
-                <PointGraphPointText>
-                  {schoolPoint.schoolMerit}점
-                </PointGraphPointText>
-                <PointGraph point={schoolPoint.schoolMerit} isMerit={true} />
-              </PointGraphWrap>
-              <PointGraphWrap>
-                <PointGraphPointText>
-                  {schoolPoint.schoolDemerit}점
-                </PointGraphPointText>
-                <PointGraph point={schoolPoint.schoolDemerit} isMerit={false} />
-              </PointGraphWrap>
-            </>
-          )}
+          <>
+            <PointGraphWrap>
+              <PointGraphPointText>
+                {isDormitoryView
+                  ? dormitoryPoint.dormitoryBonusPoint
+                  : schoolPoint.schoolBonusPoint}
+                점
+              </PointGraphPointText>
+              <PointGraph
+                point={
+                  isDormitoryView
+                    ? dormitoryPoint.dormitoryBonusPoint
+                    : schoolPoint.schoolBonusPoint
+                }
+                isBonusPoint={true}
+              />
+            </PointGraphWrap>
+            <PointGraphWrap>
+              <PointGraphPointText>
+                {isDormitoryView
+                  ? dormitoryPoint.dormitoryMinusPoint
+                  : schoolPoint.schoolMinusPoint}
+                점
+              </PointGraphPointText>
+              <PointGraph
+                point={
+                  isDormitoryView
+                    ? dormitoryPoint.dormitoryMinusPoint
+                    : schoolPoint.schoolMinusPoint
+                }
+                isBonusPoint={false}
+              />
+            </PointGraphWrap>
+          </>
         </PointLeftWrap>
         <PointRightWrap>
           <PointCategoryWrap>
@@ -79,10 +77,10 @@ const Point = () => {
             </PointCategoryItemWrap>
           </PointCategoryWrap>
           <PointChangeButton
-            isSchool={isMeritView}
-            onClick={() => setIsMeritView((prev) => !prev)}
+            isSchool={isDormitoryView}
+            onClick={() => setIsDormitoryView((prev) => !prev)}
           >
-            {isMeritView ? "기숙사" : "학교"}
+            {isDormitoryView ? "기숙사" : "학교"}
           </PointChangeButton>
         </PointRightWrap>
       </PointWrap>

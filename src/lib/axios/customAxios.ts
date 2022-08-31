@@ -13,7 +13,6 @@ const createAxiosInstance = (config?: AxiosRequestConfig) => {
       "Access-Control-Allow-Origin": "*",
     },
   };
-
   return axios.create({
     ...baseConfig,
     ...config,

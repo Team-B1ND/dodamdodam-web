@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useInsertionEffect,
+  useState,
+} from "react";
 import { useQueryClient } from "react-query";
 import {
   useDeleteApplyLeave,
@@ -7,18 +12,17 @@ import {
   usePostApplyLeave,
   usePutApplyLeave,
 } from "../../querys/leave/leave.query";
-import leaveRepository from "../../repository/leave/leave.repository";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
-import dataCheck from "../../util/data/check/dataCheck";
-import dateTransform from "../../util/date/dateTransform";
+import dataCheck from "../../util/check/dataCheck";
+import dateTransform from "../../util/transform/dateTransform";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();
 
-  const appliedLeaves = useGetMyLeaves(
-    { date: dateTransform.hyphen() },
-    { staleTime: 1000 * 30, cacheTime: 1000 * 3 }
-  ).data?.data.leave;
+  const appliedLeaves = useGetMyLeaves({
+    staleTime: 1000 * 30,
+    cacheTime: 1000 * 3,
+  }).data?.data;
 
   const postApplyLeaveMutation = usePostApplyLeave();
   const deleteApplyLeaveMutation = useDeleteApplyLeave();
@@ -42,7 +46,7 @@ const useApplyLeave = () => {
   useEffect(() => {
     if (appliedLeaves) {
       const validNotApprovedLeaves = appliedLeaves.filter(
-        (leave) => leave.isAllowTeacher === 0 && leave.isAllowParent === 0
+        (leave) => leave.status === "PENDING"
       );
       setNotApprovedLeaves(validNotApprovedLeaves);
     }
@@ -51,18 +55,22 @@ const useApplyLeave = () => {
   const transformNotApproveLeave = (
     notApproveLeave: AppliedLeave
   ): ApplyLeave => {
-    const { endTime, startTime } = notApproveLeave;
+    const { endOutDate, startOutDate, id } = notApproveLeave;
 
-    const validStartDate = dateTransform.fullDate(startTime).slice(0, 10);
+    const validStartDate = dateTransform.fullDate(startOutDate).slice(0, 10);
     const validStartTime = dateTransform
-      .fullDate(startTime)
+      .fullDate(startOutDate)
       .slice(10)
       .split(":");
 
-    const validEndDate = dateTransform.fullDate(endTime).slice(0, 10);
-    const validEndTime = dateTransform.fullDate(endTime).slice(10).split(":");
+    const validEndDate = dateTransform.fullDate(endOutDate).slice(0, 10);
+    const validEndTime = dateTransform
+      .fullDate(endOutDate)
+      .slice(10)
+      .split(":");
 
     return {
+      idx: id,
       startTimeDate: validStartDate,
       startTimeHour: validStartTime[0],
       startTimeMinute: validStartTime[1],
@@ -87,19 +95,16 @@ const useApplyLeave = () => {
       });
     } else {
       if (notApprovedLeaves.length !== 0) {
-        setLeaveData({
-          ...transformNotApproveLeave(notApprovedLeaves![0]),
-          ...notApprovedLeaves![0],
-        });
+        loadNotApprovedLeave(notApprovedLeaves[0].id);
       }
     }
   }, [fold, notApprovedLeaves]);
 
   const loadNotApprovedLeave = useCallback(
     (idx: number) => {
-      const notApproveLeave: AppliedLeave = appliedLeaves?.filter(
-        (leave) => leave.idx === idx
-      )[0]!;
+      const notApproveLeave: AppliedLeave = appliedLeaves?.find(
+        (leave) => leave.id === idx
+      )!;
 
       setLeaveData({
         ...transformNotApproveLeave(notApproveLeave),
@@ -111,20 +116,21 @@ const useApplyLeave = () => {
 
   const deleteNotApprovedLeave = useCallback(
     async (idx: number) => {
-      try {
-        deleteApplyLeaveMutation.mutateAsync(
-          { idx: idx + "" },
-          {
-            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
-          }
-        );
-        setNotApprovedLeaves((prev) =>
-          prev.filter((notApprovePass) => notApprovePass.idx !== idx)
-        );
-        window.alert("외박 삭제 성공");
-      } catch (error) {
-        window.alert("외박 삭제 실패");
-      }
+      deleteApplyLeaveMutation.mutateAsync(
+        { outsleepingId: idx + "" },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("leave/getMyLeaves");
+            setNotApprovedLeaves((prev) =>
+              prev.filter((notApprovePass) => notApprovePass.id !== idx)
+            );
+            window.alert("외박 삭제 성공");
+          },
+          onError: () => {
+            window.alert("외박 삭제 실패");
+          },
+        }
+      );
     },
     [deleteApplyLeaveMutation, queryClient]
   );
@@ -177,22 +183,23 @@ const useApplyLeave = () => {
 
     const validApplyLeave = {
       reason,
-      startTime: dayjs(
+      startOutDate: dayjs(
         `${startTimeDate} ${startTimeHour}:${startTimeMinute}`
-      ).format("YYYY-MM-DD HH:mm:ss"),
-      endTime: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(
-        "YYYY-MM-DD HH:mm:ss"
-      ),
+      ).format(),
+      endOutDate: dayjs(
+        `${endTimeDate} ${endTimeHour}:${endTimeMinute}`
+      ).format(),
     };
 
-    const startTimeIsAfter = dayjs(validApplyLeave.startTime).isAfter(
+    const startTimeIsAfter = dayjs(validApplyLeave.startOutDate).isAfter(
       dateTransform.fullDate()
     );
 
-    const endTimeIsAfter = dayjs(validApplyLeave.endTime).isAfter(
+    const endTimeIsAfter = dayjs(validApplyLeave.endOutDate).isAfter(
       dateTransform.fullDate()
     );
-    if (notApprovedLeaves.length > 4) {
+
+    if (notApprovedLeaves?.length > 4) {
       window.alert("외박신청은 최대 4개까지 가능해요!");
       return;
     }
@@ -210,7 +217,9 @@ const useApplyLeave = () => {
       return;
     }
 
-    if (!dayjs(validApplyLeave.endTime).isAfter(validApplyLeave.startTime)) {
+    if (
+      !dayjs(validApplyLeave.endOutDate).isAfter(validApplyLeave.startOutDate)
+    ) {
       window.alert("복귀시간이 출발시간보다 빨라요!");
       return;
     }
@@ -220,58 +229,44 @@ const useApplyLeave = () => {
       return;
     }
 
-    if (reason.length > 50) {
+    if (reason?.length > 50) {
       window.alert("사유의 길이를 50자 이내로 적어주세요!");
       return;
     }
 
     if (fold) {
-      try {
-        postApplyLeaveMutation.mutateAsync(
-          { leaveData: validApplyLeave },
-          {
-            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
+      postApplyLeaveMutation.mutateAsync(validApplyLeave, {
+        onSuccess: () => {
+          queryClient.invalidateQueries("leave/getMyLeaves");
+          window.alert("외박 신청이 되었습니다");
+          for (let key in leaveData) {
+            setLeaveData((prev) => ({ ...prev, [key]: "" }));
           }
-        );
-        window.alert("외박 신청이 되었습니다");
-        for (let key in leaveData) {
-          setLeaveData((prev) => ({ ...prev, [key]: "" }));
-        }
-        setLeaveData((prev) => ({
-          ...prev,
-          startTimeDate: dateTransform.hyphen(),
-        }));
-        setLeaveData((prev) => ({
-          ...prev,
-          endTimeDate: dateTransform.hyphen(),
-        }));
-      } catch (error) {
-        window.alert("외출 신청 실패");
-      }
+          setLeaveData((prev) => ({
+            ...prev,
+            startTimeDate: dateTransform.hyphen(),
+            endTimeDate: dateTransform.hyphen(),
+          }));
+        },
+        onError: () => {
+          window.alert("외박 신청 실패");
+        },
+      });
     } else {
       const leaveIdx = notApprovedLeaves.find(
-        (notApproveLeave) => notApproveLeave.idx === idx
-      )?.idx;
+        (notApproveLeave) => notApproveLeave.id === idx
+      )?.id;
 
-      try {
-        putApplyLeaveMutation.mutateAsync(
-          {
-            ...validApplyLeave,
-            leaveIdx: String(leaveIdx),
+      putApplyLeaveMutation.mutateAsync(
+        { ...validApplyLeave, outId: leaveIdx! },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("leave/getMyLeaves");
+            window.alert("외박 수정이 되었습니다.");
           },
-          {
-            onSuccess: () => queryClient.invalidateQueries("leave/getMyLeaves"),
-          }
-        );
-
-        await leaveRepository.putMyLeave({
-          ...validApplyLeave,
-          leaveIdx: String(leaveIdx),
-        });
-        window.alert("외박 수정이 되었습니다.");
-      } catch (error) {
-        window.alert("외박 수정 실패");
-      }
+          onError: () => window.alert("외박 수정 실패"),
+        }
+      );
     }
   }, [
     fold,

@@ -2,8 +2,7 @@ import { sha512 } from "js-sha512";
 import React, { useCallback, useState } from "react";
 import authRepository from "../../repository/auth/auth.repository";
 import { Signup, SignupAgree } from "../../types/signup/signup.type";
-import schoolDataCheck from "../../util/data/check/schoolDataCheck";
-import patternCheck from "../../util/pattern/patternCheck";
+import patternCheck from "../../util/check/patternCheck";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");
@@ -11,11 +10,10 @@ const useSignup = () => {
   const [signupData, setSignupData] = useState<Signup>({
     id: "",
     pw: "",
-    generation: 0,
     email: "",
     name: "",
     phone: "",
-    role: "student",
+    role: "STUDENT",
     grade: 0,
     room: 0,
     number: 0,
@@ -35,16 +33,9 @@ const useSignup = () => {
   );
 
   const submitSignupDataFirst = useCallback(async () => {
-    const { id, pw, grade, room, number, generation } = signupData;
+    const { id, pw, grade, room, number } = signupData;
 
-    if (
-      id === "" ||
-      pw === "" ||
-      grade === 0 ||
-      room === 0 ||
-      number === 0 ||
-      generation === 0
-    ) {
+    if (id === "" || pw === "" || grade === 0 || room === 0 || number === 0) {
       window.alert("양식이 비어있습니다.");
       return;
     }
@@ -59,12 +50,7 @@ const useSignup = () => {
       return;
     }
 
-    if (
-      grade > 3 ||
-      room > 4 ||
-      number > 20 ||
-      schoolDataCheck.generationExcessCheck(generation)
-    ) {
+    if (grade > 3 || room > 4 || number > 20) {
       window.alert("올바른 학급정보, 기수를 입력해주세요");
       return;
     }
@@ -82,8 +68,7 @@ const useSignup = () => {
   );
 
   const submitSignupDataSecond = useCallback(async () => {
-    const { email, phone, name, pw, generation, grade, room, number } =
-      signupData;
+    const { email, phone, name, pw, grade, room, number } = signupData;
     const { first, second } = agrees;
 
     if (email === "" || phone === "" || name === "") {
@@ -114,7 +99,6 @@ const useSignup = () => {
     const validSignupData: Signup = {
       ...signupData,
       pw: sha512(pw),
-      generation: Number(generation),
       grade: Number(grade),
       room: Number(room),
       number: Number(number),

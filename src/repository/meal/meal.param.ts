@@ -1,4 +1,5 @@
-export interface getMealsParam {
+export interface getMealParam {
   year: string;
   month: string;
+  day: string;
 }

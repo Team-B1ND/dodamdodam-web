@@ -7,7 +7,6 @@ import {
 } from "react-query";
 import {
   deleteMyLeaveParam,
-  getMyLeavesParam,
   postApplyLeaveParam,
   putMyLeaveParam,
 } from "../../repository/leave/leave.param";
@@ -15,7 +14,6 @@ import leaveRepository from "../../repository/leave/leave.repository";
 import { MyLeavesResponse } from "../../types/leave/leave.type";
 
 export const useGetMyLeaves = (
-  { date }: getMyLeavesParam,
   options?: UseQueryOptions<
     MyLeavesResponse,
     AxiosError,
@@ -23,11 +21,7 @@ export const useGetMyLeaves = (
     "leave/getMyLeaves"
   >
 ): UseQueryResult<MyLeavesResponse, AxiosError> =>
-  useQuery(
-    "leave/getMyLeaves",
-    () => leaveRepository.getMyLeaves({ date }),
-    options
-  );
+  useQuery("leave/getMyLeaves", () => leaveRepository.getMyLeaves(), options);
 
 export const usePostApplyLeave = () => {
   const mutation = useMutation((leaveData: postApplyLeaveParam) =>

@@ -34,9 +34,9 @@ const ApplyLeave = () => {
         isFold={fold}
         handleLeaveDataDate={handleLeaveDataDate}
         handleLeaveDataReason={handleLeaveDataReason}
-        notApproveLeavesLength={notApprovedLeaves.length}
+        notApproveLeavesLength={notApprovedLeaves?.length}
       />
-      {!(notApprovedLeaves.length === 0 && !fold) && (
+      {!(notApprovedLeaves?.length === 0 && !fold) && (
         <Button
           width={110}
           height={35}

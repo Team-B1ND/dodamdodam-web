@@ -10,4 +10,5 @@ export const ApplyStudyRoomVoidContainer = styled.div`
 
 export const ApplyStudyRoomVoidText = styled.span`
   font-size: 18px;
+  color: ${({ theme }) => theme.contrast};
 `;

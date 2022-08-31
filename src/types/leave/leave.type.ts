@@ -1,19 +1,22 @@
 import { Response } from "../util/response.type";
 
-export interface AppliedLeave {
-  arrivedTime: null | string;
-  checkParenTime: null | string;
-  checkTeacherTime: null | string;
-  createAt: string;
-  endTime: string;
-  idx: number;
-  isAllowParent: number;
-  isAllowTeacher: number;
-  parentIdx: null | number;
+export interface Leave {
+  endOutDate: string;
   reason: string;
-  startTime: string;
-  studentIdx: null | number;
-  teacherIdx: null | number;
+  startOutDate: string;
+}
+
+export interface AppliedLeave extends Leave {
+  arrivedDate: null | string;
+  checkedDate: null | string;
+  id: number;
+  readonly status: "ALLOWED" | "PENDING" | "DENIED";
+  studenr: {
+    id: number;
+  };
+  teacher: {
+    id: number;
+  };
 }
 
 export interface ApplyLeave {
@@ -28,7 +31,5 @@ export interface ApplyLeave {
 }
 
 export interface MyLeavesResponse extends Response {
-  data: {
-    leave: AppliedLeave[];
-  };
+  data: AppliedLeave[];
 }

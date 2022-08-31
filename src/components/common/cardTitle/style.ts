@@ -10,13 +10,14 @@ export const CardTitleContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-export const CardTitleIcon = styled.div`
+export const CardTitleIcon = styled.img`
   width: 18px;
   height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 12px;
+  object-fit: scale-down;
 
   svg {
     width: 18px;

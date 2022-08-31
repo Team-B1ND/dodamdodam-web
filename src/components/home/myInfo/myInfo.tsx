@@ -4,7 +4,6 @@ import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
 import useMyInfo from "../../../hooks/myInfo/useMyInfo";
 import MyInfoHeader from "./myInfoHeader/myInfoHeader";
 import MyInfoLostStuff from "./myInfoLostStuff/myInfoLostStuff";
-import MyInfoNotice from "./myInfoNotice/myInfoNotice";
 import MyInfoWakeupSong from "./myInfoWakeupSong/myInfoWakeupSong";
 import MyInfoTopImage from "../../../assets/images/myinfo/myInfoTop.svg";
 import * as S from "./style";
@@ -13,7 +12,6 @@ const MyInfo = () => {
   const { section, setSection, logOut } = useMyInfo();
 
   const myInfoItemComponents: ReactNode[] = [
-    <MyInfoNotice key="myInfoNotice" />,
     <MyInfoWakeupSong key="myInfoWakeupSong" />,
     <MyInfoLostStuff key="myInfoLostStuff" />,
   ];

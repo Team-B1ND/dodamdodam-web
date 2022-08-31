@@ -1,37 +1,23 @@
 import { Response } from "../util/response.type";
 
-export interface BusInfo {
-  bus: Bus[];
-  date: string;
-}
-
 export interface Bus {
-  busMemberlength: number;
   busName: string;
   description: string;
-  idx: number;
+  readonly id: number;
   leaveTime: string;
   peopleLimit: number;
   timeRequired: string;
 }
 
-export interface AppliedBus {
-  busName: string;
-  description: string;
-  idx: number;
-  leaveTime: string;
-  peopleLimit: number;
-  timeRequired: string;
+export interface BusList {
+  date: string;
+  bus: Bus[];
 }
 
 export interface BusesResponse extends Response {
-  data: {
-    busList: BusInfo[];
-  };
+  data: BusList;
 }
 
 export interface MyBusResponse extends Response {
-  data: {
-    busList: AppliedBus[];
-  };
+  data: Bus[];
 }

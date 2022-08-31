@@ -1,13 +1,16 @@
-import { dodamV2Axios } from "../../lib/axios/customAxios";
-import { MealsResponse } from "../../types/meal/meal.type";
-import { getMealsParam } from "./meal.param";
+import { dodamV3Axios } from "../../lib/axios/customAxios";
+import { MealResponse } from "../../types/meal/meal.type";
+import { getMealParam } from "./meal.param";
 
 class MealRepository {
-  public async getMeals({
+  public async getMeal({
     year,
     month,
-  }: getMealsParam): Promise<MealsResponse> {
-    const { data } = await dodamV2Axios.get(`meal?year=${year}&month=${month}`);
+    day,
+  }: getMealParam): Promise<MealResponse> {
+    const { data } = await dodamV3Axios.get(
+      `/meal?year=${year}&month=${month}&day=${day}`
+    );
     return data;
   }
 }

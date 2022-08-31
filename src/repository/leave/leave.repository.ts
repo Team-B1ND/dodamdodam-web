@@ -1,29 +1,31 @@
-import { dodamV2Axios } from "../../lib/axios/customAxios";
+import { MyLeavesResponse } from "types/leave/leave.type";
+import { dodamV2Axios, dodamV3Axios } from "../../lib/axios/customAxios";
 import {
   deleteMyLeaveParam,
-  getMyLeavesParam,
   postApplyLeaveParam,
   putMyLeaveParam,
 } from "./leave.param";
 
 class LeaveRepository {
-  public async getMyLeaves({ date }: getMyLeavesParam) {
-    const { data } = await dodamV2Axios.get(`/offbase/date?date=${date}`);
+  public async getMyLeaves(): Promise<MyLeavesResponse> {
+    const { data } = await dodamV3Axios.get<MyLeavesResponse>(
+      "out/outsleeping/my"
+    );
     return data;
   }
 
-  public async postApplyLeave({
-    leaveData,
-  }: postApplyLeaveParam): Promise<void> {
-    await dodamV2Axios.post("/offbase/leave", leaveData);
+  public async postApplyLeave(leaveData: postApplyLeaveParam): Promise<void> {
+    await dodamV3Axios.post("/out/outsleeping", leaveData);
   }
 
-  public async deleteMyLeave({ idx }: deleteMyLeaveParam): Promise<void> {
-    await dodamV2Axios.delete(`/offbase/leave?idx=${idx}`);
+  public async deleteMyLeave({
+    outsleepingId,
+  }: deleteMyLeaveParam): Promise<void> {
+    await dodamV3Axios.delete(`/out/outsleeping/${outsleepingId}`);
   }
 
   public async putMyLeave(leaveData: putMyLeaveParam): Promise<void> {
-    await dodamV2Axios.put("/offbase/leave", leaveData);
+    await dodamV3Axios.put("/out/outsleeping", leaveData);
   }
 }
 

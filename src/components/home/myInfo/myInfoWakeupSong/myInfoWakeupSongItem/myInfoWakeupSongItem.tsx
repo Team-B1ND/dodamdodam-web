@@ -1,7 +1,7 @@
 import React from "react";
 import { WakeupSong } from "../../../../../types/wakeupSong/wakeupSong.type";
-import dataTransform from "../../../../../util/data/transform/dataTransform";
-import dateTransform from "../../../../../util/date/dateTransform";
+import dataTransform from "../../../../../util/transform/dataTransform";
+import dateTransform from "../../../../../util/transform/dateTransform";
 import * as S from "./style";
 
 interface Props {
@@ -14,7 +14,7 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
       onClick={() => window.open(wakeupSongData.videoUrl)}
     >
       <S.MyInfoWakeupSongItemImg
-        src={wakeupSongData.thumbnail}
+        src={wakeupSongData.thumbnailUrl}
         alt={"myInfoWakeupSongItem/myInfoWakeupSongItemImg"}
       />
       <S.MyInfoWakeupSongItemInfoWrap>
@@ -26,12 +26,12 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
             {wakeupSongData.channelTitle}
           </S.MyInfoWakeupSongItemSubTitle>
           <S.MyInfoWakeupSongItemSubTitle>
-            신청일 {dateTransform.hyphen(wakeupSongData.submitDate)}
+            신청일 {dateTransform.hyphen(wakeupSongData.createdDate)}
           </S.MyInfoWakeupSongItemSubTitle>
         </S.MyInfoWakeupSongItemSubInfoWrap>
       </S.MyInfoWakeupSongItemInfoWrap>
-      <S.MyInfoWakeupSongItemApproveLabel isAllow={wakeupSongData.isAllow}>
-        {dataTransform.wakeupSongApproveTransform(wakeupSongData.isAllow)}
+      <S.MyInfoWakeupSongItemApproveLabel status={wakeupSongData.status}>
+        {dataTransform.wakeupSongApproveTransform(wakeupSongData.status)}
       </S.MyInfoWakeupSongItemApproveLabel>
     </S.MyInfoWakeupSongItemContainer>
   );

@@ -1,7 +1,7 @@
 import { Button } from "@team-b1nd/dodamdodam_web_component_library";
 import useApplyBus from "../../../../hooks/apply/useApplyBus";
-import dataCheck from "../../../../util/data/check/dataCheck";
-import dateTransform from "../../../../util/date/dateTransform";
+import dataCheck from "../../../../util/check/dataCheck";
+import dateTransform from "../../../../util/transform/dateTransform";
 import ApplyBusItem from "./applyBusItem/applyBusItem";
 import {
   ApplyBusContainer,
@@ -33,8 +33,8 @@ const ApplyBus = () => {
               <ApplyBusDate>{dateTransform.period(busDate)}</ApplyBusDate>
               {busList.map((busInfo) => (
                 <ApplyBusItem
-                  currentSelectBusIdx={busData.idx}
-                  isCheck={busInfo.idx === busData.idx}
+                  currentSelectBusIdx={busData.id}
+                  isCheck={busInfo.id === busData.id}
                   busData={busInfo}
                   wasChecked={wasCheckedIdx}
                   handleBusData={handleBusData}

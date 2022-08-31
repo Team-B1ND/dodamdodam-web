@@ -1,45 +1,37 @@
+import { Place } from "types/place/place.type";
+import { TimeTable } from "types/timeTable/timeTable.type";
+
 export interface StudyRoom {
-  idx: number;
+  readonly idx: number;
   name: string;
   placeType: number;
 }
 
-export interface StudyRoomsResponse extends Response {
-  data: {
-    places: StudyRoom[];
-  };
-}
-
 export interface AppliedStudyRoom {
-  checkedTeacherIdx: number | null;
   date: string;
-  idx: number;
-  isChecked: number;
-  placeIdx: number;
-  studentIdx: number;
-  timeTableIdx: number;
+  id: number;
+  place: Place;
+  readonly status: "CHECKED" | "PENDING";
+  student: {
+    id: number;
+  } | null;
+  teacher: {
+    id: number;
+  } | null;
+  timeTable: TimeTable;
 }
 
 export interface ApplyStudyRoom {
-  idx: number;
-  applyStudyData: StudyRoom | null;
+  placeId: number | null;
+  timeTableId: number;
 }
+
+export interface DefaultStudyRoom extends AppliedStudyRoom {}
 
 export interface MyStudyRoomsResponse extends Response {
-  data: {
-    locations: (AppliedStudyRoom | null)[];
-  };
-}
-
-export interface DefaultStudyRoom {
-  day: number;
-  placeIdx: number;
-  studentIdx: number;
-  timeTableIdx: number;
+  data: AppliedStudyRoom[];
 }
 
 export interface MyDefaultStudyRoomResponse {
-  data: {
-    defaultLocations: DefaultStudyRoom[];
-  };
+  data: DefaultStudyRoom[];
 }

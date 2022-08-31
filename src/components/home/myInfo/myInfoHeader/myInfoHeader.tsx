@@ -1,7 +1,6 @@
+import useMyInfoProfile from "../../../../hooks/myInfo/useMyInfoProfile";
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { profileAtom } from "../../../../store/profile/profileStore";
-import dataTransform from "../../../../util/data/transform/dataTransform";
+import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const MyInfoHeader = ({ logOut }: Props) => {
-  const profileData = useRecoilValue(profileAtom);
+  const { myMemberData } = useMyInfoProfile();
 
   return (
     <S.MyInfoHeaderWrap>
@@ -19,14 +18,14 @@ const MyInfoHeader = ({ logOut }: Props) => {
       />
       <S.MyInfoHeaderInfoWrap>
         <S.MyInfoHeaderNameWrap>
-          {profileData.name}
+          {myMemberData?.member.name}
           <S.MyInfoHeaderRedirectText>내 정보</S.MyInfoHeaderRedirectText>
         </S.MyInfoHeaderNameWrap>
         <S.MyInfoHeaderClassWrap>
           {dataTransform.schoolInfoTransform(
-            profileData.grade,
-            profileData.room,
-            profileData.number
+            myMemberData?.classroom?.grade || 0,
+            myMemberData?.classroom?.room || 0,
+            myMemberData?.number || 0
           )}
         </S.MyInfoHeaderClassWrap>
       </S.MyInfoHeaderInfoWrap>

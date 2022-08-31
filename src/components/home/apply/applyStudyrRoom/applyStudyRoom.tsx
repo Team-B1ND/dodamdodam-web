@@ -1,12 +1,7 @@
 import { Button, Dropdown } from "@team-b1nd/dodamdodam_web_component_library";
 import dayjs from "dayjs";
-import {
-  APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY,
-  APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND,
-} from "../../../../constants/apply/apply.constant";
 import useApplyStudyRoom from "../../../../hooks/apply/useApplyStudyRoom";
-import dateCheck from "../../../../util/date/dateCheck";
-import dateTransform from "../../../../util/date/dateTransform";
+import dateTransform from "../../../../util/transform/dateTransform";
 import ApplyStudyRoomVoid from "./applyStudyRoomVoid/applyStudyRoomVoid";
 import {
   ApplyStudyRoomContainer,
@@ -18,11 +13,12 @@ import {
 
 const ApplyStudyRoom = () => {
   const {
+    timeTables,
     isDefault,
-    validMyApplyStudyRooms,
+    myApplyStudyRooms,
     studyRoomsData,
     studyRoomsDataIsLoading,
-    handleApplyStudyRoomData,
+    handleStudyRoomApply,
     submitApplyStudyRoomData,
     submitDefaultSutdyRoom,
   } = useApplyStudyRoom();
@@ -34,95 +30,45 @@ const ApplyStudyRoom = () => {
       ) : (
         <>
           <ApplyStudyRoomInputWrap>
-            {dateCheck.weekDayCheck(dateTransform.hyphen()) ? (
-              <>
-                {APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY.map((item, idx) => {
-                  const validTimeOut = dayjs(
-                    `${dateTransform.hyphen()} ${item.timeOut}`
-                  ).format("YYYY-MM-DD HH:mm");
+            {timeTables?.map((timeTable, idx) => {
+              const handleStartTime = dayjs(
+                `${dateTransform.hyphen()} ${timeTable.startTime}`
+              ).format("YYYY-MM-DD HH:mm");
 
-                  const isAfter = dayjs(dateTransform.fullDate()).isAfter(
-                    validTimeOut,
-                    "minutes"
-                  );
+              const isAfter = dayjs(dateTransform.fullDate()).isAfter(
+                handleStartTime,
+                "minutes"
+              );
 
-                  return (
-                    <Dropdown
-                      itemkey={item.timeTitle}
-                      disabled={isAfter}
-                      disabledItem={"시간대가 지났습니다"}
-                      withDefault={true}
-                      defaultItem={
-                        studyRoomsData?.filter(
-                          (room) =>
-                            room.idx ===
-                            validMyApplyStudyRooms[idx]?.applyStudyData?.idx
-                        )[0]?.name || "선택해주세요"
-                      }
-                      name={String(item.timeTableIdx)}
-                      items={studyRoomsData!}
-                      onChange={handleApplyStudyRoomData}
-                      itemsValuePath={"name"}
-                      key={`applyStudyRoomSelect ${item.timeTitle}`}
-                      label={
-                        <ApplyStudyRoomInputLabelWrap>
-                          <ApplyStudyRoomInputLabelTitle>
-                            {item.timeTitle}
-                          </ApplyStudyRoomInputLabelTitle>
-                          <ApplyStudyRoomInputLabelTime>
-                            {item.time}
-                          </ApplyStudyRoomInputLabelTime>
-                        </ApplyStudyRoomInputLabelWrap>
-                      }
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <>
-                {APPLY_STUDY_ROOMS_TIMETABLE_WEEKEND.map((item, idx) => {
-                  const validTimeOut = dayjs(
-                    `${dateTransform.hyphen()} ${item.timeOut}`
-                  ).format("YYYY-MM-DD HH:mm");
-
-                  const isAfter = dayjs(dateTransform.fullDate()).isAfter(
-                    validTimeOut,
-                    "minutes"
-                  );
-
-                  return (
-                    <Dropdown
-                      itemkey={item.timeTitle}
-                      disabled={isAfter}
-                      disabledItem={"시간대가 지났습니다"}
-                      withDefault={true}
-                      defaultItem={
-                        studyRoomsData?.filter(
-                          (room) =>
-                            room.idx ===
-                            validMyApplyStudyRooms[idx]?.applyStudyData?.idx
-                        )[0]?.name || "선택해주세요"
-                      }
-                      name={String(item.timeTableIdx)}
-                      items={studyRoomsData!}
-                      onChange={handleApplyStudyRoomData}
-                      itemsValuePath={"name"}
-                      key={`applyStudyRoomSelect ${item.timeTitle}`}
-                      label={
-                        <ApplyStudyRoomInputLabelWrap>
-                          <ApplyStudyRoomInputLabelTitle>
-                            {item.timeTitle}
-                          </ApplyStudyRoomInputLabelTitle>
-                          <ApplyStudyRoomInputLabelTime>
-                            {item.time}
-                          </ApplyStudyRoomInputLabelTime>
-                        </ApplyStudyRoomInputLabelWrap>
-                      }
-                    />
-                  );
-                })}
-              </>
-            )}
+              return (
+                <Dropdown
+                  itemkey={timeTable.name}
+                  disabled={isAfter}
+                  disabledItem={"시간대가 지났습니다"}
+                  withDefault={true}
+                  defaultItem={
+                    studyRoomsData?.find(
+                      (room) => room.id === myApplyStudyRooms[idx]?.placeId
+                    )?.name || "선택해주세요"
+                  }
+                  name={String(timeTable.id)}
+                  items={studyRoomsData!}
+                  onChange={handleStudyRoomApply}
+                  itemsValuePath={"name"}
+                  key={`applyStudyRoomSelect ${timeTable.name}`}
+                  label={
+                    <ApplyStudyRoomInputLabelWrap>
+                      <ApplyStudyRoomInputLabelTitle>
+                        {timeTable.name}
+                      </ApplyStudyRoomInputLabelTitle>
+                      <ApplyStudyRoomInputLabelTime>
+                        {timeTable.startTime} ~ {timeTable.endTime}
+                      </ApplyStudyRoomInputLabelTime>
+                    </ApplyStudyRoomInputLabelWrap>
+                  }
+                />
+              );
+            })}
           </ApplyStudyRoomInputWrap>
           <Button
             width={110}

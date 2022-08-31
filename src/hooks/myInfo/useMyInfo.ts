@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import token from "../../lib/token/token";
 
 const useMyInfo = () => {
-  const [section, setSection] = useState("알림");
+  const [section, setSection] = useState("기상송");
   const navigate = useNavigate();
 
   const logOut = () => {

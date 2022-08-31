@@ -44,7 +44,7 @@ const SignupFirst = ({
           />
         </AuthInputWrap>
         <AuthInputWrap style={{ height: "auto", minHeight: 56 }}>
-          <AuthInputTitle>학번 & 기수</AuthInputTitle>
+          <AuthInputTitle>학번</AuthInputTitle>
           <SignupSchoolInputWrap>
             <SignupSchoolInput
               name="grade"
@@ -65,13 +65,6 @@ const SignupFirst = ({
               onChange={handleSignupData}
               name="number"
               placeholder="번호"
-              type="number"
-            />
-            <SignupSchoolInput
-              value={signupData.generation}
-              onChange={handleSignupData}
-              name="generation"
-              placeholder="기수"
               type="number"
             />
           </SignupSchoolInputWrap>

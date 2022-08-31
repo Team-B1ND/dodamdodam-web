@@ -7,7 +7,6 @@ import {
 } from "react-query";
 import {
   deleteMyPassParam,
-  getMyPassesParam,
   postApplyPassParam,
   putMyPassParam,
 } from "../../repository/pass/pass.param";
@@ -15,7 +14,6 @@ import passRepository from "../../repository/pass/pass.repository";
 import { MyPassesResponse } from "../../types/pass/pass.type";
 
 export const useGetMyPasses = (
-  { date }: getMyPassesParam,
   options?: UseQueryOptions<
     MyPassesResponse,
     AxiosError,
@@ -23,11 +21,7 @@ export const useGetMyPasses = (
     "pass/getMyPasses"
   >
 ): UseQueryResult<MyPassesResponse, AxiosError> =>
-  useQuery(
-    "pass/getMyPasses",
-    () => passRepository.getMyPasses({ date }),
-    options
-  );
+  useQuery("pass/getMyPasses", () => passRepository.getMyPasses(), options);
 
 export const usePostApplyPass = () => {
   const mutation = useMutation((passData: postApplyPassParam) =>

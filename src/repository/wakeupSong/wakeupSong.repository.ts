@@ -1,31 +1,26 @@
-import { dodamV2Axios } from "../../lib/axios/customAxios";
+import { dodamV2Axios, dodamV3Axios } from "../../lib/axios/customAxios";
 import {
   MyWakeupSongsResponse,
-  TodayWakeupSongsResponse,
+  TodayAllowedWakeupSongsResponse,
 } from "../../types/wakeupSong/wakeupSong.type";
-import {
-  getTodayWakeupSongParam,
-  getWakeupSongsParam,
-} from "./wakeupSong.param";
+import { getTodayAllowedWakeupSongParam } from "./wakeupSong.param";
 
 class WakeupSongRepository {
-  public async getMyWakeupSongs({
-    userId,
-  }: getWakeupSongsParam): Promise<MyWakeupSongsResponse> {
-    const { data } = await dodamV2Axios.get<MyWakeupSongsResponse>(
-      `/wakeup-song/user?id=${userId}`
+  public async getMyWakeupSongs(): Promise<MyWakeupSongsResponse> {
+    const { data } = await dodamV3Axios.get<MyWakeupSongsResponse>(
+      `/wakeup-song/my`
     );
 
     return data;
   }
 
-  public async getTodayWakeupSongs({
+  public async getTodayAllowedWakeupSongs({
     year,
     month,
-    date,
-  }: getTodayWakeupSongParam): Promise<TodayWakeupSongsResponse> {
-    const { data } = await dodamV2Axios.get<TodayWakeupSongsResponse>(
-      `/wakeup-song?year=${year}&month=${month}&date=${date}`
+    day,
+  }: getTodayAllowedWakeupSongParam): Promise<TodayAllowedWakeupSongsResponse> {
+    const { data } = await dodamV3Axios.get<TodayAllowedWakeupSongsResponse>(
+      `/wakeup-song/allowed?year=${year}&month=${month}&day=${day}`
     );
     return data;
   }

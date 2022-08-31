@@ -19,18 +19,14 @@ export const ApplyTitleWrap = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-export const ApplyTitleIcon = styled.div`
+export const ApplyTitleIcon = styled.img`
   width: 18px;
   height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 12px;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
+  object-fit: scale-down;
 `;
 
 export const ApplyTitleText = styled.h1`

@@ -36,7 +36,7 @@ const ApplyPass = () => {
         passDataDate={passDataDate}
         handlePassDataDate={handlePassDataDate}
         handlePassDataReason={handlePassDataReason}
-        notApprovePassesLength={notApprovedPasses.length}
+        notApprovePassesLength={notApprovedPasses?.length}
       />
 
       {!(notApprovedPasses.length === 0 && !fold) && (

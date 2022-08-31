@@ -1,56 +1,49 @@
 import { useEffect, useState } from "react";
-import {
-  useGetMyDemerit,
-  useGetMyMerit,
-  useGetMyOffsetPoint,
-} from "../../querys/point/point.query";
+import { useGetMyPoint } from "../../querys/point/point.query";
 
 const usePoint = () => {
-  const meritsData = useGetMyMerit({
+  const myPoint = useGetMyPoint({
     cacheTime: 1000 * 60 * 5,
     staleTime: 1000 * 60 * 60,
-  }).data?.data.point.score;
-  const demeritsData = useGetMyDemerit({
-    cacheTime: 1000 * 60 * 5,
-    staleTime: 1000 * 60 * 60,
-  }).data?.data.point.score;
-  const { data: offsetPointsData } = useGetMyOffsetPoint();
+  }).data?.data;
 
   const [schoolPoint, setSchoolPoint] = useState<{
-    schoolMerit: number;
-    schoolDemerit: number;
+    schoolBonusPoint: number;
+    schoolMinusPoint: number;
   }>({
-    schoolMerit: 0,
-    schoolDemerit: 0,
+    schoolBonusPoint: 0,
+    schoolMinusPoint: 0,
   });
 
   const [dormitoryPoint, setDormitoryPoint] = useState<{
-    dormitoryMerit: number;
-    dormitoryDemerit: number;
+    dormitoryBonusPoint: number;
+    dormitoryMinusPoint: number;
   }>({
-    dormitoryMerit: 0,
-    dormitoryDemerit: 0,
+    dormitoryBonusPoint: 0,
+    dormitoryMinusPoint: 0,
   });
 
   useEffect(() => {
-    if (meritsData && demeritsData) {
-      const merits = meritsData;
-      const demerit = demeritsData;
+    if (myPoint) {
+      const dormitoryBonusPoint = myPoint.domBonusPoint;
+      const dormitoryMinusPoint = myPoint.domMinusPoint;
+      const schoolBonusPoint = myPoint.schBonusPoint;
+      const schoolMinusPoint = myPoint.schMinusPoint;
 
       setDormitoryPoint({
-        dormitoryMerit: merits[0] || 0,
-        dormitoryDemerit: demerit[0] || 0,
+        dormitoryBonusPoint: dormitoryBonusPoint || 0,
+        dormitoryMinusPoint: dormitoryMinusPoint || 0,
       });
 
       setSchoolPoint({
-        schoolMerit: merits[1] || 0,
-        schoolDemerit: demerit[1] || 0,
+        schoolBonusPoint: schoolBonusPoint || 0,
+        schoolMinusPoint: schoolMinusPoint || 0,
       });
 
       // 0 은 기숙사
       // 1 은 학교
     }
-  }, [meritsData, demeritsData]);
+  }, [myPoint]);
 
   return { schoolPoint, dormitoryPoint };
 };

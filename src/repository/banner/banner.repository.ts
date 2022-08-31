@@ -1,9 +1,9 @@
-import { dodamV2Axios } from "../../lib/axios/customAxios";
+import { dodamV3Axios } from "../../lib/axios/customAxios";
 import { BannersResponse } from "../../types/banner/banner.type";
 
 class BannerRepository {
   public async getBanners(): Promise<BannersResponse> {
-    const { data } = await dodamV2Axios.get<BannersResponse>("/banner");
+    const { data } = await dodamV3Axios.get<BannersResponse>("/banner/active");
     return data;
   }
 }

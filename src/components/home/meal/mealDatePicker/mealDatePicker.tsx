@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import dataTransform from "../../../../util/data/transform/dataTransform";
+import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { MdKeyboardArrowLeft } from "@react-icons/all-files/md/MdKeyboardArrowLeft";
@@ -19,8 +19,6 @@ const MealDatePicker = ({
   prevMealDate,
   nextMealDate,
 }: Props) => {
-  console.log(date);
-
   return (
     <S.MealDatePickerContainer>
       <S.MealDatePickerWrap>

@@ -1,4 +1,4 @@
-import { UserInfo } from "../common/common.type";
+import { Member } from "types/member/member.type";
 
 export interface Login {
   id: string;
@@ -7,7 +7,7 @@ export interface Login {
 
 export interface LoginResponse extends Response {
   data: {
-    member: UserInfo;
+    member: Member;
     refreshToken: string;
     token: string;
   };

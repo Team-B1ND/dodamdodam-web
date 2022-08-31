@@ -1,3 +1,4 @@
+import { useGetMyPermission } from "../../querys/permission/permission.query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetNotice } from "../../querys/notice/notice.query";
 
@@ -7,22 +8,33 @@ const useNotice = () => {
     cacheTime: 1000 * 60 * 60,
   });
 
+  const permissionData = useGetMyPermission({
+    cacheTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 30 * 24,
+  }).data?.data;
+
+  const [isNoticeAuthority, setIsNoticeAuthority] = useState(false);
+
   const handleIdxFunc = useRef<typeof handleNoticeIndex>();
 
   const [noticeIndex, setNoticeIndex] = useState(0);
 
   const handleNoticeIndex = useCallback(
     (method: "left" | "right") => {
-      const { notice } = data?.data!;
+      const notice = data?.data!;
+
+      if (notice.length === 0) {
+        return;
+      }
 
       if (method === "left") {
         if (noticeIndex <= 0) {
-          setNoticeIndex(notice.length - 1);
+          setNoticeIndex(notice?.length - 1);
           return;
         }
         setNoticeIndex((prev) => prev - 1);
       } else if (method === "right") {
-        if (noticeIndex >= notice.length - 1) {
+        if (noticeIndex >= notice?.length - 1) {
           setNoticeIndex(0);
           return;
         }
@@ -31,6 +43,26 @@ const useNotice = () => {
     },
     [data?.data, noticeIndex]
   );
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      setNoticeIndex(data.data.length === 0 ? -1 : 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (permissionData) {
+      if (
+        permissionData.find(
+          (permission) => permission.permission === "CTRL_NOTICE"
+        )
+      ) {
+        setIsNoticeAuthority(true);
+      } else {
+        setIsNoticeAuthority(false);
+      }
+    }
+  }, [permissionData]);
 
   useEffect(() => {
     handleIdxFunc.current = handleNoticeIndex;
@@ -47,9 +79,10 @@ const useNotice = () => {
   }, [handleNoticeIndex, data]);
 
   return {
-    data: data?.data.notice,
+    noticeData: data?.data,
     isLoading,
     noticeIndex,
+    isNoticeAuthority,
     handleNoticeIndex,
   };
 };

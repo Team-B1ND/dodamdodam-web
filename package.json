@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@react-icons/all-files": "^4.1.0",
-    "@team-b1nd/dodamdodam_web_component_library": "^1.1.9",
+    "@team-b1nd/dodamdodam_web_component_library": "^1.2.2",
     "axios": "^0.27.2",
     "buffer": "^6.0.3",
     "date-fns": "^2.29.2",
@@ -49,6 +49,7 @@
     "esbuild-loader": "^2.19.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "html-webpack-plugin": "^5.5.0",
+    "mini-svg-data-uri": "^1.4.4",
     "react-error-overlay": "^6.0.9",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",

@@ -5,34 +5,14 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import {
-  getMyDefaultStudyRoomsParam,
-  getMyStudyRoomsParam,
-  postApplyStudyRoomsParam,
-} from "../../repository/studyRoom/studyRoom.param";
+import { postApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
 import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
 import {
   MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
-  StudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
 
-export const useGetStudyRooms = (
-  options?: UseQueryOptions<
-    StudyRoomsResponse,
-    AxiosError,
-    StudyRoomsResponse,
-    "studyRoom/getStudyRooms"
-  >
-): UseQueryResult<StudyRoomsResponse, AxiosError> =>
-  useQuery(
-    "studyRoom/getStudyRooms",
-    () => studyRoomRepository.getStudyRooms(),
-    options
-  );
-
 export const useGetMyStudyRooms = (
-  { date }: getMyStudyRoomsParam,
   options?: UseQueryOptions<
     MyStudyRoomsResponse,
     AxiosError,
@@ -42,12 +22,11 @@ export const useGetMyStudyRooms = (
 ): UseQueryResult<MyStudyRoomsResponse, AxiosError> =>
   useQuery(
     "studyRoom/getMyStudyRooms",
-    () => studyRoomRepository.getMyStudyRooms({ date }),
+    () => studyRoomRepository.getMyStudyRooms(),
     options
   );
 
 export const useGetMyDefaultStudyRooms = (
-  { dayIdx }: getMyDefaultStudyRoomsParam,
   options?: UseQueryOptions<
     MyDefaultStudyRoomResponse,
     AxiosError,
@@ -57,13 +36,13 @@ export const useGetMyDefaultStudyRooms = (
 ): UseQueryResult<MyDefaultStudyRoomResponse, AxiosError> =>
   useQuery(
     "studyRoom/getMyDefaultStudyRooms",
-    () => studyRoomRepository.getMyDefaultStudyRooms({ dayIdx }),
+    () => studyRoomRepository.getMyDefaultStudyRooms(),
     options
   );
 
 export const usePostApplyStudyRooms = () => {
-  const mutation = useMutation((locations: postApplyStudyRoomsParam) =>
-    studyRoomRepository.postApplyStudyRooms(locations)
+  const mutation = useMutation(({ studyRoomList }: postApplyStudyRoomsParam) =>
+    studyRoomRepository.postApplyStudyRooms({ studyRoomList })
   );
 
   return mutation;

@@ -1,9 +1,5 @@
-export interface getWakeupSongsParam {
-  userId: string;
-}
-
-export interface getTodayWakeupSongParam {
+export interface getTodayAllowedWakeupSongParam {
   year: string;
   month: string;
-  date: string;
+  day: string;
 }

@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import useBanner from "../../../hooks/banner/useBanner";
-import { BannerContainer } from "./style";
+import { BannerContainer, BannerManageButton } from "./style";
 import Slider from "react-slick";
 import BannerItem from "./bannerItem/bannerItem";
+import { IoOptionsOutline } from "@react-icons/all-files/io5/IoOptionsOutline";
 
 const Banner = () => {
-  const { approveBanners } = useBanner();
+  const { approveBanners, isBannerAuthority } = useBanner();
 
   const bannerSetting = useMemo(
     () => ({
@@ -39,11 +40,20 @@ const Banner = () => {
           <BannerItem
             title={banner.title}
             imgSrc={banner.image}
-            redirectURL={banner.url}
-            key={banner.idx}
+            redirectURL={banner.redirectUrl}
+            key={banner.id}
           />
         ))}
       </Slider>
+      {isBannerAuthority && (
+        <BannerManageButton
+          onClick={() =>
+            window.open("http://dodam.b1nd.com/bannersetting", "_blank")
+          }
+        >
+          <IoOptionsOutline />
+        </BannerManageButton>
+      )}
     </BannerContainer>
   );
 };

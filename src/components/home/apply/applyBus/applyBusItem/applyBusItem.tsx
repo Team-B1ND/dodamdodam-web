@@ -22,14 +22,14 @@ const ApplyBusItem = ({
   wasChecked,
 }: Props) => {
   return (
-    <S.ApplyBusItemContainer onClick={() => handleBusData(busData.idx)}>
+    <S.ApplyBusItemContainer onClick={() => handleBusData(busData.id)}>
       <S.ApplyBusItemText>
         {busData.busName} ({dayjs(busData.leaveTime).format("HH:mm")})
       </S.ApplyBusItemText>
       <S.ApplyBusItemCheckIcon check={isCheck}>
         <FiCheck />
       </S.ApplyBusItemCheckIcon>
-      {wasChecked === busData.idx && wasChecked === currentSelectBusIdx && (
+      {wasChecked === busData.id && wasChecked === currentSelectBusIdx && (
         <S.ApplyBusItemDeleteButton onClick={deleteMyBus}>
           <S.ApplyBusItemDeleteIcon>
             <IoMdTrash />
