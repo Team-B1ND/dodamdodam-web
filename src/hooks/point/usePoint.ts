@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import dateTransform from "../../util/transform/dateTransform";
 import { useGetMyPoint } from "../../querys/point/point.query";
 
 const usePoint = () => {
-  const myPoint = useGetMyPoint({
-    cacheTime: 1000 * 60 * 5,
-    staleTime: 1000 * 60 * 60,
-  }).data?.data;
+  const myPoint = useGetMyPoint(
+    { year: dateTransform.hyphen().split("-")[0] },
+    {
+      cacheTime: 1000 * 60 * 5,
+      staleTime: 1000 * 60 * 60,
+    }
+  ).data?.data;
 
   const [schoolPoint, setSchoolPoint] = useState<{
     schoolBonusPoint: number;
@@ -25,10 +29,10 @@ const usePoint = () => {
 
   useEffect(() => {
     if (myPoint) {
-      const dormitoryBonusPoint = myPoint.domBonusPoint;
-      const dormitoryMinusPoint = myPoint.domMinusPoint;
-      const schoolBonusPoint = myPoint.schBonusPoint;
-      const schoolMinusPoint = myPoint.schMinusPoint;
+      const dormitoryBonusPoint = myPoint.domBonus;
+      const dormitoryMinusPoint = myPoint.domMinus;
+      const schoolBonusPoint = myPoint.schBonus;
+      const schoolMinusPoint = myPoint.schMinus;
 
       setDormitoryPoint({
         dormitoryBonusPoint: dormitoryBonusPoint || 0,
@@ -39,9 +43,6 @@ const usePoint = () => {
         schoolBonusPoint: schoolBonusPoint || 0,
         schoolMinusPoint: schoolMinusPoint || 0,
       });
-
-      // 0 은 기숙사
-      // 1 은 학교
     }
   }, [myPoint]);
 

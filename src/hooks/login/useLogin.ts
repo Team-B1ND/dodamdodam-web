@@ -41,8 +41,6 @@ const useLogin = () => {
         data: { member, token: accessToken, refreshToken },
       } = await authRepository.login(validLoginData);
 
-      console.log(member);
-
       token.setToken(ACCESS_TOKEN_KEY, accessToken);
       token.setToken(REFRESH_TOKEN_KEY, refreshToken);
 
