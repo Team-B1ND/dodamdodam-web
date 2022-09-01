@@ -1,25 +1,12 @@
-import { dodamV2Axios, dodamV3Axios } from "../../lib/axios/customAxios";
-import { PointResponse } from "../../types/point/point.type";
+import { dodamV3Axios } from "../../lib/axios/customAxios";
+import { MyPointResponse } from "../../types/point/point.type";
+import { getMyPointParam } from "./point.param";
 
 class PointRepository {
-  public async getMyPoint(): Promise<PointResponse> {
-    const { data } = await dodamV3Axios.get<PointResponse>("/point/my/score");
-    return data;
-  }
-
-  public async getMyMerit(): Promise<PointResponse> {
-    const { data } = await dodamV2Axios.get("/point/my/thisyear?type=1");
-    return data;
-  }
-
-  public async getMyDemerit(): Promise<PointResponse> {
-    const { data } = await dodamV2Axios.get("/point/my/thisyear?type=2");
-    return data;
-  }
-
-  public async getMyOffsetPoint(): Promise<PointResponse> {
-    const { data } = await dodamV2Axios.get("/point/my/thisyear?type=3");
-
+  public async getMyPoint({ year }: getMyPointParam): Promise<MyPointResponse> {
+    const { data } = await dodamV3Axios.get<MyPointResponse>(
+      `/point/my/score/year?year=${year}`
+    );
     return data;
   }
 }

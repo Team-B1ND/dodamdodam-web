@@ -1,14 +1,20 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import { getMyPointParam } from "repository/point/point.param";
 import pointRepository from "../../repository/point/point.repository";
-import { PointResponse } from "../../types/point/point.type";
+import { MyPointResponse } from "../../types/point/point.type";
 
 export const useGetMyPoint = (
+  { year }: getMyPointParam,
   options?: UseQueryOptions<
-    PointResponse,
+    MyPointResponse,
     AxiosError,
-    PointResponse,
+    MyPointResponse,
     "point/getMyPoint"
   >
-): UseQueryResult<PointResponse, AxiosError> =>
-  useQuery("point/getMyPoint", () => pointRepository.getMyPoint(), options);
+): UseQueryResult<MyPointResponse, AxiosError> =>
+  useQuery(
+    "point/getMyPoint",
+    () => pointRepository.getMyPoint({ year }),
+    options
+  );
