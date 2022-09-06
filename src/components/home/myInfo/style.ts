@@ -3,6 +3,7 @@ import { palette } from "../../../style/palette";
 
 export const MyInfoContainer = styled.div`
   width: 384px;
+  height: 446px;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.backgroundColor3};
@@ -66,4 +67,6 @@ export const MyInfoItem = styled.div<{ isSelect: boolean }>`
 export const MyInfoListWrap = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  overflow: scroll;
 `;

@@ -25,7 +25,6 @@ const useMyInfoProfile = () => {
 
   useEffect(() => {
     if (token.getToken(ACCESS_TOKEN_KEY) === undefined) {
-      window.alert("토큰이 존재하지 않습니다");
       navigate("/sign");
     }
   }, [navigate]);

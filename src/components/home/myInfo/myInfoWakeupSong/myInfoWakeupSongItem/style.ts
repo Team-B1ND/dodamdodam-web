@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MyInfoWakeupSongItemContainer = styled.div`
   width: 100%;
-  height: 70px;
+  min-height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
