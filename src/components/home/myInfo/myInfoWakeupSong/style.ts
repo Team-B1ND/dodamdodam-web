@@ -6,7 +6,7 @@ export const MyInfoWakeupSongContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
 
   ${customScrollBar}
 `;
