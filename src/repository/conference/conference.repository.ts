@@ -4,7 +4,7 @@ import Config from "../../config/config.json";
 
 class ConferenceRepository {
   public async getConferences(): Promise<ConferencesResponse> {
-    const { data } = await axios.get(Config.DEV_EVENT_URL);
+    const { data } = await axios.get(`${Config.DEV_EVENT_URL}/current`);
     return data;
   }
 }

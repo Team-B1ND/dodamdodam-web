@@ -1,18 +1,15 @@
-import { useGetConferences } from "../../../querys/conference/conference.query";
 import ConferencesItem from "./conferencesItem/conferencesItem";
 import { ConferenceContainer } from "./style";
+import useConferences from "../../../hooks/conferences/useConferences";
 
 const Conferences = () => {
-  const { data, isLoading } = useGetConferences();
+  const { conferences } = useConferences();
 
   return (
     <ConferenceContainer>
-      {!isLoading &&
-        data?.[0].dev_event
-          .map((conference) => (
-            <ConferencesItem data={conference} key={conference.id} />
-          ))
-          .slice(0, 5)}
+      {conferences.map((conference) => (
+        <ConferencesItem data={conference} key={conference.id} />
+      ))}
     </ConferenceContainer>
   );
 };

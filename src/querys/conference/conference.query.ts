@@ -10,3 +10,5 @@ export const useGetConferences = () =>
       staleTime: 1000 * 60 * 60,
     }
   );
+
+

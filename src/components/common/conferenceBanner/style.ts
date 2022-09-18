@@ -11,6 +11,7 @@ export const ConferenceBannerContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.borderColor};
   overflow: hidden;
   position: relative;
+  margin: 16px 0px;
 `;
 
 export const ConferenceBannerText = styled.div`

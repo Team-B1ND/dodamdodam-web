@@ -13,6 +13,14 @@ export interface Conference {
   start_date_time: string;
   start_day_week: string;
   start_time: string;
+  tags: ConferenceTag[];
+  title: string;
+}
+
+export interface ConferenceTag {
+  id: number;
+  tag_color: string;
+  tag_name: string;
 }
 
 export interface ConferencesResponse {
