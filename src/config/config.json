@@ -1,6 +1,6 @@
 {
   "DODAM_SERVER_V2": "http://dodam.b1nd.com/api/v2",
-  "DODAM_SERVER_V3": "http://101.101.209.184:8080/api",
+  "DODAM_SERVER_V3": "http://10.80.162.23:8080",
   "AUTH_SERVER": "http://auth.dodam.b1nd.com",
   "DEV_EVENT_URL": "https://real-brave-people.o-r.kr/front/v1/events"
 }
