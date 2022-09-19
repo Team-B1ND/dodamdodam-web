@@ -1,5 +1,6 @@
 import { ellipsisLine } from "../../../../style/libStyle";
 import styled from "styled-components";
+import { palette } from "../../../../style/palette";
 
 export const ConferencesItemContainer = styled.div`
   width: 227.2px;
@@ -54,6 +55,12 @@ export const ConferencesItemTitle = styled.h1`
   max-height: 48px;
   font-weight: bold;
   ${ellipsisLine(2)};
+`;
+
+export const ConferencesItemOrganizer = styled.div`
+  color: ${palette.gray[400]};
+  font-size: 14px;
+  margin-top: 5px;
 `;
 
 export const ConferencesTagWrap = styled.div`
