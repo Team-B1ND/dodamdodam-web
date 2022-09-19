@@ -9,8 +9,6 @@ const useConferences = () => {
 
   const { data, isLoading } = useGetConferences();
 
-  console.log(conferences);
-
   useEffect(() => {
     if (data && !isLoading) {
       setConferences(
