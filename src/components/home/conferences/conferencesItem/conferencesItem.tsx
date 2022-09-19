@@ -8,6 +8,7 @@ import {
   ConferencesItemImg,
   ConferencesItemImgWrap,
   ConferencesTagWrap,
+  ConferencesItemOrganizer,
 } from "./style";
 import { CONFERENCES_TAG_ITEMS } from "../../../../constants/conferences/conferences.constant";
 import ConferencesTagItem from "./conferencesTagItem/conferencesTagItem";
@@ -37,6 +38,7 @@ const ConferencesItem = ({ data }: Props) => {
       </ConferencesItemImgWrap>
       <ConferencesItemContentWrap>
         <ConferencesItemTitle>{data.title}</ConferencesItemTitle>
+        <ConferencesItemOrganizer>{data.organizer}</ConferencesItemOrganizer>
         <ConferencesTagWrap>
           {data.tags.map((item) => {
             const tag = CONFERENCES_TAG_ITEMS.find(
