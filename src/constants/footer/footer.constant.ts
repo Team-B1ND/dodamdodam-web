@@ -20,6 +20,23 @@ export const FOOTER_ITEMS = [
     ],
   },
   {
+    title: "소셜",
+    items: [
+      {
+        title: "유튜브",
+        link: "https://www.youtube.com/c/%EB%8C%80%EA%B5%AC%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EB%A7%88%EC%9D%B4%EC%8A%A4%ED%84%B0%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90",
+      },
+      {
+        title: "인스타그램",
+        link: "https://www.instagram.com/dgsw.it/",
+      },
+      {
+        title: "페이스북",
+        link: "https://www.facebook.com/dgsw.hs.kr",
+      },
+    ],
+  },
+  {
     title: "다운로드",
     items: [
       {
@@ -29,6 +46,27 @@ export const FOOTER_ITEMS = [
       {
         title: "애플",
         link: "https://apps.apple.com/kr/app/%EB%8F%84%EB%8B%B4%EB%8F%84%EB%8B%B4/id1549451556",
+      },
+    ],
+  },
+  {
+    title: "도담도담",
+    items: [
+      {
+        title: "일정",
+        link: "http://v6.dodam.b1nd.com/schedule",
+      },
+      {
+        title: "기상송",
+        link: "http://v6.dodam.b1nd.com/wakeupsong",
+      },
+      {
+        title: "내정보",
+        link: "http://v6.dodam.b1nd.com/myinfo",
+      },
+      {
+        title: "잇맵",
+        link: "http://v6.dodam.b1nd.com/itmap",
       },
     ],
   },

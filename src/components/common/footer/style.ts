@@ -10,16 +10,15 @@ export const FooterContainer = styled.div`
 
 export const FooterWrap = styled.div`
   width: 1200px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 24px 0px;
 `;
 
 export const FooterLeftWrap = styled.div`
   width: 920px;
   height: 261px;
-  padding: 24px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,7 +63,7 @@ export const FooterListWrap = styled.div`
 `;
 
 export const FooterList = styled.ul`
-  width: 170px;
+  width: 150px;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -100,7 +99,6 @@ export const FooterVersion = styled.li`
 `;
 
 export const FooterRightWrap = styled.div`
-  padding: 24px 0px;
   height: 261px;
   display: flex;
   flex-direction: column;
