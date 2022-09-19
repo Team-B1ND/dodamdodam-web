@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const FooterContainer = styled.div`
   width: 100%;
-  height: 160px;
   background-color: ${({ theme }) => theme.footerBackground};
   display: flex;
   justify-content: center;
@@ -17,19 +16,18 @@ export const FooterWrap = styled.div`
   justify-content: space-between;
 `;
 
-export const FooterContentWrap = styled.div`
+export const FooterLeftWrap = styled.div`
   width: 920px;
-  height: 100%;
+  height: 261px;
   padding: 24px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 export const FooterTextWrap = styled.div`
   display: flex;
   align-items: center;
-  height: 28px;
 `;
 
 export const FooterLogoWrap = styled.div`
@@ -55,23 +53,32 @@ export const FooterDescription = styled.p`
   margin-left: 12px;
 `;
 
-export const FooterCopyrightText = styled.p`
-  font-size: 12px;
-  color: white;
+export const FooterListWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 10px;
+  margin: 10px 0px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 `;
 
-export const FooterVersion = styled.li`
-  font-size: 12px;
-  list-style: none;
-  color: white;
-  margin-right: 18px;
+export const FooterList = styled.ul`
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 `;
 
-export const FooterItem = styled.li`
-  font-size: 12px;
-  margin: 0px 9px;
-  list-style: none;
-  color: white;
+export const FooterListTitleItem = styled.li`
+  font-size: 13px;
+  color: #b0b8c1;
+  font-weight: bold;
+`;
+
+export const FooterListItem = styled.li`
+  font-size: 13px;
+  color: #6b7684;
   cursor: pointer;
 
   &:hover {
@@ -79,9 +86,54 @@ export const FooterItem = styled.li`
   }
 `;
 
+export const FooterCopyrightText = styled.p`
+  font-size: 12px;
+  color: white;
+  line-height: 12px;
+`;
+
+export const FooterVersion = styled.li`
+  font-size: 12px;
+  list-style: none;
+  color: white;
+  margin-right: 9px;
+`;
+
+export const FooterRightWrap = styled.div`
+  padding: 24px 0px;
+  height: 261px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+export const FooterSocialWrap = styled.div`
+  display: flex;
+  column-gap: 8px;
+  margin-top: 2px;
+`;
+
+export const FooterSocialItem = styled.div`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background-color: #404955;
+`;
+
+export const FooterSocialItemIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: #8a8c90;
+  cursor: pointer;
+`;
+
 export const FooterMobileWrap = styled.div`
   width: 134px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
