@@ -1,4 +1,4 @@
-import { pageView } from "lib/ga/gtag";
+import { pageView } from "../lib/ga/gtag";
 import { useEffect } from "react";
 import { Route, Routes as Switch, useLocation } from "react-router-dom";
 import AuthPage from "../pages/authPage";
