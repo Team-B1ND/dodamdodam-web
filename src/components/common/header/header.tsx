@@ -10,6 +10,7 @@ import {
 import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
+import { event } from "lib/ga/gtag";
 
 const Header = () => {
   const currentSelect = "홈";
@@ -26,7 +27,19 @@ const Header = () => {
               isSelect={link.name === currentSelect}
               key={`header/${link.name}Item`}
             >
-              <span onClick={() => window.open(link.link)}>{link.name}</span>
+              <span
+                onClick={() => {
+                  event({
+                    action: link.name,
+                    category: "기능 접근 수치",
+                    label: "",
+                    value: 0,
+                  });
+                  window.open(link.link);
+                }}
+              >
+                {link.name}
+              </span>
             </HeaderItem>
           ))}
         </HeaderItemWrap>
