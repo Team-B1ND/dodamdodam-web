@@ -10,7 +10,7 @@ import {
 import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
-import { event } from "lib/ga/gtag";
+import { event } from "../../../lib/ga/gtag";
 
 const Header = () => {
   const currentSelect = "홈";
