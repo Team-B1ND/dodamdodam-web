@@ -17,10 +17,33 @@ export interface Conference {
   title: string;
 }
 
+export interface Competition {
+  award_set: string[];
+  benefit_set: string[];
+  dday: string;
+  id: number;
+  name: string;
+  organization: string;
+  photos: CompetitionImage[];
+}
+
+export interface CompetitionImage {
+  caption: string;
+  id: number;
+  img_file: string;
+  thumbnail_file: string;
+}
+
 export interface ConferenceTag {
   id: number;
   tag_color: string;
   tag_name: string;
+}
+
+export interface CompetitionResponse {
+  data: {
+    results: Competition[];
+  };
 }
 
 export interface ConferencesResponse {
