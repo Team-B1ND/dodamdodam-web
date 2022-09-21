@@ -3,6 +3,7 @@ import dateTransform from "../../util/transform/dateTransform";
 import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";
+import { track } from "@amplitude/analytics-browser";
 
 const useMeal = () => {
   const [date, setDate] = useState<string>(dateTransform.hyphen());
@@ -44,14 +45,17 @@ const useMeal = () => {
 
   const handleMealDate = (e: Date) => {
     setDate(dayjs(e).format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   const prevMealDate = () => {
     setDate((prev) => dayjs(prev).subtract(1, "day").format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   const nextMealDate = () => {
     setDate((prev) => dayjs(prev).add(1, "day").format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   return {
