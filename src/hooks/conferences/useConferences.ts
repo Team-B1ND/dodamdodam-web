@@ -9,8 +9,6 @@ const useConferences = () => {
 
   const { data, isLoading } = useGetConferences();
 
-  console.log(data);
-
   useEffect(() => {
     if (data && !isLoading) {
       setConferences(data.data.slice(0, 10));
