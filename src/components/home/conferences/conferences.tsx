@@ -7,9 +7,9 @@ const Conferences = () => {
 
   return (
     <ConferenceContainer>
-      {/* {conferences.map((conference) => (
+      {conferences.map((conference) => (
         <ConferencesItem data={conference} key={conference.id} />
-      ))} */}
+      ))}
     </ConferenceContainer>
   );
 };

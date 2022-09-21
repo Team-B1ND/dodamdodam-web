@@ -10,13 +10,3 @@ export const useGetConferences = () =>
       staleTime: 1000 * 60 * 60,
     }
   );
-
-export const useGetCompetition = () =>
-  useQuery(
-    "conference/getCompetition",
-    () => conferenceRepository.getCompetition(),
-    {
-      cacheTime: 1000 * 60 * 60,
-      staleTime: 1000 * 60 * 60,
-    }
-  );

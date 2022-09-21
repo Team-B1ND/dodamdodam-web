@@ -14,7 +14,7 @@ export const ConferencesItemContainer = styled.div`
 
 export const ConferencesItemImgWrap = styled.div`
   width: 100%;
-  height: 138px;
+  min-height: 138px;
   position: relative;
 `;
 
@@ -57,10 +57,19 @@ export const ConferencesItemTitle = styled.h1`
   ${ellipsisLine(2)};
 `;
 
-export const ConferencesItemOrganizer = styled.div`
-  color: ${palette.gray[400]};
-  font-size: 14px;
+export const ConferencesItemLabel = styled.div<{ borderColor: string }>`
+  width: min-content;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
   margin-top: 5px;
+  padding: 6px;
+  border: 1px solid ${({ borderColor }) => borderColor};
+  color: ${({ borderColor }) => borderColor};
+  border-radius: 2px;
+  background-color: ${({ theme }) => theme.backgroundColor3};
+  white-space: nowrap;
 `;
 
 export const ConferencesTagWrap = styled.div`
@@ -68,6 +77,12 @@ export const ConferencesTagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: auto;
-  row-gap: 5px;
+  row-gap: 2px;
   column-gap: 5px;
+`;
+
+export const ConferencesTagItem = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+  color: ${palette.gray[400]};
 `;

@@ -7,8 +7,8 @@ interface Props {
 
 const ConferencesTagItem = ({ data }: Props) => {
   return (
-    <ConferencesTagItemContainer backgroundColor={data.tag_color}>
-      {data.tag_name}
+    <ConferencesTagItemContainer backgroundColor={""}>
+      {data.title}
     </ConferencesTagItemContainer>
   );
 };

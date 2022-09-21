@@ -1,53 +1,62 @@
 export interface Conference {
-  cover_image_link: string;
-  create_date_time: string;
+  applicant_count: number;
+  categories: ConferenceTag[];
+  id: number;
+  images: ConferenceImage;
+  metadata: ConferenceMetaData;
+}
+
+export interface ConferenceImage {
+  dashboard_img: null;
+  fb_share_img: string;
+  main_img: null;
+  thumbnail_img: string;
+}
+
+export type ConferenceLabelType =
+  | "article"
+  | "video"
+  | "education"
+  | "community"
+  | "event";
+
+export interface ConferenceMetaData {
+  closed: boolean;
+  country: string;
   description: string;
-  display_sequence: number;
-  end_date_time: string;
-  end_day_week: string;
+  detail_profile: string;
   end_time: string;
-  event_link: string;
-  event_time_type: string;
-  id: number;
+  is_apply_slack: boolean;
+  is_count_visible: boolean;
+  is_online: boolean;
+  is_privacy_required: boolean;
+  is_sms: boolean;
+  key: string;
+  label: ConferenceLabelType;
+  limit: null;
   organizer: string;
-  start_date_time: string;
-  start_day_week: string;
+  organizer_id: number;
   start_time: string;
-  tags: ConferenceTag[];
+  sub_title: string;
   title: string;
-}
-
-export interface Competition {
-  award_set: string[];
-  benefit_set: string[];
-  dday: string;
-  id: number;
-  name: string;
-  organization: string;
-  photos: CompetitionImage[];
-}
-
-export interface CompetitionImage {
-  caption: string;
-  id: number;
-  img_file: string;
-  thumbnail_file: string;
+  type: string;
+  visible: boolean;
+  where: string;
 }
 
 export interface ConferenceTag {
+  count_job: number;
+  count_job_ko: number;
+  count_user: number;
+  i18n_key: string;
+  icon_img: null;
   id: number;
-  tag_color: string;
-  tag_name: string;
-}
-
-export interface CompetitionResponse {
-  data: {
-    results: Competition[];
-  };
+  kind: number;
+  taggable_id: null;
+  title: string;
+  title_thumb_img: null;
 }
 
 export interface ConferencesResponse {
-  0: {
-    dev_event: Conference[];
-  };
+  data: Conference[];
 }

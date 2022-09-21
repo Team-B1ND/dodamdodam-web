@@ -8,11 +8,12 @@ import {
   ConferencesItemImg,
   ConferencesItemImgWrap,
   ConferencesTagWrap,
-  ConferencesItemOrganizer,
+  ConferencesItemLabel,
+  ConferencesTagItem,
 } from "./style";
-import { CONFERENCES_TAG_ITEMS } from "../../../../constants/conferences/conferences.constant";
-import ConferencesTagItem from "./conferencesTagItem/conferencesTagItem";
+// import { CONFERENCES_TAG_ITEMS } from "../../../../constants/conferences/conferences.constant";
 import NoImageImage from "../../../../assets/images/common/noImage.svg";
+import dataTransform from "../../../../util/transform/dataTransform";
 
 interface Props {
   data: Conference;
@@ -20,32 +21,38 @@ interface Props {
 
 const ConferencesItem = ({ data }: Props) => {
   return (
-    <ConferencesItemContainer onClick={() => window.open(data.event_link)}>
+    <ConferencesItemContainer
+      onClick={() =>
+        window.open(`https://www.wanted.co.kr/events/${data.metadata.key}`)
+      }
+    >
       <ConferencesItemImgWrap>
-        <ConferencesItemImg src={data.cover_image_link || NoImageImage} />
+        <ConferencesItemImg src={data.images.thumbnail_img || NoImageImage} />
         <ConferencesItemDate>
-          {`${dateTransform.period(data.start_date_time)}(${
-            data.start_day_week
-          })${
-            dateTransform.period(data.start_date_time) !==
-            dateTransform.period(data.end_date_time)
-              ? `~${dateTransform.period(data.end_date_time)}(${
-                  data.end_day_week
-                })`
+          {`${dateTransform.period(data.metadata.start_time)}`}
+          {`${
+            data.metadata.end_time
+              ? `~${dateTransform.period(data.metadata.end_time)}`
               : ""
           }`}
         </ConferencesItemDate>
       </ConferencesItemImgWrap>
       <ConferencesItemContentWrap>
-        <ConferencesItemTitle>{data.title}</ConferencesItemTitle>
-        <ConferencesItemOrganizer>{data.organizer}</ConferencesItemOrganizer>
+        <ConferencesItemTitle>{data.metadata.title}</ConferencesItemTitle>
+        <ConferencesItemLabel
+          borderColor={
+            dataTransform.conferenceLabelTransform(data.metadata.label)?.color!
+          }
+        >
+          {dataTransform.conferenceLabelTransform(data.metadata.label)?.name}
+        </ConferencesItemLabel>
         <ConferencesTagWrap>
-          {data.tags.map((item) => {
-            const tag = CONFERENCES_TAG_ITEMS.find(
-              (tag) => tag.id === item.id
-            )!;
-
-            return <ConferencesTagItem data={tag} key={tag.id} />;
+          {data.categories.map((item) => {
+            return (
+              <ConferencesTagItem key={item.id}>
+                #{item.title}
+              </ConferencesTagItem>
+            );
           })}
         </ConferencesTagWrap>
       </ConferencesItemContentWrap>

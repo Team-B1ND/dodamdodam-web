@@ -11,17 +11,11 @@ const useConferences = () => {
 
   console.log(data);
 
-  // useEffect(() => {
-  //   if (data && !isLoading) {
-  //     setConferences(
-  //       data?.[0].dev_event
-  //         .filter((conference) =>
-  //           dayjs(conference.start_date_time).isAfter(dateTransform.fullDate())
-  //         )
-  //         .slice(0, 10)
-  //     );
-  //   }
-  // }, [data, isLoading]);
+  useEffect(() => {
+    if (data && !isLoading) {
+      setConferences(data.data.slice(0, 10));
+    }
+  }, [data, isLoading]);
 
   return { conferences };
 };
