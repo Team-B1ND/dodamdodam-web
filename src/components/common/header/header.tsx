@@ -11,6 +11,7 @@ import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
 import { event } from "../../../lib/ga/gtag";
+import { track } from "@amplitude/analytics-browser";
 
 const Header = () => {
   const currentSelect = "홈";
@@ -35,6 +36,7 @@ const Header = () => {
                     label: "",
                     value: 0,
                   });
+                  track(link.name + "접속");
                   window.open(link.link);
                 }}
               >

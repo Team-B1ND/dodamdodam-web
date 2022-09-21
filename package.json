@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amplitude/analytics-browser": "^1.4.0",
     "@babel/runtime": "^7.18.9",
     "@react-icons/all-files": "^4.1.0",
     "@team-b1nd/dodamdodam_web_component_library": "^1.2.2",
