@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { DevEventLabelType } from "types/devEvent/devEvent.type";
 
 class DataTransform {
   public schoolInfoTransform<T, T2, T3>(
@@ -75,6 +76,39 @@ class DataTransform {
       return "일";
     } else {
       return "월";
+    }
+  }
+
+  public devEventLabelTransform(label: DevEventLabelType) {
+    switch (label) {
+      case "article":
+        return {
+          color: "#ff9100",
+          name: "아티클",
+        };
+      case "education":
+        return {
+          color: "#333",
+          name: "교육",
+        };
+      case "video":
+        return {
+          color: "#5866dc",
+          name: "VOD",
+        };
+      case "community":
+        return {
+          color: "#a149e4",
+          name: "네트워킹",
+        };
+      case "event":
+        return {
+          color: "#08ba9c",
+          name: "이벤트",
+        };
+
+      default:
+        break;
     }
   }
 }

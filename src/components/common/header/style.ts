@@ -25,7 +25,6 @@ export const HeaderLogo = styled.div`
   margin-right: 40px;
   height: 100%;
   display: flex;
-
   img {
     width: 100%;
     object-fit: scale-down;
@@ -46,7 +45,6 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
   justify-content: center;
   align-items: top;
   padding-top: 48px;
-
   span {
     text-decoration: none;
     font-size: 18px;
@@ -55,14 +53,12 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
     box-sizing: content-box;
     white-space: nowrap;
     cursor: pointer;
-
     ${({ isSelect }) =>
       isSelect &&
       css`
         color: ${palette.main};
         border-bottom: 3px solid ${palette.main};
       `}
-
     &:hover {
       color: ${palette.main};
     }
@@ -86,7 +82,6 @@ export const HeaderReleaseIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   svg {
   }
 `;

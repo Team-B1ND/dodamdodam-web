@@ -1,7 +1,7 @@
 import { palette } from "../../../style/palette";
 import styled from "styled-components";
 
-export const ConferenceBannerContainer = styled.div`
+export const DevEventBannerContainer = styled.div`
   width: 100%;
   height: 110px;
   background-color: ${palette.main};
@@ -14,12 +14,12 @@ export const ConferenceBannerContainer = styled.div`
   margin: 16px 0px;
 `;
 
-export const ConferenceBannerText = styled.div`
+export const DevEventBannerText = styled.div`
   font-size: 24px;
   color: white;
 `;
 
-export const ConferenceBannerImgWrap = styled.div`
+export const DevEventBannerImgWrap = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ export const ConferenceBannerImgWrap = styled.div`
   transform: translate(-0%, -50%) rotate(-25deg);
 `;
 
-export const ConferenceBannerImg = styled.img`
+export const DevEventBannerImg = styled.img`
   width: 100px;
   object-fit: scale-down;
 `;

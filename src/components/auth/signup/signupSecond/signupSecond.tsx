@@ -104,7 +104,7 @@ const SignupSecond = ({
           이전
         </SignupPartButton>
         <SignupPartButton direction="next" onClick={submitSignupDataSecond}>
-          Sign Up
+          회원가입
           <SignupPartButtonIcon>
             <FiChevronRight />
           </SignupPartButtonIcon>

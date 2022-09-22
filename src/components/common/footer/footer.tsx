@@ -5,11 +5,8 @@ import {
   FOOTER_MOBILE_ITEMS,
   FOOTER_SOCIAL_ITEMS,
 } from "../../../constants/footer/footer.constant";
-import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-  const navigate = useNavigate();
-
   return (
     <S.FooterContainer>
       <S.FooterWrap>

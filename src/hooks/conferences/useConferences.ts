@@ -1,27 +1,19 @@
-import dayjs from "dayjs";
-import { useGetConferences } from "../../querys/conference/conference.query";
+import { useGetDevEvents } from "../../querys/devEvent/devEvent.query";
 import { useEffect, useState } from "react";
-import { Conference } from "../../types/conference/conference.type";
-import dateTransform from "../../util/transform/dateTransform";
+import { DevEvent } from "../../types/devEvent/devEvent.type";
 
-const useConferences = () => {
-  const [conferences, setConferences] = useState<Conference[]>([]);
+const useDevEvent = () => {
+  const [devEvents, setDevEvents] = useState<DevEvent[]>([]);
 
-  const { data, isLoading } = useGetConferences();
+  const { data, isLoading } = useGetDevEvents();
 
   useEffect(() => {
     if (data && !isLoading) {
-      setConferences(
-        data?.[0].dev_event
-          .filter((conference) =>
-            dayjs(conference.start_date_time).isAfter(dateTransform.fullDate())
-          )
-          .slice(0, 10)
-      );
+      setDevEvents(data.data.slice(0, 10));
     }
   }, [data, isLoading]);
 
-  return { conferences };
+  return { devEvents };
 };
 
-export default useConferences;
+export default useDevEvent;

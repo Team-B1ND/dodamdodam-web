@@ -26,10 +26,7 @@ const TodayWakeupSong = () => {
       ) : (
         <TodayWakeupSongItemWrap>
           {todayAllowWakeupSongs.slice(0, 2).map((wakeupSong) => (
-            <TodayWakeupSongItem
-              wakeupSongData={wakeupSong}
-              key={wakeupSong.id}
-            />
+            <TodayWakeupSongItem wakeupSongData={wakeupSong} />
           ))}
         </TodayWakeupSongItemWrap>
       )}

@@ -79,7 +79,6 @@ export const FooterListItem = styled.li`
   font-size: 13px;
   color: #6b7684;
   cursor: pointer;
-
   &:hover {
     text-decoration: underline;
   }

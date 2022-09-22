@@ -1,7 +1,7 @@
-import ConferenceBanner from "../../components/common/conferenceBanner/conferenceBanner";
+import DevEventBanner from "../../components/common/devEventBanner/devEventBanner";
 import Apply from "./apply/apply";
 import Banner from "./banner/banner";
-import Conferences from "./conferences/conferences";
+import DevEvents from "./devEvents/devEvents";
 import Meal from "./meal/meal";
 import MyInfo from "./myInfo/myInfo";
 import Notice from "./notice/notice";
@@ -32,8 +32,8 @@ const Home = () => {
             <Point />
           </Column>
         </Row>
-        <ConferenceBanner />
-        <Conferences />
+        <DevEventBanner />
+        <DevEvents />
       </Column>
     </>
   );

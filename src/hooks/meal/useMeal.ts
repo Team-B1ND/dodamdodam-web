@@ -13,17 +13,6 @@ const useMeal = () => {
     dateTransform.hyphen().split("-")[1]
   );
 
-  //   const mealsData = useGetMeals({
-  //     year: dateTransform.hyphen().split("-")[0],
-  //     month: tempMonth,
-  //   }).data?.data.meal;
-
-  // useEffect(() => {
-  //   setValidMeal(meals[Number(date.split("-")[2]) - 1]);
-  // }, [date, meals]);
-
-  //날짜를 바꾸다가 월이 달라졌을때를 확인하는 부분
-
   const requestMeals = useCallback(async () => {
     try {
       const dates = date.split("-");
