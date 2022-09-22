@@ -69,7 +69,7 @@ const Login = ({ setIsLogin }: Props) => {
         <AuthOppositePartWrap>
           <AuthOppositePartText>아직 계정이 없으신가요?</AuthOppositePartText>
           <AuthOppositePartButton onClick={() => setIsLogin(false)}>
-            Sign Up
+            회원가입
           </AuthOppositePartButton>
         </AuthOppositePartWrap>
       </LoginWrap>

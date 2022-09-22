@@ -1,5 +1,5 @@
 import dateTransform from "../../../../util/transform/dateTransform";
-import { Conference } from "../../../../types/conference/conference.type";
+import { Conference } from "../../../../types/devEvent/devEvent.type";
 import {
   ConferencesItemTitle,
   ConferencesItemContainer,
@@ -11,7 +11,6 @@ import {
   ConferencesItemLabel,
   ConferencesTagItem,
 } from "./style";
-// import { CONFERENCES_TAG_ITEMS } from "../../../../constants/conferences/conferences.constant";
 import NoImageImage from "../../../../assets/images/common/noImage.svg";
 import dataTransform from "../../../../util/transform/dataTransform";
 

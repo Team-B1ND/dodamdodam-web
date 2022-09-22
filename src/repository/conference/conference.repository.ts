@@ -1,9 +1,9 @@
 import axios from "axios";
-import { ConferencesResponse } from "types/conference/conference.type";
+import { DevEventsResponse } from "../../types/devEvent/devEvent.type";
 import Config from "../../config/config.json";
 
-class ConferenceRepository {
-  public async getConferences(): Promise<ConferencesResponse> {
+class DevEventRepository {
+  public async getDevEvents(): Promise<DevEventsResponse> {
     const { data } = await axios.get(
       `${Config.DEV_EVENT_URL}/?sort=deadline&payable=all&category=tag.it2`
     );
@@ -11,4 +11,4 @@ class ConferenceRepository {
   }
 }
 
-export default new ConferenceRepository();
+export default new DevEventRepository();

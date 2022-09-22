@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ConferenceContainer = styled.div`
+export const DevEventsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;

@@ -1,26 +1,26 @@
-export interface Conference {
+export interface DevEvent {
   applicant_count: number;
-  categories: ConferenceTag[];
+  categories: DevEventTag[];
   id: number;
-  images: ConferenceImage;
-  metadata: ConferenceMetaData;
+  images: DevEventImage;
+  metadata: DevEventMetaData;
 }
 
-export interface ConferenceImage {
+export interface DevEventImage {
   dashboard_img: null;
   fb_share_img: string;
   main_img: null;
   thumbnail_img: string;
 }
 
-export type ConferenceLabelType =
+export type DevEventLabelType =
   | "article"
   | "video"
   | "education"
   | "community"
   | "event";
 
-export interface ConferenceMetaData {
+export interface DevEventMetaData {
   closed: boolean;
   country: string;
   description: string;
@@ -32,7 +32,7 @@ export interface ConferenceMetaData {
   is_privacy_required: boolean;
   is_sms: boolean;
   key: string;
-  label: ConferenceLabelType;
+  label: DevEventLabelType;
   limit: null;
   organizer: string;
   organizer_id: number;
@@ -44,7 +44,7 @@ export interface ConferenceMetaData {
   where: string;
 }
 
-export interface ConferenceTag {
+export interface DevEventTag {
   count_job: number;
   count_job_ko: number;
   count_user: number;
@@ -57,6 +57,6 @@ export interface ConferenceTag {
   title_thumb_img: null;
 }
 
-export interface ConferencesResponse {
-  data: Conference[];
+export interface DevEventsResponse {
+  data: DevEvent[];
 }

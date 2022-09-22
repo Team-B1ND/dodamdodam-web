@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { ConferenceLabelType } from "types/conference/conference.type";
+import { DevEventLabelType } from "types/devEvent/devEvent.type";
 
 class DataTransform {
   public schoolInfoTransform<T, T2, T3>(
@@ -79,7 +79,7 @@ class DataTransform {
     }
   }
 
-  public conferenceLabelTransform(label: ConferenceLabelType) {
+  public devEventLabelTransform(label: DevEventLabelType) {
     switch (label) {
       case "article":
         return {

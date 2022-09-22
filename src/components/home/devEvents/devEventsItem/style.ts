@@ -2,7 +2,7 @@ import { ellipsisLine } from "../../../../style/libStyle";
 import styled from "styled-components";
 import { palette } from "../../../../style/palette";
 
-export const ConferencesItemContainer = styled.div`
+export const DevEventsItemContainer = styled.div`
   width: 227.2px;
   min-height: 270px;
   border: 1px solid ${({ theme }) => theme.borderColor};
@@ -12,19 +12,19 @@ export const ConferencesItemContainer = styled.div`
   cursor: pointer;
 `;
 
-export const ConferencesItemImgWrap = styled.div`
+export const DevEventsItemImgWrap = styled.div`
   width: 100%;
   min-height: 138px;
   position: relative;
 `;
 
-export const ConferencesItemImg = styled.img`
+export const DevEventsItemImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-export const ConferencesItemDate = styled.div`
+export const DevEventsItemDate = styled.div`
   height: 24px;
   padding: 0px 10px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -38,7 +38,7 @@ export const ConferencesItemDate = styled.div`
   align-items: center;
 `;
 
-export const ConferencesItemContentWrap = styled.div`
+export const DevEventsItemContentWrap = styled.div`
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -47,7 +47,7 @@ export const ConferencesItemContentWrap = styled.div`
   flex-direction: column;
 `;
 
-export const ConferencesItemTitle = styled.h1`
+export const DevEventsItemTitle = styled.h1`
   font-size: 16px;
   color: ${({ theme }) => theme.contrast};
   word-break: break-all;
@@ -57,7 +57,7 @@ export const ConferencesItemTitle = styled.h1`
   ${ellipsisLine(2)};
 `;
 
-export const ConferencesItemLabel = styled.div<{ borderColor: string }>`
+export const DevEventsItemLabel = styled.div<{ borderColor: string }>`
   width: min-content;
   height: 20px;
   display: flex;
@@ -72,7 +72,7 @@ export const ConferencesItemLabel = styled.div<{ borderColor: string }>`
   white-space: nowrap;
 `;
 
-export const ConferencesTagWrap = styled.div`
+export const DevEventsTagWrap = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +81,7 @@ export const ConferencesTagWrap = styled.div`
   column-gap: 5px;
 `;
 
-export const ConferencesTagItem = styled.span`
+export const DevEventsTagItem = styled.span`
   font-size: 12px;
   font-weight: 600;
   color: ${palette.gray[400]};
