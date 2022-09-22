@@ -3,6 +3,7 @@ import dateTransform from "../../util/transform/dateTransform";
 import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";
+import { track } from "@amplitude/analytics-browser";
 
 const useMeal = () => {
   const [date, setDate] = useState<string>(dateTransform.hyphen());
@@ -11,17 +12,6 @@ const useMeal = () => {
   const [tempMonth, setTempMonth] = useState<string>(
     dateTransform.hyphen().split("-")[1]
   );
-
-  //   const mealsData = useGetMeals({
-  //     year: dateTransform.hyphen().split("-")[0],
-  //     month: tempMonth,
-  //   }).data?.data.meal;
-
-  // useEffect(() => {
-  //   setValidMeal(meals[Number(date.split("-")[2]) - 1]);
-  // }, [date, meals]);
-
-  //날짜를 바꾸다가 월이 달라졌을때를 확인하는 부분
 
   const requestMeals = useCallback(async () => {
     try {
@@ -44,14 +34,17 @@ const useMeal = () => {
 
   const handleMealDate = (e: Date) => {
     setDate(dayjs(e).format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   const prevMealDate = () => {
     setDate((prev) => dayjs(prev).subtract(1, "day").format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   const nextMealDate = () => {
     setDate((prev) => dayjs(prev).add(1, "day").format("YYYY-MM-DD"));
+    track("(메인페이지) 급식조회");
   };
 
   return {

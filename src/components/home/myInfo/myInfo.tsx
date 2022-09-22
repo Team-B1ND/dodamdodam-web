@@ -7,6 +7,7 @@ import MyInfoLostStuff from "./myInfoLostStuff/myInfoLostStuff";
 import MyInfoWakeupSong from "./myInfoWakeupSong/myInfoWakeupSong";
 import MyInfoTopImage from "../../../assets/images/myinfo/myInfoTop.svg";
 import * as S from "./style";
+import { track } from "@amplitude/analytics-browser";
 
 const MyInfo = () => {
   const { section, setSection, logOut } = useMyInfo();
@@ -23,7 +24,10 @@ const MyInfo = () => {
       <S.MyInfoItemsWrap>
         {MYINFO_ITEMS.map((item) => (
           <S.MyInfoItem
-            onClick={() => setSection(item)}
+            onClick={() => {
+              setSection(item);
+              track(`(메인페이지)내 ${item}조회`);
+            }}
             isSelect={section === item}
             key={`myinfoItem ${item}`}
           >
