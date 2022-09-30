@@ -1,3 +1,4 @@
+import { usePostModuleLog } from "../../../../querys/log/log.query";
 import { BannerItemContainer } from "./style";
 
 interface Props {
@@ -7,11 +8,21 @@ interface Props {
 }
 
 const BannerItem = ({ imgSrc, redirectURL, title }: Props) => {
+  const postModuleLogMutation = usePostModuleLog();
+
+  const redirect = () => {
+    postModuleLogMutation.mutate({
+      moduleName: "메인/배너",
+      description: `메인페이지에서 ${title}배너 클릭`,
+    });
+    window.open(redirectURL);
+  };
+
   return (
     <BannerItemContainer
       src={imgSrc}
       alt={`bannerItem/${title} banner`}
-      onClick={() => window.open(redirectURL)}
+      onClick={redirect}
     />
   );
 };

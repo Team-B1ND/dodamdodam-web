@@ -14,6 +14,7 @@ import { useGetTimeTable } from "../../querys/timeTable/timeTable.query";
 import { useGetPlaces } from "../../querys/place/place.query";
 import dateCheck from "../../util/check/dateCheck";
 import showToast from "../../lib/toast/toast";
+import { usePostModuleLog } from "../../querys/log/log.query";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
@@ -35,6 +36,7 @@ const useApplyStudyRoom = () => {
   }).data?.data;
 
   const postApplyStudyRoomsMutation = usePostApplyStudyRooms();
+  const postModuleLogMutation = usePostModuleLog();
 
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(false);
@@ -165,6 +167,10 @@ const useApplyStudyRoom = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries("studyRoom/getMyStudyRooms");
+          postModuleLogMutation.mutate({
+            moduleName: "메인/자습실신청",
+            description: "자습실 기본 위치 신청",
+          });
           showToast("기본 위치 신청 성공", "SUCCESS");
           setMyApplyStudyRooms(handleApplyStudyRoomList);
           setTempMyApplyStudyRooms(handleApplyStudyRoomList);
@@ -205,6 +211,10 @@ const useApplyStudyRoom = () => {
         onSuccess: () => {
           queryClient.invalidateQueries("studyRoom/getMyStudyRooms");
           showToast("위치 신청 성공", "SUCCESS");
+          postModuleLogMutation.mutate({
+            moduleName: "메인/자습실신청",
+            description: "자습실 위치 신청",
+          });
           setTempMyApplyStudyRooms(myApplyStudyRooms);
         },
         onError: () => {

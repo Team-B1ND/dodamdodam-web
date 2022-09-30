@@ -1,9 +1,9 @@
 import ConferencesItem from "./devEventsItem/devEventsItem";
 import { DevEventsContainer } from "./style";
-import useConferences from "../../../hooks/conferences/useConferences";
+import useDevEvent from "../../../hooks/devEvent/useDevEvent";
 
 const DevEvents = () => {
-  const { devEvents } = useConferences();
+  const { devEvents } = useDevEvent();
 
   return (
     <DevEventsContainer>

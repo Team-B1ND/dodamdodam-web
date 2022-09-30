@@ -11,6 +11,7 @@ import {
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
 import dataCheck from "../../util/check/dataCheck";
 import dateTransform from "../../util/transform/dateTransform";
+import { usePostModuleLog } from "../../querys/log/log.query";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();
@@ -23,6 +24,7 @@ const useApplyLeave = () => {
   const postApplyLeaveMutation = usePostApplyLeave();
   const deleteApplyLeaveMutation = useDeleteApplyLeave();
   const putApplyLeaveMutation = usePutApplyLeave();
+  const postModuleLogMutation = usePostModuleLog();
 
   const [fold, setFold] = useState(true);
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(
@@ -117,6 +119,10 @@ const useApplyLeave = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");
+            postModuleLogMutation.mutate({
+              moduleName: "메인/외박신청",
+              description: "외박 삭제",
+            });
             setNotApprovedLeaves((prev) =>
               prev.filter((notApprovePass) => notApprovePass.id !== idx)
             );
@@ -238,6 +244,10 @@ const useApplyLeave = () => {
           for (let key in leaveData) {
             setLeaveData((prev) => ({ ...prev, [key]: "" }));
           }
+          postModuleLogMutation.mutate({
+            moduleName: "메인/외박신청",
+            description: "외박 신청",
+          });
           setLeaveData((prev) => ({
             ...prev,
             startTimeDate: dateTransform.hyphen(),
@@ -258,6 +268,10 @@ const useApplyLeave = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");
+            postModuleLogMutation.mutate({
+              moduleName: "메인/외박신청",
+              description: "외박 수정",
+            });
             showToast("외박 수정 성공", "SUCCESS");
           },
           onError: () => showToast("외박 수정 실패", "ERROR"),

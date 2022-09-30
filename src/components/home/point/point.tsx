@@ -18,8 +18,8 @@ import {
 import PointChartIcon from "../../../assets/icons/point/pointChart.png";
 
 const Point = () => {
-  const { schoolPoint, dormitoryPoint } = usePoint();
-  const [isDormitoryView, setIsDormitoryView] = useState(true); // true은 기숙사, false은 학교
+  const { isDormitoryView, onChangeView, schoolPoint, dormitoryPoint } =
+    usePoint();
 
   return (
     <PointContainer>
@@ -76,10 +76,7 @@ const Point = () => {
               벌점
             </PointCategoryItemWrap>
           </PointCategoryWrap>
-          <PointChangeButton
-            isSchool={isDormitoryView}
-            onClick={() => setIsDormitoryView((prev) => !prev)}
-          >
+          <PointChangeButton isSchool={isDormitoryView} onClick={onChangeView}>
             {isDormitoryView ? "기숙사" : "학교"}
           </PointChangeButton>
         </PointRightWrap>

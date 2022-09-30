@@ -9,6 +9,7 @@ import {
   usePutMyBus,
 } from "../../querys/bus/bus.query";
 import { Bus } from "../../types/bus/bus.type";
+import { usePostModuleLog } from "../../querys/log/log.query";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();
@@ -22,6 +23,7 @@ const useApplyBus = () => {
   const postMyBusMutation = usePostMyBus();
   const deleteMyBusMutation = useDeleteMyBus();
   const putMyBusMutation = usePutMyBus();
+  const postModuleLogMutation = usePostModuleLog();
 
   //버스 리스트를 담는 상태
   const [busList, setBusList] = useState<Bus[]>([]);
@@ -72,6 +74,10 @@ const useApplyBus = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries("bus/getMyBus");
+          postModuleLogMutation.mutate({
+            moduleName: "메인/버스신청",
+            description: "버스 신청 취소",
+          });
           showToast("버스 신청 취소 성공", "SUCCESS");
           setBusData({
             busName: "",
@@ -100,6 +106,10 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
+            postModuleLogMutation.mutate({
+              moduleName: "메인/버스신청",
+              description: "버스 수정",
+            });
             showToast("버스 신청 수정 성공", "SUCCESS");
           },
           onError: () => {
@@ -113,6 +123,10 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
+            postModuleLogMutation.mutate({
+              moduleName: "메인/버스신청",
+              description: "버스 신청",
+            });
             showToast("버스 신청 성공", "SUCCESS");
           },
           onError: () => {
