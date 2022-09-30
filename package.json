@@ -21,6 +21,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^4.0.3",
     "react-slick": "^0.29.0",
+    "react-toastify": "^9.0.8",
     "recoil": "^0.7.5",
     "stream": "^0.0.2",
     "styled-components": "^5.3.5",

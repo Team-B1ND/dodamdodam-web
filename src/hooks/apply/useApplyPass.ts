@@ -10,6 +10,7 @@ import dateTransform from "../../util/transform/dateTransform";
 import dayjs from "dayjs";
 import dataCheck from "../../util/check/dataCheck";
 import { useQueryClient } from "react-query";
+import showToast from "../../lib/toast/toast";
 
 const useApplyPass = () => {
   const queryClient = useQueryClient();
@@ -121,17 +122,18 @@ const useApplyPass = () => {
   //외출 리스트에서 외출 삭제하는 함수
   const deleteNotApprovedPass = useCallback(
     async (idx: number) => {
-      try {
-        deleteMyPassMutation.mutateAsync(
-          { outgoingId: idx + "" },
-          {
-            onSuccess: () => queryClient.invalidateQueries("pass/getMyPasses"),
-          }
-        );
-        window.alert("외출 삭제 성공");
-      } catch (error) {
-        window.alert("외출 삭제 실패");
-      }
+      deleteMyPassMutation.mutateAsync(
+        { outgoingId: idx + "" },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("pass/getMyPasses");
+            showToast("외출 삭제 성공", "SUCCESS");
+          },
+          onError: () => {
+            showToast("외출 삭제 실패", "ERROR");
+          },
+        }
+      );
     },
     [deleteMyPassMutation, queryClient]
   );
@@ -189,7 +191,7 @@ const useApplyPass = () => {
     );
 
     if (notApprovedPasses?.length > 4) {
-      window.alert("외출신청은 최대 4개까지 가능해요!");
+      showToast("외출신청은 최대 4개까지 가능해요!", "INFO");
       return;
     }
 
@@ -197,24 +199,24 @@ const useApplyPass = () => {
       !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
       !dataCheck.timeFormatCheck(endTimeHour, endTimeMinute)
     ) {
-      window.alert("올바른 양식을 입력해주세요!");
+      showToast("올바른 양식을 입력해주세요!", "INFO");
       return;
     }
 
     if (!startTimeIsAfter || !endTimeIsAfter) {
-      window.alert("현재 시간 이후로 입력해주세요!");
+      showToast("현재 시간 이후로 입력해주세요!", "INFO");
       return;
     }
 
     if (
       !dayjs(validApplyPass.endOutDate).isAfter(validApplyPass.startOutDate)
     ) {
-      window.alert("복귀시간이 출발시간보다 빨라요!");
+      showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
 
     if (reason?.length > 50) {
-      window.alert("사유의 길이를 50자 이내로 적어주세요!");
+      showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
       return;
     }
 
@@ -223,35 +225,34 @@ const useApplyPass = () => {
       postApplyPassMutation.mutateAsync(validApplyPass, {
         onSuccess: () => {
           queryClient.invalidateQueries("pass/getMyPasses");
-          window.alert("외출 신청이 되었습니다");
+          showToast("외출 신청 성공", "SUCCESS");
           for (let key in passData) {
             setPassData((prev) => ({ ...prev, [key]: "" }));
           }
         },
         onError: () => {
-          window.alert("외출 신청을 실패하였습니다.");
+          showToast("외출 신청 실패", "ERROR");
         },
       });
     } else {
       const passIdx = notApprovedPasses.find(
         (notApprovePass) => notApprovePass.id === passData.idx
       )?.id;
-
-      try {
-        putApplyPassMutation.mutateAsync(
-          {
-            ...validApplyPass,
-            outId: passIdx!,
+      putApplyPassMutation.mutateAsync(
+        {
+          ...validApplyPass,
+          outId: passIdx!,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries("pass/getMyPasses");
+            showToast("외출 수정 성공", "SUCCESS");
           },
-          {
-            onSuccess: () => {
-              queryClient.invalidateQueries("pass/getMyPasses");
-              window.alert("외출 수정이 되었습니다.");
-            },
-            onError: () => window.alert("외출 수정 실패"),
-          }
-        );
-      } catch (error) {}
+          onError: () => {
+            showToast("외출 수정 실패", "ERROR");
+          },
+        }
+      );
     }
   }, [
     fold,

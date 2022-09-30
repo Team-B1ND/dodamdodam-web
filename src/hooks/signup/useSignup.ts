@@ -1,4 +1,5 @@
 import { sha512 } from "js-sha512";
+import showToast from "../../lib/toast/toast";
 import React, { useCallback, useState } from "react";
 import authRepository from "../../repository/auth/auth.repository";
 import { Signup, SignupAgree } from "../../types/signup/signup.type";
@@ -36,22 +37,22 @@ const useSignup = () => {
     const { id, pw, grade, room, number } = signupData;
 
     if (id === "" || pw === "" || grade === 0 || room === 0 || number === 0) {
-      window.alert("양식이 비어있습니다.");
+      showToast("양식이 비어있습니다", "INFO");
       return;
     }
 
     if (!patternCheck.idCheck(id)) {
-      window.alert("아이디 형식을 지켜주세요.");
+      showToast("아이디 형식을 지켜주세요", "INFO");
       return;
     }
 
     if (!patternCheck.pwCheck(pw)) {
-      window.alert("비밀번호 형식을 지켜주세요.");
+      showToast("비밀번호 형식을 지켜주세요", "INFO");
       return;
     }
 
     if (grade > 3 || room > 4 || number > 20) {
-      window.alert("올바른 학급정보, 기수를 입력해주세요");
+      showToast("올바른 학급정보, 기수를 입력해주세요", "INFO");
       return;
     }
 
@@ -72,27 +73,27 @@ const useSignup = () => {
     const { first, second } = agrees;
 
     if (email === "" || phone === "" || name === "") {
-      window.alert("형식이 비어있습니다.");
+      showToast("형식이 비어있습니다", "INFO");
       return;
     }
 
     if (!patternCheck.emailCheck(email)) {
-      window.alert("이메일 형식을 지켜주세요.");
+      showToast("이메일 형식을 지켜주세요", "INFO");
       return;
     }
 
     if (!patternCheck.phoneCheck(phone)) {
-      window.alert("전화번호 형식을 지켜주세요");
+      showToast("전화번호 형식을 지켜주세요", "INFO");
       return;
     }
 
     if (!first) {
-      window.alert("운영정책에 동의해주세요.");
+      showToast("운영정책에 동의해주세요", "INFO");
       return;
     }
 
     if (!second) {
-      window.alert("개인정보취급방침에 동의해주세요.");
+      showToast("개인정보취급방침에 동의해주세요", "INFO");
       return;
     }
 
@@ -106,10 +107,13 @@ const useSignup = () => {
 
     try {
       await authRepository.signup(validSignupData);
-      window.alert("회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)");
+      showToast(
+        "회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)",
+        "SUCCESS"
+      );
       window.location.reload();
     } catch (error) {
-      window.alert("회원가입에 실패했습니다.");
+      showToast("회원가입에 실패했습니다.", "ERROR");
     }
   }, [agrees, signupData]);
 

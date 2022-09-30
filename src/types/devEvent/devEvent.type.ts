@@ -18,7 +18,8 @@ export type DevEventLabelType =
   | "video"
   | "education"
   | "community"
-  | "event";
+  | "event"
+  | "promotion";
 
 export interface DevEventMetaData {
   closed: boolean;

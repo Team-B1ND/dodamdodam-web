@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetMyMember } from "../../querys/member/member.query";
 import { useGetMyPermission } from "../../querys/permission/permission.query";
+import showToast from "../../lib/toast/toast";
 
 const useMyInfoProfile = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const useMyInfoProfile = () => {
     cacheTime: 1000 * 60 * 60,
     staleTime: 1000 * 60 * 5,
     onError: () => {
-      window.alert("토큰이 위조 됐습니다");
+      showToast("토큰이 위조 됐습니다", "ERROR");
       token.clearToken();
       navigate("/sign");
     },

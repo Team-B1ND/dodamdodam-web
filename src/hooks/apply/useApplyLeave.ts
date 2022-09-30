@@ -1,10 +1,6 @@
 import dayjs from "dayjs";
-import React, {
-  useCallback,
-  useEffect,
-  useInsertionEffect,
-  useState,
-} from "react";
+import showToast from "../../lib/toast/toast";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
   useDeleteApplyLeave,
@@ -124,10 +120,10 @@ const useApplyLeave = () => {
             setNotApprovedLeaves((prev) =>
               prev.filter((notApprovePass) => notApprovePass.id !== idx)
             );
-            window.alert("외박 삭제 성공");
+            showToast("외박 삭제 성공", "SUCCESS");
           },
           onError: () => {
-            window.alert("외박 삭제 실패");
+            showToast("외박 삭제 실패", "ERROR");
           },
         }
       );
@@ -200,7 +196,7 @@ const useApplyLeave = () => {
     );
 
     if (notApprovedLeaves?.length > 4) {
-      window.alert("외박신청은 최대 4개까지 가능해요!");
+      showToast("외박신청은 최대 4개까지 가능해요!", "INFO");
       return;
     }
 
@@ -208,29 +204,29 @@ const useApplyLeave = () => {
       !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
       !dataCheck.timeFormatCheck(endTimeHour, endTimeMinute)
     ) {
-      window.alert("올바른 양식을 입력해주세요!");
+      showToast("올바른 양식을 입력해주세요!", "INFO");
       return;
     }
 
     if (!startTimeIsAfter || !endTimeIsAfter) {
-      window.alert("현재 시간 이후로 입력해주세요!");
+      showToast("올바른 양식을 입력해주세요!", "INFO");
       return;
     }
 
     if (
       !dayjs(validApplyLeave.endOutDate).isAfter(validApplyLeave.startOutDate)
     ) {
-      window.alert("복귀시간이 출발시간보다 빨라요!");
+      showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
 
     if (dayjs(startTimeDate).isSame(endTimeDate)) {
-      window.alert("출발시간과 복귀시간이 같아요!");
+      showToast("출발시간과 복귀시간이 같아요!", "INFO");
       return;
     }
 
     if (reason?.length > 50) {
-      window.alert("사유의 길이를 50자 이내로 적어주세요!");
+      showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
       return;
     }
 
@@ -238,7 +234,7 @@ const useApplyLeave = () => {
       postApplyLeaveMutation.mutateAsync(validApplyLeave, {
         onSuccess: () => {
           queryClient.invalidateQueries("leave/getMyLeaves");
-          window.alert("외박 신청이 되었습니다");
+          showToast("외박 신청 성공", "SUCCESS");
           for (let key in leaveData) {
             setLeaveData((prev) => ({ ...prev, [key]: "" }));
           }
@@ -249,7 +245,7 @@ const useApplyLeave = () => {
           }));
         },
         onError: () => {
-          window.alert("외박 신청 실패");
+          showToast("외박 신청 실패", "ERROR");
         },
       });
     } else {
@@ -262,9 +258,9 @@ const useApplyLeave = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");
-            window.alert("외박 수정이 되었습니다.");
+            showToast("외박 수정 성공", "SUCCESS");
           },
-          onError: () => window.alert("외박 수정 실패"),
+          onError: () => showToast("외박 수정 실패", "ERROR"),
         }
       );
     }

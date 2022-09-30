@@ -8,6 +8,7 @@ import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
 } from "../../constants/token/token.constant";
+import showToast from "../../lib/toast/toast";
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -44,10 +45,10 @@ const useLogin = () => {
       token.setToken(ACCESS_TOKEN_KEY, accessToken);
       token.setToken(REFRESH_TOKEN_KEY, refreshToken);
 
-      window.alert("로그인 성공");
+      showToast("로그인 성공", "SUCCESS");
       navigate("/");
     } catch (error) {
-      window.alert("로그인 실패");
+      showToast("로그인 실패", "ERROR");
     }
   }, [loginData, navigate]);
 

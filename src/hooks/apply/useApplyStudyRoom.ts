@@ -13,6 +13,7 @@ import { useQueryClient } from "react-query";
 import { useGetTimeTable } from "../../querys/timeTable/timeTable.query";
 import { useGetPlaces } from "../../querys/place/place.query";
 import dateCheck from "../../util/check/dateCheck";
+import showToast from "../../lib/toast/toast";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
@@ -164,12 +165,12 @@ const useApplyStudyRoom = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries("studyRoom/getMyStudyRooms");
-          window.alert("기본 위치 신청 성공");
+          showToast("기본 위치 신청 성공", "SUCCESS");
           setMyApplyStudyRooms(handleApplyStudyRoomList);
           setTempMyApplyStudyRooms(handleApplyStudyRoomList);
         },
         onError: () => {
-          window.alert("기본 위치 신청 실패");
+          showToast("기본 위치 신청 실패", "ERROR");
         },
       }
     );
@@ -185,7 +186,7 @@ const useApplyStudyRoom = () => {
     });
 
     if (isTempSame) {
-      window.alert("위치를 선택해주세요");
+      showToast("위치를 선택해주세요", "INFO");
       return;
     }
 
@@ -203,12 +204,12 @@ const useApplyStudyRoom = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries("studyRoom/getMyStudyRooms");
-          window.alert("성공");
+          showToast("위치 신청 성공", "SUCCESS");
           setTempMyApplyStudyRooms(myApplyStudyRooms);
         },
         onError: () => {
           setMyApplyStudyRooms(tempMyApplyStudyRooms);
-          window.alert("실패");
+          showToast("위치 신청 실패", "ERROR");
         },
       }
     );

@@ -1,3 +1,4 @@
+import showToast from "../../lib/toast/toast";
 import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
@@ -66,25 +67,26 @@ const useApplyBus = () => {
   );
 
   const deleteMyBus = async () => {
-    try {
-      deleteMyBusMutation.mutateAsync(
-        { idx: String(busData?.id) },
-        {
-          onSuccess: () => queryClient.invalidateQueries("bus/getMyBus"),
-        }
-      );
-      setBusData({
-        busName: "",
-        description: "",
-        id: 0,
-        leaveTime: "",
-        peopleLimit: 0,
-        timeRequired: "",
-      });
-      window.alert("버스 신청 취소");
-    } catch (error) {
-      window.alert("버스 신청 취소 실패");
-    }
+    deleteMyBusMutation.mutateAsync(
+      { idx: String(busData?.id) },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries("bus/getMyBus");
+          showToast("버스 신청 취소 성공", "SUCCESS");
+          setBusData({
+            busName: "",
+            description: "",
+            id: 0,
+            leaveTime: "",
+            peopleLimit: 0,
+            timeRequired: "",
+          });
+        },
+        onError: () => {
+          showToast("버스 신청 취소 실패", "ERROR");
+        },
+      }
+    );
   };
 
   const submitMyBus = async () => {
@@ -98,10 +100,10 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
-            window.alert("버스 신청 수정");
+            showToast("버스 신청 수정 성공", "SUCCESS");
           },
           onError: () => {
-            window.alert("버스 신청 수정 실패");
+            showToast("버스 신청 수정 실패", "ERROR");
           },
         }
       );
@@ -111,10 +113,10 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
-            window.alert("버스 신청 성공");
+            showToast("버스 신청 성공", "SUCCESS");
           },
           onError: () => {
-            window.alert("버스 신청 실패");
+            showToast("버스 신청 실패", "ERROR");
           },
         }
       );

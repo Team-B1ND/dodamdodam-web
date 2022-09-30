@@ -107,8 +107,17 @@ class DataTransform {
           name: "이벤트",
         };
 
+      case "promotion":
+        return {
+          color: "#258bf7",
+          name: "프로모션",
+        };
+
       default:
-        break;
+        return {
+          color: "#ff9100",
+          name: "아티클",
+        };
     }
   }
 }
