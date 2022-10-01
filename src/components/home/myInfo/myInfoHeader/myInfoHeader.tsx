@@ -2,6 +2,7 @@ import useMyInfoProfile from "../../../../hooks/myInfo/useMyInfoProfile";
 import React from "react";
 import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
+import { usePostModuleLog } from "../../../../querys/log/log.query";
 
 interface Props {
   logOut: () => void;
@@ -9,6 +10,7 @@ interface Props {
 
 const MyInfoHeader = ({ logOut }: Props) => {
   const { myMemberData } = useMyInfoProfile();
+  const postModuleLogMutation = usePostModuleLog();
 
   return (
     <S.MyInfoHeaderWrap>
@@ -19,7 +21,17 @@ const MyInfoHeader = ({ logOut }: Props) => {
       <S.MyInfoHeaderInfoWrap>
         <S.MyInfoHeaderNameWrap>
           {myMemberData?.member.name}
-          <S.MyInfoHeaderRedirectText>내 정보</S.MyInfoHeaderRedirectText>
+          <S.MyInfoHeaderRedirectText
+            onClick={() => {
+              postModuleLogMutation.mutate({
+                moduleName: "메인",
+                description: "메인에서 내정보 페이지로 이동",
+              });
+              window.open("http://v6.dodam.b1nd.com/myInfo");
+            }}
+          >
+            내 정보
+          </S.MyInfoHeaderRedirectText>
         </S.MyInfoHeaderNameWrap>
         <S.MyInfoHeaderClassWrap>
           {dataTransform.schoolInfoTransform(

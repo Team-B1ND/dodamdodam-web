@@ -17,7 +17,7 @@ const TodaySchedule = () => {
       <CardTitle
         title="오늘의 일정"
         titleIcon={TodayScheduleCanlendarIcon}
-        redirectURL={"http://legacy.b1nd.com/schedule"}
+        redirectURL={"http://v6.dodam.b1nd.com/schedule"}
       />
       {dataCheck.voidCheck(todaySchedules) ? (
         <TodayScheduleVoidText>오늘 일정이 없습니다</TodayScheduleVoidText>

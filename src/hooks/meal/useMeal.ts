@@ -4,14 +4,13 @@ import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";
 import { track } from "@amplitude/analytics-browser";
+import { usePostModuleLog } from "../../querys/log/log.query";
 
 const useMeal = () => {
   const [date, setDate] = useState<string>(dateTransform.hyphen());
   const [meal, setMeal] = useState<Meal>();
-  const [validMeal, setValidMeal] = useState<Meal>();
-  const [tempMonth, setTempMonth] = useState<string>(
-    dateTransform.hyphen().split("-")[1]
-  );
+
+  const postModuleLogMutation = usePostModuleLog();
 
   const requestMeals = useCallback(async () => {
     try {
@@ -21,6 +20,11 @@ const useMeal = () => {
         year: dates[0],
         month: dates[1],
         day: dates[2],
+      });
+
+      postModuleLogMutation.mutate({
+        moduleName: "메인/급식",
+        description: `${dates[0]}-${dates[1]}-${dates[2]} 급식 조회`,
       });
 
       setMeal(data);

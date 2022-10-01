@@ -13,18 +13,25 @@ import {
 import NoImageImage from "../../../../assets/images/common/noImage.svg";
 import dataTransform from "../../../../util/transform/dataTransform";
 import { DevEvent } from "types/devEvent/devEvent.type";
+import { usePostModuleLog } from "../../../../querys/log/log.query";
 
 interface Props {
   data: DevEvent;
 }
 
 const DevEventsItem = ({ data }: Props) => {
+  const postModuleLogMutation = usePostModuleLog();
+
+  const redirect = () => {
+    postModuleLogMutation.mutate({
+      moduleName: "메인/개발자행사",
+      description: `${data.metadata.title}행사 조회`,
+    });
+    window.open(`https://www.wanted.co.kr/events/${data.metadata.key}`);
+  };
+
   return (
-    <DevEventsItemContainer
-      onClick={() =>
-        window.open(`https://www.wanted.co.kr/events/${data.metadata.key}`)
-      }
-    >
+    <DevEventsItemContainer onClick={redirect}>
       <DevEventsItemImgWrap>
         <DevEventsItemImg src={data.images.thumbnail_img || NoImageImage} />
         <DevEventsItemDate>
