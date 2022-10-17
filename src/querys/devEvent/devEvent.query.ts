@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import conferenceRepository from "../../repository/conference/conference.repository";
+import conferenceRepository from "../../repository/devEvent/devEvent.repository";
 
 export const useGetDevEvents = () =>
   useQuery("devEvent/DevEvents", () => conferenceRepository.getDevEvents(), {

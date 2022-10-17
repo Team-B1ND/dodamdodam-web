@@ -17,6 +17,17 @@ export const ApplyBusItemText = styled.p`
   color: ${({ theme }) => theme.contrast};
 `;
 
+export const ApplyBusItemLimit = styled.span<{ isLimit: boolean }>`
+  ${({ isLimit, theme }) =>
+    isLimit
+      ? css`
+          color: ${palette.red[300]};
+        `
+      : css`
+          color: ${theme.contrast};
+        `}
+`;
+
 export const ApplyBusItemCheckIcon = styled.div<{ check: boolean }>`
   width: 30px;
   height: 30px;

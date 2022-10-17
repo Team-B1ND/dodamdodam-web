@@ -1,6 +1,7 @@
 import { Response } from "../util/response.type";
 
 export interface Bus {
+  applyCount: number;
   busName: string;
   description: string;
   readonly id: number;
