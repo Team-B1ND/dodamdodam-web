@@ -24,7 +24,12 @@ const ApplyBusItem = ({
   return (
     <S.ApplyBusItemContainer onClick={() => handleBusData(busData.id)}>
       <S.ApplyBusItemText>
-        {busData.busName} ({dayjs(busData.leaveTime).format("HH:mm")})
+        {busData.busName} ({dayjs(busData.leaveTime).format("HH:mm")}){" "}
+        <S.ApplyBusItemLimit
+          isLimit={busData.applyCount === busData.peopleLimit}
+        >
+          {`${busData.applyCount}/${busData.peopleLimit}`}
+        </S.ApplyBusItemLimit>
       </S.ApplyBusItemText>
       <S.ApplyBusItemCheckIcon check={isCheck}>
         <FiCheck />

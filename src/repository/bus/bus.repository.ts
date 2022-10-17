@@ -18,7 +18,7 @@ class BusRepository {
   }
 
   public async deleteMyBus({ idx }: deleteMyBusParam): Promise<void> {
-    await dodamV3Axios.delete(`/bus/apply?idx=${idx}`);
+    await dodamV3Axios.delete(`/bus/apply/${idx}`);
   }
 
   public async putMyBus({ idx }: putMyBusParam): Promise<void> {

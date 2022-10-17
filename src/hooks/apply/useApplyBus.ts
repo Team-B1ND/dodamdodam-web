@@ -36,6 +36,7 @@ const useApplyBus = () => {
     leaveTime: "",
     peopleLimit: 0,
     timeRequired: "",
+    applyCount: 0,
   });
   //원래 신청했던걸 담는 상태
   const [wasCheckedIdx, setWasCheckedIdx] = useState<number>(0);
@@ -86,6 +87,7 @@ const useApplyBus = () => {
             leaveTime: "",
             peopleLimit: 0,
             timeRequired: "",
+            applyCount: 0,
           });
         },
         onError: () => {
