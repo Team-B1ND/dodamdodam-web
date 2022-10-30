@@ -1,17 +1,9 @@
-import axios from "axios";
 import { DevEventsResponse } from "../../types/devEvent/devEvent.type";
-import Config from "../../config/config.json";
+import { dodamV3Axios } from "../../lib/axios/customAxios";
 
 class DevEventRepository {
   public async getDevEvents(): Promise<DevEventsResponse> {
-    const { data } = await axios.get(
-      `${Config.DEV_EVENT_URL}/?sort=deadline&payable=all&category=tag.it2`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
+    const { data } = await dodamV3Axios.get("/conference/codenary");
     return data;
   }
 }

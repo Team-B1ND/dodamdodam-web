@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
-import { DevEventLabelType } from "types/devEvent/devEvent.type";
+import { DevEventType } from "types/devEvent/devEvent.type";
+import DevEventConferenceImage from "../../assets/images/devEvent/devEventConference.svg";
+import DevEventCompetitionImage from "../../assets/images/devEvent/devEventCompetition.svg";
+import DevEventWebinarImage from "../../assets/images/devEvent/devEventWebinar.svg";
+import DevEventOtherImage from "../../assets/images/devEvent/devEventOthers.svg";
 
 class DataTransform {
   public schoolInfoTransform<T, T2, T3>(
@@ -79,44 +83,38 @@ class DataTransform {
     }
   }
 
-  public devEventLabelTransform(label: DevEventLabelType) {
+  public devEventTypeTransform(label: DevEventType) {
     switch (label) {
-      case "article":
+      case "competition":
         return {
-          color: "#ff9100",
-          name: "아티클",
+          color: "#775dd0",
+          name: "대회",
+          image: DevEventCompetitionImage,
         };
-      case "education":
+      case "conference":
         return {
-          color: "#333",
-          name: "교육",
+          color: "#1ec997",
+          name: "컨퍼런스",
+          image: DevEventConferenceImage,
         };
-      case "video":
+      case "others":
         return {
-          color: "#5866dc",
-          name: "VOD",
+          color: "#ff9800",
+          name: "기타",
+          image: DevEventOtherImage,
         };
-      case "community":
+      case "webinar":
         return {
-          color: "#a149e4",
-          name: "네트워킹",
-        };
-      case "event":
-        return {
-          color: "#08ba9c",
-          name: "이벤트",
-        };
-
-      case "promotion":
-        return {
-          color: "#258bf7",
-          name: "프로모션",
+          color: "#02b1f2",
+          name: "웨비나",
+          image: DevEventWebinarImage,
         };
 
       default:
         return {
-          color: "#ff9100",
-          name: "아티클",
+          color: "#ff9800",
+          name: "기타",
+          image: DevEventOtherImage,
         };
     }
   }

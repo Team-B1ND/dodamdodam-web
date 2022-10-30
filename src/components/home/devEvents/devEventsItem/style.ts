@@ -57,6 +57,13 @@ export const DevEventsItemTitle = styled.h1`
   ${ellipsisLine(2)};
 `;
 
+export const DevEventsItemOrganization = styled.p`
+  color: ${palette.gray[300]};
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: auto;
+`;
+
 export const DevEventsItemLabel = styled.div<{ borderColor: string }>`
   width: min-content;
   height: 20px;
