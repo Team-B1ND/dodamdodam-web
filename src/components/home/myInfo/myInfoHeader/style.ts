@@ -16,6 +16,7 @@ export const MyInfoHeaderProfileImg = styled.img`
   object-fit: cover;
   border-radius: 100%;
   margin-right: 23px;
+  cursor: pointer;
 `;
 
 export const MyInfoHeaderInfoWrap = styled.div`

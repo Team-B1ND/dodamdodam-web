@@ -12,24 +12,25 @@ const MyInfoHeader = ({ logOut }: Props) => {
   const { myMemberData } = useMyInfoProfile();
   const postModuleLogMutation = usePostModuleLog();
 
+  const redirect = () => {
+    postModuleLogMutation.mutate({
+      moduleName: "메인",
+      description: "메인에서 내정보 페이지로 이동",
+    });
+    window.location.href = "http://v6.dodam.b1nd.com/myinfo";
+  };
+
   return (
     <S.MyInfoHeaderWrap>
       <S.MyInfoHeaderProfileImg
         src={"http://dodam.b1nd.com/static/media/profile.9a3a77b0.svg"}
         alt="myInfo/profileImg"
+        onClick={redirect}
       />
       <S.MyInfoHeaderInfoWrap>
         <S.MyInfoHeaderNameWrap>
           {myMemberData?.member.name}
-          <S.MyInfoHeaderRedirectText
-            onClick={() => {
-              postModuleLogMutation.mutate({
-                moduleName: "메인",
-                description: "메인에서 내정보 페이지로 이동",
-              });
-              window.location.href = "http://v6.dodam.b1nd.com/myinfo";
-            }}
-          >
+          <S.MyInfoHeaderRedirectText onClick={redirect}>
             내 정보
           </S.MyInfoHeaderRedirectText>
         </S.MyInfoHeaderNameWrap>
