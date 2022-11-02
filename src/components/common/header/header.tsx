@@ -44,7 +44,7 @@ const Header = () => {
                     value: 0,
                   });
                   track(link.name + "접속");
-                  window.open(link.link);
+                  window.location.href = link.link;
                 }}
               >
                 {link.name}

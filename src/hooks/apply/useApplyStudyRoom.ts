@@ -105,6 +105,7 @@ const useApplyStudyRoom = () => {
   }, [initialStudyRoomMapping]);
 
   const studyRoomAllApplyCheck = useCallback(() => {
+    setIsDefault(false);
     if (tempMyApplyStudyRooms?.length !== 0 && timeTables) {
       tempMyApplyStudyRooms.forEach((tempMyApplyStudyRoom, idx) => {
         if (

@@ -27,7 +27,7 @@ const MyInfoHeader = ({ logOut }: Props) => {
                 moduleName: "메인",
                 description: "메인에서 내정보 페이지로 이동",
               });
-              window.open("http://v6.dodam.b1nd.com/myinfo");
+              window.location.href = "http://v6.dodam.b1nd.com/myinfo";
             }}
           >
             내 정보

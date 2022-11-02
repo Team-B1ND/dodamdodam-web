@@ -6,9 +6,8 @@ import {
   UseQueryResult,
 } from "react-query";
 import {
-  deleteMyBusParam,
   postMyBusParam,
-  putMyBusParam,
+  patchMyBusParam,
 } from "../../repository/bus/bus.param";
 import busRepository from "../../repository/bus/bus.repository";
 import { BusesResponse, MyBusResponse } from "../../types/bus/bus.type";
@@ -40,16 +39,9 @@ export const usePostMyBus = () => {
   return mutation;
 };
 
-export const useDeleteMyBus = () => {
-  const mutation = useMutation((idx: deleteMyBusParam) =>
-    busRepository.deleteMyBus(idx)
-  );
-  return mutation;
-};
-
-export const usePutMyBus = () => {
-  const mutation = useMutation(({ idx, originIdx }: putMyBusParam) =>
-    busRepository.putMyBus({ idx, originIdx })
+export const usePatchMyBus = () => {
+  const mutation = useMutation(({ idx, originIdx }: patchMyBusParam) =>
+    busRepository.patchMyBus({ idx, originIdx })
   );
   return mutation;
 };

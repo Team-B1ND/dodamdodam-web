@@ -2,7 +2,6 @@ import { Member } from "types/member/member.type";
 import { Response } from "../util/response.type";
 
 export interface LostStuff {
-  contact: any;
   content: string;
   readonly createAt: string;
   readonly id: number;

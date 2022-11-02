@@ -7,8 +7,8 @@ const DevEvents = () => {
 
   return (
     <DevEventsContainer>
-      {devEvents.map((devEvent) => (
-        <ConferencesItem data={devEvent} key={devEvent.title} />
+      {devEvents.map((devEvent, idx) => (
+        <ConferencesItem data={devEvent} key={idx} />
       ))}
     </DevEventsContainer>
   );

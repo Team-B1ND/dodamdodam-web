@@ -35,11 +35,12 @@ const ApplyNotApproveList = ({
           </S.ApplyNotApproveListVoidWrap>
         ) : (
           <>
-            {notApproveItems?.map((notApproveITem) => (
+            {notApproveItems?.map((notApproveItem) => (
               <ApplyNotApproveListItem
-                notApproveItemData={notApproveITem}
+                notApproveItemData={notApproveItem}
                 loadNotApprovedItem={loadNotApprovedItem}
                 deleteNotApprovedItem={deleteNotApprovedItem}
+                key={notApproveItem.id}
               />
             ))}
           </>

@@ -43,7 +43,7 @@ const useApplyPass = () => {
   useEffect(() => {
     if (appliedPasses) {
       const validNotApprovedPasses = appliedPasses?.filter(
-        (pass) => pass.status === "NOT_ALLOWED"
+        (pass) => pass.status === "PENDING"
       );
       setNotApprovedPasses(validNotApprovedPasses);
     }

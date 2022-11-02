@@ -13,13 +13,13 @@ import {
 
 const ApplyBus = () => {
   const {
-    busData,
+    selectBusIdx,
     busDate,
     busList,
     wasCheckedIdx,
     handleBusData,
-    deleteMyBus,
     submitMyBus,
+    isChange,
   } = useApplyBus();
 
   return (
@@ -33,12 +33,12 @@ const ApplyBus = () => {
               <ApplyBusDate>{dateTransform.period(busDate)}</ApplyBusDate>
               {busList.map((busInfo) => (
                 <ApplyBusItem
-                  currentSelectBusIdx={busData.id}
-                  isCheck={busInfo.id === busData.id}
+                  currentSelectBusIdx={selectBusIdx}
+                  isCheck={busInfo.id === selectBusIdx}
                   busData={busInfo}
                   wasChecked={wasCheckedIdx}
                   handleBusData={handleBusData}
-                  deleteMyBus={deleteMyBus}
+                  key={busInfo.id}
                 />
               ))}
             </ApplyBusItemWrap>
@@ -55,6 +55,7 @@ const ApplyBus = () => {
               marginTop: "auto",
               minHeight: 35,
             }}
+            disabled={!isChange}
           >
             신청
           </Button>

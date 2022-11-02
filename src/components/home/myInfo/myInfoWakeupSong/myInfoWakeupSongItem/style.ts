@@ -1,3 +1,4 @@
+import { ellipsisLine } from "../../../../../style/libStyle";
 import styled from "styled-components";
 
 export const MyInfoWakeupSongItemContainer = styled.div`
@@ -48,6 +49,9 @@ export const MyInfoWakeupSongItemSubTitle = styled.span`
   line-height: 16px;
   font-size: 12px;
   color: ${({ theme }) => theme.contrast2};
+  width: 48%;
+
+  ${ellipsisLine(1)}
 `;
 
 export const MyInfoWakeupSongItemApproveLabel = styled.div<{

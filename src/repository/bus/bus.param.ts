@@ -2,11 +2,7 @@ export interface postMyBusParam {
   idx: string;
 }
 
-export interface deleteMyBusParam {
+export interface patchMyBusParam {
   idx: string;
-}
-
-export interface putMyBusParam {
-  idx: string;
-  originIdx: string;
+  originIdx?: string;
 }

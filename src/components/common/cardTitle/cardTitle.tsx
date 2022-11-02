@@ -25,7 +25,7 @@ const CardTitle = ({ title, titleIcon, redirectURL, children }: Props) => {
       moduleName: "메인",
       description: `더보기를 통해 ${redirectURL}로 이동`,
     });
-    window.open(redirectURL);
+    window.location.href = redirectURL;
   };
 
   return (
