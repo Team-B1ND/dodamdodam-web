@@ -17,7 +17,7 @@ const TodayWakeupSong = () => {
       <CardTitle
         title={"오늘의 기상송"}
         titleIcon={TodayWakeupSongHeadPhoneIcon}
-        redirectURL={"http://v6.dodam.b1nd.com/wakesong"}
+        redirectURL={"http://dodam.b1nd.com/wakesong"}
       />
       {dataCheck.voidCheck(todayAllowWakeupSongs) ? (
         <TodayWakeupSongVoidText>

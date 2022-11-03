@@ -54,19 +54,19 @@ export const FOOTER_ITEMS = [
     items: [
       {
         title: "일정",
-        link: "http://v6.dodam.b1nd.com/schedule",
+        link: "http://dodam.b1nd.com/schedule",
       },
       {
         title: "기상송",
-        link: "http://v6.dodam.b1nd.com/wakeupsong",
+        link: "http://dodam.b1nd.com/wakeupsong",
       },
       {
         title: "내정보",
-        link: "http://v6.dodam.b1nd.com/myinfo",
+        link: "http://dodam.b1nd.com/myinfo",
       },
       {
         title: "잇맵",
-        link: "http://v6.dodam.b1nd.com/itmap",
+        link: "http://dodam.b1nd.com/itmap",
       },
     ],
   },

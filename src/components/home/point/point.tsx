@@ -26,7 +26,7 @@ const Point = () => {
       <CardTitle
         title="나의 상벌점 현황"
         titleIcon={PointChartIcon}
-        redirectURL={"http://v6.dodam.b1nd.com/myinfo"}
+        redirectURL={"http://dodam.b1nd.com/myinfo"}
       />
       <PointWrap>
         <PointLeftWrap>
