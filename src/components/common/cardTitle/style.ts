@@ -31,6 +31,7 @@ export const CardTitleText = styled.h1`
   cursor: pointer;
   font-weight: bold;
   margin-right: 10px;
+  white-space: nowrap;
 `;
 
 export const CardTitleRedirectWrap = styled.span`

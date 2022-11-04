@@ -3,6 +3,7 @@ import React from "react";
 import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
 import { usePostModuleLog } from "../../../../querys/log/log.query";
+import DefaultProfileImage from "../../../../assets/images/common/defaultProfile.png";
 
 interface Props {
   logOut: () => void;
@@ -23,7 +24,7 @@ const MyInfoHeader = ({ logOut }: Props) => {
   return (
     <S.MyInfoHeaderWrap>
       <S.MyInfoHeaderProfileImg
-        src={"http://dodam.b1nd.com/static/media/profile.9a3a77b0.svg"}
+        src={myMemberData?.member.profileImage || DefaultProfileImage}
         alt="myInfo/profileImg"
         onClick={redirect}
       />

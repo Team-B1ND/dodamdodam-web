@@ -9,8 +9,10 @@ import {
   REFRESH_TOKEN_KEY,
 } from "../../constants/token/token.constant";
 import showToast from "../../lib/toast/toast";
+import { useQueryClient } from "react-query";
 
 const useLogin = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState<Login>({
@@ -46,6 +48,7 @@ const useLogin = () => {
       token.setToken(REFRESH_TOKEN_KEY, refreshToken);
 
       showToast("로그인 성공", "SUCCESS");
+      queryClient.invalidateQueries("profile/getMyMember");
       navigate("/");
     } catch (error) {
       showToast("로그인 실패", "ERROR");

@@ -71,6 +71,7 @@ export const HeaderRelease = styled.div`
   height: 100%;
   display: flex;
   justify-content: end;
+  margin-left: auto;
 `;
 
 export const HeaderReleaseIcon = styled.div`
