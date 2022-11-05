@@ -37,6 +37,7 @@ export const PointGraphPointText = styled.span`
   width: 32px;
   display: flex;
   justify-content: start;
+  white-space: nowrap;
 `;
 
 export const PointGraph = styled.div<{ point: number; isBonusPoint: boolean }>`

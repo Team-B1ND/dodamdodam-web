@@ -75,6 +75,7 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
+            queryClient.invalidateQueries("bus/getBuses");
             postModuleLogMutation.mutate({
               moduleName: "메인/버스신청",
               description: "버스 수정",
@@ -93,6 +94,7 @@ const useApplyBus = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
+            queryClient.invalidateQueries("bus/getBuses");
             postModuleLogMutation.mutate({
               moduleName: "메인/버스신청",
               description: "버스 신청",
