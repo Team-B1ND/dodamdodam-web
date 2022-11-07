@@ -34,7 +34,7 @@ export const PointGraphWrap = styled.div`
 export const PointGraphPointText = styled.span`
   font-size: 14px;
   color: ${({ theme }) => theme.contrast};
-  width: 32px;
+  min-width: 32px;
   display: flex;
   justify-content: start;
   white-space: nowrap;

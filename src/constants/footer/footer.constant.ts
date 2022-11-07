@@ -58,7 +58,7 @@ export const FOOTER_ITEMS = [
       },
       {
         title: "기상송",
-        link: "http://dodam.b1nd.com/wakeupsong",
+        link: "http://dodam.b1nd.com/wakesong",
       },
       {
         title: "내정보",
