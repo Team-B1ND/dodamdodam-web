@@ -76,6 +76,7 @@ export const ApplyLeaveFormTimeInput = styled.input`
   text-align: center;
   font-size: 12px;
   background-color: ${({ theme }) => theme.backgroundColor3};
+  color: ${({ theme }) => theme.contrast};
 `;
 
 export const ApplyLeaveFormNoticeText = styled.p`

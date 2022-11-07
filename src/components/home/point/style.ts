@@ -44,7 +44,8 @@ export const PointGraph = styled.div<{ point: number; isBonusPoint: boolean }>`
   display: flex;
   height: 13.81px;
   max-width: 100%;
-  width: ${({ point }) => (point === 0 ? 1 : point * 4)}%;
+  width: ${({ point }) =>
+    point === 0 ? 1 : point * 4 >= 100 ? 100 : point * 4}%;
   background-color: #0067bc;
 
   ${({ isBonusPoint }) =>

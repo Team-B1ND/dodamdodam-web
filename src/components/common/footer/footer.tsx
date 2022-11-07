@@ -27,7 +27,7 @@ const Footer = () => {
                 <S.FooterListTitleItem>{list.title}</S.FooterListTitleItem>
                 {list.items.map((item) => (
                   <S.FooterListItem
-                    onClick={() => window.open(item.link)}
+                    onClick={() => (window.location.href = item.link)}
                     key={`footerListItem ${item.title}`}
                   >
                     {item.title}
