@@ -12,10 +12,16 @@ const MyInfoWakeupSong = () => {
       {!isLoading && !dataCheck.voidCheck(notApprovedWakeupSongs) ? (
         <>
           {notApprovedWakeupSongs.map((wakeupSong) => (
-            <MyInfoWakeupSongItem
-              wakeupSongData={wakeupSong}
-              key={wakeupSong.id}
-            />
+            <>
+              <MyInfoWakeupSongItem
+                wakeupSongData={wakeupSong}
+                key={wakeupSong.id}
+              />
+              <MyInfoWakeupSongItem
+                wakeupSongData={wakeupSong}
+                key={wakeupSong.id}
+              />
+            </>
           ))}
         </>
       ) : (

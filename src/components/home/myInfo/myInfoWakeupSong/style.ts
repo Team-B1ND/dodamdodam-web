@@ -1,4 +1,3 @@
-import { customScrollBar } from "../../../../style/libStyle";
 import styled from "styled-components";
 
 export const MyInfoWakeupSongContainer = styled.div`
@@ -6,7 +5,4 @@ export const MyInfoWakeupSongContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-
-  ${customScrollBar}
 `;

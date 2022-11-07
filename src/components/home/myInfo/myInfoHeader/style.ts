@@ -11,8 +11,10 @@ export const MyInfoHeaderWrap = styled.div`
 `;
 
 export const MyInfoHeaderProfileImg = styled.img`
-  width: 62px;
-  height: 62px;
+  min-width: 62px;
+  max-width: 62px;
+  min-height: 62px;
+  max-height: 62px;
   object-fit: cover;
   border-radius: 100%;
   margin-right: 23px;
