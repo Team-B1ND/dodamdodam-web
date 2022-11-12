@@ -17,10 +17,6 @@ const MyInfoWakeupSong = () => {
                 wakeupSongData={wakeupSong}
                 key={wakeupSong.id}
               />
-              <MyInfoWakeupSongItem
-                wakeupSongData={wakeupSong}
-                key={wakeupSong.id}
-              />
             </>
           ))}
         </>
