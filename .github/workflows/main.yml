@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - main
+name: Production Deployment
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: myhsoting.com
+          username: user@tutsplanet.com
+          password: ${{ secrets.DODAM_MAINPAGE_FTP_PWD }}
