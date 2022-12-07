@@ -10,7 +10,7 @@ export const LoginContainer = styled.div`
   justify-content: center;
 `;
 
-export const LoginWrap = styled.div`
+export const LoginWrap = styled.form`
   width: 350px;
   display: flex;
   flex-direction: column;

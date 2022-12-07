@@ -1,5 +1,5 @@
 import { sha512 } from "js-sha512";
-import { useCallback, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authRepository from "../../repository/auth/auth.repository";
 import { Login } from "../../types/login/login.type";
@@ -31,29 +31,44 @@ const useLogin = () => {
     [setLoginData]
   );
 
-  const submitLoginData = useCallback(async () => {
-    const { id, pw } = loginData;
+  const submitLoginData = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
 
-    const validLoginData: Login = {
-      id,
-      pw: sha512(pw),
-    };
+      if (loginData.id === "") {
+        showToast("아이디를 입력해주세요", "IFNO");
+        return;
+      }
 
-    try {
-      const {
-        data: { member, token: accessToken, refreshToken },
-      } = await authRepository.login(validLoginData);
+      if (loginData.pw === "") {
+        showToast("비밀번호를 입력해주세요", "IFNO");
+        return;
+      }
 
-      token.setToken(ACCESS_TOKEN_KEY, accessToken);
-      token.setToken(REFRESH_TOKEN_KEY, refreshToken);
+      const { id, pw } = loginData;
 
-      showToast("로그인 성공", "SUCCESS");
-      queryClient.invalidateQueries("profile/getMyMember");
-      navigate("/");
-    } catch (error) {
-      showToast("로그인 실패", "ERROR");
-    }
-  }, [loginData, navigate]);
+      const validLoginData: Login = {
+        id,
+        pw: sha512(pw),
+      };
+
+      try {
+        const {
+          data: { member, token: accessToken, refreshToken },
+        } = await authRepository.login(validLoginData);
+
+        token.setToken(ACCESS_TOKEN_KEY, accessToken);
+        token.setToken(REFRESH_TOKEN_KEY, refreshToken);
+
+        showToast("로그인 성공", "SUCCESS");
+        queryClient.invalidateQueries("profile/getMyMember");
+        navigate("/");
+      } catch (error) {
+        showToast("로그인 실패", "ERROR");
+      }
+    },
+    [loginData, navigate]
+  );
 
   return {
     loginData,

@@ -35,7 +35,7 @@ const Login = ({ setIsLogin }: Props) => {
 
   return (
     <LoginContainer>
-      <LoginWrap>
+      <LoginWrap onSubmit={submitLoginData}>
         <LoginInputForm>
           <AuthInputWrap>
             <AuthInputTitle>ID</AuthInputTitle>
@@ -65,7 +65,7 @@ const Login = ({ setIsLogin }: Props) => {
           </LoginKeepCheckBox>
           <LoginKeepText>로그인 유지</LoginKeepText>
         </LoginKeepWrap>
-        <LoginSubmitButton onClick={submitLoginData}>Sign In</LoginSubmitButton>
+        <LoginSubmitButton>Sign In</LoginSubmitButton>
         <AuthOppositePartWrap>
           <AuthOppositePartText>아직 계정이 없으신가요?</AuthOppositePartText>
           <AuthOppositePartButton onClick={() => setIsLogin(false)}>
