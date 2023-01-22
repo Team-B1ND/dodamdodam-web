@@ -10,9 +10,9 @@ import {
 import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
-import { event, pageView } from "../../../lib/ga/gtag";
+import { pageView } from "../../../lib/ga/gtag";
 import { track } from "@amplitude/analytics-browser";
-import { usePostModuleLog } from "../../../querys/log/log.query";
+import { usePostModuleLog } from "../../../queries/log/log.query";
 
 const Header = () => {
   const postModuleLogMutation = usePostModuleLog();

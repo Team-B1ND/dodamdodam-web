@@ -2,7 +2,7 @@ import useMyInfoProfile from "../../../../hooks/myInfo/useMyInfoProfile";
 import React from "react";
 import dataTransform from "../../../../util/transform/dataTransform";
 import * as S from "./style";
-import { usePostModuleLog } from "../../../../querys/log/log.query";
+import { usePostModuleLog } from "../../../../queries/log/log.query";
 import DefaultProfileImage from "../../../../assets/images/common/defaultProfile.png";
 
 interface Props {

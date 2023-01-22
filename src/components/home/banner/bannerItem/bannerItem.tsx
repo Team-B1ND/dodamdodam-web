@@ -1,4 +1,4 @@
-import { usePostModuleLog } from "../../../../querys/log/log.query";
+import { usePostModuleLog } from "../../../../queries/log/log.query";
 import { BannerItemContainer } from "./style";
 
 interface Props {

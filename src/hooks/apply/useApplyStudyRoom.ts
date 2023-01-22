@@ -3,18 +3,18 @@ import {
   useGetMyDefaultStudyRooms,
   useGetMyStudyRooms,
   usePostApplyStudyRooms,
-} from "../../querys/studyRoom/studyRoom.query";
+} from "../../queries/studyRoom/studyRoom.query";
 import {
   ApplyStudyRoom,
   DefaultStudyRoom,
 } from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/transform/dateTransform";
 import { useQueryClient } from "react-query";
-import { useGetTimeTable } from "../../querys/timeTable/timeTable.query";
-import { useGetPlaces } from "../../querys/place/place.query";
+import { useGetTimeTable } from "../../queries/timeTable/timeTable.query";
+import { useGetPlaces } from "../../queries/place/place.query";
 import dateCheck from "../../util/check/dateCheck";
 import showToast from "../../lib/toast/toast";
-import { usePostModuleLog } from "../../querys/log/log.query";
+import { usePostModuleLog } from "../../queries/log/log.query";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();

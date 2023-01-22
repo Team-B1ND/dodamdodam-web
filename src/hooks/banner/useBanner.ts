@@ -1,6 +1,6 @@
-import { useGetMyPermission } from "../../querys/permission/permission.query";
+import { useGetMyPermission } from "../../queries/permission/permission.query";
 import { useEffect, useState } from "react";
-import { useGetBanners } from "../../querys/banner/banner.query";
+import { useGetBanners } from "../../queries/banner/banner.query";
 import { Banner } from "../../types/banner/banner.type";
 
 const useBanner = () => {

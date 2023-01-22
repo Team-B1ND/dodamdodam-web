@@ -7,11 +7,11 @@ import {
   useGetMyLeaves,
   usePostApplyLeave,
   usePutApplyLeave,
-} from "../../querys/leave/leave.query";
+} from "../../queries/leave/leave.query";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
 import dataCheck from "../../util/check/dataCheck";
 import dateTransform from "../../util/transform/dateTransform";
-import { usePostModuleLog } from "../../querys/log/log.query";
+import { usePostModuleLog } from "../../queries/log/log.query";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();

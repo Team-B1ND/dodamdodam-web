@@ -14,7 +14,7 @@ import {
 import NoImageImage from "../../../../assets/images/common/noImage.svg";
 import dataTransform from "../../../../util/transform/dataTransform";
 import { DevEvent } from "types/devEvent/devEvent.type";
-import { usePostModuleLog } from "../../../../querys/log/log.query";
+import { usePostModuleLog } from "../../../../queries/log/log.query";
 
 interface Props {
   data: DevEvent;

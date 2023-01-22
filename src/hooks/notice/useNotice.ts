@@ -1,6 +1,6 @@
-import { useGetMyPermission } from "../../querys/permission/permission.query";
+import { useGetMyPermission } from "../../queries/permission/permission.query";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useGetNotice } from "../../querys/notice/notice.query";
+import { useGetNotice } from "../../queries/notice/notice.query";
 
 const useNotice = () => {
   const { data, isLoading } = useGetNotice({

@@ -1,4 +1,4 @@
-import { useGetTodaySchedule } from "../../querys/schedule/schedule.query";
+import { useGetTodaySchedule } from "../../queries/schedule/schedule.query";
 import { useEffect, useState } from "react";
 import { Schedule } from "../../types/schedule/schedule.type";
 

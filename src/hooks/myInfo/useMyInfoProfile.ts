@@ -2,8 +2,8 @@ import { ACCESS_TOKEN_KEY } from "../../constants/token/token.constant";
 import token from "../../lib/token/token";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetMyMember } from "../../querys/member/member.query";
-import { useGetMyPermission } from "../../querys/permission/permission.query";
+import { useGetMyMember } from "../../queries/member/member.query";
+import { useGetMyPermission } from "../../queries/permission/permission.query";
 import showToast from "../../lib/toast/toast";
 
 const useMyInfoProfile = () => {

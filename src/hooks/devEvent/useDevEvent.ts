@@ -1,4 +1,4 @@
-import { useGetDevEvents } from "../../querys/devEvent/devEvent.query";
+import { useGetDevEvents } from "../../queries/devEvent/devEvent.query";
 import { useEffect, useState } from "react";
 import { DevEvent } from "../../types/devEvent/devEvent.type";
 

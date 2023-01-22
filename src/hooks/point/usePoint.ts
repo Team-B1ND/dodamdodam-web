@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dateTransform from "../../util/transform/dateTransform";
-import { useGetMyPoint } from "../../querys/point/point.query";
-import { usePostModuleLog } from "../../querys/log/log.query";
+import { useGetMyPoint } from "../../queries/point/point.query";
+import { usePostModuleLog } from "../../queries/log/log.query";
 
 const usePoint = () => {
   const [isDormitoryView, setIsDormitoryView] = useState(true); // true은 기숙사, false은 학교

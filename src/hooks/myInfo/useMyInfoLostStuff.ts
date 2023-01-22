@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetMyLostStuff } from "../../querys/lostStuff/lostStuff.query";
+import { useGetMyLostStuff } from "../../queries/lostStuff/lostStuff.query";
 import { LostStuff } from "../../types/lostStuff/lostStuff.type";
 
 const useMyInfoLostStuff = () => {

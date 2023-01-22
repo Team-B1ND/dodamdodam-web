@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetTodayAllowedWakeupSong } from "../../querys/wakeupSong/wakeupSong.query";
+import { useGetTodayAllowedWakeupSong } from "../../queries/wakeupSong/wakeupSong.query";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
 import dateTransform from "../../util/transform/dateTransform";
 

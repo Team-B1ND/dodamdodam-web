@@ -6,9 +6,9 @@ import {
   useGetMyBus,
   usePatchMyBus,
   usePostMyBus,
-} from "../../querys/bus/bus.query";
+} from "../../queries/bus/bus.query";
 import { Bus } from "../../types/bus/bus.type";
-import { usePostModuleLog } from "../../querys/log/log.query";
+import { usePostModuleLog } from "../../queries/log/log.query";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();

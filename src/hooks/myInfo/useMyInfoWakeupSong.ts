@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetMyWakeupSongs } from "../../querys/wakeupSong/wakeupSong.query";
+import { useGetMyWakeupSongs } from "../../queries/wakeupSong/wakeupSong.query";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
 
 const useMyInfoWakeupSong = () => {
