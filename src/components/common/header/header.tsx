@@ -10,7 +10,7 @@ import {
 import logo from "../../../assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "../../../constants/header/header.constant";
-import { event } from "../../../lib/ga/gtag";
+import { event, pageView } from "../../../lib/ga/gtag";
 import { track } from "@amplitude/analytics-browser";
 import { usePostModuleLog } from "../../../querys/log/log.query";
 
@@ -37,12 +37,7 @@ const Header = () => {
                     description: `메인페이지에서 ${link.name}페이지로 접근`,
                     moduleName: link.name,
                   });
-                  event({
-                    action: link.name,
-                    category: "기능 접근 수치",
-                    label: "",
-                    value: 0,
-                  });
+                  pageView(link.name);
                   track(link.name + "접속");
                   window.location.href = link.link;
                 }}
