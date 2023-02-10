@@ -5,20 +5,14 @@ import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowR
 import { MdKeyboardArrowLeft } from "@react-icons/all-files/md/MdKeyboardArrowLeft";
 
 import { DatePicker } from "@team-b1nd/dodamdodam_web_component_library";
+import { useRecoilValue } from "recoil";
+import { mealDateAtom } from "../../../../store/meal/mealStore";
+import useHandleMealDate from "../../../../hooks/meal/useHandleMealDate";
 
-interface Props {
-  date: string;
-  handleMealDate: (e: Date) => void;
-  prevMealDate: () => void;
-  nextMealDate: () => void;
-}
+const MealDatePicker = () => {
+  const mealDate = useRecoilValue(mealDateAtom);
+  const { handleMealDate, prevMealDate, nextMealDate } = useHandleMealDate();
 
-const MealDatePicker = ({
-  date,
-  handleMealDate,
-  prevMealDate,
-  nextMealDate,
-}: Props) => {
   return (
     <S.MealDatePickerContainer>
       <S.MealDatePickerWrap>
@@ -35,13 +29,13 @@ const MealDatePicker = ({
           height={25}
           customStyle={{ fontSize: 14, border: 0, fontWeight: "bold" }}
           onChange={handleMealDate}
-          value={date}
+          value={mealDate}
           splitCharacter={"-"}
           children={
             <S.MealDatePickerDayText>
               (
               {dataTransform.dayNameTransform(
-                dayjs(date).locale("ko").format("dddd")
+                dayjs(mealDate).locale("ko").format("dddd")
               )}
               )
             </S.MealDatePickerDayText>
