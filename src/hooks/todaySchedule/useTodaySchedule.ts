@@ -1,19 +1,20 @@
-import { useGetTodaySchedule } from "../../queries/schedule/schedule.query";
+import { useGetTodayScheduleQuery } from "../../queries/schedule/schedule.query";
 import { useEffect, useState } from "react";
 import { Schedule } from "../../types/schedule/schedule.type";
 
 const useTodaySchedule = () => {
-  const { data, isLoading } = useGetTodaySchedule();
+  const { data: serverTodayScheduleData, isLoading } =
+    useGetTodayScheduleQuery();
 
   const [todaySchedules, setTodaySchedules] = useState<Schedule[]>([]);
 
   useEffect(() => {
-    if (!isLoading && data) {
-      const todayScheduleData = data.data;
+    if (!isLoading && serverTodayScheduleData) {
+      const todayScheduleData = serverTodayScheduleData.data;
 
       setTodaySchedules(todayScheduleData);
     }
-  }, [data, isLoading]);
+  }, [serverTodayScheduleData, isLoading]);
 
   return { todaySchedules };
 };

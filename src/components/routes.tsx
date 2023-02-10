@@ -1,6 +1,6 @@
 import { Route, Routes as Switch } from "react-router-dom";
-import AuthPage from "../pages/authPage";
-import HomePage from "../pages/homePage";
+import AuthPage from "../pages/AuthPage";
+import HomePage from "../pages/HomePage";
 
 const Routes = () => {
   return (

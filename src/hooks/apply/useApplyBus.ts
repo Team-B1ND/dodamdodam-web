@@ -2,26 +2,26 @@ import showToast from "../../lib/toast/toast";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
-  useGetBuses,
-  useGetMyBus,
-  usePatchMyBus,
-  usePostMyBus,
+  useGetBusesQuery,
+  useGetMyBusQuery,
+  usePatchMyBusMutation,
+  usePostMyBusMutation,
 } from "../../queries/bus/bus.query";
 import { Bus } from "../../types/bus/bus.type";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();
 
-  const { data: busesData, isLoading: busesDataIsLoading } = useGetBuses();
-  const { data: myBusData, isLoading: myBusDataIsLoading } = useGetMyBus({
+  const { data: busesData, isLoading: busesDataIsLoading } = useGetBusesQuery();
+  const { data: myBusData, isLoading: myBusDataIsLoading } = useGetMyBusQuery({
     staleTime: 1000 * 30,
     cacheTime: 1000 * 3,
   });
 
-  const postMyBusMutation = usePostMyBus();
-  const patchMyBusMutation = usePatchMyBus();
-  const postModuleLogMutation = usePostModuleLog();
+  const postMyBusMutation = usePostMyBusMutation();
+  const patchMyBusMutation = usePatchMyBusMutation();
+  const postModuleLogMutation = usePostModuleLogMutation();
 
   //버스 리스트를 담는 상태
   const [busList, setBusList] = useState<Bus[]>([]);

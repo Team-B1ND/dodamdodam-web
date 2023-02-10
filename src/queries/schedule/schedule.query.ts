@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 import scheduleRepository from "../../repository/schedule/schedule.repository";
 import { TodayScheduleResponse } from "../../types/schedule/schedule.type";
 
-export const useGetTodaySchedule = (
+export const useGetTodayScheduleQuery = (
   options?: UseQueryOptions<
     TodayScheduleResponse,
     AxiosError,

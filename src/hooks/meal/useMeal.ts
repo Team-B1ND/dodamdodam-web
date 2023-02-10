@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 import { Meal } from "../../types/meal/meal.type";
 import mealRepository from "../../repository/meal/meal.repository";
 import { track } from "@amplitude/analytics-browser";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const useMeal = () => {
   const [date, setDate] = useState<string>(dateTransform.hyphen());
   const [meal, setMeal] = useState<Meal>();
 
-  const postModuleLogMutation = usePostModuleLog();
+  const postModuleLogMutation = usePostModuleLogMutation();
 
   const requestMeals = useCallback(async () => {
     try {

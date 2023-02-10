@@ -3,28 +3,28 @@ import showToast from "../../lib/toast/toast";
 import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
-  useDeleteApplyLeave,
-  useGetMyLeaves,
-  usePostApplyLeave,
-  usePutApplyLeave,
+  useDeleteApplyLeaveMutation,
+  useGetMyLeavesQuery,
+  usePostApplyLeaveMutation,
+  usePutApplyLeaveMutation,
 } from "../../queries/leave/leave.query";
 import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
 import dataCheck from "../../util/check/dataCheck";
 import dateTransform from "../../util/transform/dateTransform";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();
 
-  const appliedLeaves = useGetMyLeaves({
+  const appliedLeaves = useGetMyLeavesQuery({
     staleTime: 1000 * 30,
     cacheTime: 1000 * 3,
   }).data?.data;
 
-  const postApplyLeaveMutation = usePostApplyLeave();
-  const deleteApplyLeaveMutation = useDeleteApplyLeave();
-  const putApplyLeaveMutation = usePutApplyLeave();
-  const postModuleLogMutation = usePostModuleLog();
+  const postApplyLeaveMutation = usePostApplyLeaveMutation();
+  const deleteApplyLeaveMutation = useDeleteApplyLeaveMutation();
+  const putApplyLeaveMutation = usePutApplyLeaveMutation();
+  const postModuleLogMutation = usePostModuleLogMutation();
 
   const [fold, setFold] = useState(true);
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(

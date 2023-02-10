@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  useDeleteMyPass,
-  useGetMyPasses,
-  usePostApplyPass,
-  usePutApplyPass,
+  useDeleteMyPassMutation,
+  useGetMyPassesQuery,
+  usePostApplyPassMutation,
+  usePutApplyPassMutation,
 } from "../../queries/pass/pass.query";
 import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
 import dateTransform from "../../util/transform/dateTransform";
@@ -11,12 +11,13 @@ import dayjs from "dayjs";
 import dataCheck from "../../util/check/dataCheck";
 import { useQueryClient } from "react-query";
 import showToast from "../../lib/toast/toast";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const useApplyPass = () => {
   const queryClient = useQueryClient();
 
-  const appliedPasses = useGetMyPasses({ staleTime: 1000 * 30 }).data?.data;
+  const appliedPasses = useGetMyPassesQuery({ staleTime: 1000 * 30 }).data
+    ?.data;
   const [passData, setPassData] = useState<ApplyPass>({
     startTimeHour: "",
     startTimeMinute: "",
@@ -26,10 +27,10 @@ const useApplyPass = () => {
     idx: 0,
   });
 
-  const postApplyPassMutation = usePostApplyPass();
-  const putApplyPassMutation = usePutApplyPass();
-  const deleteMyPassMutation = useDeleteMyPass();
-  const postModuleLogMutation = usePostModuleLog();
+  const postApplyPassMutation = usePostApplyPassMutation();
+  const putApplyPassMutation = usePutApplyPassMutation();
+  const deleteMyPassMutation = useDeleteMyPassMutation();
+  const postModuleLogMutation = usePostModuleLogMutation();
 
   const [fold, setFold] = useState(true);
 

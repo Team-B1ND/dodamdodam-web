@@ -1,11 +1,11 @@
+import { useGetTodayAllowedWakeupSongQuery } from "../../queries/wakeupSong/wakeupSong.query";
 import { useEffect, useState } from "react";
-import { useGetTodayAllowedWakeupSong } from "../../queries/wakeupSong/wakeupSong.query";
 import { WakeupSong } from "../../types/wakeupSong/wakeupSong.type";
 import dateTransform from "../../util/transform/dateTransform";
 
 const useTodayWakeupSong = () => {
   const todayDate = dateTransform.hyphen().split("-");
-  const todayAllowWakeupSongsData = useGetTodayAllowedWakeupSong(
+  const serverTodayAllowWakeupSongsData = useGetTodayAllowedWakeupSongQuery(
     {
       year: todayDate[0],
       month: todayDate[1],
@@ -22,10 +22,10 @@ const useTodayWakeupSong = () => {
   >([]);
 
   useEffect(() => {
-    if (todayAllowWakeupSongsData) {
-      setTodayAllowWakeupSongs(todayAllowWakeupSongsData);
+    if (serverTodayAllowWakeupSongsData) {
+      setTodayAllowWakeupSongs(serverTodayAllowWakeupSongsData);
     }
-  }, [todayAllowWakeupSongsData]);
+  }, [serverTodayAllowWakeupSongsData]);
 
   return { todayAllowWakeupSongs };
 };

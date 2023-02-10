@@ -4,7 +4,7 @@ import { getMealParam } from "../../repository/meal/meal.param";
 import mealRepository from "../../repository/meal/meal.repository";
 import { MealResponse } from "../../types/meal/meal.type";
 
-export const useGetMeals = (
+export const useGetMealsQuery = (
   { year, month, day }: getMealParam,
   options?: UseQueryOptions<
     MealResponse,

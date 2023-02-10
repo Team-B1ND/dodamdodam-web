@@ -13,7 +13,7 @@ import {
 import leaveRepository from "../../repository/leave/leave.repository";
 import { MyLeavesResponse } from "../../types/leave/leave.type";
 
-export const useGetMyLeaves = (
+export const useGetMyLeavesQuery = (
   options?: UseQueryOptions<
     MyLeavesResponse,
     AxiosError,
@@ -23,21 +23,21 @@ export const useGetMyLeaves = (
 ): UseQueryResult<MyLeavesResponse, AxiosError> =>
   useQuery("leave/getMyLeaves", () => leaveRepository.getMyLeaves(), options);
 
-export const usePostApplyLeave = () => {
+export const usePostApplyLeaveMutation = () => {
   const mutation = useMutation((leaveData: postApplyLeaveParam) =>
     leaveRepository.postApplyLeave(leaveData)
   );
   return mutation;
 };
 
-export const useDeleteApplyLeave = () => {
+export const useDeleteApplyLeaveMutation = () => {
   const mutation = useMutation((idx: deleteMyLeaveParam) =>
     leaveRepository.deleteMyLeave(idx)
   );
   return mutation;
 };
 
-export const usePutApplyLeave = () => {
+export const usePutApplyLeaveMutation = () => {
   const mutation = useMutation((leaveData: putMyLeaveParam) =>
     leaveRepository.putMyLeave(leaveData)
   );

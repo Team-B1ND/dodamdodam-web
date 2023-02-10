@@ -1,5 +1,5 @@
-import PageTemplate from "../components/common/pageTemplate/pageTemplate";
-import Home from "../components/home/home";
+import PageTemplate from "../components/common/PageTemplate";
+import Home from "../components/home";
 
 const HomePage = () => {
   return (

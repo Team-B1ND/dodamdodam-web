@@ -12,7 +12,7 @@ import {
   MyStudyRoomsResponse,
 } from "../../types/studyRoom/studyRoom.type";
 
-export const useGetMyStudyRooms = (
+export const useGetMyStudyRoomsQuery = (
   options?: UseQueryOptions<
     MyStudyRoomsResponse,
     AxiosError,
@@ -26,7 +26,7 @@ export const useGetMyStudyRooms = (
     options
   );
 
-export const useGetMyDefaultStudyRooms = (
+export const useGetMyDefaultStudyRoomsQuery = (
   options?: UseQueryOptions<
     MyDefaultStudyRoomResponse,
     AxiosError,
@@ -40,7 +40,7 @@ export const useGetMyDefaultStudyRooms = (
     options
   );
 
-export const usePostApplyStudyRooms = () => {
+export const usePostApplyStudyRoomsMutation = () => {
   const mutation = useMutation(({ studyRoomList }: postApplyStudyRoomsParam) =>
     studyRoomRepository.postApplyStudyRooms({ studyRoomList })
   );

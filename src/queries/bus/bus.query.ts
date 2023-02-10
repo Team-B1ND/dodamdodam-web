@@ -12,7 +12,7 @@ import {
 import busRepository from "../../repository/bus/bus.repository";
 import { BusesResponse, MyBusResponse } from "../../types/bus/bus.type";
 
-export const useGetBuses = (
+export const useGetBusesQuery = (
   options?: UseQueryOptions<
     BusesResponse,
     AxiosError,
@@ -22,7 +22,7 @@ export const useGetBuses = (
 ): UseQueryResult<BusesResponse, AxiosError> =>
   useQuery("bus/getBuses", () => busRepository.getBuses(), options);
 
-export const useGetMyBus = (
+export const useGetMyBusQuery = (
   options?: UseQueryOptions<
     MyBusResponse,
     AxiosError,
@@ -32,14 +32,14 @@ export const useGetMyBus = (
 ): UseQueryResult<MyBusResponse, AxiosError> =>
   useQuery("bus/getMyBus", () => busRepository.getMyBus(), options);
 
-export const usePostMyBus = () => {
+export const usePostMyBusMutation = () => {
   const mutation = useMutation((idx: postMyBusParam) =>
     busRepository.postMyBus(idx)
   );
   return mutation;
 };
 
-export const usePatchMyBus = () => {
+export const usePatchMyBusMutation = () => {
   const mutation = useMutation(({ idx, originIdx }: patchMyBusParam) =>
     busRepository.patchMyBus({ idx, originIdx })
   );

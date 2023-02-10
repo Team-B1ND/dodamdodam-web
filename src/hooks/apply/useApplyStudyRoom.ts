@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  useGetMyDefaultStudyRooms,
-  useGetMyStudyRooms,
-  usePostApplyStudyRooms,
+  useGetMyDefaultStudyRoomsQuery,
+  useGetMyStudyRoomsQuery,
+  usePostApplyStudyRoomsMutation,
 } from "../../queries/studyRoom/studyRoom.query";
 import {
   ApplyStudyRoom,
@@ -10,33 +10,34 @@ import {
 } from "../../types/studyRoom/studyRoom.type";
 import dateTransform from "../../util/transform/dateTransform";
 import { useQueryClient } from "react-query";
-import { useGetTimeTable } from "../../queries/timeTable/timeTable.query";
-import { useGetPlaces } from "../../queries/place/place.query";
+import { useGetTimeTableQuery } from "../../queries/timeTable/timeTable.query";
+import { useGetPlacesQuery } from "../../queries/place/place.query";
 import dateCheck from "../../util/check/dateCheck";
 import showToast from "../../lib/toast/toast";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
 
-  const timeTables = useGetTimeTable({
+  const timeTables = useGetTimeTableQuery({
     cacheTime: 1000 * 60 * 60 * 12,
     staleTime: 1000 * 60 * 60 * 12,
   }).data?.data;
 
-  const myAppliedStudyRoomsData = useGetMyStudyRooms({ staleTime: 1000 * 30 })
-    .data?.data;
+  const myAppliedStudyRoomsData = useGetMyStudyRoomsQuery({
+    staleTime: 1000 * 30,
+  }).data?.data;
 
   const { data: studyRoomsData, isLoading: studyRoomsDataIsLoading } =
-    useGetPlaces({ staleTime: 1000 * 60 * 60 * 12 });
+    useGetPlacesQuery({ staleTime: 1000 * 60 * 60 * 12 });
 
-  const myDefaultApplyStudyRoomsData = useGetMyDefaultStudyRooms({
+  const myDefaultApplyStudyRoomsData = useGetMyDefaultStudyRoomsQuery({
     cacheTime: 1000 * 60 * 60,
     staleTime: 1000 * 60 * 60,
   }).data?.data;
 
-  const postApplyStudyRoomsMutation = usePostApplyStudyRooms();
-  const postModuleLogMutation = usePostModuleLog();
+  const postApplyStudyRoomsMutation = usePostApplyStudyRoomsMutation();
+  const postModuleLogMutation = usePostModuleLogMutation();
 
   //기본위치 신청할지 말지 구분하는 함수
   const [isDefault, setIsDefault] = useState(false);
