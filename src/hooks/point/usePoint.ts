@@ -1,38 +1,16 @@
 import { useEffect, useState } from "react";
 import dateTransform from "../../util/transform/dateTransform";
 import { useGetMyPointQuery } from "../../queries/point/point.query";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
 
 const usePoint = () => {
-  const [isDormitoryView, setIsDormitoryView] = useState(true); // true은 기숙사, false은 학교
-
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const { data: serverMyPointData } = useGetMyPointQuery(
     { year: dateTransform.hyphen().split("-")[0] },
     {
+      suspense: true,
       cacheTime: 1000 * 60 * 5,
       staleTime: 1000 * 60 * 60,
     }
   );
-
-  const onChangeView = () => {
-    setIsDormitoryView((prev) => {
-      if (prev) {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "기숙사 상벌점 조회",
-        });
-      } else {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "학교 상벌점 조회",
-        });
-      }
-
-      return !prev;
-    });
-  };
 
   const [schoolPoint, setSchoolPoint] = useState<{
     schoolBonusPoint: number;
@@ -69,7 +47,7 @@ const usePoint = () => {
     }
   }, [serverMyPointData]);
 
-  return { isDormitoryView, onChangeView, schoolPoint, dormitoryPoint };
+  return { schoolPoint, dormitoryPoint };
 };
 
 export default usePoint;

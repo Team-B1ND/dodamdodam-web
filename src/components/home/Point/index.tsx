@@ -1,12 +1,36 @@
-import usePoint from "../../../hooks/point/usePoint";
 import CardTitle from "../../common/CardTitle";
 import * as S from "./style";
-
 import PointChartIcon from "../../../assets/icons/point/pointChart.png";
+import { useRecoilState } from "recoil";
+import { pointViewTypeAtom } from "../../../store/point/pointStore";
+import { usePostModuleLogMutation } from "../../../queries/log/log.query";
+import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import { Suspense } from "react";
+import PointDashBoard from "./PointDashBoard";
 
 const Point = () => {
-  const { isDormitoryView, onChangeView, schoolPoint, dormitoryPoint } =
-    usePoint();
+  const [isDormitoryPointView, setIsDormitoryPointView] =
+    useRecoilState(pointViewTypeAtom);
+
+  const postModuleLogMutation = usePostModuleLogMutation();
+
+  const onChangeView = () => {
+    setIsDormitoryPointView((prev) => {
+      if (prev) {
+        postModuleLogMutation.mutate({
+          moduleName: "메인/상벌점",
+          description: "기숙사 상벌점 조회",
+        });
+      } else {
+        postModuleLogMutation.mutate({
+          moduleName: "메인/상벌점",
+          description: "학교 상벌점 조회",
+        });
+      }
+
+      return !prev;
+    });
+  };
 
   return (
     <S.PointContainer>
@@ -17,40 +41,11 @@ const Point = () => {
       />
       <S.PointWrap>
         <S.PointLeftWrap>
-          <>
-            <S.PointGraphWrap>
-              <S.PointGraphPointText>
-                {isDormitoryView
-                  ? dormitoryPoint.dormitoryBonusPoint
-                  : schoolPoint.schoolBonusPoint}
-                점
-              </S.PointGraphPointText>
-              <S.PointGraph
-                point={
-                  isDormitoryView
-                    ? dormitoryPoint.dormitoryBonusPoint
-                    : schoolPoint.schoolBonusPoint
-                }
-                isBonusPoint={true}
-              />
-            </S.PointGraphWrap>
-            <S.PointGraphWrap>
-              <S.PointGraphPointText>
-                {isDormitoryView
-                  ? dormitoryPoint.dormitoryMinusPoint
-                  : schoolPoint.schoolMinusPoint}
-                점
-              </S.PointGraphPointText>
-              <S.PointGraph
-                point={
-                  isDormitoryView
-                    ? dormitoryPoint.dormitoryMinusPoint
-                    : schoolPoint.schoolMinusPoint
-                }
-                isBonusPoint={false}
-              />
-            </S.PointGraphWrap>
-          </>
+          <ErrorBoundary fallback={<>에러발생</>}>
+            <Suspense fallback={<>로딩중...</>}>
+              <PointDashBoard />
+            </Suspense>
+          </ErrorBoundary>
         </S.PointLeftWrap>
         <S.PointRightWrap>
           <S.PointCategoryWrap>
@@ -68,10 +63,10 @@ const Point = () => {
             </S.PointCategoryItemWrap>
           </S.PointCategoryWrap>
           <S.PointChangeButton
-            isSchool={isDormitoryView}
+            isDormitory={isDormitoryPointView}
             onClick={onChangeView}
           >
-            {isDormitoryView ? "기숙사" : "학교"}
+            {isDormitoryPointView ? "기숙사" : "학교"}
           </S.PointChangeButton>
         </S.PointRightWrap>
       </S.PointWrap>
