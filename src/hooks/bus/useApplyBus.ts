@@ -15,8 +15,9 @@ const useApplyBus = () => {
 
   const { data: busesData, isLoading: busesDataIsLoading } = useGetBusesQuery();
   const { data: myBusData, isLoading: myBusDataIsLoading } = useGetMyBusQuery({
+    suspense: true,
     staleTime: 1000 * 30,
-    cacheTime: 1000 * 3,
+    cacheTime: 1000 * 60,
   });
 
   const postMyBusMutation = usePostMyBusMutation();

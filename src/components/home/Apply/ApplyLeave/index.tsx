@@ -1,58 +1,16 @@
-import { Button } from "@team-b1nd/dodamdodam_web_component_library";
-import useApplyLeave from "../../../../hooks/apply/useApplyLeave";
-import ApplyNotApproveList from "../ApplyNotApproveList";
+import { Suspense } from "react";
+import ErrorBoundary from "../../../../components/common/ErrorBoundary";
 import ApplyLeaveForm from "./ApplyLeaveForm";
 import * as S from "./style";
 
 const ApplyLeave = () => {
-  const {
-    fold,
-    setFold,
-    notApprovedLeaves,
-    loadNotApprovedLeave,
-    deleteNotApprovedLeave,
-    leaveData,
-    handleLeaveData,
-    handleLeaveDataReason,
-    handleLeaveDataDate,
-    submitLeaveData,
-  } = useApplyLeave();
-
   return (
     <S.ApplyLeaveContainer>
-      <ApplyNotApproveList
-        fold={fold}
-        setFold={setFold}
-        notApproveItems={notApprovedLeaves}
-        loadNotApprovedItem={loadNotApprovedLeave}
-        deleteNotApprovedItem={deleteNotApprovedLeave}
-      />
-
-      <ApplyLeaveForm
-        leaveData={leaveData}
-        handleLeaveData={handleLeaveData}
-        isFold={fold}
-        handleLeaveDataDate={handleLeaveDataDate}
-        handleLeaveDataReason={handleLeaveDataReason}
-        notApproveLeavesLength={notApprovedLeaves?.length}
-      />
-      {!(notApprovedLeaves?.length === 0 && !fold) && (
-        <Button
-          width={110}
-          height={35}
-          type="primary"
-          onClick={submitLeaveData}
-          customStyle={{
-            fontSize: 14,
-            margin: 16,
-            marginLeft: "auto",
-            marginTop: "auto",
-            minHeight: 35,
-          }}
-        >
-          {fold ? "신청" : "수정"}
-        </Button>
-      )}
+      <ErrorBoundary fallback={<>에러발생</>}>
+        <Suspense fallback={<>로딩중...</>}>
+          <ApplyLeaveForm />
+        </Suspense>
+      </ErrorBoundary>
     </S.ApplyLeaveContainer>
   );
 };

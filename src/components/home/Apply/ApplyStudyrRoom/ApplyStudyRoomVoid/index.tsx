@@ -1,10 +1,10 @@
-import { ApplyStudyRoomVoidContainer, ApplyStudyRoomVoidText } from "./style";
+import * as S from "./style";
 
 const ApplyStudyRoomVoid = () => {
   return (
-    <ApplyStudyRoomVoidContainer>
-      <ApplyStudyRoomVoidText>위치 정보가 없습니다</ApplyStudyRoomVoidText>
-    </ApplyStudyRoomVoidContainer>
+    <S.ApplyStudyRoomVoidContainer>
+      <S.ApplyStudyRoomVoidText>위치 정보가 없습니다</S.ApplyStudyRoomVoidText>
+    </S.ApplyStudyRoomVoidContainer>
   );
 };
 

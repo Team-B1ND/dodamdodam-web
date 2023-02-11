@@ -17,8 +17,9 @@ const useApplyLeave = () => {
   const queryClient = useQueryClient();
 
   const appliedLeaves = useGetMyLeavesQuery({
+    suspense: true,
     staleTime: 1000 * 30,
-    cacheTime: 1000 * 3,
+    cacheTime: 1000 * 60,
   }).data?.data;
 
   const postApplyLeaveMutation = usePostApplyLeaveMutation();
@@ -26,7 +27,7 @@ const useApplyLeave = () => {
   const putApplyLeaveMutation = usePutApplyLeaveMutation();
   const postModuleLogMutation = usePostModuleLogMutation();
 
-  const [fold, setFold] = useState(true);
+  const [isFold, setIsFold] = useState(true);
   const [notApprovedLeaves, setNotApprovedLeaves] = useState<AppliedLeave[]>(
     []
   );
@@ -80,7 +81,7 @@ const useApplyLeave = () => {
   };
 
   useEffect(() => {
-    if (fold) {
+    if (isFold) {
       setLeaveData({
         startTimeDate: dateTransform.hyphen(),
         startTimeHour: "",
@@ -96,7 +97,7 @@ const useApplyLeave = () => {
         loadNotApprovedLeave(notApprovedLeaves[0].id);
       }
     }
-  }, [fold, notApprovedLeaves]);
+  }, [isFold, notApprovedLeaves]);
 
   const loadNotApprovedLeave = useCallback(
     (idx: number) => {
@@ -236,7 +237,7 @@ const useApplyLeave = () => {
       return;
     }
 
-    if (fold) {
+    if (isFold) {
       postApplyLeaveMutation.mutateAsync(validApplyLeave, {
         onSuccess: () => {
           queryClient.invalidateQueries("leave/getMyLeaves");
@@ -279,7 +280,7 @@ const useApplyLeave = () => {
       );
     }
   }, [
-    fold,
+    isFold,
     leaveData,
     notApprovedLeaves,
     postApplyLeaveMutation,
@@ -288,8 +289,8 @@ const useApplyLeave = () => {
   ]);
 
   return {
-    fold,
-    setFold,
+    isFold,
+    setIsFold,
     notApprovedLeaves,
     loadNotApprovedLeave,
     deleteNotApprovedLeave,

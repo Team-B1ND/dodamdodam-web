@@ -20,18 +20,25 @@ const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
 
   const timeTables = useGetTimeTableQuery({
+    suspense: true,
     cacheTime: 1000 * 60 * 60 * 12,
     staleTime: 1000 * 60 * 60 * 12,
   }).data?.data;
 
   const myAppliedStudyRoomsData = useGetMyStudyRoomsQuery({
+    suspense: true,
     staleTime: 1000 * 30,
+    cacheTime: 1000 * 60,
   }).data?.data;
 
-  const { data: studyRoomsData, isLoading: studyRoomsDataIsLoading } =
-    useGetPlacesQuery({ staleTime: 1000 * 60 * 60 * 12 });
+  const { data: studyRoomsData } = useGetPlacesQuery({
+    suspense: true,
+    staleTime: 1000 * 60 * 60 * 12,
+    cacheTime: 1000 * 60 * 60 * 12,
+  });
 
   const myDefaultApplyStudyRoomsData = useGetMyDefaultStudyRoomsQuery({
+    suspense: true,
     cacheTime: 1000 * 60 * 60,
     staleTime: 1000 * 60 * 60,
   }).data?.data;
@@ -145,6 +152,10 @@ const useApplyStudyRoom = () => {
   };
 
   const submitDefaultSutdyRoom = async () => {
+    if (postApplyStudyRoomsMutation.isLoading) {
+      return;
+    }
+
     let handleApplyStudyRoomList: ApplyStudyRoom[] = myApplyStudyRooms.map(
       (myApplyStudyRoom, idx) => {
         let handleApplyStudyRoom: ApplyStudyRoom;
@@ -185,6 +196,10 @@ const useApplyStudyRoom = () => {
   };
 
   const submitApplyStudyRoomData = async () => {
+    if (postApplyStudyRoomsMutation.isLoading) {
+      return;
+    }
+
     let isTempSame: boolean = true;
 
     myApplyStudyRooms.forEach((myApplyStudyRoom, idx) => {
@@ -232,7 +247,6 @@ const useApplyStudyRoom = () => {
     isDefault,
     myApplyStudyRooms,
     studyRoomsData: studyRoomsData?.data,
-    studyRoomsDataIsLoading,
     handleStudyRoomApply,
     submitApplyStudyRoomData,
     submitDefaultSutdyRoom,

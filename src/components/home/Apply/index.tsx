@@ -1,22 +1,15 @@
-import { ReactNode } from "react";
+import { useState } from "react";
 import { APPLY_ITEMS } from "../../../constants/apply/apply.constant";
-import useApply from "../../../hooks/apply/useApply";
 import ApplyBus from "./ApplyBus";
 import ApplyLeave from "./ApplyLeave";
 import ApplyPass from "./ApplyPass";
 import ApplyStudyRoom from "./ApplyStudyrRoom";
 import * as S from "./style";
 import ApplyMemo from "../../../assets/icons/apply/applyMemo.png";
+import { SwitchCase } from "@b1nd/b1nd-react-util";
 
 const Apply = () => {
-  const { section, setSection } = useApply();
-
-  const applyItemComponents: ReactNode[] = [
-    <ApplyStudyRoom key="applyStudyRoom" />,
-    <ApplyPass key="applyPass" />,
-    <ApplyLeave key="applyLeave" />,
-    <ApplyBus key="applyBus" />,
-  ];
+  const [section, setSection] = useState("자습실");
 
   return (
     <S.ApplyContainer>
@@ -36,9 +29,15 @@ const Apply = () => {
         </S.ApplyTitleItemWrap>
       </S.ApplyTitleWrap>
       <S.ApplyFormWrap>
-        {applyItemComponents.map((component, idx) => {
-          return section === APPLY_ITEMS[idx] && component;
-        })}
+        <SwitchCase
+          value={section}
+          caseBy={{
+            자습실: <ApplyStudyRoom />,
+            외출: <ApplyPass />,
+            외박: <ApplyLeave />,
+            버스: <ApplyBus />,
+          }}
+        />
       </S.ApplyFormWrap>
     </S.ApplyContainer>
   );

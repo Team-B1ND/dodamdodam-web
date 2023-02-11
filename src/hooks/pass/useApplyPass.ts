@@ -16,8 +16,12 @@ import { usePostModuleLogMutation } from "../../queries/log/log.query";
 const useApplyPass = () => {
   const queryClient = useQueryClient();
 
-  const appliedPasses = useGetMyPassesQuery({ staleTime: 1000 * 30 }).data
-    ?.data;
+  const appliedPasses = useGetMyPassesQuery({
+    suspense: true,
+    staleTime: 1000 * 30,
+    cacheTime: 1000 * 60,
+  }).data?.data;
+
   const [passData, setPassData] = useState<ApplyPass>({
     startTimeHour: "",
     startTimeMinute: "",
@@ -32,7 +36,7 @@ const useApplyPass = () => {
   const deleteMyPassMutation = useDeleteMyPassMutation();
   const postModuleLogMutation = usePostModuleLogMutation();
 
-  const [fold, setFold] = useState(true);
+  const [isFold, setIsFold] = useState(true);
 
   const [passDataDate, setPassDataDate] = useState<string>(
     dateTransform.hyphen()
@@ -78,7 +82,7 @@ const useApplyPass = () => {
 
   //외출 리스트를 켯을 때 첫번째 외출 정보가 input에 담기는 부분
   useEffect(() => {
-    if (fold) {
+    if (isFold) {
       setPassData({
         endTimeHour: "",
         endTimeMinute: "",
@@ -102,7 +106,7 @@ const useApplyPass = () => {
         setPassDataDate(passDate);
       }
     }
-  }, [fold, notApprovedPasses]);
+  }, [isFold, notApprovedPasses]);
 
   //외출 리스트에서 외출을 눌렀을때 인풋에 담기는 함수
   const loadNotApprovedPass = useCallback(
@@ -228,7 +232,7 @@ const useApplyPass = () => {
     }
 
     //외출 수정인지 외출 신청인지 구분하는 함수
-    if (fold) {
+    if (isFold) {
       postApplyPassMutation.mutateAsync(validApplyPass, {
         onSuccess: () => {
           queryClient.invalidateQueries("pass/getMyPasses");
@@ -270,7 +274,7 @@ const useApplyPass = () => {
       );
     }
   }, [
-    fold,
+    isFold,
     notApprovedPasses,
     passData,
     passDataDate,
@@ -280,8 +284,8 @@ const useApplyPass = () => {
   ]);
 
   return {
-    fold,
-    setFold,
+    isFold,
+    setIsFold,
     notApprovedPasses,
     appliedPasses,
     loadNotApprovedPass,
