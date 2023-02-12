@@ -6,12 +6,13 @@ import DefaultProfileImage from "../../../../assets/images/common/defaultProfile
 import { useGetMyMemberQuery } from "../../../../queries/member/member.query";
 import useLogout from "../../../../hooks/auth/useLogout";
 import ErrorBoundary from "../../../../components/common/ErrorBoundary";
+import MyInfoHeaderFallbackLoader from "../../../../components/common/FallbackLoader/MyInfoHeader";
 
 const MyInfoHeader = () => {
   return (
     <S.MyInfoHeaderWrap>
       <ErrorBoundary fallback={<>에러발생</>}>
-        <Suspense fallback={<>로딩중...</>}>
+        <Suspense fallback={<MyInfoHeaderFallbackLoader />}>
           <MyInfoHeaderForm />
         </Suspense>
       </ErrorBoundary>

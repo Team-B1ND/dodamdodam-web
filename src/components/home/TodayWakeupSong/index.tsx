@@ -5,6 +5,7 @@ import TodayWakeupSongHeadPhoneIcon from "../../../assets/icons/todayWakeupSong/
 import { Suspense } from "react";
 import ErrorBoundary from "../../../components/common/ErrorBoundary";
 import TodayWakeupSongList from "./TodayWakeupSongList";
+import TodayWakeupSongListFallback from "../../../components/common/FallbackLoader/TodayWakeupSongList";
 
 const TodayWakeupSong = () => {
   return (
@@ -15,7 +16,7 @@ const TodayWakeupSong = () => {
         redirectURL={"http://dodam.b1nd.com/wakesong"}
       />
       <ErrorBoundary fallback={<>에러발생</>}>
-        <Suspense fallback={<>로딩중...</>}>
+        <Suspense fallback={<TodayWakeupSongListFallback />}>
           <TodayWakeupSongList />
         </Suspense>
       </ErrorBoundary>

@@ -4,6 +4,7 @@ import TodayScheduleCanlendarIcon from "../../../assets/icons/todaySchedule/toda
 import ErrorBoundary from "../../../components/common/ErrorBoundary";
 import { Suspense } from "react";
 import TodayScheduleList from "./TodayScheduleList";
+import TodayScheduleListFallbackLoader from "../../../components/common/FallbackLoader/TodayScheduleList";
 
 const TodaySchedule = () => {
   return (
@@ -14,7 +15,7 @@ const TodaySchedule = () => {
         redirectURL={"http://dodam.b1nd.com/schedule"}
       />
       <ErrorBoundary fallback={<>에러발생</>}>
-        <Suspense fallback={<>로딩중...</>}>
+        <Suspense fallback={<TodayScheduleListFallbackLoader />}>
           <TodayScheduleList />
         </Suspense>
       </ErrorBoundary>

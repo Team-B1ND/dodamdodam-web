@@ -7,6 +7,7 @@ import { usePostModuleLogMutation } from "../../../queries/log/log.query";
 import ErrorBoundary from "../../../components/common/ErrorBoundary";
 import { Suspense } from "react";
 import PointDashBoard from "./PointDashBoard";
+import PointDashBoardFallbackLoader from "../../../components/common/FallbackLoader/PointDashBoard";
 
 const Point = () => {
   const [isDormitoryPointView, setIsDormitoryPointView] =
@@ -42,7 +43,7 @@ const Point = () => {
       <S.PointWrap>
         <S.PointLeftWrap>
           <ErrorBoundary fallback={<>에러발생</>}>
-            <Suspense fallback={<>로딩중...</>}>
+            <Suspense fallback={<PointDashBoardFallbackLoader />}>
               <PointDashBoard />
             </Suspense>
           </ErrorBoundary>
