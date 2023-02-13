@@ -1,38 +1,16 @@
 import { useEffect, useState } from "react";
 import dateTransform from "../../util/transform/dateTransform";
-import { useGetMyPoint } from "../../queries/point/point.query";
-import { usePostModuleLog } from "../../queries/log/log.query";
+import { useGetMyPointQuery } from "../../queries/point/point.query";
 
 const usePoint = () => {
-  const [isDormitoryView, setIsDormitoryView] = useState(true); // true은 기숙사, false은 학교
-
-  const postModuleLogMutation = usePostModuleLog();
-
-  const onChangeView = () => {
-    setIsDormitoryView((prev) => {
-      if (prev) {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "기숙사 상벌점 조회",
-        });
-      } else {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "학교 상벌점 조회",
-        });
-      }
-
-      return !prev;
-    });
-  };
-
-  const myPoint = useGetMyPoint(
+  const { data: serverMyPointData } = useGetMyPointQuery(
     { year: dateTransform.hyphen().split("-")[0] },
     {
+      suspense: true,
       cacheTime: 1000 * 60 * 5,
       staleTime: 1000 * 60 * 60,
     }
-  ).data?.data;
+  );
 
   const [schoolPoint, setSchoolPoint] = useState<{
     schoolBonusPoint: number;
@@ -51,11 +29,11 @@ const usePoint = () => {
   });
 
   useEffect(() => {
-    if (myPoint) {
-      const dormitoryBonusPoint = myPoint.domBonus;
-      const dormitoryMinusPoint = myPoint.domMinus;
-      const schoolBonusPoint = myPoint.schBonus;
-      const schoolMinusPoint = myPoint.schMinus;
+    if (serverMyPointData) {
+      const dormitoryBonusPoint = serverMyPointData.data.domBonus;
+      const dormitoryMinusPoint = serverMyPointData.data.domMinus;
+      const schoolBonusPoint = serverMyPointData.data.schBonus;
+      const schoolMinusPoint = serverMyPointData.data.schMinus;
 
       setDormitoryPoint({
         dormitoryBonusPoint: dormitoryBonusPoint || 0,
@@ -67,9 +45,9 @@ const usePoint = () => {
         schoolMinusPoint: schoolMinusPoint || 0,
       });
     }
-  }, [myPoint]);
+  }, [serverMyPointData]);
 
-  return { isDormitoryView, onChangeView, schoolPoint, dormitoryPoint };
+  return { schoolPoint, dormitoryPoint };
 };
 
 export default usePoint;

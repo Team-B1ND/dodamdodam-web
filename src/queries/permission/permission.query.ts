@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions } from "react-query";
 import permissionRepository from "../../repository/permission/permission.repository";
 import { MyPermissionResponse } from "../../types/permission/permission.type";
 
-export const useGetMyPermission = (
+export const useGetMyPermissionQuery = (
   options: UseQueryOptions<
     MyPermissionResponse,
     AxiosError,

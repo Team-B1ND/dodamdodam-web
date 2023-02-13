@@ -1,14 +1,14 @@
-import { useGetMyPermission } from "../../queries/permission/permission.query";
+import { useGetMyPermissionQuery } from "../../queries/permission/permission.query";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useGetNotice } from "../../queries/notice/notice.query";
+import { useGetNoticeQuery } from "../../queries/notice/notice.query";
 
 const useNotice = () => {
-  const { data, isLoading } = useGetNotice({
+  const { data, isLoading } = useGetNoticeQuery({
     staleTime: 1000 * 60 * 60,
     cacheTime: 1000 * 60 * 60,
   });
 
-  const permissionData = useGetMyPermission({
+  const permissionData = useGetMyPermissionQuery({
     cacheTime: 1000 * 60 * 60 * 24,
     staleTime: 1000 * 60 * 30 * 24,
   }).data?.data;

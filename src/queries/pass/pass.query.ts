@@ -13,7 +13,7 @@ import {
 import passRepository from "../../repository/pass/pass.repository";
 import { MyPassesResponse } from "../../types/pass/pass.type";
 
-export const useGetMyPasses = (
+export const useGetMyPassesQuery = (
   options?: UseQueryOptions<
     MyPassesResponse,
     AxiosError,
@@ -23,7 +23,7 @@ export const useGetMyPasses = (
 ): UseQueryResult<MyPassesResponse, AxiosError> =>
   useQuery("pass/getMyPasses", () => passRepository.getMyPasses(), options);
 
-export const usePostApplyPass = () => {
+export const usePostApplyPassMutation = () => {
   const mutation = useMutation((passData: postApplyPassParam) =>
     passRepository.postApplyPass(passData)
   );
@@ -31,7 +31,7 @@ export const usePostApplyPass = () => {
   return mutation;
 };
 
-export const usePutApplyPass = () => {
+export const usePutApplyPassMutation = () => {
   const mutation = useMutation((passData: putMyPassParam) =>
     passRepository.putMyPass(passData)
   );
@@ -39,7 +39,7 @@ export const usePutApplyPass = () => {
   return mutation;
 };
 
-export const useDeleteMyPass = () => {
+export const useDeleteMyPassMutation = () => {
   const mutation = useMutation((idx: deleteMyPassParam) =>
     passRepository.deleteMyPass(idx)
   );

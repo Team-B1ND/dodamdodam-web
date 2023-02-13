@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "@amplitude/analytics-browser": "^1.4.0",
-    "@b1nd/b1nd-design-core": "^1.0.2",
+    "@b1nd/b1nd-design-core": "^1.0.4",
+    "@b1nd/b1nd-react-util": "^1.0.2",
+    "@b1nd/b1nd-styled-components-util": "^1.0.1",
+    "@b1nd/b1nd-toastify": "^1.0.3",
     "@b1nd/b1ndteam-styled-components-theme": "^1.0.3",
     "@babel/runtime": "^7.18.9",
     "@react-icons/all-files": "^4.1.0",

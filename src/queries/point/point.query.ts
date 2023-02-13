@@ -4,7 +4,7 @@ import { getMyPointParam } from "repository/point/point.param";
 import pointRepository from "../../repository/point/point.repository";
 import { MyPointResponse } from "../../types/point/point.type";
 
-export const useGetMyPoint = (
+export const useGetMyPointQuery = (
   { year }: getMyPointParam,
   options?: UseQueryOptions<
     MyPointResponse,

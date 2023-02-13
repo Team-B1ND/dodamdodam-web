@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { RecoilRoot } from "recoil";
 import App from "./components/App";
-import ThemeProviderContainer from "./components/common/themeProviderContainer/themeProviderContainer";
+import ThemeProviderContainer from "./components/common/ThemeProviderContainer";
+import { B1ndToastContainer } from "@b1nd/b1nd-toastify";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +14,7 @@ function Root() {
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <ThemeProviderContainer>
-            <ToastContainer autoClose={5000} limit={9} />
+            <B1ndToastContainer autoClose={5000} limit={9} />
             <BrowserRouter>
               <App />
             </BrowserRouter>

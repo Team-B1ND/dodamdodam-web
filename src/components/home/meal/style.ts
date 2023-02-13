@@ -9,11 +9,3 @@ export const MealContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-export const MealItemWrap = styled.div`
-  width: 460px;
-  height: 231px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;

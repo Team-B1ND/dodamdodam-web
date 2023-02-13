@@ -1,15 +1,15 @@
-import { useGetMyPermission } from "../../queries/permission/permission.query";
+import { useGetMyPermissionQuery } from "../../queries/permission/permission.query";
 import { useEffect, useState } from "react";
-import { useGetBanners } from "../../queries/banner/banner.query";
+import { useGetBannersQuery } from "../../queries/banner/banner.query";
 import { Banner } from "../../types/banner/banner.type";
 
 const useBanner = () => {
-  const bannersData = useGetBanners({
+  const bannersData = useGetBannersQuery({
     cacheTime: 1000 * 60 * 60,
     staleTime: 1000 * 60 * 30,
   }).data?.data;
 
-  const permissionData = useGetMyPermission({
+  const permissionData = useGetMyPermissionQuery({
     cacheTime: 1000 * 60 * 60 * 24,
     staleTime: 1000 * 60 * 30 * 24,
   }).data?.data;

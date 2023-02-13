@@ -8,7 +8,7 @@ import {
   TodayAllowedWakeupSongsResponse,
 } from "../../types/wakeupSong/wakeupSong.type";
 
-export const useGetMyWakeupSongs = (
+export const useGetMyWakeupSongsQuery = (
   options?: UseQueryOptions<
     MyWakeupSongsResponse,
     AxiosError,
@@ -22,7 +22,7 @@ export const useGetMyWakeupSongs = (
     options
   );
 
-export const useGetTodayAllowedWakeupSong = (
+export const useGetTodayAllowedWakeupSongQuery = (
   { year, month, day }: getTodayAllowedWakeupSongParam,
   options?: UseQueryOptions<
     TodayAllowedWakeupSongsResponse,

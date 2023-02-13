@@ -3,6 +3,7 @@ import { init, track } from "@amplitude/analytics-browser";
 import { useEffect } from "react";
 import ReactGA from "react-ga4";
 import { pageView } from "../lib/ga/gtag";
+import useTokenCheck from "../hooks/auth/useTokenCheck";
 
 const App = () => {
   useEffect(() => {
@@ -18,6 +19,8 @@ const App = () => {
       }
     }
   }, []);
+
+  useTokenCheck();
 
   return <Routes />;
 };

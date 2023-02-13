@@ -24,40 +24,6 @@ export const PointLeftWrap = styled.div`
   justify-content: center;
 `;
 
-export const PointGraphWrap = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 34px;
-`;
-
-export const PointGraphPointText = styled.span`
-  font-size: 14px;
-  color: ${({ theme }) => theme.contrast};
-  min-width: 32px;
-  display: flex;
-  justify-content: start;
-  white-space: nowrap;
-`;
-
-export const PointGraph = styled.div<{ point: number; isBonusPoint: boolean }>`
-  display: flex;
-  height: 13.81px;
-  max-width: 100%;
-  width: ${({ point }) =>
-    point === 0 ? 1 : point * 4 >= 100 ? 100 : point * 4}%;
-  background-color: #0067bc;
-
-  ${({ isBonusPoint }) =>
-    isBonusPoint
-      ? css`
-          background-color: #0067bc;
-        `
-      : css`
-          background-color: #f97e6d;
-        `}
-`;
-
 export const PointRightWrap = styled.div`
   width: 95px;
   height: 100%;
@@ -86,7 +52,7 @@ export const PointCategoryItemCircle = styled.div`
   border-radius: 100%;
 `;
 
-export const PointChangeButton = styled.button<{ isSchool: boolean }>`
+export const PointChangeButton = styled.button<{ isDormitory: boolean }>`
   width: 60px;
   height: 25px;
   border-radius: 15px;
@@ -95,8 +61,8 @@ export const PointChangeButton = styled.button<{ isSchool: boolean }>`
   cursor: pointer;
   margin-left: auto;
 
-  ${({ isSchool }) =>
-    isSchool
+  ${({ isDormitory }) =>
+    isDormitory
       ? css`
           background-color: rgba(0, 103, 188, 0.85);
           color: white;

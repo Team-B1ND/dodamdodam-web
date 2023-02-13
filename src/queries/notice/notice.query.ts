@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 import noticeRepository from "../../repository/notice/notice.repository";
 import { NoticeResponse } from "../../types/notice/notice.type";
 
-export const useGetNotice = (
+export const useGetNoticeQuery = (
   options?: UseQueryOptions<
     NoticeResponse,
     AxiosError,
