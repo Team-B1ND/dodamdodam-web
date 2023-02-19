@@ -8,7 +8,7 @@ class TokenRepository {
     token: RefreshTokenParam
   ): Promise<RefreshResponse> {
     const { data } = await axios.post<RefreshResponse>(
-      `${config.DODAM_SERVER_V3}/token/refresh`,
+      `${config.DODAM_SERVER_V6}/token/refresh`,
       token
     );
 

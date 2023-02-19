@@ -6,7 +6,7 @@ import config from "../../config/config.json";
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {
     const { data } = await axios.post(
-      `${config.DODAM_SERVER_V3}/auth/login`,
+      `${config.DODAM_SERVER_V6}/auth/login`,
       loginData
     );
 
@@ -14,7 +14,7 @@ class AuthRepository {
   }
 
   public async signup(signupData: SignupParam): Promise<void> {
-    await axios.post(`${config.DODAM_SERVER_V3}/auth/join`, signupData);
+    await axios.post(`${config.DODAM_SERVER_V6}/auth/join`, signupData);
   }
 }
 

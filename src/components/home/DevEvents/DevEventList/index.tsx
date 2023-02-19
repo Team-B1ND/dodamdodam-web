@@ -10,8 +10,8 @@ const DevEventList = () => {
 
   return (
     <>
-      {serverDevEventsData?.data.slice(0, 10).map((devEvent) => (
-        <DevEventsItem data={devEvent} key={devEvent.title} />
+      {serverDevEventsData?.data.slice(0, 10).map((devEvent, idx) => (
+        <DevEventsItem data={devEvent} key={`${devEvent.title} ${idx}`} />
       ))}
     </>
   );
