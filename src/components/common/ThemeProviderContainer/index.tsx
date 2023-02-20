@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
-import useTheme from "../../../hooks/theme/useTheme";
-import GlobalStyle from "../../../style/global";
-import MaterialStyle from "../../../style/material";
+import useTheme from "@src/hooks/theme/useTheme";
+import GlobalStyle from "@src/style/global";
+import MaterialStyle from "@src/style/material";
 
 type Props = {
   children: ReactNode;

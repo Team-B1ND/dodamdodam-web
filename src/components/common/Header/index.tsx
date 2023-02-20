@@ -1,10 +1,10 @@
 import * as S from "./style";
-import logo from "../../../assets/logo/dodam_text_logo.svg";
+import logo from "@src/assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
-import { HEADER_LINKS } from "../../../constants/header/header.constant";
-import { pageView } from "../../../lib/ga/gtag";
+import { HEADER_LINKS } from "@src/constants/header/header.constant";
+import { pageView } from "@src/lib/ga/gtag";
 import { track } from "@amplitude/analytics-browser";
-import { usePostModuleLogMutation } from "../../../queries/log/log.query";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const Header = () => {
   const postModuleLogMutation = usePostModuleLogMutation();

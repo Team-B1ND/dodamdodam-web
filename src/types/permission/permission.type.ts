@@ -1,5 +1,5 @@
-import { Member } from "types/member/member.type";
-import { Response } from "types/util/response.type";
+import { Member } from "@src/types/member/member.type";
+import { Response } from "@src/types/util/response.type";
 
 export type PermissionType =
   | "CTRL_JOIN"

@@ -1,14 +1,14 @@
 import { sha512 } from "js-sha512";
 import { FormEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authRepository from "../../repository/auth/auth.repository";
-import { Login } from "../../types/login/login.type";
-import token from "../../lib/token/token";
+import authRepository from "@src/repository/auth/auth.repository";
+import { Login } from "@src/types/login/login.type";
+import token from "@src/lib/token/token";
 import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
-} from "../../constants/token/token.constant";
-import showToast from "../../lib/toast/toast";
+} from "@src/constants/token/token.constant";
+import showToast from "@src/lib/toast/toast";
 import { useQueryClient } from "react-query";
 
 const useLogin = () => {

@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { TimeTablesResponse } from "../../types/timeTable/timeTable.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { TimeTablesResponse } from "@src/types/timeTable/timeTable.type";
 
 class TimeTable {
   public async getTimeTables(): Promise<TimeTablesResponse> {

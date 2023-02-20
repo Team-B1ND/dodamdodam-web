@@ -1,5 +1,5 @@
-import { ClassRoom } from "types/common/common.type";
-import { Response } from "types/util/response.type";
+import { ClassRoom } from "@src/types/common/common.type";
+import { Response } from "@src/types/util/response.type";
 
 export interface Member {
   email: string;

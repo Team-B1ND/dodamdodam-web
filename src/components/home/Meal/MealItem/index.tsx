@@ -1,5 +1,5 @@
 import React from "react";
-import { EMealType } from "../../../../enum/meal/meal.enum";
+import { EMealType } from "@src/enum/meal/meal.enum";
 import * as S from "./style";
 
 interface Props {

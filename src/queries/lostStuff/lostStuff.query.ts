@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import lostStuffRepository from "../../repository/lostStuff/lostStuff.repository";
-import { MyLostStuffsResponse } from "../../types/lostStuff/lostStuff.type";
+import lostStuffRepository from "@src/repository/lostStuff/lostStuff.repository";
+import { MyLostStuffsResponse } from "@src/types/lostStuff/lostStuff.type";
 
 export const useGetMyLostStuffQuery = (
   options?: UseQueryOptions<

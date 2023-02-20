@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { MyLostStuffsResponse } from "../../types/lostStuff/lostStuff.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { MyLostStuffsResponse } from "@src/types/lostStuff/lostStuff.type";
 
 class LostStuffRepository {
   public async getMyLostStuffs(): Promise<MyLostStuffsResponse> {

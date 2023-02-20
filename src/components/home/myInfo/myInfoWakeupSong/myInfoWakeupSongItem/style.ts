@@ -1,4 +1,4 @@
-import { ellipsisLine } from "../../../../../style/libStyle";
+import { ellipsisLine } from "@src/style/libStyle";
 import styled from "styled-components";
 
 export const MyInfoWakeupSongItemContainer = styled.div`

@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { PlacesResponse } from "../../types/place/place.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { PlacesResponse } from "@src/types/place/place.type";
 
 class PlaceRepository {
   public async getPlaces(): Promise<PlacesResponse> {

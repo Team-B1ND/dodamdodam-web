@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { EMealType } from "../../../../enum/meal/meal.enum";
+import { EMealType } from "@src/enum/meal/meal.enum";
 
 export const MealItemContainer = styled.div<{
   isMealTime: boolean;

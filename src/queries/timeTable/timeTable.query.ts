@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import timeTableRepository from "../../repository/timeTable/timeTable.repository";
-import { TimeTablesResponse } from "../../types/timeTable/timeTable.type";
+import timeTableRepository from "@src/repository/timeTable/timeTable.repository";
+import { TimeTablesResponse } from "@src/types/timeTable/timeTable.type";
 
 export const useGetTimeTableQuery = (
   options?: UseQueryOptions<

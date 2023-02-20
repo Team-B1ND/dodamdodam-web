@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { MyPointResponse } from "../../types/point/point.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { MyPointResponse } from "@src/types/point/point.type";
 import { getMyPointParam } from "./point.param";
 
 class PointRepository {

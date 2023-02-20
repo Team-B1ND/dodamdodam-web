@@ -5,12 +5,12 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import { postApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
-import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
+import { postApplyStudyRoomsParam } from "@src/repository/studyRoom/studyRoom.param";
+import studyRoomRepository from "@src/repository/studyRoom/studyRoom.repository";
 import {
   MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
-} from "../../types/studyRoom/studyRoom.type";
+} from "@src/types/studyRoom/studyRoom.type";
 
 export const useGetMyStudyRoomsQuery = (
   options?: UseQueryOptions<

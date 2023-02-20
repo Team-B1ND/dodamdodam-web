@@ -1,8 +1,8 @@
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import { Suspense } from "react";
 import MyInfoLostStuffList from "./MyInfoLostStuffList";
 import { MyInfoLostStuffContainer } from "./style";
-import MyInfoLostStuffListFallbackLoader from "../../../../components/common/FallbackLoader/MyInfoLostStuffList";
+import MyInfoLostStuffListFallbackLoader from "@src/components/common/FallbackLoader/MyInfoLostStuffList";
 
 const MyInfoLostStuff = () => {
   return (

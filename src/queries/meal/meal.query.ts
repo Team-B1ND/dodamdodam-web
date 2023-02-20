@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import { getMealParam } from "../../repository/meal/meal.param";
-import mealRepository from "../../repository/meal/meal.repository";
-import { MealResponse } from "../../types/meal/meal.type";
+import { getMealParam } from "@src/repository/meal/meal.param";
+import mealRepository from "@src/repository/meal/meal.repository";
+import { MealResponse } from "@src/types/meal/meal.type";
 
 export const useGetMealsQuery = (
   { year, month, day }: getMealParam,

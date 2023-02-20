@@ -1,13 +1,13 @@
-import CardTitle from "../../common/CardTitle";
+import CardTitle from "@src/components/common/CardTitle";
 import * as S from "./style";
-import PointChartIcon from "../../../assets/icons/point/pointChart.png";
+import PointChartIcon from "@src/assets/icons/point/pointChart.png";
 import { useRecoilState } from "recoil";
-import { pointViewTypeAtom } from "../../../store/point/pointStore";
-import { usePostModuleLogMutation } from "../../../queries/log/log.query";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import { pointViewTypeAtom } from "@src/store/point/pointStore";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import { Suspense } from "react";
 import PointDashBoard from "./PointDashBoard";
-import PointDashBoardFallbackLoader from "../../../components/common/FallbackLoader/PointDashBoard";
+import PointDashBoardFallbackLoader from "@src/components/common/FallbackLoader/PointDashBoard";
 
 const Point = () => {
   const [isDormitoryPointView, setIsDormitoryPointView] =

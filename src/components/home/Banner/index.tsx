@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import useBanner from "../../../hooks/banner/useBanner";
+import useBanner from "@src/hooks/banner/useBanner";
 import * as S from "./style";
 import Slider from "react-slick";
 import BannerItem from "./BannerItem";

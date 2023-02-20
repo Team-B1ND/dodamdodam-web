@@ -1,11 +1,11 @@
-import CardTitle from "../../common/CardTitle";
 import * as S from "./style";
 
-import TodayWakeupSongHeadPhoneIcon from "../../../assets/icons/todayWakeupSong/todayWakeupSongHeadPhone.png";
+import TodayWakeupSongHeadPhoneIcon from "@src/assets/icons/todayWakeupSong/todayWakeupSongHeadPhone.png";
 import { Suspense } from "react";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import TodayWakeupSongList from "./TodayWakeupSongList";
-import TodayWakeupSongListFallback from "../../../components/common/FallbackLoader/TodayWakeupSongList";
+import TodayWakeupSongListFallback from "@src/components/common/FallbackLoader/TodayWakeupSongList";
+import CardTitle from "@src/components/common/CardTitle";
 
 const TodayWakeupSong = () => {
   return (

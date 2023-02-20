@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { MyPermissionResponse } from "../../types/permission/permission.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { MyPermissionResponse } from "@src/types/permission/permission.type";
 
 class Permission {
   public async getMyPermission(): Promise<MyPermissionResponse> {

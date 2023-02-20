@@ -3,8 +3,8 @@ import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
   REQUEST_TOKEN_KEY,
-} from "../../constants/token/token.constant";
-import tokenRepository from "../../repository/token/token.repository";
+} from "@src/constants/token/token.constant";
+import tokenRepository from "@src/repository/token/token.repository";
 import token from "../token/token";
 import { dodamV6Axios } from "./customAxios";
 

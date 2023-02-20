@@ -1,7 +1,7 @@
 import MealDatePicker from "./MealDatePicker";
 import { MealContainer } from "./style";
 
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import { Suspense } from "react";
 import MealList from "./MealList";
 

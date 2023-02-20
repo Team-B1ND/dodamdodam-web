@@ -1,4 +1,4 @@
-import { Response } from "types/util/response.type";
+import { Response } from "@src/types/util/response.type";
 
 export interface Place {
   id: number;

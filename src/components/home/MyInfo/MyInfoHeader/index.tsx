@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
-import dataTransform from "../../../../util/transform/dataTransform";
+import dataTransform from "@src/util/transform/dataTransform";
 import * as S from "./style";
-import { usePostModuleLogMutation } from "../../../../queries/log/log.query";
-import DefaultProfileImage from "../../../../assets/images/common/defaultProfile.png";
-import { useGetMyMemberQuery } from "../../../../queries/member/member.query";
-import useLogout from "../../../../hooks/auth/useLogout";
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
-import MyInfoHeaderFallbackLoader from "../../../../components/common/FallbackLoader/MyInfoHeader";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import DefaultProfileImage from "@src/assets/images/common/defaultProfile.png";
+import { useGetMyMemberQuery } from "@src/queries/member/member.query";
+import useLogout from "@src/hooks/auth/useLogout";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
+import MyInfoHeaderFallbackLoader from "@src/components/common/FallbackLoader/MyInfoHeader";
 
 const MyInfoHeader = () => {
   return (

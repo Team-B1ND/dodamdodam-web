@@ -1,5 +1,5 @@
-import { useGetMyWakeupSongsQuery } from "../../../../../queries/wakeupSong/wakeupSong.query";
-import dataCheck from "../../../../../util/check/dataCheck";
+import { useGetMyWakeupSongsQuery } from "@src/queries/wakeupSong/wakeupSong.query";
+import dataCheck from "@src/util/check/dataCheck";
 import MyInfoItemVoid from "../../MyInfoItemVoid";
 import MyInfoWakeupSongItem from "../MyInfoWakeupSongItem";
 

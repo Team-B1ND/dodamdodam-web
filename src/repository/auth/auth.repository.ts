@@ -1,7 +1,7 @@
 import axios from "axios";
-import { LoginResponse } from "../../types/login/login.type";
+import { LoginResponse } from "@src/types/login/login.type";
 import { LoginParam, SignupParam } from "./auth.param";
-import config from "../../config/config.json";
+import config from "@src/config/config.json";
 
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {

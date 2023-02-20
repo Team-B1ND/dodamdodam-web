@@ -1,6 +1,6 @@
-import { LostStuff } from "../../../../../types/lostStuff/lostStuff.type";
-import dataTransform from "../../../../../util/transform/dataTransform";
-import dateTransform from "../../../../../util/transform/dateTransform";
+import { LostStuff } from "@src/types/lostStuff/lostStuff.type";
+import dataTransform from "@src/util/transform/dataTransform";
+import dateTransform from "@src/util/transform/dateTransform";
 import * as S from "./style";
 
 interface Props {

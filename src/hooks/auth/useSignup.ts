@@ -1,9 +1,9 @@
 import { sha512 } from "js-sha512";
-import showToast from "../../lib/toast/toast";
+import showToast from "@src/lib/toast/toast";
 import React, { useCallback, useState } from "react";
-import authRepository from "../../repository/auth/auth.repository";
-import { Signup, SignupAgree } from "../../types/signup/signup.type";
-import patternCheck from "../../util/check/patternCheck";
+import authRepository from "@src/repository/auth/auth.repository";
+import { Signup, SignupAgree } from "@src/types/signup/signup.type";
+import patternCheck from "@src/util/check/patternCheck";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");

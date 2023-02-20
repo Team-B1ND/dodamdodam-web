@@ -1,5 +1,5 @@
-import { Place } from "types/place/place.type";
-import { TimeTable } from "types/timeTable/timeTable.type";
+import { Place } from "@src/types/place/place.type";
+import { TimeTable } from "@src/types/timeTable/timeTable.type";
 
 export interface StudyRoom {
   readonly idx: number;

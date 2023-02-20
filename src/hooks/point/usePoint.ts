@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import dateTransform from "../../util/transform/dateTransform";
-import { useGetMyPointQuery } from "../../queries/point/point.query";
+import dateTransform from "@src/util/transform/dateTransform";
+import { useGetMyPointQuery } from "@src/queries/point/point.query";
 
 const usePoint = () => {
   const { data: serverMyPointData } = useGetMyPointQuery(

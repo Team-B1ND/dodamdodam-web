@@ -1,4 +1,4 @@
-import { ApplyStudyRoom } from "types/studyRoom/studyRoom.type";
+import { ApplyStudyRoom } from "@src/types/studyRoom/studyRoom.type";
 
 export interface postApplyStudyRoomsParam {
   studyRoomList: ApplyStudyRoom[];

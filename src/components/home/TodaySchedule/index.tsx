@@ -1,10 +1,10 @@
-import CardTitle from "../../common/CardTitle";
 import * as S from "./style";
-import TodayScheduleCanlendarIcon from "../../../assets/icons/todaySchedule/todayScheduleCanlendar.png";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import TodayScheduleCanlendarIcon from "@src/assets/icons/todaySchedule/todayScheduleCanlendar.png";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import { Suspense } from "react";
 import TodayScheduleList from "./TodayScheduleList";
-import TodayScheduleListFallbackLoader from "../../../components/common/FallbackLoader/TodayScheduleList";
+import TodayScheduleListFallbackLoader from "@src/components/common/FallbackLoader/TodayScheduleList";
+import CardTitle from "@src/components/common/CardTitle";
 
 const TodaySchedule = () => {
   return (

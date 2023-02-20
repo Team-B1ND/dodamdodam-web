@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import showToast from "../../lib/toast/toast";
+import showToast from "@src/lib/toast/toast";
 import React, { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
@@ -7,11 +7,11 @@ import {
   useGetMyLeavesQuery,
   usePostApplyLeaveMutation,
   usePutApplyLeaveMutation,
-} from "../../queries/leave/leave.query";
-import { AppliedLeave, ApplyLeave } from "../../types/leave/leave.type";
-import dataCheck from "../../util/check/dataCheck";
-import dateTransform from "../../util/transform/dateTransform";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
+} from "@src/queries/leave/leave.query";
+import { AppliedLeave, ApplyLeave } from "@src/types/leave/leave.type";
+import dataCheck from "@src/util/check/dataCheck";
+import dateTransform from "@src/util/transform/dateTransform";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();

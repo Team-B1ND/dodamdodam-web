@@ -1,5 +1,5 @@
 import React from "react";
-import { Signup } from "../../../../types/signup/signup.type";
+import { Signup } from "@src/types/signup/signup.type";
 import { AuthInput, AuthInputTitle, AuthInputWrap } from "../../style";
 import * as SignupS from "../style";
 import * as S from "./style";

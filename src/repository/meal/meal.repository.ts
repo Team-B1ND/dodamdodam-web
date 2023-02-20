@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { MealResponse } from "../../types/meal/meal.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { MealResponse } from "@src/types/meal/meal.type";
 import { getMealParam } from "./meal.param";
 
 class MealRepository {

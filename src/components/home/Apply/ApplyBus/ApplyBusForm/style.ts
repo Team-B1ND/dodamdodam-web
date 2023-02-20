@@ -1,4 +1,4 @@
-import { customScrollBar } from "../../../../../style/libStyle";
+import { customScrollBar } from "@src/style/libStyle";
 import styled from "styled-components";
 
 export const ApplyBusFormDate = styled.span`

@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import { MyMemberResponse } from "../../types/member/member.type";
-import profileRepository from "../../repository/member/member.repository";
+import { MyMemberResponse } from "@src/types/member/member.type";
+import profileRepository from "@src/repository/member/member.repository";
 import { B1ndToast } from "@b1nd/b1nd-toastify";
-import token from "../../lib/token/token";
+import token from "@src/lib/token/token";
 
 export const useGetMyMemberQuery = (
   options?: UseQueryOptions<

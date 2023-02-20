@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { MYINFO_ITEMS } from "../../../constants/myInfo/myInfo.constants";
+import { MYINFO_ITEMS } from "@src/constants/myInfo/myInfo.constants";
 import MyInfoHeader from "./MyInfoHeader";
 import MyInfoLostStuff from "./MyInfoLostStuff";
 import MyInfoWakeupSong from "./MyInfoWakeupSong";
-import MyInfoTopImage from "../../../assets/images/myinfo/myInfoTop.svg";
+import MyInfoTopImage from "@src/assets/images/myinfo/myInfoTop.svg";
 import * as S from "./style";
 import { track } from "@amplitude/analytics-browser";
 import { SwitchCase } from "@b1nd/b1nd-react-util";

@@ -1,5 +1,5 @@
-import { useGetMyLostStuffQuery } from "../../../../../queries/lostStuff/lostStuff.query";
-import dataCheck from "../../../../../util/check/dataCheck";
+import { useGetMyLostStuffQuery } from "@src/queries/lostStuff/lostStuff.query";
+import dataCheck from "@src/util/check/dataCheck";
 import MyInfoItemVoid from "../../MyInfoItemVoid";
 import MyInfoLostStuffItem from "../MyInfoLostStuffItem";
 

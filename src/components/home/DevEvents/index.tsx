@@ -1,8 +1,8 @@
 import { DevEventsContainer } from "./style";
 import { Suspense } from "react";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import DevEventList from "./DevEventList";
-import DevEventListFallbackLoader from "../../../components/common/FallbackLoader/DevEventList";
+import DevEventListFallbackLoader from "@src/components/common/FallbackLoader/DevEventList";
 
 const DevEvents = () => {
   return (

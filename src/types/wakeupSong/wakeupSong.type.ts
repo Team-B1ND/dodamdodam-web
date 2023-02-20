@@ -1,5 +1,5 @@
-import { Member } from "types/member/member.type";
-import { Response } from "../util/response.type";
+import { Member } from "@src/types/member/member.type";
+import { Response } from "@src/types/util/response.type";
 
 export interface WakeupSong {
   applyingMember: Member;

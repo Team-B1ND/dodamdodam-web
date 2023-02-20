@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { DefaultTheme } from "styled-components";
-import { THEME_KEY } from "../../constants/theme/theme.contant";
-import { ETheme } from "../../enum/theme/theme.enum";
-import cookie from "../../lib/cookie/cookie";
-import { themeModeAtom } from "../../store/theme/themeStore";
-import { darkTheme, lightTheme } from "../../style/theme";
+import { THEME_KEY } from "@src/constants/theme/theme.contant";
+import { ETheme } from "@src/enum/theme/theme.enum";
+import cookie from "@src/lib/cookie/cookie";
+import { themeModeAtom } from "@src/store/theme/themeStore";
+import { darkTheme, lightTheme } from "@src/style/theme";
 
 const useTheme = () => {
   const [currentTheme, setCurrentTheme] = useRecoilState<ETheme>(themeModeAtom);

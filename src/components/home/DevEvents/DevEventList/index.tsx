@@ -1,4 +1,4 @@
-import { useGetDevEventsQuery } from "../../../../queries/devEvent/devEvent.query";
+import { useGetDevEventsQuery } from "@src/queries/devEvent/devEvent.query";
 import DevEventsItem from "../DevEventsItem";
 
 const DevEventList = () => {

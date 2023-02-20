@@ -1,5 +1,5 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
-import { TodayScheduleResponse } from "../../types/schedule/schedule.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { TodayScheduleResponse } from "@src/types/schedule/schedule.type";
 
 class Schedule {
   public async getTodaySchedules(): Promise<TodayScheduleResponse> {

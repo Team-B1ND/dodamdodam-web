@@ -1,6 +1,6 @@
-import { ellipsisLine } from "../../../../style/libStyle";
+import { ellipsisLine } from "@src/style/libStyle";
 import styled from "styled-components";
-import { palette } from "../../../../style/palette";
+import { palette } from "@src/style/palette";
 
 export const DevEventsItemContainer = styled.div`
   width: 227.2px;

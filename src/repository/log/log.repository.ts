@@ -1,4 +1,4 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
 import { postModuleLogParam } from "./log.param";
 
 class LogRepoisitory {

@@ -4,7 +4,7 @@ import {
   DatePicker,
   Button,
 } from "@team-b1nd/dodamdodam_web_component_library";
-import useApplyLeave from "../../../../../hooks/leave/useApplyLeave";
+import useApplyLeave from "@src/hooks/leave/useApplyLeave";
 import ApplyNotApproveList from "../../ApplyNotApproveList";
 
 const ApplyLeaveForm = () => {

@@ -1,4 +1,4 @@
-import useNotice from "../../../hooks/notice/useNotice";
+import useNotice from "@src/hooks/notice/useNotice";
 import * as S from "./style";
 import { FiChevronLeft } from "@react-icons/all-files/fi/FiChevronLeft";
 import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";

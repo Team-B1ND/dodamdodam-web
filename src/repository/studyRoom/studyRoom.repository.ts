@@ -1,8 +1,8 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
 import {
   MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
-} from "../../types/studyRoom/studyRoom.type";
+} from "@src/types/studyRoom/studyRoom.type";
 import { postApplyStudyRoomsParam } from "./studyRoom.param";
 
 class StudyRoomRepository {

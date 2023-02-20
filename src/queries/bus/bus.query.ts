@@ -5,12 +5,9 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import {
-  postMyBusParam,
-  patchMyBusParam,
-} from "../../repository/bus/bus.param";
-import busRepository from "../../repository/bus/bus.repository";
-import { BusesResponse, MyBusResponse } from "../../types/bus/bus.type";
+import { postMyBusParam, patchMyBusParam } from "@src/repository/bus/bus.param";
+import busRepository from "@src/repository/bus/bus.repository";
+import { BusesResponse, MyBusResponse } from "@src/types/bus/bus.type";
 
 export const useGetBusesQuery = (
   options?: UseQueryOptions<

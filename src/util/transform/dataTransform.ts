@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
-import { DevEventType } from "types/devEvent/devEvent.type";
-import DevEventConferenceImage from "../../assets/images/devEvent/devEventConference.svg";
-import DevEventCompetitionImage from "../../assets/images/devEvent/devEventCompetition.svg";
-import DevEventWebinarImage from "../../assets/images/devEvent/devEventWebinar.svg";
-import DevEventOtherImage from "../../assets/images/devEvent/devEventOthers.svg";
+import { DevEventType } from "@src/types/devEvent/devEvent.type";
+import DevEventConferenceImage from "@src/assets/images/devEvent/devEventConference.svg";
+import DevEventCompetitionImage from "@src/assets/images/devEvent/devEventCompetition.svg";
+import DevEventWebinarImage from "@src/assets/images/devEvent/devEventWebinar.svg";
+import DevEventOtherImage from "@src/assets/images/devEvent/devEventOthers.svg";
 
 class DataTransform {
   public schoolInfoTransform<T, T2, T3>(

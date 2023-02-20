@@ -1,8 +1,8 @@
-import { dodamV6Axios } from "../../lib/axios/customAxios";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
 import {
   MyWakeupSongsResponse,
   TodayAllowedWakeupSongsResponse,
-} from "../../types/wakeupSong/wakeupSong.type";
+} from "@src/types/wakeupSong/wakeupSong.type";
 import { getTodayAllowedWakeupSongParam } from "./wakeupSong.param";
 
 class WakeupSongRepository {
