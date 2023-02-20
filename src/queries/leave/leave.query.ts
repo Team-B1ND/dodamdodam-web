@@ -12,16 +12,21 @@ import {
 } from "@src/repository/leave/leave.param";
 import leaveRepository from "@src/repository/leave/leave.repository";
 import { MyLeavesResponse } from "@src/types/leave/leave.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyLeavesQuery = (
   options?: UseQueryOptions<
     MyLeavesResponse,
     AxiosError,
     MyLeavesResponse,
-    "leave/getMyLeaves"
+    string
   >
 ): UseQueryResult<MyLeavesResponse, AxiosError> =>
-  useQuery("leave/getMyLeaves", () => leaveRepository.getMyLeaves(), options);
+  useQuery(
+    QUERY_KEYS.leave.getMy,
+    () => leaveRepository.getMyLeaves(),
+    options
+  );
 
 export const usePostApplyLeaveMutation = () => {
   const mutation = useMutation((leaveData: postApplyLeaveParam) =>

@@ -6,8 +6,11 @@ import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import TodayWakeupSongList from "./TodayWakeupSongList";
 import TodayWakeupSongListFallback from "@src/components/common/FallbackLoader/TodayWakeupSongList";
 import CardTitle from "@src/components/common/CardTitle";
+import { useQueryClient } from "react-query";
 
 const TodayWakeupSong = () => {
+  const queryClient = useQueryClient();
+
   return (
     <S.TodayWakeupSongContainer>
       <CardTitle

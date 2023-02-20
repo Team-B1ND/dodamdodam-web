@@ -3,6 +3,7 @@ import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 import { getMyPointParam } from "@src/repository/point/point.param";
 import pointRepository from "@src/repository/point/point.repository";
 import { MyPointResponse } from "@src/types/point/point.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyPointQuery = (
   { year }: getMyPointParam,
@@ -10,11 +11,11 @@ export const useGetMyPointQuery = (
     MyPointResponse,
     AxiosError,
     MyPointResponse,
-    "point/getMyPoint"
+    string
   >
 ): UseQueryResult<MyPointResponse, AxiosError> =>
   useQuery(
-    "point/getMyPoint",
+    QUERY_KEYS.point.getMy,
     () => pointRepository.getMyPoint({ year }),
     options
   );
