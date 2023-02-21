@@ -1,13 +1,9 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import placeRepository from "../../repository/place/place.repository";
-import { PlacesResponse } from "../../types/place/place.type";
+import placeRepository from "@src/repository/place/place.repository";
+import { PlacesResponse } from "@src/types/place/place.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetPlacesQuery = (
-  options?: UseQueryOptions<
-    PlacesResponse,
-    AxiosError,
-    PlacesResponse,
-    "place/getPlaces"
-  >
-) => useQuery("place/getPlaces", () => placeRepository.getPlaces(), options);
+  options?: UseQueryOptions<PlacesResponse, AxiosError, PlacesResponse, string>
+) => useQuery(QUERY_KEYS.place.get, () => placeRepository.getPlaces(), options);

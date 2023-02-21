@@ -1,18 +1,19 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
-import permissionRepository from "../../repository/permission/permission.repository";
-import { MyPermissionResponse } from "../../types/permission/permission.type";
+import permissionRepository from "@src/repository/permission/permission.repository";
+import { MyPermissionResponse } from "@src/types/permission/permission.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyPermissionQuery = (
   options: UseQueryOptions<
     MyPermissionResponse,
     AxiosError,
     MyPermissionResponse,
-    "permission/myPermission"
+    string
   >
 ) =>
   useQuery(
-    "permission/myPermission",
+    QUERY_KEYS.permission.getMy,
     () => permissionRepository.getMyPermission(),
     options
   );

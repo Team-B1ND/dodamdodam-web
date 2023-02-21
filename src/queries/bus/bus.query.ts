@@ -5,32 +5,20 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import {
-  postMyBusParam,
-  patchMyBusParam,
-} from "../../repository/bus/bus.param";
-import busRepository from "../../repository/bus/bus.repository";
-import { BusesResponse, MyBusResponse } from "../../types/bus/bus.type";
+import { postMyBusParam, patchMyBusParam } from "@src/repository/bus/bus.param";
+import busRepository from "@src/repository/bus/bus.repository";
+import { BusesResponse, MyBusResponse } from "@src/types/bus/bus.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetBusesQuery = (
-  options?: UseQueryOptions<
-    BusesResponse,
-    AxiosError,
-    BusesResponse,
-    "bus/getBuses"
-  >
+  options?: UseQueryOptions<BusesResponse, AxiosError, BusesResponse, string>
 ): UseQueryResult<BusesResponse, AxiosError> =>
-  useQuery("bus/getBuses", () => busRepository.getBuses(), options);
+  useQuery(QUERY_KEYS.bus.get, () => busRepository.getBuses(), options);
 
 export const useGetMyBusQuery = (
-  options?: UseQueryOptions<
-    MyBusResponse,
-    AxiosError,
-    MyBusResponse,
-    "bus/getMyBus"
-  >
+  options?: UseQueryOptions<MyBusResponse, AxiosError, MyBusResponse, string>
 ): UseQueryResult<MyBusResponse, AxiosError> =>
-  useQuery("bus/getMyBus", () => busRepository.getMyBus(), options);
+  useQuery(QUERY_KEYS.bus.getMy, () => busRepository.getMyBus(), options);
 
 export const usePostMyBusMutation = () => {
   const mutation = useMutation((idx: postMyBusParam) =>

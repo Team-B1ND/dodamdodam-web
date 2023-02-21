@@ -4,14 +4,14 @@ import {
   useGetMyPassesQuery,
   usePostApplyPassMutation,
   usePutApplyPassMutation,
-} from "../../queries/pass/pass.query";
-import { AppliedPass, ApplyPass } from "../../types/pass/pass.type";
-import dateTransform from "../../util/transform/dateTransform";
+} from "@src/queries/pass/pass.query";
+import { AppliedPass, ApplyPass } from "@src/types/pass/pass.type";
+import dateTransform from "@src/util/transform/dateTransform";
 import dayjs from "dayjs";
-import dataCheck from "../../util/check/dataCheck";
+import dataCheck from "@src/util/check/dataCheck";
 import { useQueryClient } from "react-query";
-import showToast from "../../lib/toast/toast";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
+import showToast from "@src/lib/toast/toast";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const useApplyPass = () => {
   const queryClient = useQueryClient();

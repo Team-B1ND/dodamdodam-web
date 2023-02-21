@@ -1,8 +1,8 @@
 import * as S from "./style";
-import DevEventBannerLaptopIcon from "../../../assets/icons/common/devEventBannerLaptop.png";
-import DevEventBannerMouseIcon from "../../../assets/icons/common/devEventBannerMouse.png";
-import DevEventBannerHeadPhoneIcon from "../../../assets/icons/common/devEventBannerHeadPhone.png";
-import DevEventBannerComputerIcon from "../../../assets/icons/common/devEventBannerComputer.png";
+import DevEventBannerLaptopIcon from "@src/assets/icons/common/devEventBannerLaptop.png";
+import DevEventBannerMouseIcon from "@src/assets/icons/common/devEventBannerMouse.png";
+import DevEventBannerHeadPhoneIcon from "@src/assets/icons/common/devEventBannerHeadPhone.png";
+import DevEventBannerComputerIcon from "@src/assets/icons/common/devEventBannerComputer.png";
 
 const DevEventBanner = () => {
   return (

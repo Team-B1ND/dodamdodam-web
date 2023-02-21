@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { SIGNUP_SECTION_NAME } from "../../../constants/signup/signup.constant";
-import useSignup from "../../../hooks/auth/useSignup";
+import { SIGNUP_SECTION_NAME } from "@src/constants/signup/signup.constant";
+import useSignup from "@src/hooks/auth/useSignup";
 import * as S from "./style";
 import SignupFirst from "./SignupFirst";
 import SignupSecond from "./SignupSecond";

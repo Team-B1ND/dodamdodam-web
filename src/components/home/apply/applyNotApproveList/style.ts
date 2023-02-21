@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { palette } from "../../../../style/palette";
+import { palette } from "@src/style/palette";
 
 export const ApplyNotApproveListFoldButton = styled.button`
   width: 28px;

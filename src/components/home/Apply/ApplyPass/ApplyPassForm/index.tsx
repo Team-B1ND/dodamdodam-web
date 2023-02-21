@@ -4,7 +4,7 @@ import {
   DatePicker,
   TextArea,
 } from "@team-b1nd/dodamdodam_web_component_library";
-import useApplyPass from "../../../../../hooks/pass/useApplyPass";
+import useApplyPass from "@src/hooks/pass/useApplyPass";
 import ApplyNotApproveList from "../../ApplyNotApproveList";
 
 const ApplyPassForm = () => {

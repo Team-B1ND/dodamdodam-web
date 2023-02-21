@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { palette } from "../../style/palette";
+import { palette } from "@src/style/palette";
 
 export const AuthBackground = styled.div`
   width: 100%;

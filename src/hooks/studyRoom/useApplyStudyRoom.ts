@@ -3,18 +3,18 @@ import {
   useGetMyDefaultStudyRoomsQuery,
   useGetMyStudyRoomsQuery,
   usePostApplyStudyRoomsMutation,
-} from "../../queries/studyRoom/studyRoom.query";
+} from "@src/queries/studyRoom/studyRoom.query";
 import {
   ApplyStudyRoom,
   DefaultStudyRoom,
-} from "../../types/studyRoom/studyRoom.type";
-import dateTransform from "../../util/transform/dateTransform";
+} from "@src/types/studyRoom/studyRoom.type";
+import dateTransform from "@src/util/transform/dateTransform";
 import { useQueryClient } from "react-query";
-import { useGetTimeTableQuery } from "../../queries/timeTable/timeTable.query";
-import { useGetPlacesQuery } from "../../queries/place/place.query";
-import dateCheck from "../../util/check/dateCheck";
-import showToast from "../../lib/toast/toast";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
+import { useGetTimeTableQuery } from "@src/queries/timeTable/timeTable.query";
+import { useGetPlacesQuery } from "@src/queries/place/place.query";
+import dateCheck from "@src/util/check/dateCheck";
+import showToast from "@src/lib/toast/toast";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();

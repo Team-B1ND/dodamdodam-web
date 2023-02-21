@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import useLogin from "../../../hooks/auth/useLogin";
+import useLogin from "@src/hooks/auth/useLogin";
 import * as S from "./style";
 
 import { FiCheck } from "@react-icons/all-files/fi/FiCheck";

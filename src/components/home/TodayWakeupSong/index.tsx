@@ -1,11 +1,11 @@
-import CardTitle from "../../common/CardTitle";
 import * as S from "./style";
-
-import TodayWakeupSongHeadPhoneIcon from "../../../assets/icons/todayWakeupSong/todayWakeupSongHeadPhone.png";
+import TodayWakeupSongHeadPhoneIcon from "@src/assets/icons/todayWakeupSong/todayWakeupSongHeadPhone.png";
 import { Suspense } from "react";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
 import TodayWakeupSongList from "./TodayWakeupSongList";
-import TodayWakeupSongListFallback from "../../../components/common/FallbackLoader/TodayWakeupSongList";
+import TodayWakeupSongListFallback from "@src/components/common/FallbackLoader/TodayWakeupSongList";
+import CardTitle from "@src/components/common/CardTitle";
+import ErrorFallback from "@src/components/common/ErrorFallback";
+import { ErrorBoundary } from "react-error-boundary";
 
 const TodayWakeupSong = () => {
   return (
@@ -15,7 +15,7 @@ const TodayWakeupSong = () => {
         titleIcon={TodayWakeupSongHeadPhoneIcon}
         redirectURL={"http://dodam.b1nd.com/wakesong"}
       />
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<TodayWakeupSongListFallback />}>
           <TodayWakeupSongList />
         </Suspense>

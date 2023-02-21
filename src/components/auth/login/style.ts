@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { palette } from "../../../style/palette";
+import { palette } from "@src/style/palette";
 import { AuthPartFade } from "../style";
 
 export const LoginContainer = styled.div`

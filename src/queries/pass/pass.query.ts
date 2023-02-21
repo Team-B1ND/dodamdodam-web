@@ -9,19 +9,20 @@ import {
   deleteMyPassParam,
   postApplyPassParam,
   putMyPassParam,
-} from "../../repository/pass/pass.param";
-import passRepository from "../../repository/pass/pass.repository";
-import { MyPassesResponse } from "../../types/pass/pass.type";
+} from "@src/repository/pass/pass.param";
+import passRepository from "@src/repository/pass/pass.repository";
+import { MyPassesResponse } from "@src/types/pass/pass.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyPassesQuery = (
   options?: UseQueryOptions<
     MyPassesResponse,
     AxiosError,
     MyPassesResponse,
-    "pass/getMyPasses"
+    string
   >
 ): UseQueryResult<MyPassesResponse, AxiosError> =>
-  useQuery("pass/getMyPasses", () => passRepository.getMyPasses(), options);
+  useQuery(QUERY_KEYS.pass.getMy, () => passRepository.getMyPasses(), options);
 
 export const usePostApplyPassMutation = () => {
   const mutation = useMutation((passData: postApplyPassParam) =>

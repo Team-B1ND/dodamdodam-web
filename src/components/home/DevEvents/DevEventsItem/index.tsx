@@ -1,9 +1,9 @@
-import dateTransform from "../../../../util/transform/dateTransform";
+import dateTransform from "@src/util/transform/dateTransform";
 import * as S from "./style";
-import NoImageImage from "../../../../assets/images/common/noImage.svg";
-import dataTransform from "../../../../util/transform/dataTransform";
-import { DevEvent } from "types/devEvent/devEvent.type";
-import { usePostModuleLogMutation } from "../../../../queries/log/log.query";
+import NoImageImage from "@src/assets/images/common/noImage.svg";
+import dataTransform from "@src/util/transform/dataTransform";
+import { DevEvent } from "@src/types/devEvent/devEvent.type";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 interface Props {
   data: DevEvent;

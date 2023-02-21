@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-import { Signup, SignupAgree } from "../../../../types/signup/signup.type";
+import { Signup, SignupAgree } from "@src/types/signup/signup.type";
 import * as SignupS from "../style";
 import { FiChevronLeft } from "@react-icons/all-files/fi/FiChevronLeft";
 import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";
@@ -8,7 +8,7 @@ import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import { AuthInput, AuthInputTitle, AuthInputWrap } from "../../style";
 import * as S from "./style";
 
-import { SIGNUP_AGREE } from "../../../../constants/signup/signup.constant";
+import { SIGNUP_AGREE } from "@src/constants/signup/signup.constant";
 
 interface Props {
   setSection: Dispatch<SetStateAction<string>>;

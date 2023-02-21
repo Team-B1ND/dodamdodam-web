@@ -1,7 +1,7 @@
 import { Button, Dropdown } from "@team-b1nd/dodamdodam_web_component_library";
 import dayjs from "dayjs";
-import useApplyStudyRoom from "../../../../../hooks/studyRoom/useApplyStudyRoom";
-import dateTransform from "../../../../../util/transform/dateTransform";
+import useApplyStudyRoom from "@src/hooks/studyRoom/useApplyStudyRoom";
+import dateTransform from "@src/util/transform/dateTransform";
 import * as S from "./style";
 
 const ApplyStudyRoomForm = () => {

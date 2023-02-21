@@ -1,4 +1,4 @@
-import { palette } from "../../../style/palette";
+import { palette } from "@src/style/palette";
 import styled from "styled-components";
 
 export const DevEventBannerContainer = styled.div`

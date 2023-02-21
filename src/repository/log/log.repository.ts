@@ -1,4 +1,4 @@
-import { dodamV3Axios } from "../../lib/axios/customAxios";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
 import { postModuleLogParam } from "./log.param";
 
 class LogRepoisitory {
@@ -6,7 +6,7 @@ class LogRepoisitory {
     description,
     moduleName,
   }: postModuleLogParam): Promise<void> {
-    await dodamV3Axios.post("/logging/function", {
+    await dodamV6Axios.post("/logging/function", {
       description,
       moduleName,
       platform: "WEB",

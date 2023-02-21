@@ -1,13 +1,14 @@
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import MyInfoLostStuffList from "./MyInfoLostStuffList";
 import { MyInfoLostStuffContainer } from "./style";
-import MyInfoLostStuffListFallbackLoader from "../../../../components/common/FallbackLoader/MyInfoLostStuffList";
+import MyInfoLostStuffListFallbackLoader from "@src/components/common/FallbackLoader/MyInfoLostStuffList";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const MyInfoLostStuff = () => {
   return (
     <MyInfoLostStuffContainer>
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<MyInfoLostStuffListFallbackLoader />}>
           <MyInfoLostStuffList />
         </Suspense>

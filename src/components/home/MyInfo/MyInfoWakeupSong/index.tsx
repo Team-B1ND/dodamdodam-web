@@ -1,13 +1,14 @@
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
 import { Suspense } from "react";
 import MyInfoWakeupSongList from "./MyInfoWakeupSongList";
 import { MyInfoWakeupSongContainer } from "./style";
-import MyInfoWakeupSongListFallback from "../../../../components/common/FallbackLoader/MyInfoWakeupSongList";
+import MyInfoWakeupSongListFallback from "@src/components/common/FallbackLoader/MyInfoWakeupSongList";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const MyInfoWakeupSong = () => {
   return (
     <MyInfoWakeupSongContainer>
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<MyInfoWakeupSongListFallback />}>
           <MyInfoWakeupSongList />
         </Suspense>

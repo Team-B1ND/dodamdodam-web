@@ -1,4 +1,4 @@
-import showToast from "../../lib/toast/toast";
+import showToast from "@src/lib/toast/toast";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
@@ -6,9 +6,9 @@ import {
   useGetMyBusQuery,
   usePatchMyBusMutation,
   usePostMyBusMutation,
-} from "../../queries/bus/bus.query";
-import { Bus } from "../../types/bus/bus.type";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
+} from "@src/queries/bus/bus.query";
+import { Bus } from "@src/types/bus/bus.type";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();

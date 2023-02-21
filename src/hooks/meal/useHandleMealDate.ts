@@ -1,7 +1,7 @@
 import { track } from "@amplitude/analytics-browser";
 import dayjs from "dayjs";
 import { useRecoilState } from "recoil";
-import { mealDateAtom } from "../../store/meal/mealStore";
+import { mealDateAtom } from "@src/store/meal/mealStore";
 
 const useHandleMealDate = () => {
   const [, setDate] = useRecoilState(mealDateAtom);

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { Meal } from "../../types/meal/meal.type";
-import mealRepository from "../../repository/meal/meal.repository";
-import { usePostModuleLogMutation } from "../../queries/log/log.query";
+import { Meal } from "@src/types/meal/meal.type";
+import mealRepository from "@src/repository/meal/meal.repository";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { useRecoilValue } from "recoil";
-import { mealDateAtom } from "../../store/meal/mealStore";
+import { mealDateAtom } from "@src/store/meal/mealStore";
 
 const useMeal = () => {
   const mealDate = useRecoilValue(mealDateAtom);

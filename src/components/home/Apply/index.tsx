@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { APPLY_ITEMS } from "../../../constants/apply/apply.constant";
+import { APPLY_ITEMS } from "@src/constants/apply/apply.constant";
 import ApplyBus from "./ApplyBus";
 import ApplyLeave from "./ApplyLeave";
 import ApplyPass from "./ApplyPass";
 import ApplyStudyRoom from "./ApplyStudyrRoom";
 import * as S from "./style";
-import ApplyMemo from "../../../assets/icons/apply/applyMemo.png";
+import ApplyMemo from "@src/assets/icons/apply/applyMemo.png";
 import { SwitchCase } from "@b1nd/b1nd-react-util";
 
 const Apply = () => {

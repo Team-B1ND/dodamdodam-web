@@ -1,4 +1,4 @@
-import { Leave } from "types/leave/leave.type";
+import { Leave } from "@src/types/leave/leave.type";
 
 export interface postApplyLeaveParam extends Leave {}
 

@@ -1,23 +1,24 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import { getTodayAllowedWakeupSongParam } from "../../repository/wakeupSong/wakeupSong.param";
+import { getTodayAllowedWakeupSongParam } from "@src/repository/wakeupSong/wakeupSong.param";
 
-import wakeupSongRepository from "../../repository/wakeupSong/wakeupSong.repository";
+import wakeupSongRepository from "@src/repository/wakeupSong/wakeupSong.repository";
 import {
   MyWakeupSongsResponse,
   TodayAllowedWakeupSongsResponse,
-} from "../../types/wakeupSong/wakeupSong.type";
+} from "@src/types/wakeupSong/wakeupSong.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyWakeupSongsQuery = (
   options?: UseQueryOptions<
     MyWakeupSongsResponse,
     AxiosError,
     MyWakeupSongsResponse,
-    "wakeupSong/getMyWakeupSongs"
+    string
   >
 ): UseQueryResult<MyWakeupSongsResponse, AxiosError> =>
   useQuery(
-    "wakeupSong/getMyWakeupSongs",
+    QUERY_KEYS.wakeupSong.getMy,
     () => wakeupSongRepository.getMyWakeupSongs(),
     options
   );
@@ -28,11 +29,11 @@ export const useGetTodayAllowedWakeupSongQuery = (
     TodayAllowedWakeupSongsResponse,
     AxiosError,
     TodayAllowedWakeupSongsResponse,
-    "wakeupsong/getTodayAllowedWakeupSong"
+    string
   >
 ): UseQueryResult<TodayAllowedWakeupSongsResponse, AxiosError> =>
   useQuery(
-    "wakeupsong/getTodayAllowedWakeupSong",
+    QUERY_KEYS.wakeupSong.getToday,
     () => wakeupSongRepository.getTodayAllowedWakeupSongs({ year, month, day }),
     options
   );

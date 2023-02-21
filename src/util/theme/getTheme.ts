@@ -1,6 +1,6 @@
-import { THEME_KEY } from "../../constants/theme/theme.contant";
-import { ETheme } from "../../enum/theme/theme.enum";
-import cookie from "../../lib/cookie/cookie";
+import { THEME_KEY } from "@src/constants/theme/theme.contant";
+import { ETheme } from "@src/enum/theme/theme.enum";
+import cookie from "@src/lib/cookie/cookie";
 
 export const getTheme = (): ETheme => {
   const themeMode = cookie.getCookie(THEME_KEY);

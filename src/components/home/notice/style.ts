@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { palette } from "../../../style/palette";
+import { palette } from "@src/style/palette";
 
 export const NoticeContainer = styled.div`
   width: 100%;

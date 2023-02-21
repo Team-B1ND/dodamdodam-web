@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
-import dataTransform from "../../../../util/transform/dataTransform";
+import dataTransform from "@src/util/transform/dataTransform";
 import * as S from "./style";
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { MdKeyboardArrowLeft } from "@react-icons/all-files/md/MdKeyboardArrowLeft";
 
 import { DatePicker } from "@team-b1nd/dodamdodam_web_component_library";
 import { useRecoilValue } from "recoil";
-import { mealDateAtom } from "../../../../store/meal/mealStore";
-import useHandleMealDate from "../../../../hooks/meal/useHandleMealDate";
+import { mealDateAtom } from "@src/store/meal/mealStore";
+import useHandleMealDate from "@src/hooks/meal/useHandleMealDate";
 
 const MealDatePicker = () => {
   const mealDate = useRecoilValue(mealDateAtom);

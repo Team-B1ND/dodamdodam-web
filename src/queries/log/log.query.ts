@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
-import logRepository from "../../repository/log/log.repository";
-import { postModuleLogParam } from "../../repository/log/log.param";
+import logRepository from "@src/repository/log/log.repository";
+import { postModuleLogParam } from "@src/repository/log/log.param";
 
 export const usePostModuleLogMutation = () => {
   const mutation = useMutation(

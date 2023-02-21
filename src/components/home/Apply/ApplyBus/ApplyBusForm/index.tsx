@@ -1,7 +1,7 @@
 import { Button } from "@team-b1nd/dodamdodam_web_component_library";
-import useApplyBus from "../../../../../hooks/bus/useApplyBus";
-import dataCheck from "../../../../../util/check/dataCheck";
-import dateTransform from "../../../../../util/transform/dateTransform";
+import useApplyBus from "@src/hooks/bus/useApplyBus";
+import dataCheck from "@src/util/check/dataCheck";
+import dateTransform from "@src/util/transform/dateTransform";
 import ApplyBusItem from "../ApplyBusItem";
 import * as S from "./style";
 

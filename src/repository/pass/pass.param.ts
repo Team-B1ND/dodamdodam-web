@@ -1,4 +1,4 @@
-import { Pass } from "types/pass/pass.type";
+import { Pass } from "@src/types/pass/pass.type";
 
 export interface deleteMyPassParam {
   outgoingId: string;

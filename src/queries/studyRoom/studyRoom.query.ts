@@ -5,23 +5,24 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "react-query";
-import { postApplyStudyRoomsParam } from "../../repository/studyRoom/studyRoom.param";
-import studyRoomRepository from "../../repository/studyRoom/studyRoom.repository";
+import { postApplyStudyRoomsParam } from "@src/repository/studyRoom/studyRoom.param";
+import studyRoomRepository from "@src/repository/studyRoom/studyRoom.repository";
 import {
   MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
-} from "../../types/studyRoom/studyRoom.type";
+} from "@src/types/studyRoom/studyRoom.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyStudyRoomsQuery = (
   options?: UseQueryOptions<
     MyStudyRoomsResponse,
     AxiosError,
     MyStudyRoomsResponse,
-    "studyRoom/getMyStudyRooms"
+    string
   >
 ): UseQueryResult<MyStudyRoomsResponse, AxiosError> =>
   useQuery(
-    "studyRoom/getMyStudyRooms",
+    QUERY_KEYS.studyRooms.getMy,
     () => studyRoomRepository.getMyStudyRooms(),
     options
   );
@@ -31,11 +32,11 @@ export const useGetMyDefaultStudyRoomsQuery = (
     MyDefaultStudyRoomResponse,
     AxiosError,
     MyDefaultStudyRoomResponse,
-    "studyRoom/getMyDefaultStudyRooms"
+    string
   >
 ): UseQueryResult<MyDefaultStudyRoomResponse, AxiosError> =>
   useQuery(
-    "studyRoom/getMyDefaultStudyRooms",
+    QUERY_KEYS.studyRooms.getMyDefault,
     () => studyRoomRepository.getMyDefaultStudyRooms(),
     options
   );

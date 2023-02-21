@@ -1,5 +1,5 @@
-import { useGetTodayScheduleQuery } from "../../../../queries/schedule/schedule.query";
-import dataCheck from "../../../../util/check/dataCheck";
+import { useGetTodayScheduleQuery } from "@src/queries/schedule/schedule.query";
+import dataCheck from "@src/util/check/dataCheck";
 import TodayScheduleItem from "../TodayScheduleItem";
 import * as S from "./style";
 import { TodayScheduleListVoidText } from "./style";

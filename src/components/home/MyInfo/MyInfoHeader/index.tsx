@@ -1,17 +1,18 @@
 import React, { Suspense } from "react";
-import dataTransform from "../../../../util/transform/dataTransform";
+import dataTransform from "@src/util/transform/dataTransform";
 import * as S from "./style";
-import { usePostModuleLogMutation } from "../../../../queries/log/log.query";
-import DefaultProfileImage from "../../../../assets/images/common/defaultProfile.png";
-import { useGetMyMemberQuery } from "../../../../queries/member/member.query";
-import useLogout from "../../../../hooks/auth/useLogout";
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
-import MyInfoHeaderFallbackLoader from "../../../../components/common/FallbackLoader/MyInfoHeader";
+import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import DefaultProfileImage from "@src/assets/images/common/defaultProfile.png";
+import { useGetMyMemberQuery } from "@src/queries/member/member.query";
+import useLogout from "@src/hooks/auth/useLogout";
+import MyInfoHeaderFallbackLoader from "@src/components/common/FallbackLoader/MyInfoHeader";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const MyInfoHeader = () => {
   return (
     <S.MyInfoHeaderWrap>
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<MyInfoHeaderFallbackLoader />}>
           <MyInfoHeaderForm />
         </Suspense>

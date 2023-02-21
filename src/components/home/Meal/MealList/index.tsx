@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
-import { EMealType } from "../../../../enum/meal/meal.enum";
-import useMeal from "../../../../hooks/meal/useMeal";
+import { EMealType } from "@src/enum/meal/meal.enum";
+import useMeal from "@src/hooks/meal/useMeal";
 import { useRecoilValue } from "recoil";
-import { mealDateAtom } from "../../../../store/meal/mealStore";
-import dateTransform from "../../../../util/transform/dateTransform";
+import { mealDateAtom } from "@src/store/meal/mealStore";
+import dateTransform from "@src/util/transform/dateTransform";
 import MealItem from "../MealItem";
 import { MealListContainer } from "./style";
-import MealBreakfastIcon from "../../../../assets/icons/meal/morning.png";
-import MealLunchIcon from "../../../../assets/icons/meal/afternoon.png";
-import MealDinnerIcon from "../../../../assets/icons/meal/night.png";
+import MealBreakfastIcon from "@src/assets/icons/meal/morning.png";
+import MealLunchIcon from "@src/assets/icons/meal/afternoon.png";
+import MealDinnerIcon from "@src/assets/icons/meal/night.png";
 import isBetween from "dayjs/plugin/isBetween";
 dayjs.extend(isBetween);
 

@@ -1,5 +1,5 @@
-import { dodamV2Axios, dodamV3Axios } from "../../lib/axios/customAxios";
-import { MyPassesResponse } from "../../types/pass/pass.type";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { MyPassesResponse } from "@src/types/pass/pass.type";
 import {
   deleteMyPassParam,
   postApplyPassParam,
@@ -8,20 +8,20 @@ import {
 
 class PassRepository {
   public async getMyPasses(): Promise<MyPassesResponse> {
-    const { data } = await dodamV3Axios.get(`/out/outgoing/my`);
+    const { data } = await dodamV6Axios.get(`/out/outgoing/my`);
     return data;
   }
 
   public async deleteMyPass({ outgoingId }: deleteMyPassParam): Promise<void> {
-    await dodamV3Axios.delete(`/out/outgoing/${outgoingId}`);
+    await dodamV6Axios.delete(`/out/outgoing/${outgoingId}`);
   }
 
   public async postApplyPass(passData: postApplyPassParam): Promise<void> {
-    await dodamV3Axios.post("/out/outgoing", passData);
+    await dodamV6Axios.post("/out/outgoing", passData);
   }
 
   public async putMyPass(passData: putMyPassParam): Promise<void> {
-    await dodamV3Axios.put("/out/outgoing", passData);
+    await dodamV6Axios.put("/out/outgoing", passData);
   }
 }
 

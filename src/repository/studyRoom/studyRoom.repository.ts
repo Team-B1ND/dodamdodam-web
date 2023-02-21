@@ -1,20 +1,20 @@
-import { dodamV3Axios } from "../../lib/axios/customAxios";
+import { dodamV6Axios } from "@src/lib/axios/customAxios";
 import {
   MyDefaultStudyRoomResponse,
   MyStudyRoomsResponse,
-} from "../../types/studyRoom/studyRoom.type";
+} from "@src/types/studyRoom/studyRoom.type";
 import { postApplyStudyRoomsParam } from "./studyRoom.param";
 
 class StudyRoomRepository {
   public async getMyStudyRooms(): Promise<MyStudyRoomsResponse> {
-    const { data } = await dodamV3Axios.get<MyStudyRoomsResponse>(
+    const { data } = await dodamV6Axios.get<MyStudyRoomsResponse>(
       `/study-room/my`
     );
     return data;
   }
 
   public async getMyDefaultStudyRooms(): Promise<MyDefaultStudyRoomResponse> {
-    const { data } = await dodamV3Axios.get<MyDefaultStudyRoomResponse>(
+    const { data } = await dodamV6Axios.get<MyDefaultStudyRoomResponse>(
       `/study-room/default`
     );
     return data;
@@ -23,7 +23,7 @@ class StudyRoomRepository {
   public async postApplyStudyRooms({
     studyRoomList,
   }: postApplyStudyRoomsParam): Promise<void> {
-    await dodamV3Axios.post("/study-room", { studyRoomList });
+    await dodamV6Axios.post("/study-room", { studyRoomList });
   }
 }
 

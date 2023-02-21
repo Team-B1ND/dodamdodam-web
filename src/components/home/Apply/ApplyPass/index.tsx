@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import ErrorBoundary from "../../../../components/common/ErrorBoundary";
-import ApplyPassForm from "./ApplyPassForm";
+import { ErrorBoundary } from "react-error-boundary";
 import * as S from "./style";
+import ApplyPassForm from "./ApplyPassForm";
 
 const ApplyPass = () => {
   return (

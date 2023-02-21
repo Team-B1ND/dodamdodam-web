@@ -1,6 +1,6 @@
-import { useGetTodayAllowedWakeupSongQuery } from "../../../../queries/wakeupSong/wakeupSong.query";
-import dataCheck from "../../../../util/check/dataCheck";
-import dateTransform from "../../../../util/transform/dateTransform";
+import { useGetTodayAllowedWakeupSongQuery } from "@src/queries/wakeupSong/wakeupSong.query";
+import dataCheck from "@src/util/check/dataCheck";
+import dateTransform from "@src/util/transform/dateTransform";
 import TodayWakeupSongItem from "../TodayWakeupSongItem";
 import {
   TodayWakeupSongListContainer,

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ellipsisLine } from "../../../../style/libStyle";
+import { ellipsisLine } from "@src/style/libStyle";
 
 export const TodayWakeupSongItemContainer = styled.div`
   width: 100%;

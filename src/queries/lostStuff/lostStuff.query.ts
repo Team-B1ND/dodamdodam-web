@@ -1,18 +1,19 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import lostStuffRepository from "../../repository/lostStuff/lostStuff.repository";
-import { MyLostStuffsResponse } from "../../types/lostStuff/lostStuff.type";
+import lostStuffRepository from "@src/repository/lostStuff/lostStuff.repository";
+import { MyLostStuffsResponse } from "@src/types/lostStuff/lostStuff.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyLostStuffQuery = (
   options?: UseQueryOptions<
     MyLostStuffsResponse,
     AxiosError,
     MyLostStuffsResponse,
-    "lostStuff/getMyLostStuff"
+    string
   >
 ): UseQueryResult<MyLostStuffsResponse, AxiosError> =>
   useQuery(
-    "lostStuff/getMyLostStuff",
+    QUERY_KEYS.lostStuff.getMy,
     () => lostStuffRepository.getMyLostStuffs(),
     options
   );

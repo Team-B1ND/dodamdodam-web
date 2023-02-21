@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { ETheme } from "../../../enum/theme/theme.enum";
-import useTheme from "../../../hooks/theme/useTheme";
-import { themeModeAtom } from "../../../store/theme/themeStore";
+import { ETheme } from "@src/enum/theme/theme.enum";
+import useTheme from "@src/hooks/theme/useTheme";
+import { themeModeAtom } from "@src/store/theme/themeStore";
 import { DarkModeButtonContainer, DarkModeButtonWrap } from "./style";
 
 const DarkModeButton = () => {

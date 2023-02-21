@@ -1,6 +1,6 @@
-import usePoint from "../../../../hooks/point/usePoint";
+import usePoint from "@src/hooks/point/usePoint";
 import { useRecoilValue } from "recoil";
-import { pointViewTypeAtom } from "../../../../store/point/pointStore";
+import { pointViewTypeAtom } from "@src/store/point/pointStore";
 import * as S from "./style";
 
 const PointDashBoard = () => {

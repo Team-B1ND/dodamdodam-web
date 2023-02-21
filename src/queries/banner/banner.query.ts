@@ -1,14 +1,15 @@
 import { AxiosError } from "axios";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
-import bannerRepository from "../../repository/banner/banner.repository";
-import { BannersResponse } from "../../types/banner/banner.type";
+import bannerRepository from "@src/repository/banner/banner.repository";
+import { BannersResponse } from "@src/types/banner/banner.type";
+import { QUERY_KEYS } from "../queryKey";
 
 export const useGetBannersQuery = (
   options?: UseQueryOptions<
     BannersResponse,
     AxiosError,
     BannersResponse,
-    "banner/getBanners"
+    string
   >
 ): UseQueryResult<BannersResponse, AxiosError> =>
-  useQuery("banner/getBanners", () => bannerRepository.getBanners(), options);
+  useQuery(QUERY_KEYS.banner.get, () => bannerRepository.getBanners(), options);

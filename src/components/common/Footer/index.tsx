@@ -1,10 +1,10 @@
 import * as S from "./style";
-import DodamDodamTeamLogo from "../../../assets/logo/bind_team_logo.svg";
+import DodamDodamTeamLogo from "@src/assets/logo/bind_team_logo.svg";
 import {
   FOOTER_ITEMS,
   FOOTER_MOBILE_ITEMS,
   FOOTER_SOCIAL_ITEMS,
-} from "../../../constants/footer/footer.constant";
+} from "@src/constants/footer/footer.constant";
 
 const Footer = () => {
   return (

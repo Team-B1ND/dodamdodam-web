@@ -1,10 +1,11 @@
-import CardTitle from "../../common/CardTitle";
 import * as S from "./style";
-import TodayScheduleCanlendarIcon from "../../../assets/icons/todaySchedule/todayScheduleCanlendar.png";
-import ErrorBoundary from "../../../components/common/ErrorBoundary";
+import TodayScheduleCanlendarIcon from "@src/assets/icons/todaySchedule/todayScheduleCanlendar.png";
 import { Suspense } from "react";
 import TodayScheduleList from "./TodayScheduleList";
-import TodayScheduleListFallbackLoader from "../../../components/common/FallbackLoader/TodayScheduleList";
+import TodayScheduleListFallbackLoader from "@src/components/common/FallbackLoader/TodayScheduleList";
+import CardTitle from "@src/components/common/CardTitle";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const TodaySchedule = () => {
   return (
@@ -14,7 +15,7 @@ const TodaySchedule = () => {
         titleIcon={TodayScheduleCanlendarIcon}
         redirectURL={"http://dodam.b1nd.com/schedule"}
       />
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<TodayScheduleListFallbackLoader />}>
           <TodayScheduleList />
         </Suspense>
