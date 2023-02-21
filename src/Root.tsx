@@ -6,7 +6,13 @@ import App from "./components/App";
 import ThemeProviderContainer from "./components/common/ThemeProviderContainer";
 import { B1ndToastContainer } from "@b1nd/b1nd-toastify";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true,
+    },
+  },
+});
 
 function Root() {
   return (

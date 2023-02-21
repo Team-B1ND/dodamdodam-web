@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ErrorBoundary from "@src/components/common/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 import * as S from "./style";
 import ApplyPassForm from "./ApplyPassForm";
 

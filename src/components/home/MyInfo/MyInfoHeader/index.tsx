@@ -5,13 +5,14 @@ import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import DefaultProfileImage from "@src/assets/images/common/defaultProfile.png";
 import { useGetMyMemberQuery } from "@src/queries/member/member.query";
 import useLogout from "@src/hooks/auth/useLogout";
-import ErrorBoundary from "@src/components/common/ErrorBoundary";
 import MyInfoHeaderFallbackLoader from "@src/components/common/FallbackLoader/MyInfoHeader";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const MyInfoHeader = () => {
   return (
     <S.MyInfoHeaderWrap>
-      <ErrorBoundary fallback={<>에러발생</>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<MyInfoHeaderFallbackLoader />}>
           <MyInfoHeaderForm />
         </Suspense>

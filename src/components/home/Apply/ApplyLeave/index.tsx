@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ErrorBoundary from "@src/components/common/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 import ApplyLeaveForm from "./ApplyLeaveForm";
 import * as S from "./style";
 

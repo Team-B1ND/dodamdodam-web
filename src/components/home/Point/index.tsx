@@ -4,10 +4,11 @@ import PointChartIcon from "@src/assets/icons/point/pointChart.png";
 import { useRecoilState } from "recoil";
 import { pointViewTypeAtom } from "@src/store/point/pointStore";
 import { usePostModuleLogMutation } from "@src/queries/log/log.query";
-import ErrorBoundary from "@src/components/common/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import PointDashBoard from "./PointDashBoard";
 import PointDashBoardFallbackLoader from "@src/components/common/FallbackLoader/PointDashBoard";
+import ErrorFallback from "@src/components/common/ErrorFallback";
 
 const Point = () => {
   const [isDormitoryPointView, setIsDormitoryPointView] =
@@ -42,7 +43,7 @@ const Point = () => {
       />
       <S.PointWrap>
         <S.PointLeftWrap>
-          <ErrorBoundary fallback={<>에러발생</>}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<PointDashBoardFallbackLoader />}>
               <PointDashBoard />
             </Suspense>
