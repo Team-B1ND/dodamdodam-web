@@ -5,7 +5,8 @@ import {
   REQUEST_TOKEN_KEY,
 } from "@src/constants/token/token.constant";
 import token from "../token/token";
-import { errorRequestHandler } from "./requestHandler";
+import errorResponseHandler from "./errorResponseHandler";
+import requestHandler from "./requestHandler";
 
 const createAxiosInstance = (config?: AxiosRequestConfig) => {
   const baseConfig: AxiosRequestConfig = {
@@ -30,4 +31,6 @@ export const dodamV6AxiosSetAccessToken = (token: string) => {
   dodamV6Axios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
 };
 
-dodamV6Axios.interceptors.response.use((res) => res, errorRequestHandler);
+dodamV6Axios.interceptors.request.use(requestHandler, (res) => res);
+
+dodamV6Axios.interceptors.response.use((res) => res, errorResponseHandler);
