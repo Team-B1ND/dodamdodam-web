@@ -26,4 +26,8 @@ export const dodamV6Axios = createAxiosInstance({
   },
 });
 
+export const dodamV6AxiosSetAccessToken = (token: string) => {
+  dodamV6Axios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
+};
+
 dodamV6Axios.interceptors.response.use((res) => res, errorRequestHandler);

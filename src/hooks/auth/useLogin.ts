@@ -10,6 +10,10 @@ import {
 } from "@src/constants/token/token.constant";
 import showToast from "@src/lib/toast/toast";
 import { useQueryClient } from "react-query";
+import {
+  dodamV6Axios,
+  dodamV6AxiosSetAccessToken,
+} from "@src/lib/axios/customAxios";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
@@ -59,6 +63,7 @@ const useLogin = () => {
 
         token.setToken(ACCESS_TOKEN_KEY, accessToken);
         token.setToken(REFRESH_TOKEN_KEY, refreshToken);
+        dodamV6AxiosSetAccessToken(accessToken);
 
         showToast("로그인 성공", "SUCCESS");
         queryClient.invalidateQueries("profile/getMyMember");
