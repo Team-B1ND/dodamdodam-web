@@ -14,7 +14,7 @@ class AuthRepository {
   }
 
   public async signup(signupData: SignupParam): Promise<void> {
-    await axios.post(`${config.DODAM_SERVER_V6}/auth/join`, signupData);
+    await axios.post(`${config.DODAM_SERVER_V6}/auth/join-student`, signupData);
   }
 }
 
