@@ -2,6 +2,7 @@ import { useState } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 import * as S from "./style";
+import SignPanelImage from "@src/assets/images/sign/signPanelImage.jpeg";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,10 +11,7 @@ const Auth = () => {
     <S.AuthBackground>
       <S.AuthContainer>
         <S.AuthPanelWrap>
-          <S.AuthPanel
-            src={"http://dodam.b1nd.com/static/media/sign.7d3679c2.jpg"}
-            alt="auth/authPanel"
-          />
+          <S.AuthPanel src={SignPanelImage} alt="auth/authPanel" />
           <S.AuthPanelBlind />
           <S.AuthPanelTextWrap>
             <S.AuthPanelText style={{ marginBottom: 16 }}>
