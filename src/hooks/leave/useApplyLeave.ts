@@ -237,6 +237,10 @@ const useApplyLeave = () => {
       return;
     }
 
+    if (postApplyLeaveMutation.isLoading) {
+      return;
+    }
+
     if (isFold) {
       postApplyLeaveMutation.mutateAsync(validApplyLeave, {
         onSuccess: () => {

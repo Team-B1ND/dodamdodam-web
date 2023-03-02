@@ -63,8 +63,6 @@ const useLogin = () => {
 
         token.setToken(ACCESS_TOKEN_KEY, accessToken);
         token.setToken(REFRESH_TOKEN_KEY, refreshToken);
-        dodamV6AxiosSetAccessToken(accessToken);
-
         showToast("로그인 성공", "SUCCESS");
         queryClient.invalidateQueries("profile/getMyMember");
         navigate("/");

@@ -201,6 +201,10 @@ const useApplyPass = () => {
       dateTransform.fullDate()
     );
 
+    if (postApplyPassMutation.isLoading) {
+      return;
+    }
+
     if (notApprovedPasses?.length > 4) {
       showToast("외출신청은 최대 4개까지 가능해요!", "INFO");
       return;
