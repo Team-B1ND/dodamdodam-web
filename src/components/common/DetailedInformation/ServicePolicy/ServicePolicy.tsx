@@ -15,109 +15,178 @@ const ServicePolicy = () => {
   return (
     <>
       <InformationContainer>
-        <InformationLogoBox>
-          <InformationLogo
-            onClick={() => navigate("/")}
-            src={Logo}
-            alt="logo"
-          />
+        <InformationLogoBox id="agreeDetailForm-header">
+          <InformationLogo src={Logo} alt="logo" />
         </InformationLogoBox>
         <InformationContentContainer>
-          <InformationTitle>개인정보처리방침</InformationTitle>
+          <InformationTitle>운영정책 제1장 총 칙</InformationTitle>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle>제1조 (목적)</InformationTitle>
+          <InformationContent>
+            이 약관은 도담도담에서 제공하는 온라인 서비스(이하 서비스라 한다)의
+            이용조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle>제2조(정의)</InformationTitle>
+          <InformationContent>
+            이 약관에서 사용하는 용어의 정의는 다음 각 호와 같습니다.
+            <br />
+            <br /> 이용자 : 본 약관에 따라 도담도담이 제공하는 서비스를 받는 자
+            <br />
+            이용계약 : 서비스 이용과 관련하여 도담도담과 이용자간에 체결하는
+            <br />
+            계약 가입 : 도담도담이 제공하는 신청서 양식에 해당 정보를 기입하고,
+            본 약관에 동의하여 서비스 이용계약을 완료시키는 <br />
+            행위 회원 : 회원가입에 필요한 개인정보를 제공하여 사이트에 회원
+            등록을 한 자
+            <br />
+            이용자번호(ID) : 회원 식별과 회원의 서비스 이용을 위하여 이용자가
+            선정하고 도담도담이 승인하는 영문자와 숫자의 조합 (개인식별정보당
+            하나의 ID만 발급 가능) <br />
+            패스워드(PASSWORD) : 회원의 정보 보호를 위해 이용자 자신이 설정한
+            영문자와 숫자 조합 <br />
+            회원탈퇴 : 도담도담 또는 회원이 서비스 이용 이후 그 이용계약을
+            종료시키는 의사표시 <br />
+            게시물 : 게시판에 등록하는 제목, 내용 및 댓글
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle>제3조 (약관의 효력과 변경)</InformationTitle>
+          <InformationContent>
+            ① 약관은 공지 게시판 등 서비스 화면에 게시하거나 또는 기타의
+            방법으로 공지함으로써 효력이 발생됩니다.
+            <br /> ② 도담도담은 필요한 경우 법률 기타 관련 법령의 범위내에서
+            약관의 내용을 변경할 수 있으며, 개정약관 및 적용일자와 개정사유를
+            전항의 방법으로 공지합니다. 이용자는 변경된 약관의 공지 7일 이후에도
+            거부의사를 표시하지 아니하고 서비스를 계속 사용할 경우 약관의 변경
+            사항에 동의한 것으로 간주됩니다.
+            <br /> ③ 회원은 변경된 약관에 동의하지 않는 경우 서비스 이용을
+            중단하고 본인의 회원등록을 취소할 수 있으며, 이의 없이 계속 사용하는
+            경우에는 약관 변경에 동의한 것으로 간주되고 전항과 같은 방법으로
+            효력이 발생합니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle>제4조 (약관 이외의 준칙)</InformationTitle>
+          <InformationContent>
+            이 약관에서 정하지 아니한 사항이나 해석에 대해서는 관계법령 또는
+            상관례에 따릅니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle> 제5조 (이용계약의 성립)</InformationTitle>
+          <InformationContent>
+            이용계약은 “약관 내용에 동의함 버튼을 클릭하는 등 도담도담이 정한
+            일정한 절차에 따른 이용자의 이용신청에 대하여 도담도담이 승낙을 하면
+            성립됩니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle> 제6조 (이용신청)</InformationTitle>
+          <InformationContent>
+            ① 이용신청은 서비스의 회원정보 화면에서 이용자가 도담도담에서
+            요구하는 가입신청서 양식에 개인의 신상정보를 기록하여 신청합니다.
+            <br /> ② 가입신청서 양식 중 아래 각호에 해당하는 필수항목을 모두
+            기입하고 약관에 동의해야만 이용신청이 완료됩니다. 이용자번호(ID)
+            패스워드 성명 닉네임 e-mail 주소 기타 도담도담이 필요하다고 인정하는
+            사항
+            <br /> ③ 실명인증이 불가능한 해외거주 외국인 등은 별도의 신청서
+            양식을 통해 이용신청할 수 있습니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle> 제7조 (이용신청의 승낙)</InformationTitle>
+          <InformationContent>
+            ① 도담도담은 이용자가 신청서의 필수 항목을 정확히 기재하여
+            이용신청을 하였을 경우에 특별한 사정이 없는 한 서비스 이용신청을
+            승낙합니다. ② 다음 각 호에 해당하는 경우에는 이용승낙을 하지 않을 수
+            있습니다. 본인의 정보가 아닌 다른 사람의 명의나 허위정보로 신청한
+            경우 사회의 안녕 질서 또는 미풍양속을 저해할 목적으로 신청한 경우
+            범죄행위, 스팸광고 등 부정한 목적으로 서비스를 이용하고자 하는 경우
+            법률, 약관 및 각 게시판의 이용규칙을 위반하여 이용자격이 제한된
+            이용자가 신청한 경우 ③ 도담도담은 다음 사항에 해당하는 경우 승낙을
+            보류할 수 있습니다. 도담도담의 설비나 기술상, 운영상의 이유로 서비스
+            승낙이 곤란한 경우 이용 신청자의 연령이 만 14세 이하로
+            개인정보제공에 대한 동의를 법정대리인으로부터 받지 않은 경우 최근
+            30일 이내에 이용계약을 해지한 이력이 있는 이용자가 신청한 경우 ④
+            도담도담은 이용계약 절차 완료 이후 본조 제2항 각 호에 따른 사유가
+            발견된 경우 즉시 이용승낙을 철회할 수 있습니다.
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle> 제8조 (계약사항의 변경)</InformationTitle>
+          <InformationContent>
+            ① 회원은 이용신청시 기재한 사항이 변경 되었을 경우에는 즉시
+            변경사항을 정정하여야 하며, 수정하지 아니하여 발생하는 문제의 책임은
+            회원에게 있습니다. ② ID등 회원의 고유한 정보는 변경할 수 없습니다. ③
+            기재된 회원정보가 다음 각 호에 해당하는 경우 회원의 요청 또는
+            도담도담의 직권으로 변경 또는 서비스의 이용을 제한하거나 정지할 수
+            있습니다. 도담도담의 서비스 또는 운영자, 관리자 등의 명칭과
+            동일하거나 유사하여 오인의 우려가 있는 경우 타인에게 혐오감을 주거나
+            미풍양속에 어긋나는 경우 타인의 권리를 침해할 우려가 있는 경우 기타
+            합리적인 사유가 있는 경우
+          </InformationContent>
+        </InformationContentContainer>
+        <InformationContentContainer>
+          <InformationTitle> 제9조 (서비스 이용)</InformationTitle>
+          <InformationContent>
+            ① 목적상 특수한 일부 게시판을 제외하고, 대부분의 게시판은 회원
+            가입을 하지 않아도 기본적으로 게시물을 열람하는데 별도의 제한을 두지
+            않습니다. ② 회원 가입 후 일정 기간동안 게시물 및 댓글의 작성이
+            제한됩니다. 제한 기간은 운영 중 변경될 수 있습니다. 게시물 및 댓글
+            작성 제한기간 : 회원 가입 후 승인이 완료될 때까지 ③ 서비스의
+            이용시간은 연중무휴, 24시간으로 함을 원칙으로 합니다. 단, 다음 각
+            호에 해당하는 경우 서비스 이용을 제한하거나 중지할 수 있습니다.
+            서비스 설비의 점검 및 유지보수 또는 공사로 인하여 부득이한 경우
+            국가비상사태, 서비스 설비의 장애 또는 서비스 이용의 폭주 등으로
+            서비스 이용에 지장이 있는 경우 국가 또는 관계기관의 명령으로 인해
+            일부 서비스를 제한해야 할 경우 기타 중대한 사유로 인해 서비스의
+            이용을 지속하는 것이 업무상 및 기술상 불가능할 경우 또는 운영상
+            서비스 제한이나 중지가 불가피하다고 판단되는 경우 ④ 도담도담은
+            전항의 규정에 의해 서비스의 이용을 제한하거나 중지할 경우 그 사유 및
+            기간을 사전에 공지함을 원칙으로 합니다. 단, 사전에 예상하지 못했거나
+            통제할 수 없는 상황이 발생할 경우 그러하지 아니합니다. ⑤ 도담도담은
+            서비스의 목적이나 용도에 따라 합리적인 범위 내에서 이용규칙을 정할
+            수 있으며, 회원은 해당 규칙을 준수하며 서비스를 이용하여야 합니다. ⑥
+            도담도담은 회원의 가입일, 연령, 활동이력, 이용제한 요청 등에 따라
+            일부의 서비스를 제한할 수 있습니다. 이 경우 이용자가 알 수 있도록 그
+            기준과 제한 내용을 게시판 등에 공지합니다.
+          </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
           <InformationTitle>
-            1. 도담도담은 회원가입, 서비스 이용 등을 위해
-            <br /> 아래와 같은 개인정보를 수집하고 있습니다.
+            제10조(서비스 이용의 제한 및 중지)
           </InformationTitle>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle>1) 수집항목</InformationTitle>
           <InformationContent>
-            학생 회원 가입시
-            <br /> 필수항목 : 아이디, 비밀번호, 이름, 이메일, 휴대폰번호,
-            <br />
-            (부모님 휴대폰 번호, 학급 정보)
-            <br /> 선택항목 : 선생님 회원 가입시 필수항목 : 아이디, 비밀번호,
-            이름, 이메일, 휴대폰번호, 내부회선번호, 담당업무 선택항목 : 서비스
-            이용과정에서 아래와 같은 정보들이 자동으로 생성되어 수집될 수
-            있습니다. IP 주소, 쿠키, 접속 브라우저, 서비스 이용기록,
-            회원조치이력
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle>2) 개인정보 수집방법</InformationTitle>
-          <InformationContent>
-            회원가입, 회원정보 수정, 게시물 등록
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 2. 개인정보의 수집 및 이용목적</InformationTitle>
-          <InformationContent>
-            도담도담은 수집한 개인정보를 다음의 목적을 위해 활용하며 다른
-            용도로는 사용되지 않습니다. 차후 이용목적이 변경될 시에는 사전에
-            동의를 구합니다. 아이디, 비밀번호: 서비스 이용에 따른 본인식별,
-            중복가입 확인, 부정이용 방지를 위해 사용됩니다. 이메일 :
-            전체메일발송, 패스워드 분실시 필요한 정보제공 및 민원처리 등을 위해
-            사용됩니다. 성명, 학년: 특수한 서비스를 제공할 경우 및 내부
-            자료구축, 부정이용 방지를 위해 사용됩니다. 이용자의 IP주소, 방문일시
-            : 불량회원의 부정 이용방지와 비인가 사용방지, 통계학적 분석에
-            사용됩니다. 그 외 선택사항 : 개인 맞춤 서비스를 제공하기 위해
-            사용됩니다.
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 3. 개인정보의 보유 및 이용기간</InformationTitle>
-          <InformationContent>
-            도담도담은 회원가입일로부터 서비스를 제공하는 기간 동안에 한하여
-            이용자의 개인정보를 보유 및 이용합니다. 단, 다음의 정보에 대해서는
-            회원탈퇴 후 아래의 이유로 명시한 기간 동안 보존합니다. 보존항목 :
-            성명, 이메일 보존근거 : 빈번한 가입과 탈퇴를 반복하는 악의적 이용
-            방지, 서비스 이용의 혼선 방지 보존기간 : 30일 보존항목 : 경고 이상의
-            조치를 받은 회원의 ID값 (중복가입확인정보) 및 회원조치이력 보존근거
-            : 회원의 불량 이용에 대한 조치이력 보관으로 악의적 이용의 재발 방지
-            보존기간 : 1년 보존항목 : 아이디 보존근거 : 아이디를 기준으로
-            설계되어 있어 탈퇴 후 타인이 동일한 아이디로 가입할 경우 서비스
-            이용의 혼선 방지 보존기간 : 서비스 제공 종료시까지
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle>4. 개인정보의 파기절차 및 방법</InformationTitle>
-          <InformationContent>
-            원칙적으로 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를
-            지체없이 파기합니다. 파기절차 및 방법은 다음과 같습니다.
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 1) 파기절차</InformationTitle>
-          <InformationContent>
-            회원이 회원가입 등을 위해 입력하신 정보는 목적이 달성된 후 내부 방침
-            및 기타 관련 법령에 의한 정보보호 사유에 따라(보유 및 이용기간 참조)
-            일정 기간 저장된 후 파기되어집니다. 일정기간 저장된 개인정보는
-            법령에 의한 경우를 제외하고는 보유 목적 이외의 다른 목적으로
-            이용되지 않습니다.
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 2) 파기방법</InformationTitle>
-          <InformationContent>
-            전자적 파일형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적
-            방법을 사용하여 삭제합니다.
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 5. 개인정보 제공</InformationTitle>
-          <InformationContent>
-            도담도담은 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다.
-            다만, 아래의 경우에는 예외로 합니다. 이용자들이 사전에 동의한 경우
-            법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에
-            따라 수사기관의 요구가 있는 경우
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle>6. 수집한 개인정보의 위탁</InformationTitle>
-          <InformationContent>
-            도담도담은 회원 정보를 외부 업체에 위탁하지 않습니다.
+            ① 도담도담은 효율적인 서비스 운영을 위하여 회원의 메모리 공간,
+            메시지크기, 보관일수 등을 제한할 수 있습니다. ② 도담도담은 일정
+            기간동안 접속 이력이 없는 회원에 대하여 로그인시 본인인증을 거치도록
+            하는 등의 절차를 둘 수 있습니다. ③ 도담도담은 회원이 서비스 내에
+            게시하거나 전달하는 모든 내용물이 다음 각 호에 해당한다고 판단될
+            경우 사전 통보 없이 게시중단, 이동, 삭제 등의 조치를 취할 수 있으며
+            필요한 경우 해당 회원의 서비스 이용자격을 일정 기간 제한하거나 영구
+            중지할 수 있습니다. 회원 또는 제3자에 대한 인신공격, 비하, 비방,
+            욕설, 중상모략, 허위사실 유포, 명예훼손 등의 내용이 포함된 경우
+            타인을 고의적으로 기만하거나 부정하게 영리적, 업무적 기타 개인적인
+            이익을 얻을 목적임이 확인되는 경우 자신의 종교적 신념을 강요하거나
+            타인의 종교를 비하한 경우 공공질서 및 미풍양속에 위반되는 내용인
+            경우 범죄적 행위에 결부된다고 인정되는 내용인 경우 회원 또는 제3자의
+            저작권이나 초상권 등 기타 권리를 침해하는 내용인 경우 정보통신설비의
+            오작동이나 정보 등의 파괴를 유발시키는 컴퓨터바이러스 프로그램 등을
+            유포하는 경우 스토킹, 불필요한 특수문자 과다사용, 반복적인 게시물
+            붙여넣기 등 다른 이용자의 이용을 방해하는 경우 특정 집단에 대한
+            차별적 내용으로서 해당 집단이나 그 구성원들에게 굴욕감이나 불이익을
+            현저하게 초래하는 경우 기타 관계법령에 위반되거나 도담도담에서 정한
+            각 게시판의 목적에 따른 이용규칙에 어긋나는 경우 ④ 도담도담은 회원의
+            공개된 게시물 등에 대하여 다른 이용자 혹은 제3자의 법률상 권리
+            침해를 근거로 게시중단 요청을 받은 경우 게시물을 삭제하거나 게시물
+            차단 등의 임시조치를 할 수 있으며 게시중단 요청자와 게시물 등록
+            회원간의 합의 또는 법적조치의 결과 등이 접수되면 이를 따릅니다. ⑤
+            도담도담은 서비스 내에 공개된 게시물 등이 사생활 침해 또는 명예훼손
+            등 제3자의 권리를 침해한다고 인정하는 경우 전항의 게시중단 요청이
+            없어도 해당 게시물을 게시중단 할 수 있습니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
@@ -149,117 +218,89 @@ const ServicePolicy = () => {
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle>
-            7. 회원 및 법정대리인의 권리와 그 행사방법
-          </InformationTitle>
+          <InformationTitle>제12조(도담도담의 의무)</InformationTitle>
           <InformationContent>
-            이용자 및 법정 대리인은 언제든지 등록되어 있는 자신의 개인정보를
-            조회하거나 수정할 수 있으며 가입해지를 요청할 수도 있습니다.
-            이용자의 개인정보 조회, 수정을 위해서는 ‘개인정보변경’(또는
-            ‘회원정보수정’ 등)을, 가입해지(동의철회)를 위해서는 “회원탈퇴”를
-            클릭하여 본인 확인 후 직접 열람, 정정 또는 탈퇴가 가능합니다. 혹은
-            개인정보관리책임자에게 서면, 전화 또는 이메일로 연락하시면 지체 없이
-            조치하겠습니다. 이용자가 개인정보의 오류에 대한 정정을 요청하신
-            경우에는 정정을 완료하기 전까지 당해 개인정보를 이용 또는 제공하지
-            않습니다.
+            ① 도담도담은 관련 법령과 이 약관이 정하는 사항을 준수하며,
+            지속적이고 안정적인 서비스를 위해 최선을 다합니다. ② 도담도담은
+            회원의 회원정보를 보호하며, 개인정보 보호정책을 공시하고 준수합니다.
+            ③ 도담도담은 서비스 제공과 관련해서 알고 있는 회원의 신상 정보를
+            본인의 승낙 없이 제3자에게 누설하거나 배포하지 않습니다. 단,
+            전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가 있는 경우,
+            범죄에 대한 수사상의 목적이 있거나 또는 기타 관계법령에서 정한
+            절차에 의한 요청이 있을 경우에는 그러하지 아니합니다. ④ 도담도담은
+            회원 수신 동의를 하지 않은 영리목적의 광고성 전자우편, SMS
+            문자서비스(외출/외박 부모동의 제외) 등을 발송하지 아니합니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle>
-            8. 개인정보 자동수집 장치의 설치, 운영 및 그 거부에 관한 사항
-          </InformationTitle>
+          <InformationTitle> 제13조(회원 및 이용자의 책임)</InformationTitle>
           <InformationContent>
-            쿠키는 웹사이트를 운영하는데 이용되는 서버가 이용자의 브라우저에
-            보내는 아주 작은 텍스트 파일로서 이용자의 컴퓨터에 저장됩니다. 보다
-            빠르고 편리한 웹사이트 사용을 지원하고 맞춤형 서비스를 제공하기 위해
-            사용됩니다.. 쿠키 등 사용 목적 이용자가 선호하는 설정 등을 저장하여
-            보다 빠른 웹 환경을 지원하며, 편리한 이용을 위해 서비스 개선에
-            활용합니다. 쿠키 설정 거부 방법 이용자는 쿠키 설치에 대한 선택권을
-            가지고 있습니다. 따라서, 이용자는 웹 브라우저에서 옵션을
-            설정함으로써 모든 쿠키를 허용하거나, 쿠키가 저장될 때마다 확인을
-            거치거나, 모든 쿠키의 저장을 거부할 수도 있습니다. 다만, 쿠키의
-            저장을 거부할 경우에는 로그인이 필요한 일부 서비스는 이용에 어려움이
-            있을 수 있습니다.
+            ① 회원은 자신의 로그인 패스워드 등 개인정보에 대한 관리책임을
+            가집니다. ② 회원이 작성한 게시물 등에 대한 모든 권리와 책임은 이를
+            작성한 회원에게 있습니다. ③ 서비스를 통해 얻은 정보를 그 정보
+            권리자의 동의없이 수집, 복제, 배포할 수 없습니다. ④ 서비스를
+            이용하여 해킹, 불법자료의 배포 및 기타 불법행위를 하여서는 아니되며,
+            이를 위반하여 발생한 영업활동의 결과 및 손실, 관계기관에 의한
+            법적조치 등에 관하여서는 그 이용자가 책임을 집니다. ⑤ 회원은
+            도담도담이 정한 약관 및 이용규칙을 숙지하고 준수하여야 합니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle>
-            9. 개인정보의 기술적, 관리적 보호대책
-          </InformationTitle>
+          <InformationTitle> 제14조(계약해지 및 이용제한)</InformationTitle>
           <InformationContent>
-            도담도담은 이용자의 개인정보를 취급함에 있어 개인정보가 분실, 도난,
-            유출, 변조 또는 훼손되지 않도록 안정성 확보를 위해 다음과 같은
-            기술적, 관리적 대책을 강구하고 있습니다.
+            ① 회원이 이용계약을 해지하고자 하는 때에는 회원 본인이 인터넷을
+            통하여 해지신청을 하여야 합니다. 단, 유관기관의 요청이 있는 경우
+            본인이 직접 탈퇴하지 않아도 이용계약 해지가 가능할 수 있습니다. ②
+            회원정보는 회원 탈퇴 30일 후 자동 삭제되며, 이 기간동안 재가입이
+            제한됩니다. ③ 회원 탈퇴 시 해당 아이디와 연계된 쪽지, 스크랩내용
+            등은 삭제되나, 공개된 게시판에 작성한 게시물 등은 삭제되지 않으며
+            삭제를 원할 경우 본인이 직접 삭제 후 탈퇴하여야 합니다. ④ 사이트
+            이용규칙 또는 약관 등을 위반하여 징계 중인 상태에서 탈퇴할 경우
+            재가입할 수 없으며, 만일 재가입 후 징계사실이 확인되면 이용이
+            제한되거나 이전 회원조치이력을 승계할 수 있습니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle> 1) 비밀번호 암호화</InformationTitle>
+          <InformationTitle> 제15조(양도금지)</InformationTitle>
           <InformationContent>
-            이용자의 개인정보를 암호화된 통신구간을 이용하여 전송하고, 비밀번호
-            등 중요정보는 암호화하여 보관하고 있습니다.
+            회원은 서비스의 이용권한, 기타 이용계약상의 지위를 타인에게 양도,
+            증여할 수 없으며, 이를 담보로 제공할 수 없습니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle> 2) 해킹 등의 대비한 기술적 대책</InformationTitle>
+          <InformationTitle> 제16조(손해배상)</InformationTitle>
           <InformationContent>
-            해킹이나 컴퓨터 바이러스 등에 의해 이용자의 개인정보가 유출되거나
-            훼손되는 것을 막기 위해 외부로부터 접근이 통제된 구역에 시스템을
-            설치하고 있습니다. 해커 등의 침입을 탐지하고 차단할 수 있는 시스템을
-            설치하여 24시간 감시하고 있으며, 백신 프로그램을 설치하여 시스템이
-            최신 악성코드나 바이러스에 감염되지 않도록 노력하고 있습니다.
+            도담도담은 무료로 제공되는 서비스와 관련하여 회원에게 어떠한 손해가
+            발생하더라도 동 손해가 도담도담의 고의 또는 중대한 과실로 인한
+            경우를 제외하고 이에 대하여 책임을 부담하지 아니합니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationTitle> 3) 개인 아이디와 비밀번호의 관리</InformationTitle>
+          <InformationTitle> 제17조(면책 조항)</InformationTitle>
           <InformationContent>
-            이용자가 사용하는 아이디와 비밀번호는 원칙적으로 이용자만이 사용할
-            수 있도록 되어 있습니다. 도담도담은 이용자의 개인적인 부주의로
-            아이디, 비밀번호 등 개인정보가 유출되어 발생한 문제와 기본적인
-            인터넷의 위험성 때문에 일어나는 일들에 대해 책임을 지지 않습니다.
-            비밀번호에 대한 보안의식을 가지고 비밀번호를 자주 변경하며, 타인이
-            알기 쉬운 비밀번호를 사용하거나, 공용 PC 에서의 로그인시 개인정보가
-            누출되지 않도록 각별한 주의를 기울여 주시기 바랍니다.
+            ① 도담도담은 천재지변, 전쟁 또는 기타 이에 준하는 불가항력으로
+            인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이
+            면제됩니다. ② 도담도담은 서비스용 설비의 보수, 교체, 정기점검, 공사
+            등 부득이한 사유로 발생한 손해에 대한 책임이 면제됩니다. ③
+            도담도담은 회원의 귀책사유로 인한 서비스 이용의 장애에 대하여 책임을
+            지지 않습니다. ④ 도담도담은 회원이 서비스를 이용하여 기대하는
+            이익이나 서비스를 통하여 얻는 자료로 인한 손해에 관하여 책임을 지지
+            않습니다. ⑤ 도담도담은 회원이 서비스에 게재한 정보, 자료, 사실의
+            신뢰도, 정확성 등의 내용에 관하여는 책임을 지지 않습니다.
           </InformationContent>
         </InformationContentContainer>
 
         <InformationContentContainer>
-          <InformationTitle> 10. 개인정보에 관한 민원서비스</InformationTitle>
+          <InformationTitle> 제18조(분쟁의 해결)</InformationTitle>
           <InformationContent>
-            고객의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여
-            아래와 같이 개인정보관리책임자를 지정하고 있습니다. 이용자는
-            도담도담 서비스를 이용하며 발생하는 모든 개인정보보호 관련 민원을
-            개인정보 관리책임자에게 신고하실 수 있습니다. 개인정보관리책임자
+            “도담도담”과 “회원”은 “서비스”와 관련하여 발생한 분쟁을 원만하게
+            해결하기 위하여 필요한 모든 노력을 하여야 합니다.
           </InformationContent>
         </InformationContentContainer>
         <InformationContentContainer>
-          <InformationContent>
-            성명 : 강준호 (교사)
-            <br /> Tel : 053) 231-9224
-            <br /> FAX : 053) 615-3351
-            <br /> 메일 : junh048@dgsw.hs.kr{" "}
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationContent>
-            기타 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에
-            문의하시기 바랍니다.
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationContent>
-            개인정보침해신고센터 (privacy.kisa.or.kr / 국번없이 118)
-            <br /> 대검찰청 사이버수사과 (www.spo.go.kr / 국번없이 1301)
-            <br /> 경찰청 사이버안전국 (cyberbureau.police.go.kr / 국번없이 182)
-          </InformationContent>
-        </InformationContentContainer>
-        <InformationContentContainer>
-          <InformationTitle> 11. 부칙 </InformationTitle>
-          <InformationContent>
-            이 개인정보처리방침은 2020년 5월 26일부터 적용되며, 법령, 정책 또는
-            보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 시에는
-            변경사항의 시행일의 7일 전부터 도담도담 사이트의 알림판을 통하여
-            고지할 것입니다.
-          </InformationContent>
+          <InformationTitle>
+            부칙 (시행일) 이 약관은 2020년 3월 23일부터 시행합니다.
+          </InformationTitle>
         </InformationContentContainer>
         <Link to="/">
           <InformationBtn>돌아가기</InformationBtn>
