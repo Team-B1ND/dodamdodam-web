@@ -1,4 +1,4 @@
-import PersonalInformationPage from "@src/pages/PersonalInformation";
+import PersonalInformationPage from "@src/pages/PersonalInformationPage";
 import ServicePolicyPage from "@src/pages/ServicePolicyPage";
 import { Route, Routes as Switch } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";

@@ -302,7 +302,7 @@ const PersonalInformation = () => {
             부칙 (시행일) 이 약관은 2020년 3월 23일부터 시행합니다.
           </InformationTitle>
         </InformationContentContainer>
-        <Link to="/signup">
+        <Link to="/">
           <InformationBtn>돌아가기</InformationBtn>
         </Link>
       </InformationContainer>
