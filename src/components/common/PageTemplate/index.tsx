@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import DarkModeButton from "../DrakmodeButton";
+import DarkModeButton from "../DarkmodeButton";
 import Footer from "../Footer";
 import Header from "../Header";
 import { PageTemplateContainer, PageTemplateWrap } from "./style";

@@ -11,7 +11,7 @@ export interface AppliedLeave extends Leave {
   checkedDate: null | string;
   id: number;
   readonly status: "ALLOWED" | "PENDING" | "DENIED";
-  studenr: {
+  student: {
     id: number;
   };
   teacher: {
