@@ -12,6 +12,7 @@ import dataCheck from "@src/util/check/dataCheck";
 import { useQueryClient } from "react-query";
 import showToast from "@src/lib/toast/toast";
 import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import { captureException, withScope } from "@sentry/react";
 
 const useApplyPass = () => {
   const queryClient = useQueryClient();
@@ -140,8 +141,14 @@ const useApplyPass = () => {
             });
             showToast("외출 삭제 성공", "SUCCESS");
           },
-          onError: () => {
+          onError: (err, query) => {
             showToast("외출 삭제 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.outgoingId });
+              captureException(
+                `${query.outgoingId}번이 ${err}이유로 외출 삭제 실패`
+              );
+            });
           },
         }
       );
@@ -249,8 +256,14 @@ const useApplyPass = () => {
             setPassData((prev) => ({ ...prev, [key]: "" }));
           }
         },
-        onError: () => {
+        onError: (err, query) => {
           showToast("외출 신청 실패", "ERROR");
+          withScope((scope) => {
+            scope.setContext("query", { queryHash: query.reason });
+            captureException(
+              `${query.reason}한 이유로 신청한 외출이 ${err}한 에러로 실패`
+            );
+          });
         },
       });
     } else {
@@ -271,8 +284,14 @@ const useApplyPass = () => {
             });
             showToast("외출 수정 성공", "SUCCESS");
           },
-          onError: () => {
+          onError: (err, query) => {
             showToast("외출 수정 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.reason });
+              captureException(
+                `${query.reason}한 이유로 신청한 외출이 ${err}에러로 수정 실패`
+              );
+            });
           },
         }
       );

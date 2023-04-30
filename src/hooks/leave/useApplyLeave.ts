@@ -12,6 +12,7 @@ import { AppliedLeave, ApplyLeave } from "@src/types/leave/leave.type";
 import dataCheck from "@src/util/check/dataCheck";
 import dateTransform from "@src/util/transform/dateTransform";
 import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import { captureException, withScope } from "@sentry/react";
 
 const useApplyLeave = () => {
   const queryClient = useQueryClient();
@@ -129,8 +130,14 @@ const useApplyLeave = () => {
             );
             showToast("외박 삭제 성공", "SUCCESS");
           },
-          onError: () => {
+          onError: (err, query) => {
             showToast("외박 삭제 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.outsleepingId });
+              captureException(
+                `${query.outsleepingId}id  ${err}이유로 외박 삭제 실패`
+              );
+            });
           },
         }
       );
@@ -259,8 +266,14 @@ const useApplyLeave = () => {
             endTimeDate: dateTransform.hyphen(),
           }));
         },
-        onError: () => {
+        onError: (err, query) => {
           showToast("외박 신청 실패", "ERROR");
+          withScope((scope) => {
+            scope.setContext("query", { queryHash: query.reason });
+            captureException(
+              `${query.reason}한 이유로 신청된 외박이 ${err}이유로 외박 신청 실패`
+            );
+          });
         },
       });
     } else {
@@ -279,7 +292,15 @@ const useApplyLeave = () => {
             });
             showToast("외박 수정 성공", "SUCCESS");
           },
-          onError: () => showToast("외박 수정 실패", "ERROR"),
+          onError: (err, query) => {
+            showToast("외박 수정 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.reason });
+              captureException(
+                `${query.reason}한 이유로 신청된 외박이 ${err}이유로 외박 수정 실패`
+              );
+            });
+          },
         }
       );
     }

@@ -9,6 +9,7 @@ import {
 } from "@src/queries/bus/bus.query";
 import { Bus } from "@src/types/bus/bus.type";
 import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import { captureException, withScope } from "@sentry/react";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();
@@ -84,8 +85,12 @@ const useApplyBus = () => {
             setWasCheckedIdx(selectBusIdx);
             showToast("버스 신청 수정 성공", "SUCCESS");
           },
-          onError: () => {
+          onError: (err, query) => {
             showToast("버스 신청 수정 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.idx });
+              captureException(`${query.idx}에서  ${err}이유로 버스 신청 실패`);
+            });
           },
         }
       );
@@ -103,8 +108,12 @@ const useApplyBus = () => {
             setWasCheckedIdx(selectBusIdx);
             showToast("버스 신청 성공", "SUCCESS");
           },
-          onError: () => {
+          onError: (err, query) => {
             showToast("버스 신청 실패", "ERROR");
+            withScope((scope) => {
+              scope.setContext("query", { queryHash: query.idx });
+              captureException(`${query.idx}에서  ${err}이유로 버스 신청 실패`);
+            });
           },
         }
       );

@@ -11,6 +11,8 @@
     "@b1nd/b1nd-toastify": "^1.0.3",
     "@babel/runtime": "^7.18.9",
     "@react-icons/all-files": "^4.1.0",
+    "@sentry/react": "^7.50.0",
+    "@sentry/tracing": "^7.50.0",
     "@team-b1nd/dodamdodam_web_component_library": "^1.2.2",
     "axios": "^0.27.2",
     "buffer": "^6.0.3",

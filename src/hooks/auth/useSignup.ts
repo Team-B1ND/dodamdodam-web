@@ -4,6 +4,8 @@ import React, { useCallback, useState } from "react";
 import authRepository from "@src/repository/auth/auth.repository";
 import { Signup, SignupAgree } from "@src/types/signup/signup.type";
 import patternCheck from "@src/util/check/patternCheck";
+import { captureException } from "@sentry/react";
+import * as Sentry from "@sentry/react";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");
@@ -114,6 +116,7 @@ const useSignup = () => {
       window.location.reload();
     } catch (error) {
       showToast("회원가입에 실패했습니다.", "ERROR");
+      Sentry.captureException(`이러한 문제로 회원가입 실패 ${error}`);
     }
   }, [agrees, signupData]);
 
