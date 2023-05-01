@@ -10,10 +10,8 @@ import {
 } from "@src/constants/token/token.constant";
 import showToast from "@src/lib/toast/toast";
 import { useQueryClient } from "react-query";
-import {
-  dodamV6Axios,
-  dodamV6AxiosSetAccessToken,
-} from "@src/lib/axios/customAxios";
+import * as Sentry from "@sentry/react";
+import { Axios, AxiosError } from "axios";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
@@ -40,12 +38,12 @@ const useLogin = () => {
       e.preventDefault();
 
       if (loginData.id === "") {
-        showToast("아이디를 입력해주세요", "IFNO");
+        showToast("아이디를 입력해주세요", "INFO");
         return;
       }
 
       if (loginData.pw === "") {
-        showToast("비밀번호를 입력해주세요", "IFNO");
+        showToast("비밀번호를 입력해주세요", "INFO");
         return;
       }
 
@@ -68,6 +66,7 @@ const useLogin = () => {
         navigate("/");
       } catch (error) {
         showToast("로그인 실패", "ERROR");
+        Sentry.captureException(`이러한 문제로 로그인 실패 ${error}`);
       }
     },
     [loginData, navigate]

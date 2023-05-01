@@ -15,6 +15,7 @@ import { useGetPlacesQuery } from "@src/queries/place/place.query";
 import dateCheck from "@src/util/check/dateCheck";
 import showToast from "@src/lib/toast/toast";
 import { usePostModuleLogMutation } from "@src/queries/log/log.query";
+import { captureException, withScope } from "@sentry/react";
 
 const useApplyStudyRoom = () => {
   const queryClient = useQueryClient();
@@ -188,8 +189,14 @@ const useApplyStudyRoom = () => {
           setMyApplyStudyRooms(handleApplyStudyRoomList);
           setTempMyApplyStudyRooms(handleApplyStudyRoomList);
         },
-        onError: () => {
+        onError: (err, query) => {
           showToast("기본 위치 신청 실패", "ERROR");
+          withScope((scope) => {
+            scope.setContext("query", { queryHash: query.studyRoomList });
+            captureException(
+              `${query.studyRoomList}가 ${err}로 인해 기본위치 신청 실패`
+            );
+          });
         },
       }
     );
@@ -234,9 +241,15 @@ const useApplyStudyRoom = () => {
           });
           setTempMyApplyStudyRooms(myApplyStudyRooms);
         },
-        onError: () => {
+        onError: (err, query) => {
           setMyApplyStudyRooms(tempMyApplyStudyRooms);
           showToast("위치 신청 실패", "ERROR");
+          withScope((scope) => {
+            scope.setContext("query", { queryHash: query.studyRoomList });
+            captureException(
+              `${query.studyRoomList}가 ${err}이유로 위치 신청 실패`
+            );
+          });
         },
       }
     );
