@@ -5,6 +5,7 @@ import config from "./config/config.json";
 
 Sentry.init({
   dsn: config.SENTRY_DSN,
+  environment: process.env.NODE_ENV,
   integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
