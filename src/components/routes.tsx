@@ -3,6 +3,7 @@ import ServicePolicyPage from "@src/pages/ServicePolicyPage";
 import { Route, Routes as Switch } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import HomePage from "../pages/HomePage";
+import BannerPage from "@src/pages/BannerPage";
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         path="/detailed-information/service-policy"
         element={<ServicePolicyPage />}
       />
+      <Route path="/bannersetting" element={<BannerPage />} />
     </Switch>
   );
 };
