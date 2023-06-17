@@ -44,6 +44,7 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
   display: flex;
   justify-content: center;
   align-items: top;
+  position: relative;
   padding-top: 48px;
   span {
     text-decoration: none;
@@ -65,6 +66,24 @@ export const HeaderItem = styled.div<{ isSelect: boolean }>`
   }
 `;
 
+export const HeaderNewItemIcon = styled.div`
+  width: 15px;
+  height: 15px;
+
+  position: absolute;
+  right: -10px;
+  top: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(33, 150, 243);
+  border-radius: 100%;
+`;
+
 export const HeaderRelease = styled.div`
   min-width: 180px;
   max-width: 180px;
@@ -72,6 +91,17 @@ export const HeaderRelease = styled.div`
   display: flex;
   justify-content: end;
   margin-left: auto;
+`;
+
+export const HeaderNewItem = styled.div`
+  border-radius: 100%;
+
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const HeaderReleaseIcon = styled.div`
