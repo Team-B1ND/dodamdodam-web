@@ -64,6 +64,8 @@ const useLogin = () => {
         token.setToken(REFRESH_TOKEN_KEY, refreshToken);
         showToast("로그인 성공", "SUCCESS");
         queryClient.invalidateQueries(QUERY_KEYS.member.getMy);
+        queryClient.invalidateQueries(QUERY_KEYS.wakeupSong.getMy);
+        queryClient.invalidateQueries(QUERY_KEYS.point.getMy);
         navigate("/");
       } catch (error) {
         showToast("로그인 실패", "ERROR");
