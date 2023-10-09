@@ -12,6 +12,7 @@ import showToast from "@src/lib/toast/toast";
 import { useQueryClient } from "react-query";
 import * as Sentry from "@sentry/react";
 import { Axios, AxiosError } from "axios";
+import { QUERY_KEYS } from "@src/queries/queryKey";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
@@ -62,7 +63,7 @@ const useLogin = () => {
         token.setToken(ACCESS_TOKEN_KEY, accessToken);
         token.setToken(REFRESH_TOKEN_KEY, refreshToken);
         showToast("로그인 성공", "SUCCESS");
-        queryClient.invalidateQueries("profile/getMyMember");
+        queryClient.invalidateQueries(QUERY_KEYS.member.getMy);
         navigate("/");
       } catch (error) {
         showToast("로그인 실패", "ERROR");
