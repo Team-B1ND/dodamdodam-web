@@ -6,8 +6,8 @@ class PatternCheck {
     return false;
   }
 
-  public pwCheck(item: string): boolean {
-    if (/^[a-zA-Z0-9]{7,20}$/.test(item)) {
+  public pwCheck(value: string): boolean {
+    if (/^[a-zA-Z0-9!@#$%^*+=-]{7,20}$/.test(value)) {
       return true;
     }
     return false;
