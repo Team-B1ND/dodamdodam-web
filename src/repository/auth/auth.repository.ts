@@ -6,7 +6,7 @@ import config from "@src/config/config.json";
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {
     const { data } = await axios.post(
-      `${config.DODAM_SERVER_V6}/auth/login`,
+      `${config.DODAM_TEST_SERVER}/auth/login`,
       loginData
     );
     return data;
@@ -16,7 +16,7 @@ class AuthRepository {
     refreshToken: string;
   }): Promise<NewAccessTokenResponse> {
     const { data } = await axios.post<NewAccessTokenResponse>(
-      `${config.DODAM_SERVER_V6}/auth/reissue`,
+      `${config.DODAM_TEST_SERVER}/auth/reissue`,
       refreshToken
     );
     return data;
