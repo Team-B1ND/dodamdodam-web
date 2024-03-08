@@ -1,6 +1,7 @@
 import { Login } from "@src/types/login/login.type";
-import { Signup } from "@src/types/signup/signup.type";
+import { Response } from "@src/types/util/response.type";
 
 export interface LoginParam extends Login {}
-
-export interface SignupParam extends Signup {}
+export interface NewAccessTokenResponse extends Response {
+  data: string;
+}

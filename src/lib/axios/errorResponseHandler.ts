@@ -1,12 +1,12 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
   REQUEST_TOKEN_KEY,
 } from "@src/constants/token/token.constant";
-import tokenRepository from "@src/repository/token/token.repository";
 import token from "../token/token";
 import { dodamV6Axios } from "./customAxios";
+import authRepository from "@src/repository/auth/auth.repository";
 
 //리프레쉬 작업중인지 아닌지를 구분하는 변수
 let isRefreshing = false;
@@ -44,8 +44,8 @@ const errorResponseHandler = async (error: AxiosError) => {
         //리프레쉬 api 요청
         try {
           const { data: newAccessToken } =
-            await tokenRepository.getRefreshToken({
-              token: usingRefreshToken,
+            await authRepository.refreshAccessToken({
+              refreshToken: usingRefreshToken,
             });
 
           dodamV6Axios.defaults.headers.common[
