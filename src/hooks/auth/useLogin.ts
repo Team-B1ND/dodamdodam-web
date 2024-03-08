@@ -57,11 +57,10 @@ const useLogin = () => {
       };
 
       try {
-        const { member, accessToken, refreshToken } =
-          await authRepository.login(validLoginData);
+        const { data } = await authRepository.login(validLoginData);
 
-        token.setToken(ACCESS_TOKEN_KEY, accessToken);
-        token.setToken(REFRESH_TOKEN_KEY, refreshToken);
+        token.setToken(ACCESS_TOKEN_KEY, data.accessToken);
+        token.setToken(REFRESH_TOKEN_KEY, data.refreshToken);
         showToast("로그인 성공", "SUCCESS");
 
         queryClient.invalidateQueries(QUERY_KEYS.member.getMy);
