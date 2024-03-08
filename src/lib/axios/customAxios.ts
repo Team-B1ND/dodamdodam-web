@@ -27,10 +27,25 @@ export const dodamV6Axios = createAxiosInstance({
   },
 });
 
+export const dodamTestAxios = createAxiosInstance({
+  baseURL: config.DODAM_TEST_SERVER,
+  headers: {
+    [REQUEST_TOKEN_KEY]: `Bearer ${token.getToken(ACCESS_TOKEN_KEY)}`!,
+  },
+});
+
+// export const dodamV6AxiosSetAccessToken = (token: string) => {
+//   dodamV6Axios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
+// };
+
 export const dodamV6AxiosSetAccessToken = (token: string) => {
-  dodamV6Axios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
+  dodamTestAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
 };
 
-dodamV6Axios.interceptors.request.use(requestHandler, (res) => res);
+// dodamV6Axios.interceptors.request.use(requestHandler, (res) => res);
 
-dodamV6Axios.interceptors.response.use((res) => res, errorResponseHandler);
+// dodamV6Axios.interceptors.response.use((res) => res, errorResponseHandler);
+
+dodamTestAxios.interceptors.request.use(requestHandler, (res) => res);
+
+dodamTestAxios.interceptors.response.use((res) => res, errorResponseHandler);
