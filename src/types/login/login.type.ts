@@ -6,7 +6,9 @@ export interface Login {
 }
 
 export interface LoginResponse extends Response {
-  member: Member;
+  data: {
+    member: Member;
+  };
   refreshToken: string;
   accessToken: string;
 }
