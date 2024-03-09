@@ -4,6 +4,8 @@ import { Signup, SignupAgree } from "@src/types/signup/signup.type";
 import patternCheck from "@src/util/check/patternCheck";
 import * as Sentry from "@sentry/react";
 import memberRepository from "@src/repository/member/member.repository";
+import ErrorHandler from "@src/util/error/ErrorHandler";
+import { AxiosError } from "axios";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");
@@ -109,7 +111,8 @@ const useSignup = () => {
       window.alert("회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)");
       window.location.reload();
     } catch (error) {
-      showToast("회원가입에 실패했습니다.", "ERROR");
+      const errorCode = error as AxiosError;
+      showToast(ErrorHandler.signupError(errorCode.response?.status!), "ERROR");
       Sentry.captureException(`이러한 문제로 회원가입 실패 ${error}`);
     }
   }, [agrees, signupData]);

@@ -69,7 +69,10 @@ const useLogin = () => {
         navigate("/");
       } catch (error) {
         const errorCode = error as AxiosError;
-        showToast(ErrorHandler.authError(errorCode.response?.status!), "ERROR");
+        showToast(
+          ErrorHandler.loginError(errorCode.response?.status!),
+          "ERROR"
+        );
         Sentry.captureException(`이러한 문제로 로그인 실패 ${error}`);
       }
     },
