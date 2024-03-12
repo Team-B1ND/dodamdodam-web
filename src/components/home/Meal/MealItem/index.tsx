@@ -1,17 +1,16 @@
 import React from "react";
 import { EMealType } from "@src/enum/meal/meal.enum";
 import * as S from "./style";
+import { MealData } from "@src/types/meal/meal.type";
 
 interface Props {
-  mealData: string;
+  mealData: MealData;
   mealType: EMealType;
   mealIconSrc: string;
   isMealTime: boolean;
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
-  const validMealData = mealData?.split(",");
-
   return (
     <S.MealItemContainer isMealTime={isMealTime} mealType={mealType}>
       <S.MealItemIconWrap>
@@ -24,11 +23,11 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
         </S.MealItemIconLabel>
       </S.MealItemIconWrap>
       <S.MealItemTextWrap>
-        {validMealData?.map((meal, idx) => {
-          if (idx === validMealData?.length - 1) {
-            return <span key={idx}>{meal}</span>;
+        {mealData?.details.map((meal, idx) => {
+          if (idx === mealData.details?.length - 1) {
+            return <span key={idx}>{meal.name}</span>;
           }
-          return <span key={idx}>{meal}, </span>;
+          return <span key={idx}>{meal.name}, </span>;
         }) || `${String(mealType)}이 없습니다.`}
       </S.MealItemTextWrap>
     </S.MealItemContainer>
