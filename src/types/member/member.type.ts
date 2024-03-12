@@ -2,36 +2,21 @@ import { ClassRoom } from "@src/types/common/common.type";
 import { Response } from "@src/types/util/response.type";
 
 export interface Member {
-  id: string;
-  name: string;
   email: string;
-  readonly role: "STUDENT" | "ADMIN" | "TEACHER";
-  readonly status: "ACTIVE" | "DEACTIVATED";
-  profileImage: null | string;
-  phone: string;
-  readonly createdAt: string;
-  readonly modifyAt: string;
-}
-
-export interface Student {
-  id: number;
+  id: string;
+  readonly joinDate: string;
   name: string;
-  grade: number;
-  room: number;
-  number: number;
-}
-
-export interface Teacher {
-  id: number;
-  tel: string;
-  position: string;
-}
-
-export interface StudentAndTeacher extends Member {
-  student: Student;
-  teacher: Teacher;
+  profileImage: null | string;
+  readonly role: string;
+  readonly status: "ACTIVE" | "DEACTIVATED";
 }
 
 export interface MyMemberResponse extends Response {
-  data: StudentAndTeacher;
+  data: {
+    classroom: ClassRoom;
+    id: number;
+    member: Member;
+    number: number;
+    phone: string;
+  };
 }

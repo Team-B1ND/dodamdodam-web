@@ -13,7 +13,7 @@ class MemberRepository {
   }
 
   public async getMyMember(): Promise<MyMemberResponse> {
-    const { data } = await dodamTestAxios.get<MyMemberResponse>("/members/my");
+    const { data } = await dodamV6Axios.get("/members/my");
     return data;
   }
 }
