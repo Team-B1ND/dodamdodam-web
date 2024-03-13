@@ -30,7 +30,9 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
           </S.MyInfoWakeupSongItemSubTitle>
         </S.MyInfoWakeupSongItemSubInfoWrap>
       </S.MyInfoWakeupSongItemInfoWrap>
-      <S.MyInfoWakeupSongItemApproveLabel status={wakeupSongData.status}>
+      <S.MyInfoWakeupSongItemApproveLabel
+        status={dataTransform.wakeupSongStatusColorform(wakeupSongData.status)}
+      >
         {dataTransform.wakeupSongApproveTransform(wakeupSongData.status)}
       </S.MyInfoWakeupSongItemApproveLabel>
     </S.MyInfoWakeupSongItemContainer>
