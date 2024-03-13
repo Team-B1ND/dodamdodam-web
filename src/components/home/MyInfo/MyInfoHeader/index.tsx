@@ -43,24 +43,22 @@ const MyInfoHeaderForm = () => {
   return (
     <>
       <S.MyInfoHeaderProfileImg
-        src={
-          serverMyMemberData?.data.member.profileImage || DefaultProfileImage
-        }
+        src={serverMyMemberData?.data.profileImage || DefaultProfileImage}
         alt="myInfo/profileImg"
         onClick={redirect}
       />
       <S.MyInfoHeaderInfoWrap>
         <S.MyInfoHeaderNameWrap>
-          {serverMyMemberData?.data.member.name}
+          {serverMyMemberData?.data.name}
           <S.MyInfoHeaderRedirectText onClick={redirect}>
             내 정보
           </S.MyInfoHeaderRedirectText>
         </S.MyInfoHeaderNameWrap>
         <S.MyInfoHeaderClassWrap>
           {dataTransform.schoolInfoTransform(
-            serverMyMemberData?.data?.classroom?.grade || 0,
-            serverMyMemberData?.data?.classroom?.room || 0,
-            serverMyMemberData?.data?.number || 0
+            serverMyMemberData?.data?.student?.grade || 0,
+            serverMyMemberData?.data?.student?.room || 0,
+            serverMyMemberData?.data?.student?.number || 0
           )}
         </S.MyInfoHeaderClassWrap>
       </S.MyInfoHeaderInfoWrap>

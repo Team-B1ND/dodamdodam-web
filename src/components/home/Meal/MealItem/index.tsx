@@ -23,12 +23,13 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
         </S.MealItemIconLabel>
       </S.MealItemIconWrap>
       <S.MealItemTextWrap>
-        {mealData?.details.map((meal, idx) => {
-          if (idx === mealData.details?.length - 1) {
-            return <span key={idx}>{meal.name}</span>;
-          }
-          return <span key={idx}>{meal.name}, </span>;
-        }) || `${String(mealType)}이 없습니다.`}
+        {mealData?.details.map((meal, idx) => (
+          <span key={idx}>
+            {idx === mealData.details?.length - 1 || idx === 0
+              ? meal.name
+              : `, ${meal.name}`}
+          </span>
+        )) || `${String(mealType)}이 없습니다.`}
       </S.MealItemTextWrap>
     </S.MealItemContainer>
   );
