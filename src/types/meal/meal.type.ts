@@ -1,9 +1,17 @@
+export interface MealData {
+  details: {
+    name: string;
+    allergies: number[];
+  }[];
+  calorie: number;
+}
+
 export interface Meal {
-  readonly breakfast: string;
-  readonly date: string;
-  readonly dinner: string;
   readonly exists: boolean;
-  readonly lunch: string;
+  readonly date: string;
+  readonly breakfast: MealData;
+  readonly dinner: MealData;
+  readonly lunch: MealData;
 }
 
 export interface MealResponse {

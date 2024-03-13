@@ -39,7 +39,7 @@ const Banner = () => {
         {approveBanners.map((banner) => (
           <BannerItem
             title={banner.title}
-            imgSrc={banner.image}
+            imgSrc={banner.imageUrl}
             redirectURL={banner.redirectUrl}
             key={banner.id}
           />

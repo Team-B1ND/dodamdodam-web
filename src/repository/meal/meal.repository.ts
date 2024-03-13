@@ -1,4 +1,4 @@
-import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { dodamTestAxios, dodamV6Axios } from "@src/lib/axios/customAxios";
 import { MealResponse } from "@src/types/meal/meal.type";
 import { getMealParam } from "./meal.param";
 
@@ -8,7 +8,7 @@ class MealRepository {
     month,
     day,
   }: getMealParam): Promise<MealResponse> {
-    const { data } = await dodamV6Axios.get(
+    const { data } = await dodamTestAxios.get(
       `/meal?year=${year}&month=${month}&day=${day}`
     );
     return data;
