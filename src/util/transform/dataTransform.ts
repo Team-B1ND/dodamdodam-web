@@ -30,17 +30,6 @@ class DataTransform {
     }
   }
 
-  public lostStuffTypeTransform(state: string): string {
-    switch (state) {
-      case "FOUND":
-        return "습득물";
-      case "LOST":
-        return "분실물";
-      default:
-        return "습득물";
-    }
-  }
-
   public dayIdxTransform(date: string): string {
     const validDate = dayjs(date).format("dddd");
 

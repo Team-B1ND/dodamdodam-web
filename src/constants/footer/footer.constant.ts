@@ -68,10 +68,6 @@ export const FOOTER_ITEMS = [
         title: "잇맵",
         link: "http://dodam.b1nd.com/itmap",
       },
-      {
-        title: "분실물",
-        link: "http://dodam.b1nd.com/lostfound",
-      },
     ],
   },
 ];
