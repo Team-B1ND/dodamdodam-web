@@ -36,10 +36,10 @@ const useApplyBus = () => {
 
   useEffect(() => {
     if (!busesDataIsLoading) {
-      if (busesData?.data) {
+      if (busesData?.data.length! > 0) {
         const validBusesData = busesData?.data;
-        setBusDate(validBusesData.date);
-        setBusList(validBusesData.bus);
+        setBusDate(validBusesData![0].leaveTime); // 모든 버스는 같은시각에 출발하기에 첫번째 인덱스 날짜를 써도 무방함.
+        setBusList(validBusesData!);
       }
     }
   }, [busesData, busesDataIsLoading]);
@@ -72,7 +72,6 @@ const useApplyBus = () => {
       patchMyBusMutation.mutateAsync(
         {
           idx: String(selectBusIdx),
-          originIdx: String(wasCheckedIdx),
         },
         {
           onSuccess: () => {
