@@ -4,5 +4,4 @@ export interface postMyBusParam {
 
 export interface patchMyBusParam {
   idx: string;
-  originIdx?: string;
 }
