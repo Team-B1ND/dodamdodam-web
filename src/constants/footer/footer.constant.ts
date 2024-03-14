@@ -44,7 +44,7 @@ export const FOOTER_ITEMS = [
         link: "https://play.google.com/store/apps/details?id=kr.hs.dgsw.smartschool.dodamdodam",
       },
       {
-        title: "애플",
+        title: "iOS",
         link: "https://apps.apple.com/kr/app/%EB%8F%84%EB%8B%B4%EB%8F%84%EB%8B%B4/id1549451556",
       },
     ],
