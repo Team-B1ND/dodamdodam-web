@@ -14,6 +14,21 @@ class DataTransform {
     return `${gradeNum}학년 ${classNum}반 ${studentNum}번`;
   }
 
+  public wakeupSongStatusColorform(
+    state: "PENDING" | "ALLOWED" | "DENIED"
+  ): string {
+    switch (state) {
+      case "PENDING":
+        return "#ffa94d";
+      case "ALLOWED":
+        return "#69db7c";
+      case "DENIED":
+        return "#ff665c";
+      default:
+        return "#ffa94d";
+    }
+  }
+
   public wakeupSongApproveTransform(state: string): string {
     switch (state) {
       case "PENDING":
@@ -27,17 +42,6 @@ class DataTransform {
 
       default:
         return "대기";
-    }
-  }
-
-  public lostStuffTypeTransform(state: string): string {
-    switch (state) {
-      case "FOUND":
-        return "습득물";
-      case "LOST":
-        return "분실물";
-      default:
-        return "습득물";
     }
   }
 

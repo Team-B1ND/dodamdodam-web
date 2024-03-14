@@ -12,9 +12,6 @@ export const QUERY_KEYS = {
   leave: {
     getMy: "leave/getMyLeaves",
   },
-  lostStuff: {
-    getMy: "lostStuff/getMyLostStuff",
-  },
   meal: {
     get: "meal/getMeal",
   },

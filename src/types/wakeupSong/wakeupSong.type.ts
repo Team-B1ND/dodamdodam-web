@@ -1,19 +1,14 @@
-import { Member } from "@src/types/member/member.type";
 import { Response } from "@src/types/util/response.type";
 
 export interface WakeupSong {
-  applyingMember: Member;
-  channelTitle: string;
-  checkingMember: Member;
-  createdDate: string;
-  duration: string;
-  readonly id: number;
-  playDate: string;
-  readonly status: "ALLOWED" | "PENDING" | "DENIED";
+  readonly id: 0;
   readonly thumbnailUrl: string;
-  readonly videoId: string;
   readonly videoTitle: string;
+  readonly videoId: string;
   readonly videoUrl: string;
+  channelTitle: string;
+  readonly status: "ALLOWED" | "PENDING" | "DENIED";
+  createdAt: string;
 }
 
 export interface MyWakeupSongsResponse extends Response {

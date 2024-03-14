@@ -11,6 +11,9 @@ interface Props {
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
+  const makeCommaIfNotLast = (idx: number) =>
+    idx !== mealData?.details.length - 1 ? "," : "";
+
   return (
     <S.MealItemContainer isMealTime={isMealTime} mealType={mealType}>
       <S.MealItemIconWrap>
@@ -22,14 +25,11 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
           {String(mealType)}
         </S.MealItemIconLabel>
       </S.MealItemIconWrap>
+
       <S.MealItemTextWrap>
-        {mealData?.details.map((meal, idx) => (
-          <span key={idx}>
-            {idx === mealData.details?.length - 1 || idx === 0
-              ? meal.name
-              : `, ${meal.name}`}
-          </span>
-        )) || `${String(mealType)}이 없습니다.`}
+        {mealData?.details.map(
+          (meal, idx) => ` ${meal.name.concat(makeCommaIfNotLast(idx))}`
+        ) || `${String(mealType)}이 없습니다.`}
       </S.MealItemTextWrap>
     </S.MealItemContainer>
   );

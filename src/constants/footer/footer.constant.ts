@@ -44,8 +44,8 @@ export const FOOTER_ITEMS = [
         link: "https://play.google.com/store/apps/details?id=kr.hs.dgsw.smartschool.dodamdodam",
       },
       {
-        title: "애플",
-        link: "https://apps.apple.com/kr/app/%EB%8F%84%EB%8B%B4%EB%8F%84%EB%8B%B4/id1549451556",
+        title: "iOS",
+        link: "https://apps.apple.com/kr/app/%EB%8F%84%EB%8B%B4%EB%8F%84%EB%8B%B4-%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%8A%A4%EC%BF%A8-%EC%84%9C%EB%B9%84%EC%8A%A4/id6446231215",
       },
     ],
   },
@@ -67,10 +67,6 @@ export const FOOTER_ITEMS = [
       {
         title: "잇맵",
         link: "http://dodam.b1nd.com/itmap",
-      },
-      {
-        title: "분실물",
-        link: "http://dodam.b1nd.com/lostfound",
       },
     ],
   },

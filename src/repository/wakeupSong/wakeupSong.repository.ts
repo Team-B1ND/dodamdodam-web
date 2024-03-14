@@ -1,4 +1,4 @@
-import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { dodamTestAxios, dodamV6Axios } from "@src/lib/axios/customAxios";
 import {
   MyWakeupSongsResponse,
   TodayAllowedWakeupSongsResponse,
@@ -7,10 +7,7 @@ import { getTodayAllowedWakeupSongParam } from "./wakeupSong.param";
 
 class WakeupSongRepository {
   public async getMyWakeupSongs(): Promise<MyWakeupSongsResponse> {
-    const { data } = await dodamV6Axios.get<MyWakeupSongsResponse>(
-      `/wakeup-song/my`
-    );
-
+    const { data } = await dodamTestAxios.get("/wakeup-song/my");
     return data;
   }
 
@@ -19,7 +16,7 @@ class WakeupSongRepository {
     month,
     day,
   }: getTodayAllowedWakeupSongParam): Promise<TodayAllowedWakeupSongsResponse> {
-    const { data } = await dodamV6Axios.get<TodayAllowedWakeupSongsResponse>(
+    const { data } = await dodamTestAxios.get(
       `/wakeup-song/allowed?year=${year}&month=${month}&day=${day}`
     );
     return data;

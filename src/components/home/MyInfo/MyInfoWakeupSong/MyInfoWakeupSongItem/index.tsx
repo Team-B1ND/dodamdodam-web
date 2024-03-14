@@ -26,11 +26,13 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
             {wakeupSongData.channelTitle}
           </S.MyInfoWakeupSongItemSubTitle>
           <S.MyInfoWakeupSongItemSubTitle>
-            신청일 {dateTransform.hyphen(wakeupSongData.createdDate)}
+            신청일 {dateTransform.hyphen(wakeupSongData.createdAt)}
           </S.MyInfoWakeupSongItemSubTitle>
         </S.MyInfoWakeupSongItemSubInfoWrap>
       </S.MyInfoWakeupSongItemInfoWrap>
-      <S.MyInfoWakeupSongItemApproveLabel status={wakeupSongData.status}>
+      <S.MyInfoWakeupSongItemApproveLabel
+        status={dataTransform.wakeupSongStatusColorform(wakeupSongData.status)}
+      >
         {dataTransform.wakeupSongApproveTransform(wakeupSongData.status)}
       </S.MyInfoWakeupSongItemApproveLabel>
     </S.MyInfoWakeupSongItemContainer>
