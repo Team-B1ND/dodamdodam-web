@@ -38,7 +38,7 @@ export const ApplyTitleText = styled.h1`
 `;
 
 export const ApplyTitleItemWrap = styled.div`
-  width: 276px;
+  width: 230px;
   height: 100%;
   display: flex;
   align-items: center;

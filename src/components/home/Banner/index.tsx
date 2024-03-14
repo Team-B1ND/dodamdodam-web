@@ -47,9 +47,7 @@ const Banner = () => {
       </Slider>
       {isBannerAuthority && (
         <S.BannerManageButton
-          onClick={() =>
-            window.open("http://dodam.b1nd.com/bannersetting", "_blank")
-          }
+          onClick={() => window.open("http://dodam.b1nd.com/banner", "_blank")}
         >
           <IoOptionsOutline />
         </S.BannerManageButton>
