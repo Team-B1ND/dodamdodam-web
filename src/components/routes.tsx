@@ -1,8 +1,8 @@
 import PersonalInformationPage from "@src/pages/PersonalInformationPage";
 import ServicePolicyPage from "@src/pages/ServicePolicyPage";
 import { Route, Routes as Switch } from "react-router-dom";
-import AuthPage from "../pages/AuthPage";
-import HomePage from "../pages/HomePage";
+import AuthPage from "../pages/authPage";
+import HomePage from "../pages/homePage";
 
 const Routes = () => {
   return (
