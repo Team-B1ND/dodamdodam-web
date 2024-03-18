@@ -11,7 +11,7 @@ import {
   putMyPassParam,
 } from "@src/repository/pass/pass.param";
 import passRepository from "@src/repository/pass/pass.repository";
-import { MyPassesResponse } from "@src/types/pass/pass.type";
+import { MyPassesResponse, Pass } from "@src/types/pass/pass.type";
 import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyPassesQuery = (
@@ -25,7 +25,7 @@ export const useGetMyPassesQuery = (
   useQuery(QUERY_KEYS.pass.getMy, () => passRepository.getMyPasses(), options);
 
 export const usePostApplyPassMutation = () => {
-  const mutation = useMutation((passData: postApplyPassParam) =>
+  const mutation = useMutation((passData: Pass) =>
     passRepository.postApplyPass(passData)
   );
 

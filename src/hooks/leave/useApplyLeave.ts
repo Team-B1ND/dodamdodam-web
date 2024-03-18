@@ -43,6 +43,8 @@ const useApplyLeave = () => {
     reason: "",
   });
 
+  console.log(leaveData);
+
   useEffect(() => {
     if (appliedLeaves) {
       const validNotApprovedLeaves = appliedLeaves.filter(
@@ -55,19 +57,13 @@ const useApplyLeave = () => {
   const transformNotApproveLeave = (
     notApproveLeave: AppliedLeave
   ): ApplyLeave => {
-    const { endOutDate, startOutDate, id } = notApproveLeave;
+    const { startAt, endAt, id } = notApproveLeave;
 
-    const validStartDate = dateTransform.fullDate(startOutDate).slice(0, 10);
-    const validStartTime = dateTransform
-      .fullDate(startOutDate)
-      .slice(10)
-      .split(":");
+    const validStartDate = dateTransform.fullDate(startAt).slice(0, 10);
+    const validStartTime = dateTransform.fullDate(startAt).slice(10).split(":");
 
-    const validEndDate = dateTransform.fullDate(endOutDate).slice(0, 10);
-    const validEndTime = dateTransform
-      .fullDate(endOutDate)
-      .slice(10)
-      .split(":");
+    const validEndDate = dateTransform.fullDate(endAt).slice(0, 10);
+    const validEndTime = dateTransform.fullDate(endAt).slice(10).split(":");
 
     return {
       idx: id,
@@ -117,7 +113,7 @@ const useApplyLeave = () => {
   const deleteNotApprovedLeave = useCallback(
     async (idx: number) => {
       deleteApplyLeaveMutation.mutateAsync(
-        { outsleepingId: idx + "" },
+        { id: idx + "" },
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");
@@ -133,10 +129,8 @@ const useApplyLeave = () => {
           onError: (err, query) => {
             showToast("외박 삭제 실패", "ERROR");
             withScope((scope) => {
-              scope.setContext("query", { queryHash: query.outsleepingId });
-              captureException(
-                `${query.outsleepingId}id  ${err}이유로 외박 삭제 실패`
-              );
+              scope.setContext("query", { queryHash: query.id });
+              captureException(`${query.id}id  ${err}이유로 외박 삭제 실패`);
             });
           },
         }
@@ -193,19 +187,19 @@ const useApplyLeave = () => {
 
     const validApplyLeave = {
       reason,
-      startOutDate: dayjs(
+      startAt: dayjs(
         `${startTimeDate} ${startTimeHour}:${startTimeMinute}`
-      ).format(),
-      endOutDate: dayjs(
-        `${endTimeDate} ${endTimeHour}:${endTimeMinute}`
-      ).format(),
+      ).format("YYYY-MM-DD"),
+      endAt: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(
+        "YYYY-MM-DD"
+      ),
     };
 
-    const startTimeIsAfter = dayjs(validApplyLeave.startOutDate).isAfter(
+    const startTimeIsAfter = dayjs(validApplyLeave.startAt).isAfter(
       dateTransform.fullDate()
     );
 
-    const endTimeIsAfter = dayjs(validApplyLeave.endOutDate).isAfter(
+    const endTimeIsAfter = dayjs(validApplyLeave.endAt).isAfter(
       dateTransform.fullDate()
     );
 
@@ -222,14 +216,12 @@ const useApplyLeave = () => {
       return;
     }
 
-    if (!startTimeIsAfter || !endTimeIsAfter) {
-      showToast("올바른 양식을 입력해주세요!", "INFO");
-      return;
-    }
+    // if (!startTimeIsAfter || !endTimeIsAfter) {
+    //   showToast("올바른 양식을 입력해주세요!", "INFO");
+    //   return;
+    // }
 
-    if (
-      !dayjs(validApplyLeave.endOutDate).isAfter(validApplyLeave.startOutDate)
-    ) {
+    if (!dayjs(validApplyLeave.endAt).isAfter(validApplyLeave.startAt)) {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
@@ -282,7 +274,12 @@ const useApplyLeave = () => {
       )?.id;
 
       putApplyLeaveMutation.mutateAsync(
-        { ...validApplyLeave, outId: leaveIdx! },
+        {
+          ...validApplyLeave,
+          outId: leaveIdx!,
+          endAt: "",
+          startAt: "",
+        },
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");

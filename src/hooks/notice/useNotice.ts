@@ -1,6 +1,7 @@
 import { useGetMyPermissionQuery } from "@src/queries/permission/permission.query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetNoticeQuery } from "@src/queries/notice/notice.query";
+import { useGetMyMemberQuery } from "@src/queries/member/member.query";
 
 const useNotice = () => {
   const { data, isLoading } = useGetNoticeQuery({
@@ -8,7 +9,7 @@ const useNotice = () => {
     cacheTime: 1000 * 60 * 60,
   });
 
-  const permissionData = useGetMyPermissionQuery({
+  const permissionData = useGetMyMemberQuery({
     cacheTime: 1000 * 60 * 60 * 24,
     staleTime: 1000 * 60 * 30 * 24,
   }).data?.data;
@@ -52,11 +53,7 @@ const useNotice = () => {
 
   useEffect(() => {
     if (permissionData) {
-      if (
-        permissionData.find(
-          (permission) => permission.permission === "CTRL_NOTICE"
-        )
-      ) {
+      if (permissionData.role === "ADMIN") {
         setIsNoticeAuthority(true);
       } else {
         setIsNoticeAuthority(false);
