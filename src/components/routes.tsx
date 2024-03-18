@@ -1,5 +1,5 @@
-import AuthPage from "@src/pages/AuthPage";
-import HomePage from "@src/pages/HomePage";
+import AuthPage from "@src/pages/authPage";
+import HomePage from "@src/pages/homePage";
 import PersonalInformationPage from "@src/pages/PersonalInformationPage";
 import ServicePolicyPage from "@src/pages/ServicePolicyPage";
 import { Route, Routes as Switch } from "react-router-dom";
