@@ -35,9 +35,9 @@ export const dodamTestAxios = createAxiosInstance({
 });
 
 export const dodamAxiosSetAccessToken = (token: string) => {
-  dodamTestAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
+  dodamAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
 };
 
-dodamTestAxios.interceptors.request.use(requestHandler, (res) => res);
+dodamAxios.interceptors.request.use(requestHandler, (res) => res);
 
-dodamTestAxios.interceptors.response.use((res) => res, errorResponseHandler);
+dodamAxios.interceptors.response.use((res) => res, errorResponseHandler);
