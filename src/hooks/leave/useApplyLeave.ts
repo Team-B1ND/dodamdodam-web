@@ -43,6 +43,8 @@ const useApplyLeave = () => {
     reason: "",
   });
 
+  console.log(leaveData);
+
   useEffect(() => {
     if (appliedLeaves) {
       const validNotApprovedLeaves = appliedLeaves.filter(
@@ -111,7 +113,7 @@ const useApplyLeave = () => {
   const deleteNotApprovedLeave = useCallback(
     async (idx: number) => {
       deleteApplyLeaveMutation.mutateAsync(
-        { outsleepingId: idx + "" },
+        { id: idx + "" },
         {
           onSuccess: () => {
             queryClient.invalidateQueries("leave/getMyLeaves");
@@ -127,10 +129,8 @@ const useApplyLeave = () => {
           onError: (err, query) => {
             showToast("외박 삭제 실패", "ERROR");
             withScope((scope) => {
-              scope.setContext("query", { queryHash: query.outsleepingId });
-              captureException(
-                `${query.outsleepingId}id  ${err}이유로 외박 삭제 실패`
-              );
+              scope.setContext("query", { queryHash: query.id });
+              captureException(`${query.id}id  ${err}이유로 외박 삭제 실패`);
             });
           },
         }
@@ -189,8 +189,10 @@ const useApplyLeave = () => {
       reason,
       startAt: dayjs(
         `${startTimeDate} ${startTimeHour}:${startTimeMinute}`
-      ).format(),
-      endAt: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(),
+      ).format("YYYY-MM-DD"),
+      endAt: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(
+        "YYYY-MM-DD"
+      ),
     };
 
     const startTimeIsAfter = dayjs(validApplyLeave.startAt).isAfter(
@@ -214,10 +216,10 @@ const useApplyLeave = () => {
       return;
     }
 
-    if (!startTimeIsAfter || !endTimeIsAfter) {
-      showToast("올바른 양식을 입력해주세요!", "INFO");
-      return;
-    }
+    // if (!startTimeIsAfter || !endTimeIsAfter) {
+    //   showToast("올바른 양식을 입력해주세요!", "INFO");
+    //   return;
+    // }
 
     if (!dayjs(validApplyLeave.endAt).isAfter(validApplyLeave.startAt)) {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");

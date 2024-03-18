@@ -193,8 +193,6 @@ const useApplyPass = () => {
       ),
     };
 
-    console.log(validApplyPass.startAt);
-
     const startTimeIsAfter = dayjs(validApplyPass.startAt).isAfter(
       dateTransform.fullDate()
     );
