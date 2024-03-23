@@ -18,7 +18,7 @@ const Point = () => {
 
   const onChangeView = () => {
     setIsDormitoryPointView((prev) => {
-      if (prev) {
+      if (prev === "DORMITORY") {
         postModuleLogMutation.mutate({
           moduleName: "메인/상벌점",
           description: "기숙사 상벌점 조회",
@@ -30,7 +30,7 @@ const Point = () => {
         });
       }
 
-      return !prev;
+      return prev === "DORMITORY" ? "SCHOOL" : "DORMITORY";
     });
   };
 
@@ -68,7 +68,7 @@ const Point = () => {
             isDormitory={isDormitoryPointView}
             onClick={onChangeView}
           >
-            {isDormitoryPointView ? "기숙사" : "학교"}
+            {isDormitoryPointView === "DORMITORY" ? "기숙사" : "학교"}
           </S.PointChangeButton>
         </S.PointRightWrap>
       </S.PointWrap>

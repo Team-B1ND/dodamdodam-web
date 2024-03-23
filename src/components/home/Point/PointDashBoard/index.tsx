@@ -1,43 +1,37 @@
-import usePoint from "@src/hooks/point/usePoint";
 import { useRecoilValue } from "recoil";
 import { pointViewTypeAtom } from "@src/store/point/pointStore";
 import * as S from "./style";
+import { useGetMyPointQuery } from "@src/queries/point/point.query";
+import { PointType } from "@src/repository/point/point.param";
 
 const PointDashBoard = () => {
   const isDormitoryPointView = useRecoilValue(pointViewTypeAtom);
-  const { schoolPoint, dormitoryPoint } = usePoint();
 
+  const { data: serverMyPointData } = useGetMyPointQuery(
+    { type: isDormitoryPointView as PointType },
+    {
+      suspense: true,
+      cacheTime: 1000 * 60 * 5,
+      staleTime: 1000 * 60 * 60,
+    }
+  );
   return (
     <>
       <S.PointDashBoardContainer>
         <S.PointDashBoardGraphText>
-          {isDormitoryPointView
-            ? dormitoryPoint.dormitoryBonusPoint
-            : schoolPoint.schoolBonusPoint}
-          점
+          {serverMyPointData?.data.bonus}점
         </S.PointDashBoardGraphText>
         <S.PointDashBoardGraph
-          point={
-            isDormitoryPointView
-              ? dormitoryPoint.dormitoryBonusPoint
-              : schoolPoint.schoolBonusPoint
-          }
+          point={serverMyPointData?.data.bonus!}
           isBonusPoint={true}
         />
       </S.PointDashBoardContainer>
       <S.PointDashBoardContainer>
         <S.PointDashBoardGraphText>
-          {isDormitoryPointView
-            ? dormitoryPoint.dormitoryMinusPoint
-            : schoolPoint.schoolMinusPoint}
-          점
+          {serverMyPointData?.data.minus} 점
         </S.PointDashBoardGraphText>
         <S.PointDashBoardGraph
-          point={
-            isDormitoryPointView
-              ? dormitoryPoint.dormitoryMinusPoint
-              : schoolPoint.schoolMinusPoint
-          }
+          point={serverMyPointData?.data.minus!}
           isBonusPoint={false}
         />
       </S.PointDashBoardContainer>

@@ -1,3 +1,4 @@
 export interface getMyPointParam {
-  year: string;
+  type: PointType;
 }
+export type PointType = "DORMITORY" | "SCHOOL";

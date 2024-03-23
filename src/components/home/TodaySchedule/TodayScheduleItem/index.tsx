@@ -1,5 +1,6 @@
 import { Schedule } from "@src/types/schedule/schedule.type";
 import * as S from "./style";
+import dataTransform from "@src/util/transform/dataTransform";
 
 interface Props {
   data: Schedule;
@@ -14,7 +15,12 @@ const TodayScheduleItem = ({ data }: Props) => {
           대상 :
         </S.TodayScheduleItemTargetCategory>
         <S.TodayScheduleItemTargetText>
-          {data.target}
+          {data.targetGrades.map((grade, idx) => (
+            <>
+              {dataTransform.scheduleTargetGradesTransform(grade)}
+              {idx !== data.targetGrades.length - 1 && ", "}
+            </>
+          ))}
         </S.TodayScheduleItemTargetText>
       </S.TodayScheduleItemTargetWrap>
     </S.TodayScheduleItemContainer>
