@@ -5,7 +5,7 @@ import { getMyPointParam } from "./point.param";
 class PointRepository {
   public async getMyPoint({ type }: getMyPointParam): Promise<MyPointResponse> {
     const { data } = await dodamTestAxios.get<MyPointResponse>(
-      `/point/my?type=${type}`
+      `/point/score/my?type=${type}`
     );
     return data;
   }
