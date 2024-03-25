@@ -52,7 +52,7 @@ export const PointCategoryItemCircle = styled.div`
   border-radius: 100%;
 `;
 
-export const PointChangeButton = styled.button<{ isDormitory: boolean }>`
+export const PointChangeButton = styled.button<{ isDormitory: string }>`
   width: 60px;
   height: 25px;
   border-radius: 15px;
@@ -62,7 +62,7 @@ export const PointChangeButton = styled.button<{ isDormitory: boolean }>`
   margin-left: auto;
 
   ${({ isDormitory }) =>
-    isDormitory
+    isDormitory === "DORMITORY"
       ? css`
           background-color: rgba(0, 103, 188, 0.85);
           color: white;

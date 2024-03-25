@@ -14,10 +14,13 @@ import { QUERY_KEYS } from "@src/queries/queryKey";
 import { AxiosError } from "axios";
 import errorResponseHandler from "@src/lib/axios/errorResponseHandler";
 import ErrorHandler from "@src/util/error/ErrorHandler";
+import { useRecoilValue } from "recoil";
+import { pointViewTypeAtom } from "@src/store/point/pointStore";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const type = useRecoilValue(pointViewTypeAtom);
 
   const [loginData, setLoginData] = useState<Login>({
     id: "",
@@ -65,7 +68,7 @@ const useLogin = () => {
 
         queryClient.invalidateQueries(QUERY_KEYS.member.getMy);
         queryClient.invalidateQueries(QUERY_KEYS.wakeupSong.getMy);
-        queryClient.invalidateQueries(QUERY_KEYS.point.getMy);
+        queryClient.invalidateQueries(QUERY_KEYS.point.getMy(type));
         navigate("/");
       } catch (error) {
         const errorCode = error as AxiosError;

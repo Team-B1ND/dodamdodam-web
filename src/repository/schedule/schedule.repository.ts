@@ -1,9 +1,9 @@
-import { dodamV6Axios } from "@src/lib/axios/customAxios";
+import { dodamTestAxios } from "@src/lib/axios/customAxios";
 import { TodayScheduleResponse } from "@src/types/schedule/schedule.type";
 
 class Schedule {
   public async getTodaySchedules(): Promise<TodayScheduleResponse> {
-    const { data } = await dodamV6Axios.get("/schedule/today");
+    const { data } = await dodamTestAxios.get("/schedule/today");
     return data;
   }
 }

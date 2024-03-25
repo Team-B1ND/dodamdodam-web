@@ -122,6 +122,21 @@ class DataTransform {
         };
     }
   }
+
+  public scheduleTargetGradesTransform(grade: string) {
+    switch (grade) {
+      case "GRADE_1":
+        return "1학년";
+      case "GRADE_2":
+        return "2학년";
+      case "GRADE_3":
+        return "3학년";
+      case "GRADE_ALL":
+        return "전교생";
+      case "GRADE_ETC":
+        return "기타";
+    }
+  }
 }
 
 export default new DataTransform();

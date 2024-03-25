@@ -6,16 +6,16 @@ import { MyPointResponse } from "@src/types/point/point.type";
 import { QUERY_KEYS } from "../queryKey";
 
 export const useGetMyPointQuery = (
-  { year }: getMyPointParam,
+  { type }: getMyPointParam,
   options?: UseQueryOptions<
     MyPointResponse,
     AxiosError,
     MyPointResponse,
-    string
+    string[]
   >
 ): UseQueryResult<MyPointResponse, AxiosError> =>
   useQuery(
-    QUERY_KEYS.point.getMy,
-    () => pointRepository.getMyPoint({ year }),
+    QUERY_KEYS.point.getMy(type),
+    () => pointRepository.getMyPoint({ type }),
     options
   );
