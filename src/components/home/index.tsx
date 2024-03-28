@@ -4,38 +4,36 @@ import Banner from "./Banner";
 import DevEvents from "./DevEvents";
 import Meal from "./Meal";
 import MyInfo from "./MyInfo";
-import Notice from "./Notice";
 import Point from "./Point";
-import { Column, Row } from "./style";
+import * as S from "./style";
 import TodaySchedule from "./TodaySchedule";
 import TodayWakeupSong from "./TodayWakeupSong";
 
 const Home = () => {
   return (
-    <>
-      <Notice />
-      <Column>
-        <Row>
-          <Column>
-            <Row>
+    <S.Container>
+      <S.Column>
+        <S.Row>
+          <S.Column>
+            <S.Row>
               <TodaySchedule />
               <Apply />
-            </Row>
+            </S.Row>
             <Banner />
-          </Column>
+          </S.Column>
           <MyInfo />
-        </Row>
-        <Row>
+        </S.Row>
+        <S.Row>
           <TodayWakeupSong />
           <Meal />
-          <Column>
+          <S.Column>
             <Point />
-          </Column>
-        </Row>
+          </S.Column>
+        </S.Row>
         <DevEventBanner />
         <DevEvents />
-      </Column>
-    </>
+      </S.Column>
+    </S.Container>
   );
 };
 
