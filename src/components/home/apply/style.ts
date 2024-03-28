@@ -79,3 +79,8 @@ export const ApplyFormWrap = styled.div`
   position: relative;
   overflow: hidden;
 `;
+
+export const LoadingText = styled.p`
+  text-align: center;
+  color: ${({ theme }) => theme.contrast};
+`;
