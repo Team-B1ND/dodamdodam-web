@@ -5,7 +5,7 @@ import {
   REQUEST_TOKEN_KEY,
 } from "@src/constants/token/token.constant";
 import token from "../token/token";
-import { dodamV6Axios } from "./customAxios";
+import { dodamAxios } from "./customAxios";
 import authRepository from "@src/repository/auth/auth.repository";
 
 //리프레쉬 작업중인지 아닌지를 구분하는 변수
@@ -48,7 +48,7 @@ const errorResponseHandler = async (error: AxiosError) => {
               refreshToken: usingRefreshToken,
             });
 
-          dodamV6Axios.defaults.headers.common[
+          dodamAxios.defaults.headers.common[
             REQUEST_TOKEN_KEY
           ] = `Bearer ${newAccessToken}`;
 
@@ -71,7 +71,7 @@ const errorResponseHandler = async (error: AxiosError) => {
       return new Promise((resolve) => {
         addRefreshSubscriber((accessToken: string) => {
           originalRequest.headers![REQUEST_TOKEN_KEY] = `Bearer ${accessToken}`;
-          resolve(dodamV6Axios(originalRequest));
+          resolve(dodamAxios(originalRequest));
         });
       });
     }

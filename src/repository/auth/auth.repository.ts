@@ -6,7 +6,7 @@ import config from "@src/config/config.json";
 class AuthRepository {
   public async login(loginData: LoginParam): Promise<LoginResponse> {
     const { data } = await axios.post(
-      `${config.DODAM_TEST_SERVER}/auth/login`,
+      `${config.DODAM_SERVER}/auth/login`,
       loginData
     );
     return data;

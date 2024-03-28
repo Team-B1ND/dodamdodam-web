@@ -5,9 +5,9 @@ import cookie from "@src/lib/cookie/cookie";
 export const getTheme = (): ETheme => {
   const themeMode = cookie.getCookie(THEME_KEY);
 
-  if (typeof window !== "undefined" && themeMode === null) {
+  if (typeof window !== "undefined" && !themeMode) {
     const isDarkTheme: boolean = window.matchMedia(
-      `(prefers-color-scheme: light)`
+      `(prefers-color-scheme: dark)`
     ).matches;
 
     if (isDarkTheme) {

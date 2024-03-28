@@ -1,6 +1,6 @@
 import config from "@src/config/config.json";
 import { MyMemberResponse } from "@src/types/member/member.type";
-import { dodamTestAxios, dodamV6Axios } from "@src/lib/axios/customAxios";
+import { dodamAxios } from "@src/lib/axios/customAxios";
 import { SignupParam } from "./member.param";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ class MemberRepository {
   }
 
   public async getMyMember(): Promise<MyMemberResponse> {
-    const { data } = await dodamTestAxios.get("/member/my");
+    const { data } = await dodamAxios.get("/member/my");
     return data;
   }
 }
