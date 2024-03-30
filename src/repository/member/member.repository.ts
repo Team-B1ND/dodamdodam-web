@@ -6,10 +6,7 @@ import axios from "axios";
 
 class MemberRepository {
   public async postMemberSignUp(signupData: SignupParam): Promise<void> {
-    await axios.post(
-      `${config.DODAM_TEST_SERVER}/member/join-student`,
-      signupData
-    );
+    await axios.post(`${config.DODAM_SERVER}/member/join-student`, signupData);
   }
 
   public async getMyMember(): Promise<MyMemberResponse> {
