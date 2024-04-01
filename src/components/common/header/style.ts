@@ -29,6 +29,12 @@ export const HeaderLogo = styled.div`
     width: 100%;
     object-fit: scale-down;
     margin: auto auto 23%;
+
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    &:active {
+      opacity: 0.5;
+    }
   }
 `;
 
