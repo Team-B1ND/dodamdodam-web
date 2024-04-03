@@ -28,7 +28,7 @@ const PointDashBoard = () => {
       </S.PointDashBoardContainer>
       <S.PointDashBoardContainer>
         <S.PointDashBoardGraphText>
-          {serverMyPointData?.data.minus} 점
+          {serverMyPointData?.data.minus}점
         </S.PointDashBoardGraphText>
         <S.PointDashBoardGraph
           point={serverMyPointData?.data.minus!}
