@@ -21,14 +21,7 @@ const createAxiosInstance = (config?: AxiosRequestConfig) => {
 };
 
 export const dodamAxios = createAxiosInstance({
-  baseURL: config.DODAM_TEST_SERVER,
-  headers: {
-    [REQUEST_TOKEN_KEY]: `Bearer ${token.getToken(ACCESS_TOKEN_KEY)}`!,
-  },
-});
-
-export const dodamTestAxios = createAxiosInstance({
-  baseURL: config.DODAM_TEST_SERVER,
+  baseURL: config.DODAM_SERVER,
   headers: {
     [REQUEST_TOKEN_KEY]: `Bearer ${token.getToken(ACCESS_TOKEN_KEY)}`!,
   },
