@@ -173,7 +173,6 @@ const useApplyPass = () => {
     []
   );
 
-  //외출 신청 함수
   const submitPassData = useCallback(async () => {
     const {
       startTimeHour,
@@ -246,14 +245,8 @@ const useApplyPass = () => {
             setPassData((prev) => ({ ...prev, [key]: "" }));
           }
         },
-        onError: (err, query) => {
+        onError: () => {
           showToast("외출 신청 실패", "ERROR");
-          withScope((scope) => {
-            scope.setContext("query", { queryHash: query.reason });
-            captureException(
-              `${query.reason}한 이유로 신청한 외출이 ${err}한 에러로 실패`
-            );
-          });
         },
       });
     } else {
@@ -274,14 +267,8 @@ const useApplyPass = () => {
             });
             showToast("외출 수정 성공", "SUCCESS");
           },
-          onError: (err, query) => {
+          onError: () => {
             showToast("외출 수정 실패", "ERROR");
-            withScope((scope) => {
-              scope.setContext("query", { queryHash: query.reason });
-              captureException(
-                `${query.reason}한 이유로 신청한 외출이 ${err}에러로 수정 실패`
-              );
-            });
           },
         }
       );
