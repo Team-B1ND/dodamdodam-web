@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import dataTransform from "@src/util/transform/dataTransform";
 import * as S from "./style";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import DefaultProfileImage from "@src/assets/images/common/defaultProfile.png";
 import { useGetMyMemberQuery } from "@src/queries/member/member.query";
 import useLogout from "@src/hooks/auth/useLogout";
@@ -28,13 +27,7 @@ const MyInfoHeaderForm = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const redirect = () => {
-    postModuleLogMutation.mutate({
-      moduleName: "메인",
-      description: "메인에서 내정보 페이지로 이동",
-    });
     window.location.href = "http://dodam.b1nd.com/myinfo";
   };
 

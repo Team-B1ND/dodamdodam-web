@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 import dataCheck from "@src/util/check/dataCheck";
 import { useQueryClient } from "react-query";
 import showToast from "@src/lib/toast/toast";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { captureException, withScope } from "@sentry/react";
 
 const useApplyPass = () => {
@@ -35,7 +34,6 @@ const useApplyPass = () => {
   const postApplyPassMutation = usePostApplyPassMutation();
   const putApplyPassMutation = usePutApplyPassMutation();
   const deleteMyPassMutation = useDeleteMyPassMutation();
-  const postModuleLogMutation = usePostModuleLogMutation();
 
   const [isFold, setIsFold] = useState(true);
 
@@ -129,10 +127,6 @@ const useApplyPass = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("pass/getMyPasses");
-            postModuleLogMutation.mutate({
-              description: "외출 삭제",
-              moduleName: "메인/외출신청",
-            });
             showToast("외출 삭제 성공", "SUCCESS");
           },
           onError: (err, query) => {
@@ -236,10 +230,6 @@ const useApplyPass = () => {
       postApplyPassMutation.mutateAsync(validApplyPass, {
         onSuccess: () => {
           queryClient.invalidateQueries("pass/getMyPasses");
-          postModuleLogMutation.mutate({
-            description: "외출 신청",
-            moduleName: "메인/외출신청",
-          });
           showToast("외출 신청 성공", "SUCCESS");
           for (let key in passData) {
             setPassData((prev) => ({ ...prev, [key]: "" }));
@@ -261,10 +251,6 @@ const useApplyPass = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("pass/getMyPasses");
-            postModuleLogMutation.mutate({
-              description: "외출 수정",
-              moduleName: "메인/외출신청",
-            });
             showToast("외출 수정 성공", "SUCCESS");
           },
           onError: () => {

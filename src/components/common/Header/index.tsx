@@ -4,11 +4,8 @@ import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "@src/constants/header/header.constant";
 import { pageView } from "@src/lib/ga/gtag";
 import { track } from "@amplitude/analytics-browser";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 const Header = () => {
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const currentSelect = "홈";
 
   return (
@@ -25,10 +22,6 @@ const Header = () => {
             >
               <span
                 onClick={() => {
-                  postModuleLogMutation.mutate({
-                    description: `메인페이지에서 ${link.name}페이지로 접근`,
-                    moduleName: link.name,
-                  });
                   pageView(link.name);
                   track(link.name + "접속");
                   window.location.href = link.link;
