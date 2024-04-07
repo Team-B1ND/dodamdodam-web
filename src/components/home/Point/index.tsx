@@ -3,7 +3,6 @@ import * as S from "./style";
 import PointChartIcon from "@src/assets/icons/point/pointChart.png";
 import { useRecoilState } from "recoil";
 import { pointViewTypeAtom } from "@src/store/point/pointStore";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import PointDashBoard from "./PointDashBoard";
@@ -14,24 +13,10 @@ const Point = () => {
   const [isDormitoryPointView, setIsDormitoryPointView] =
     useRecoilState(pointViewTypeAtom);
 
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const onChangeView = () => {
-    setIsDormitoryPointView((prev) => {
-      if (prev === "DORMITORY") {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "기숙사 상벌점 조회",
-        });
-      } else {
-        postModuleLogMutation.mutate({
-          moduleName: "메인/상벌점",
-          description: "학교 상벌점 조회",
-        });
-      }
-
-      return prev === "DORMITORY" ? "SCHOOL" : "DORMITORY";
-    });
+    setIsDormitoryPointView((prev) =>
+      prev === "DORMITORY" ? "SCHOOL" : "DORMITORY"
+    );
   };
 
   return (

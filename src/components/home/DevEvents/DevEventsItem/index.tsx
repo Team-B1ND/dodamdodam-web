@@ -3,22 +3,15 @@ import * as S from "./style";
 import NoImageImage from "@src/assets/images/common/noImage.svg";
 import dataTransform from "@src/util/transform/dataTransform";
 import { DevEvent } from "@src/types/devEvent/devEvent.type";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 
 interface Props {
   data: DevEvent;
 }
 
 const DevEventsItem = ({ data }: Props) => {
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const DevEventData = dataTransform.devEventTypeTransform(data.eventType);
 
   const redirect = () => {
-    postModuleLogMutation.mutate({
-      moduleName: "메인/개발자행사",
-      description: `${data.title}행사 조회`,
-    });
     window.open(data.link);
   };
 
