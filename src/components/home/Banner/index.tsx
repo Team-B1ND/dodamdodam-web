@@ -39,7 +39,7 @@ const Banner = () => {
         {approveBanners.map((banner) => (
           <BannerItem
             title={banner.title}
-            imgSrc={banner.image}
+            imgSrc={banner.imageUrl}
             redirectURL={banner.redirectUrl}
             key={banner.id}
           />
@@ -47,9 +47,7 @@ const Banner = () => {
       </Slider>
       {isBannerAuthority && (
         <S.BannerManageButton
-          onClick={() =>
-            window.open("http://dodam.b1nd.com/bannersetting", "_blank")
-          }
+          onClick={() => window.open("http://dodam.b1nd.com/banner", "_blank")}
         >
           <IoOptionsOutline />
         </S.BannerManageButton>

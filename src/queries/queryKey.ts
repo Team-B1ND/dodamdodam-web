@@ -1,3 +1,5 @@
+import { PointType } from "@src/repository/point/point.param";
+
 export const QUERY_KEYS = {
   banner: {
     get: "banner/getBanners",
@@ -11,9 +13,6 @@ export const QUERY_KEYS = {
   },
   leave: {
     getMy: "leave/getMyLeaves",
-  },
-  lostStuff: {
-    getMy: "lostStuff/getMyLostStuff",
   },
   meal: {
     get: "meal/getMeal",
@@ -34,7 +33,7 @@ export const QUERY_KEYS = {
     get: "place/getPlaces",
   },
   point: {
-    getMy: "point/getMyPoint",
+    getMy: (type: PointType) => ["point/getMyPoint", type],
   },
   schedule: {
     getToday: "schedule/getTodaySchedule",

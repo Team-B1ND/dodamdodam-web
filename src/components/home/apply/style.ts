@@ -38,7 +38,7 @@ export const ApplyTitleText = styled.h1`
 `;
 
 export const ApplyTitleItemWrap = styled.div`
-  width: 276px;
+  width: 230px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -78,4 +78,9 @@ export const ApplyFormWrap = styled.div`
   padding-top: 20px;
   position: relative;
   overflow: hidden;
+`;
+
+export const LoadingText = styled.p`
+  text-align: center;
+  color: ${({ theme }) => theme.contrast};
 `;

@@ -1,10 +1,11 @@
 export interface Schedule {
   readonly id: number;
-  endDate: string;
   name: string;
-  plcae: string | null;
+  place: string;
+  type: "ACADEMIC" | "HOLIDAY";
   startDate: string;
-  target: string;
+  endDate: string;
+  targetGrades: string[];
 }
 
 export interface TodayScheduleResponse extends Response {

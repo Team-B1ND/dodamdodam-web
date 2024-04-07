@@ -1,4 +1,4 @@
-export const APPLY_ITEMS = ["자습실", "외출", "외박", "버스"] as const;
+export const APPLY_ITEMS = ["외출", "외박", "버스"] as const;
 
 export const APPLY_STUDY_ROOMS_TIMETABLE_WEEKDAY = [
   {

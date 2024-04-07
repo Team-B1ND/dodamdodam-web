@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const MyInfoWakeupSongItemContainer = styled.div`
   width: 100%;
   min-height: 70px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,6 +43,7 @@ export const MyInfoWakeupSongItemTitle = styled.h1`
 
 export const MyInfoWakeupSongItemSubInfoWrap = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -55,7 +57,7 @@ export const MyInfoWakeupSongItemSubTitle = styled.span`
 `;
 
 export const MyInfoWakeupSongItemApproveLabel = styled.div<{
-  status: "PENDING" | "ALLOWED" | "DENIED";
+  status: string;
 }>`
   min-width: 35px;
   height: 20px;
@@ -65,6 +67,5 @@ export const MyInfoWakeupSongItemApproveLabel = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-
-  ${({ status }) => status === "PENDING" && "background-color : #ffa94d"};
+  background-color: ${({ status }) => status};
 `;

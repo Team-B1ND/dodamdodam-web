@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 import dataCheck from "@src/util/check/dataCheck";
 import { useQueryClient } from "react-query";
 import showToast from "@src/lib/toast/toast";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { captureException, withScope } from "@sentry/react";
 
 const useApplyPass = () => {
@@ -35,7 +34,6 @@ const useApplyPass = () => {
   const postApplyPassMutation = usePostApplyPassMutation();
   const putApplyPassMutation = usePutApplyPassMutation();
   const deleteMyPassMutation = useDeleteMyPassMutation();
-  const postModuleLogMutation = usePostModuleLogMutation();
 
   const [isFold, setIsFold] = useState(true);
 
@@ -58,18 +56,12 @@ const useApplyPass = () => {
   const transformNotApprovedPass = (
     notApprovedPass: AppliedPass
   ): ApplyPass => {
-    const { endOutDate, startOutDate, id } = notApprovedPass;
+    const { endAt, startAt, id } = notApprovedPass;
 
     //시간은 05:30 이 형식일텐데 여기서 ':'기준으로 구분하여 시간과 분을 추출
-    const validStartTime = dateTransform
-      .fullDate(startOutDate)
-      .slice(10)
-      .split(":");
+    const validStartTime = dateTransform.fullDate(startAt).slice(10).split(":");
 
-    const validEndTime = dateTransform
-      .fullDate(endOutDate)
-      .slice(10)
-      .split(":");
+    const validEndTime = dateTransform.fullDate(endAt).slice(10).split(":");
 
     return {
       idx: id,
@@ -95,9 +87,9 @@ const useApplyPass = () => {
       setPassDataDate(dateTransform.hyphen());
     } else {
       if (notApprovedPasses?.length !== 0) {
-        const { startOutDate } = notApprovedPasses![0];
+        const { startAt } = notApprovedPasses![0];
 
-        const passDate = dateTransform.fullDate(startOutDate).slice(0, 10);
+        const passDate = dateTransform.fullDate(startAt).slice(0, 10);
 
         setPassData({
           ...transformNotApprovedPass(notApprovedPasses![0]),
@@ -116,8 +108,8 @@ const useApplyPass = () => {
         (pass) => pass.id === idx
       )!;
 
-      const { startOutDate } = notApprovePass;
-      const passDate = dateTransform.fullDate(startOutDate).slice(0, 10);
+      const { startAt } = notApprovePass;
+      const passDate = dateTransform.fullDate(startAt).slice(0, 10);
       setPassData({
         ...transformNotApprovedPass(notApprovePass),
         ...notApprovePass,
@@ -131,23 +123,17 @@ const useApplyPass = () => {
   const deleteNotApprovedPass = useCallback(
     async (idx: number) => {
       deleteMyPassMutation.mutateAsync(
-        { outgoingId: idx + "" },
+        { id: idx + "" },
         {
           onSuccess: () => {
             queryClient.invalidateQueries("pass/getMyPasses");
-            postModuleLogMutation.mutate({
-              description: "외출 삭제",
-              moduleName: "메인/외출신청",
-            });
             showToast("외출 삭제 성공", "SUCCESS");
           },
           onError: (err, query) => {
             showToast("외출 삭제 실패", "ERROR");
             withScope((scope) => {
-              scope.setContext("query", { queryHash: query.outgoingId });
-              captureException(
-                `${query.outgoingId}번이 ${err}이유로 외출 삭제 실패`
-              );
+              scope.setContext("query", { queryHash: query.id });
+              captureException(`${query.id}번이 ${err}이유로 외출 삭제 실패`);
             });
           },
         }
@@ -181,7 +167,6 @@ const useApplyPass = () => {
     []
   );
 
-  //외출 신청 함수
   const submitPassData = useCallback(async () => {
     const {
       startTimeHour,
@@ -193,18 +178,18 @@ const useApplyPass = () => {
 
     const validApplyPass = {
       reason,
-      startOutDate: dayjs(
+      startAt: dayjs(
         `${passDataDate} ${startTimeHour}:${startTimeMinute}`
-      ).format(),
-      endOutDate: dayjs(
-        `${passDataDate} ${endTimeHour}:${endTimeMinute}`
-      ).format(),
+      ).format("YYYY-MM-DDThh:mm:ss"),
+      endAt: dayjs(`${passDataDate} ${endTimeHour}:${endTimeMinute}`).format(
+        "YYYY-MM-DDThh:mm:ss"
+      ),
     };
 
-    const startTimeIsAfter = dayjs(validApplyPass.startOutDate).isAfter(
+    const startTimeIsAfter = dayjs(validApplyPass.startAt).isAfter(
       dateTransform.fullDate()
     );
-    const endTimeIsAfter = dayjs(validApplyPass.endOutDate).isAfter(
+    const endTimeIsAfter = dayjs(validApplyPass.endAt).isAfter(
       dateTransform.fullDate()
     );
 
@@ -230,9 +215,7 @@ const useApplyPass = () => {
       return;
     }
 
-    if (
-      !dayjs(validApplyPass.endOutDate).isAfter(validApplyPass.startOutDate)
-    ) {
+    if (!dayjs(validApplyPass.endAt).isAfter(validApplyPass.startAt)) {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
@@ -247,23 +230,13 @@ const useApplyPass = () => {
       postApplyPassMutation.mutateAsync(validApplyPass, {
         onSuccess: () => {
           queryClient.invalidateQueries("pass/getMyPasses");
-          postModuleLogMutation.mutate({
-            description: "외출 신청",
-            moduleName: "메인/외출신청",
-          });
           showToast("외출 신청 성공", "SUCCESS");
           for (let key in passData) {
             setPassData((prev) => ({ ...prev, [key]: "" }));
           }
         },
-        onError: (err, query) => {
+        onError: () => {
           showToast("외출 신청 실패", "ERROR");
-          withScope((scope) => {
-            scope.setContext("query", { queryHash: query.reason });
-            captureException(
-              `${query.reason}한 이유로 신청한 외출이 ${err}한 에러로 실패`
-            );
-          });
         },
       });
     } else {
@@ -278,20 +251,10 @@ const useApplyPass = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries("pass/getMyPasses");
-            postModuleLogMutation.mutate({
-              description: "외출 수정",
-              moduleName: "메인/외출신청",
-            });
             showToast("외출 수정 성공", "SUCCESS");
           },
-          onError: (err, query) => {
+          onError: () => {
             showToast("외출 수정 실패", "ERROR");
-            withScope((scope) => {
-              scope.setContext("query", { queryHash: query.reason });
-              captureException(
-                `${query.reason}한 이유로 신청한 외출이 ${err}에러로 수정 실패`
-              );
-            });
           },
         }
       );

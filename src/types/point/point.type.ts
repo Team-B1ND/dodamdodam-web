@@ -1,13 +1,19 @@
+import { PointType } from "@src/repository/point/point.param";
 import { Response } from "../util/response.type";
 
 export interface MyPointResponse extends Response {
   data: {
-    readonly domBonus: number;
-    readonly domMinus: number;
-    readonly schBonus: number;
-    readonly schMinus: number;
+    id: number;
+    bonus: number;
+    minus: number;
+    offset: number;
+    type: PointType;
     student: {
-      readonly id: number;
+      id: number;
+      name: string;
+      grade: number;
+      room: number;
+      number: number;
     };
   };
 }

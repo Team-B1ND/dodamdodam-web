@@ -1,7 +1,7 @@
 import { Pass } from "@src/types/pass/pass.type";
 
 export interface deleteMyPassParam {
-  outgoingId: string;
+  id: string;
 }
 
 export interface postApplyPassParam extends Pass {}

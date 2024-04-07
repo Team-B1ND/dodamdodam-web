@@ -28,8 +28,8 @@ export const usePostMyBusMutation = () => {
 };
 
 export const usePatchMyBusMutation = () => {
-  const mutation = useMutation(({ idx, originIdx }: patchMyBusParam) =>
-    busRepository.patchMyBus({ idx, originIdx })
+  const mutation = useMutation(({ idx }: patchMyBusParam) =>
+    busRepository.patchMyBus({ idx })
   );
   return mutation;
 };

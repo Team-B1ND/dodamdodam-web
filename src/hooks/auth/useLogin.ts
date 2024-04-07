@@ -1,4 +1,3 @@
-import { sha512 } from "js-sha512";
 import { FormEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authRepository from "@src/repository/auth/auth.repository";
@@ -11,12 +10,17 @@ import {
 import showToast from "@src/lib/toast/toast";
 import { useQueryClient } from "react-query";
 import * as Sentry from "@sentry/react";
-import { Axios, AxiosError } from "axios";
 import { QUERY_KEYS } from "@src/queries/queryKey";
+import { AxiosError } from "axios";
+import errorResponseHandler from "@src/lib/axios/errorResponseHandler";
+import ErrorHandler from "@src/util/error/ErrorHandler";
+import { useRecoilValue } from "recoil";
+import { pointViewTypeAtom } from "@src/store/point/pointStore";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const type = useRecoilValue(pointViewTypeAtom);
 
   const [loginData, setLoginData] = useState<Login>({
     id: "",
@@ -52,23 +56,26 @@ const useLogin = () => {
 
       const validLoginData: Login = {
         id,
-        pw: sha512(pw),
+        pw,
       };
 
       try {
-        const {
-          data: { member, token: accessToken, refreshToken },
-        } = await authRepository.login(validLoginData);
+        const { data } = await authRepository.login(validLoginData);
 
-        token.setToken(ACCESS_TOKEN_KEY, accessToken);
-        token.setToken(REFRESH_TOKEN_KEY, refreshToken);
+        token.setToken(ACCESS_TOKEN_KEY, data.accessToken);
+        token.setToken(REFRESH_TOKEN_KEY, data.refreshToken);
         showToast("로그인 성공", "SUCCESS");
+
         queryClient.invalidateQueries(QUERY_KEYS.member.getMy);
         queryClient.invalidateQueries(QUERY_KEYS.wakeupSong.getMy);
-        queryClient.invalidateQueries(QUERY_KEYS.point.getMy);
+        queryClient.invalidateQueries(QUERY_KEYS.point.getMy(type));
         navigate("/");
       } catch (error) {
-        showToast("로그인 실패", "ERROR");
+        const errorCode = error as AxiosError;
+        showToast(
+          ErrorHandler.loginError(errorCode.response?.status!),
+          "ERROR"
+        );
         Sentry.captureException(`이러한 문제로 로그인 실패 ${error}`);
       }
     },

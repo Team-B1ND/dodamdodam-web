@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Meal } from "@src/types/meal/meal.type";
 import mealRepository from "@src/repository/meal/meal.repository";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { useRecoilValue } from "recoil";
 import { mealDateAtom } from "@src/store/meal/mealStore";
 import * as Sentry from "@sentry/react";
@@ -11,8 +10,6 @@ const useMeal = () => {
 
   const [meal, setMeal] = useState<Meal>();
 
-  const postModuleLogMutation = usePostModuleLogMutation();
-
   const requestMeals = useCallback(async () => {
     try {
       const dates = mealDate.split("-");
@@ -21,11 +18,6 @@ const useMeal = () => {
         year: dates[0],
         month: dates[1],
         day: dates[2],
-      });
-
-      postModuleLogMutation.mutate({
-        moduleName: "메인/급식",
-        description: `${dates[0]}-${dates[1]}-${dates[2]} 급식 조회`,
       });
 
       setMeal(data);

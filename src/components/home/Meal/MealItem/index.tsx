@@ -1,16 +1,18 @@
 import React from "react";
 import { EMealType } from "@src/enum/meal/meal.enum";
 import * as S from "./style";
+import { MealData } from "@src/types/meal/meal.type";
 
 interface Props {
-  mealData: string;
+  mealData: MealData;
   mealType: EMealType;
   mealIconSrc: string;
   isMealTime: boolean;
 }
 
 const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
-  const validMealData = mealData?.split(",");
+  const makeCommaIfNotLast = (idx: number) =>
+    idx !== mealData?.details.length - 1 ? "," : "";
 
   return (
     <S.MealItemContainer isMealTime={isMealTime} mealType={mealType}>
@@ -23,13 +25,11 @@ const MealItem = ({ mealData, mealType, mealIconSrc, isMealTime }: Props) => {
           {String(mealType)}
         </S.MealItemIconLabel>
       </S.MealItemIconWrap>
+
       <S.MealItemTextWrap>
-        {validMealData?.map((meal, idx) => {
-          if (idx === validMealData?.length - 1) {
-            return <span key={idx}>{meal}</span>;
-          }
-          return <span key={idx}>{meal}, </span>;
-        }) || `${String(mealType)}이 없습니다.`}
+        {mealData?.details.map(
+          (meal, idx) => ` ${meal.name.concat(makeCommaIfNotLast(idx))}`
+        ) || `${String(mealType)}이 없습니다.`}
       </S.MealItemTextWrap>
     </S.MealItemContainer>
   );

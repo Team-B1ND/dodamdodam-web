@@ -66,10 +66,7 @@ export const MealItemTextWrap = styled.div`
   color: ${({ theme }) => theme.contrast};
   display: flex;
   flex-wrap: wrap;
-  font-size: 14px;
 
-  span {
-    font-size: 14px;
-    line-height: 18px;
-  }
+  font-size: 14px;
+  line-height: 18px;
 `;

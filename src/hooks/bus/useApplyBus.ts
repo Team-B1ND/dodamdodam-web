@@ -8,7 +8,6 @@ import {
   usePostMyBusMutation,
 } from "@src/queries/bus/bus.query";
 import { Bus } from "@src/types/bus/bus.type";
-import { usePostModuleLogMutation } from "@src/queries/log/log.query";
 import { captureException, withScope } from "@sentry/react";
 
 const useApplyBus = () => {
@@ -23,7 +22,6 @@ const useApplyBus = () => {
 
   const postMyBusMutation = usePostMyBusMutation();
   const patchMyBusMutation = usePatchMyBusMutation();
-  const postModuleLogMutation = usePostModuleLogMutation();
 
   //버스 리스트를 담는 상태
   const [busList, setBusList] = useState<Bus[]>([]);
@@ -36,10 +34,10 @@ const useApplyBus = () => {
 
   useEffect(() => {
     if (!busesDataIsLoading) {
-      if (busesData?.data) {
+      if (busesData?.data.length! > 0) {
         const validBusesData = busesData?.data;
-        setBusDate(validBusesData.date);
-        setBusList(validBusesData.bus);
+        setBusDate(validBusesData![0].leaveTime); // 모든 버스는 같은시각에 출발하기에 첫번째 인덱스 날짜를 써도 무방함.
+        setBusList(validBusesData!);
       }
     }
   }, [busesData, busesDataIsLoading]);
@@ -72,16 +70,11 @@ const useApplyBus = () => {
       patchMyBusMutation.mutateAsync(
         {
           idx: String(selectBusIdx),
-          originIdx: String(wasCheckedIdx),
         },
         {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
             queryClient.invalidateQueries("bus/getBuses");
-            postModuleLogMutation.mutate({
-              moduleName: "메인/버스신청",
-              description: "버스 수정",
-            });
             setWasCheckedIdx(selectBusIdx);
             showToast("버스 신청 수정 성공", "SUCCESS");
           },
@@ -101,10 +94,6 @@ const useApplyBus = () => {
           onSuccess: () => {
             queryClient.invalidateQueries("bus/getMyBus");
             queryClient.invalidateQueries("bus/getBuses");
-            postModuleLogMutation.mutate({
-              moduleName: "메인/버스신청",
-              description: "버스 신청",
-            });
             setWasCheckedIdx(selectBusIdx);
             showToast("버스 신청 성공", "SUCCESS");
           },

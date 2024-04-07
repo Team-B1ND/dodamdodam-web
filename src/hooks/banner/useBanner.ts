@@ -1,7 +1,7 @@
-import { useGetMyPermissionQuery } from "@src/queries/permission/permission.query";
 import { useEffect, useState } from "react";
 import { useGetBannersQuery } from "@src/queries/banner/banner.query";
 import { Banner } from "@src/types/banner/banner.type";
+import { useGetMyMemberQuery } from "@src/queries/member/member.query";
 
 const useBanner = () => {
   const bannersData = useGetBannersQuery({
@@ -9,7 +9,7 @@ const useBanner = () => {
     staleTime: 1000 * 60 * 30,
   }).data?.data;
 
-  const permissionData = useGetMyPermissionQuery({
+  const memberData = useGetMyMemberQuery({
     cacheTime: 1000 * 60 * 60 * 24,
     staleTime: 1000 * 60 * 30 * 24,
   }).data?.data;
@@ -18,18 +18,14 @@ const useBanner = () => {
   const [isBannerAuthority, setIsBanneerAuthority] = useState<boolean>(false);
 
   useEffect(() => {
-    if (permissionData) {
-      if (
-        permissionData.find(
-          (permission) => permission.permission === "CTRL_BANNER"
-        )
-      ) {
+    if (memberData) {
+      if (memberData.role === "ADMIN") {
         setIsBanneerAuthority(true);
       } else {
         setIsBanneerAuthority(false);
       }
     }
-  }, [permissionData]);
+  }, [memberData]);
 
   useEffect(() => {
     if (bannersData) {

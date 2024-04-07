@@ -1,11 +1,11 @@
-import { sha512 } from "js-sha512";
 import showToast from "@src/lib/toast/toast";
 import React, { useCallback, useState } from "react";
-import authRepository from "@src/repository/auth/auth.repository";
 import { Signup, SignupAgree } from "@src/types/signup/signup.type";
 import patternCheck from "@src/util/check/patternCheck";
-import { captureException } from "@sentry/react";
 import * as Sentry from "@sentry/react";
+import memberRepository from "@src/repository/member/member.repository";
+import ErrorHandler from "@src/util/error/ErrorHandler";
+import { AxiosError } from "axios";
 
 const useSignup = () => {
   const [section, setSection] = useState("first");
@@ -101,21 +101,18 @@ const useSignup = () => {
 
     const validSignupData: Signup = {
       ...signupData,
-      pw: sha512(pw),
       grade: Number(grade),
       room: Number(room),
       number: Number(number),
     };
 
     try {
-      await authRepository.signup(validSignupData);
-      showToast(
-        "회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)",
-        "SUCCESS"
-      );
+      await memberRepository.postMemberSignUp(validSignupData);
+      window.alert("회원가입에 성공했습니다.(관리자 승인을 기다려주세요!)");
       window.location.reload();
     } catch (error) {
-      showToast("회원가입에 실패했습니다.", "ERROR");
+      const errorCode = error as AxiosError;
+      showToast(ErrorHandler.signupError(errorCode.response?.status!), "ERROR");
       Sentry.captureException(`이러한 문제로 회원가입 실패 ${error}`);
     }
   }, [agrees, signupData]);

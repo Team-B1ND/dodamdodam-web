@@ -1,22 +1,21 @@
+import { Student } from "../member/member.type";
 import { Response } from "../util/response.type";
 
 export interface Leave {
-  endOutDate: string;
+  endAt: string;
   reason: string;
-  startOutDate: string;
+  startAt: string;
 }
 
-export interface AppliedLeave extends Leave {
-  arrivedDate: null | string;
-  checkedDate: null | string;
+export interface AppliedLeave {
   id: number;
-  readonly status: "ALLOWED" | "PENDING" | "DENIED";
-  student: {
-    id: number;
-  };
-  teacher: {
-    id: number;
-  };
+  reason: string;
+  status: string; //ALLOWED, PENDING, DENY
+  student: Student;
+  startAt: string;
+  endAt: string;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 export interface ApplyLeave {

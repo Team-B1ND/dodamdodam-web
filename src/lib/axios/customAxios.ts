@@ -20,17 +20,17 @@ const createAxiosInstance = (config?: AxiosRequestConfig) => {
   });
 };
 
-export const dodamV6Axios = createAxiosInstance({
-  baseURL: config.DODAM_SERVER_V6,
+export const dodamAxios = createAxiosInstance({
+  baseURL: config.DODAM_SERVER,
   headers: {
     [REQUEST_TOKEN_KEY]: `Bearer ${token.getToken(ACCESS_TOKEN_KEY)}`!,
   },
 });
 
-export const dodamV6AxiosSetAccessToken = (token: string) => {
-  dodamV6Axios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
+export const dodamAxiosSetAccessToken = (token: string) => {
+  dodamAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
 };
 
-dodamV6Axios.interceptors.request.use(requestHandler, (res) => res);
+dodamAxios.interceptors.request.use(requestHandler, (res) => res);
 
-dodamV6Axios.interceptors.response.use((res) => res, errorResponseHandler);
+dodamAxios.interceptors.response.use((res) => res, errorResponseHandler);
