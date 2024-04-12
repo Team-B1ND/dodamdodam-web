@@ -9,6 +9,8 @@ import {
 } from "@src/queries/bus/bus.query";
 import { Bus } from "@src/types/bus/bus.type";
 import { captureException, withScope } from "@sentry/react";
+import { AxiosError } from "axios";
+import ErrorHandler from "@src/util/error/ErrorHandler";
 
 const useApplyBus = () => {
   const queryClient = useQueryClient();
@@ -79,7 +81,7 @@ const useApplyBus = () => {
             showToast("버스 신청 수정 성공", "SUCCESS");
           },
           onError: (err, query) => {
-            showToast("버스 신청 수정 실패", "ERROR");
+            showToast(ErrorHandler.busError(err as AxiosError)!, "ERROR");
             withScope((scope) => {
               scope.setContext("query", { queryHash: query.idx });
               captureException(`${query.idx}에서  ${err}이유로 버스 신청 실패`);
@@ -98,7 +100,7 @@ const useApplyBus = () => {
             showToast("버스 신청 성공", "SUCCESS");
           },
           onError: (err, query) => {
-            showToast("버스 신청 실패", "ERROR");
+            showToast(ErrorHandler.busError(err as AxiosError)!, "ERROR");
             withScope((scope) => {
               scope.setContext("query", { queryHash: query.idx });
               captureException(`${query.idx}에서  ${err}이유로 버스 신청 실패`);

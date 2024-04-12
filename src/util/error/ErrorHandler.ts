@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 class ErrorHandler {
   loginError = (status: number) => {
     switch (status) {
@@ -20,6 +22,20 @@ class ErrorHandler {
         return "서버 오류가 발생하였습니다.";
       default:
         return "회원가입에 실패하였습니다.";
+    }
+  };
+
+  busError = (error: AxiosError) => {
+    const status = error.response?.status;
+    const message = (error.response?.data as AxiosError)?.message;
+
+    switch (status) {
+      case 423:
+        return "버스가 만석입니다.";
+      case 500:
+        return "서버 오류가 발생하였습니다.";
+      default:
+        return message;
     }
   };
 }
