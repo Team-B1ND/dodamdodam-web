@@ -48,7 +48,6 @@ const useApplyBus = () => {
     if (myBusData && !myBusDataIsLoading) {
       if (myBusData.data) {
         const recentMyBusData = myBusData?.data;
-        console.log(recentMyBusData);
 
         setSelectBusIdx(recentMyBusData!.id);
         setWasCheckedIdx(recentMyBusData!.id);

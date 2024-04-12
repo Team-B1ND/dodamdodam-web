@@ -41,8 +41,6 @@ const useApplyLeave = () => {
     reason: "",
   });
 
-  console.log(leaveData);
-
   useEffect(() => {
     if (appliedLeaves) {
       const validNotApprovedLeaves = appliedLeaves.filter(
