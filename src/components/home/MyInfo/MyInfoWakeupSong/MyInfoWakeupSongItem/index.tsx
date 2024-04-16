@@ -14,7 +14,7 @@ const myInfoWakeupSongItem = ({ wakeupSongData }: Props) => {
       onClick={() => window.open(wakeupSongData.videoUrl)}
     >
       <S.MyInfoWakeupSongItemImg
-        src={wakeupSongData.thumbnailUrl}
+        src={wakeupSongData.thumbnail}
         alt={"myInfoWakeupSongItem/myInfoWakeupSongItemImg"}
       />
       <S.MyInfoWakeupSongItemInfoWrap>

@@ -2,7 +2,7 @@ import { Response } from "@src/types/util/response.type";
 
 export interface WakeupSong {
   readonly id: 0;
-  readonly thumbnailUrl: string;
+  readonly thumbnail: string;
   readonly videoTitle: string;
   readonly videoId: string;
   readonly videoUrl: string;

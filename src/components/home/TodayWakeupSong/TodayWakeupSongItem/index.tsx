@@ -8,7 +8,7 @@ interface Props {
 const TodayWakeupSongItem = ({ wakeupSongData }: Props) => (
   <S.TodayWakeupSongItemContainer>
     <S.TodayWakeupSongItemBackgroundWrap>
-      <S.TodayWakeupSongItemBackground src={wakeupSongData.thumbnailUrl} />
+      <S.TodayWakeupSongItemBackground src={wakeupSongData.thumbnail} />
       <S.TodayWakeupSongItemTextWrap>
         <S.TodayWakeupSongItemText>
           {wakeupSongData.videoTitle}
