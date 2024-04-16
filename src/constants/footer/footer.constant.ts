@@ -94,11 +94,11 @@ export const FOOTER_MOBILE_ITEMS = [
   {
     icon: RiGooglePlayFill,
     title: "Google Play",
-    link: "https://play.google.com/store/apps/details?id=kr.hs.dgsw.smartschool.dodamdodam",
+    link: "https://dodam.b1nd.com/android",
   },
   {
     icon: RiAppleFill,
     title: "App Store",
-    link: "https://apps.apple.com/kr/app/%EB%8F%84%EB%8B%B4%EB%8F%84%EB%8B%B4/id1549451556",
+    link: "https://dodam.b1nd.com/ios",
   },
 ];
