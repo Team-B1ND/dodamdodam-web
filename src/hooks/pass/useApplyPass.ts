@@ -22,6 +22,8 @@ const useApplyPass = () => {
     cacheTime: 1000 * 60,
   }).data?.data;
 
+  console.log(appliedPasses);
+
   const [passData, setPassData] = useState<ApplyPass>({
     startTimeHour: "",
     startTimeMinute: "",
@@ -210,10 +212,10 @@ const useApplyPass = () => {
       return;
     }
 
-    if (!startTimeIsAfter || !endTimeIsAfter) {
-      showToast("현재 시간 이후로 입력해주세요!", "INFO");
-      return;
-    }
+    // if (!startTimeIsAfter || !endTimeIsAfter) {
+    //   showToast("현재 시간 이후로 입력해주세요!", "INFO");
+    //   return;
+    // }
 
     if (!dayjs(validApplyPass.endAt).isAfter(validApplyPass.startAt)) {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
