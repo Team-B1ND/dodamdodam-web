@@ -201,22 +201,17 @@ const useApplyLeave = () => {
     }
 
     if (!startTimeIsAfter) {
-      showToast("출발일자가 잘못되었습니다!", "INFO");
+      showToast("출발 일자가 잘못되었습니다!", "INFO");
       return;
     }
 
     if (!endTimeIsAfter) {
-      showToast("도착일자가 잘못되었습니다!", "INFO");
+      showToast("도착 일자가 잘못되었습니다!", "INFO");
       return;
     }
 
     if (notApprovedLeaves?.length > 4) {
       showToast("외박신청은 최대 4개까지 가능해요!", "INFO");
-      return;
-    }
-
-    if (!dayjs(validApplyLeave.endAt).isAfter(validApplyLeave.startAt)) {
-      showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
 
