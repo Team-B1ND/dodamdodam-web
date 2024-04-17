@@ -9,7 +9,6 @@ import {
   usePutApplyLeaveMutation,
 } from "@src/queries/leave/leave.query";
 import { AppliedLeave, ApplyLeave } from "@src/types/leave/leave.type";
-import dataCheck from "@src/util/check/dataCheck";
 import dateTransform from "@src/util/transform/dateTransform";
 import { captureException, withScope } from "@sentry/react";
 
@@ -179,47 +178,40 @@ const useApplyLeave = () => {
 
     const validApplyLeave = {
       reason,
-      startAt: dayjs(
-        `${startTimeDate} ${startTimeHour}:${startTimeMinute}`
-      ).format("YYYY-MM-DD"),
-      endAt: dayjs(`${endTimeDate} ${endTimeHour}:${endTimeMinute}`).format(
-        "YYYY-MM-DD"
-      ),
+      startAt: dayjs(`${startTimeDate}`).format("YYYY-MM-DD"),
+      endAt: dayjs(`${endTimeDate}`).format("YYYY-MM-DD"),
     };
 
     const startTimeIsAfter = dayjs(validApplyLeave.startAt).isAfter(
-      dateTransform.fullDate()
+      dayjs().subtract(1, "day").format("YYYY-MM-DD")
     );
 
     const endTimeIsAfter = dayjs(validApplyLeave.endAt).isAfter(
-      dateTransform.fullDate()
+      dateTransform.hyphen()
     );
+
+    if (validApplyLeave.reason.trim() === "") {
+      showToast("외박 사유를 작성해주세요!", "INFO");
+      return;
+    }
+
+    if (startTimeDate === endTimeDate) {
+      showToast("출발일자와 도착일자가 같아요!", "INFO");
+      return;
+    }
+
+    if (!startTimeIsAfter) {
+      showToast("출발 일자가 잘못되었습니다!", "INFO");
+      return;
+    }
+
+    if (!endTimeIsAfter) {
+      showToast("도착 일자가 잘못되었습니다!", "INFO");
+      return;
+    }
 
     if (notApprovedLeaves?.length > 4) {
       showToast("외박신청은 최대 4개까지 가능해요!", "INFO");
-      return;
-    }
-
-    if (
-      !dataCheck.timeFormatCheck(startTimeHour, startTimeMinute) ||
-      !dataCheck.timeFormatCheck(endTimeHour, endTimeMinute)
-    ) {
-      showToast("올바른 양식을 입력해주세요!", "INFO");
-      return;
-    }
-
-    // if (!startTimeIsAfter || !endTimeIsAfter) {
-    //   showToast("올바른 양식을 입력해주세요!", "INFO");
-    //   return;
-    // }
-
-    if (!dayjs(validApplyLeave.endAt).isAfter(validApplyLeave.startAt)) {
-      showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
-      return;
-    }
-
-    if (dayjs(startTimeDate).isSame(endTimeDate)) {
-      showToast("출발시간과 복귀시간이 같아요!", "INFO");
       return;
     }
 

@@ -35,6 +35,12 @@ export const ApplyLeaveFormColumnTitle = styled.h1`
   line-height: 21px;
 `;
 
+export const ApplyLeaveFormInputWrap = styled.div`
+  width: 222px;
+  display: flex;
+  align-items: center;
+`;
+
 export const ApplyLeaveFormDatePickerWrap = styled.div`
   display: flex;
   justify-content: center;
