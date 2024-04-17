@@ -186,6 +186,16 @@ const useApplyPass = () => {
       ),
     };
 
+    console.log(typeof validApplyPass.endAt);
+
+    if (
+      typeof validApplyPass.endAt === "string" ||
+      typeof validApplyPass.startAt === "string"
+    ) {
+      showToast("시간형식을 올바르게 지정해주세요!", "INFO");
+      return;
+    }
+
     if (validApplyPass.reason.trim() === "") {
       showToast("외출사유를 작성해주세요!", "INFO");
       return;
