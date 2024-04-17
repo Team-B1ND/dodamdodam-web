@@ -22,8 +22,6 @@ const useApplyPass = () => {
     cacheTime: 1000 * 60,
   }).data?.data;
 
-  console.log(appliedPasses);
-
   const [passData, setPassData] = useState<ApplyPass>({
     startTimeHour: "",
     startTimeMinute: "",
@@ -182,15 +180,21 @@ const useApplyPass = () => {
       reason,
       startAt: dayjs(
         `${passDataDate} ${startTimeHour}:${startTimeMinute}`
-      ).format("YYYY-MM-DDThh:mm:ss"),
+      ).format("YYYY-MM-DDTHH:mm:ss"),
       endAt: dayjs(`${passDataDate} ${endTimeHour}:${endTimeMinute}`).format(
-        "YYYY-MM-DDThh:mm:ss"
+        "YYYY-MM-DDTHH:mm:ss"
       ),
     };
+
+    if (validApplyPass.reason.trim() === "") {
+      showToast("외출사유를 작성해주세요!", "INFO");
+      return;
+    }
 
     const startTimeIsAfter = dayjs(validApplyPass.startAt).isAfter(
       dateTransform.fullDate()
     );
+
     const endTimeIsAfter = dayjs(validApplyPass.endAt).isAfter(
       dateTransform.fullDate()
     );
@@ -212,10 +216,10 @@ const useApplyPass = () => {
       return;
     }
 
-    // if (!startTimeIsAfter || !endTimeIsAfter) {
-    //   showToast("현재 시간 이후로 입력해주세요!", "INFO");
-    //   return;
-    // }
+    if (!startTimeIsAfter || !endTimeIsAfter) {
+      showToast("현재 시간 이후로 입력해주세요!", "INFO");
+      return;
+    }
 
     if (!dayjs(validApplyPass.endAt).isAfter(validApplyPass.startAt)) {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
