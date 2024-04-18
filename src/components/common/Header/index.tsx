@@ -2,8 +2,6 @@ import * as S from "./style";
 import logo from "@src/assets/logo/dodam_text_logo.svg";
 import { AiFillInfoCircle } from "@react-icons/all-files/ai/AiFillInfoCircle";
 import { HEADER_LINKS } from "@src/constants/header/header.constant";
-import { pageView } from "@src/lib/ga/gtag";
-import { track } from "@amplitude/analytics-browser";
 
 const Header = () => {
   const currentSelect = "홈";
@@ -20,13 +18,7 @@ const Header = () => {
               isSelect={link.name === currentSelect}
               key={`header/${link.name}Item`}
             >
-              <span
-                onClick={() => {
-                  pageView(link.name);
-                  track(link.name + "접속");
-                  window.location.href = link.link;
-                }}
-              >
+              <span onClick={() => (window.location.href = link.link)}>
                 {link.name}
               </span>
             </S.HeaderItem>

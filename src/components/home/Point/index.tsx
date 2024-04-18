@@ -4,14 +4,16 @@ import PointChartIcon from "@src/assets/icons/point/pointChart.png";
 import { useRecoilState } from "recoil";
 import { pointViewTypeAtom } from "@src/store/point/pointStore";
 import { ErrorBoundary } from "react-error-boundary";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import PointDashBoard from "./PointDashBoard";
 import PointDashBoardFallbackLoader from "@src/components/common/FallbackLoader/PointDashBoard";
 import ErrorFallback from "@src/components/common/ErrorFallback";
+import { useLogGA } from "@src/hooks/ga/useLogGA";
 
 const Point = () => {
   const [isDormitoryPointView, setIsDormitoryPointView] =
     useRecoilState(pointViewTypeAtom);
+  const { handleGALogEvent } = useLogGA();
 
   const onChangeView = () => {
     setIsDormitoryPointView((prev) =>
