@@ -3,10 +3,10 @@ import { AxiosError } from "axios";
 class ErrorHandler {
   loginError = (status: number) => {
     switch (status) {
+      case 401: 
+        return "잘못된 비밀번호입니다";
       case 404:
         return "존재하지 않는 멤버입니다.";
-      case 403:
-        return "잘못된 비밀번호입니다.";
       case 500:
         return "서버 오류가 발생하였습니다.";
       default:

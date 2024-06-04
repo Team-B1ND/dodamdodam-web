@@ -65,6 +65,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"),
       hash: true,
+      favicon: path.resolve(__dirname, "public", "favicon.ico"), 
     }),
     new webpack.ProvidePlugin({
       process: "process/browser",
