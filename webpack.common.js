@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
-const svgToMiniDataURI = require("mini-svg-data-uri");
 const DotEnv = require("dotenv-webpack");
 
 module.exports = {
@@ -30,14 +29,12 @@ module.exports = {
         type: "asset",
       },
       {
-        test: /\.svg/,
-        type: "asset",
-        generator: {
-          dataUrl: (content) => {
-            content = content.toString();
-            return svgToMiniDataURI(content);
+        test: /\.(svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
           },
-        },
+        ],
       },
       {
         test: /\.css$/,

@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import useLogin from "@src/hooks/auth/useLogin";
 import * as S from "./style";
-
+import OpenEye from "@src/assets/icons/sign/OpenEye.svg"
+import CloseEye from "@src/assets/icons/sign/CloseEye.svg"
 import { FiCheck } from "@react-icons/all-files/fi/FiCheck";
 import * as AuthS from "../style";
 
@@ -11,6 +12,8 @@ interface Props {
 
 const Login = ({ setIsLogin }: Props) => {
   const {
+    passwordType,
+    handlePasswordView,
     loginData,
     handleLoginData,
     loginKeep,
@@ -36,8 +39,11 @@ const Login = ({ setIsLogin }: Props) => {
               name="pw"
               value={loginData.pw}
               onChange={handleLoginData}
-              type="password"
+              type={passwordType.type}
             />
+            <AuthS.AuthPasswordBtn>
+              <img src={passwordType.visible ? OpenEye : CloseEye} alt="error" onClick={handlePasswordView} />
+            </AuthS.AuthPasswordBtn>
           </AuthS.AuthInputWrap>
         </S.LoginInputForm>
         <S.LoginKeepWrap>

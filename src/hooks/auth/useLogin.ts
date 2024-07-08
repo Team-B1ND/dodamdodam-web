@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from "react";
+import React, { FormEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authRepository from "@src/repository/auth/auth.repository";
 import { Login } from "@src/types/login/login.type";
@@ -12,15 +12,19 @@ import { useQueryClient } from "react-query";
 import * as Sentry from "@sentry/react";
 import { QUERY_KEYS } from "@src/queries/queryKey";
 import { AxiosError } from "axios";
-import errorResponseHandler from "@src/lib/axios/errorResponseHandler";
 import ErrorHandler from "@src/util/error/ErrorHandler";
 import { useRecoilValue } from "recoil";
 import { pointViewTypeAtom } from "@src/store/point/pointStore";
+import { PasswordParm } from "@src/types/login/login.type";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const type = useRecoilValue(pointViewTypeAtom);
+  const [passwordType, setPasswordType] = useState<PasswordParm>({
+    type: "password",
+    visible: false,
+  });
 
   const [loginData, setLoginData] = useState<Login>({
     id: "",
@@ -29,6 +33,7 @@ const useLogin = () => {
   const [loginKeep, setLoginKeep] = useState<boolean>(false);
 
   const handleLoginKeep = () => setLoginKeep((prev) => !prev);
+
 
   const handleLoginData = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -82,12 +87,23 @@ const useLogin = () => {
     [loginData, navigate]
   );
 
+  const handlePasswordView = () => {
+    setPasswordType(() => {
+      if (!passwordType.visible) {
+        return { type: "text", visible: true };
+      }
+      return { type: "password", visible: false };
+    });
+  };
+
   return {
     loginData,
     handleLoginData,
     loginKeep,
     handleLoginKeep,
     submitLoginData,
+    handlePasswordView,
+    passwordType,
   };
 };
 
