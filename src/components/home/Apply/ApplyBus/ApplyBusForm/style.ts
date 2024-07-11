@@ -1,3 +1,4 @@
+import { Flex } from "@src/style/flex";
 import { customScrollBar } from "@src/style/libStyle";
 import styled from "styled-components";
 
@@ -16,11 +17,10 @@ export const ApplyBusFormItemContainer = styled.div`
 export const ApplyBusFormItemWrap = styled.div`
   width: 100%;
   height: 191px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   overflow-y: scroll;
 
+  ${Flex({ $flexDirection: "column", $alignItems: "center" })}
   ${customScrollBar}
 `;
 

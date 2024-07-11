@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { skeletonAnimtaion } from "@b1nd/b1nd-styled-components-util";
+import { Flex } from "@src/style/flex";
 
 const MyInfoHeaderFallbackLoader = () => {
   return (
@@ -24,9 +25,7 @@ const ProfileImg = styled.div`
 
 const InfoContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
+  ${Flex({ $flexDirection: "column", $rowGap: "5px" })}
 `;
 
 const Name = styled.div`

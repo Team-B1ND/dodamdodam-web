@@ -1,32 +1,33 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const ApplyContainer = styled.div`
   width: 505px;
   height: 320px;
-  display: flex;
-  flex-direction: column;
+
   border: 1px solid ${({ theme }) => theme.borderColor};
   background-color: ${({ theme }) => theme.backgroundColor3};
+
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const ApplyTitleWrap = styled.div`
   width: 100%;
   min-height: 56px;
   padding-left: 15px;
-  display: flex;
-  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyTitleIcon = styled.img`
   width: 18px;
   height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   margin-right: 12px;
   object-fit: scale-down;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const ApplyTitleText = styled.h1`
@@ -40,25 +41,22 @@ export const ApplyTitleText = styled.h1`
 export const ApplyTitleItemWrap = styled.div`
   width: 230px;
   height: 100%;
-  display: flex;
-  align-items: center;
   margin-left: auto;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyTitleItem = styled.div<{ isSelect: Boolean }>`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
+  ${Flex({ $justifyContent: "center", $alignItems: "center" })}
 
   span {
     width: 50px;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    ${Flex({ $alignItems: "center", $justifyContent: "center" })}
+
     font-weight: bold;
     color: ${palette.gray[200]};
     transition: border-bottom 0.1s ease-out;

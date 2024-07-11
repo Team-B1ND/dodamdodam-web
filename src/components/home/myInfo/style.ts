@@ -1,14 +1,16 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const MyInfoContainer = styled.div`
   width: 384px;
   height: 446px;
-  display: flex;
-  flex-direction: column;
+
   background-color: ${({ theme }) => theme.backgroundColor3};
   border: 1px solid ${({ theme }) => theme.borderColor};
   position: relative;
+
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const MyInfoTopIcon = styled.img`
@@ -28,13 +30,14 @@ export const MyInfoItemsWrap = styled.div`
 export const MyInfoItem = styled.div<{ isSelect: boolean }>`
   width: 100%;
   height: 100%;
+
   font-size: 14px;
   color: ${({ theme }) => theme.contrast};
   border-top: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   background-color: ${({ theme }) => theme.desableBackground};
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 
   &:hover {
     background-color: ${({ theme }) => theme.hoverColor};
@@ -68,7 +71,7 @@ export const MyInfoListWrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: scroll;
+  overflow: auto;
 
   ::-webkit-scrollbar {
     display: none;

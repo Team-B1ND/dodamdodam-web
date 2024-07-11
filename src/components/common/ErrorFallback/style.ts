@@ -1,13 +1,16 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  row-gap: 10px;
+
+  ${Flex({
+    $flexDirection: "column",
+    $alignItems: "center",
+    $justifyContent: "center",
+    $rowGap: "10px",
+  })}
 `;
 
 export const ErrorComment = styled.p`
@@ -21,9 +24,9 @@ export const RefetchButton = styled.button`
   border: 1px solid ${({ theme }) => theme.borderColor};
   background-color: ${({ theme }) => theme.backgroundColor4};
   font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   cursor: pointer;
   color: ${({ theme }) => theme.contrast};
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;

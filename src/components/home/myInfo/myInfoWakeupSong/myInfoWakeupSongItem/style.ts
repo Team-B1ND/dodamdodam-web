@@ -1,3 +1,4 @@
+import { Flex } from "@src/style/flex";
 import { ellipsisLine } from "@src/style/libStyle";
 import styled from "styled-components";
 
@@ -5,12 +6,14 @@ export const MyInfoWakeupSongItemContainer = styled.div`
   width: 100%;
   min-height: 70px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 10px;
   padding: 0px 19px;
   cursor: pointer;
+
+  ${Flex({
+    $alignItems: "center",
+    $justifyContent: "center",
+    $columnGap: "10px",
+  })}
 
   &:hover {
     opacity: 85%;
@@ -26,9 +29,7 @@ export const MyInfoWakeupSongItemImg = styled.img`
 
 export const MyInfoWakeupSongItemInfoWrap = styled.div`
   width: 220px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 7px;
+  ${Flex({ $flexDirection: "column", $rowGap: "7px" })}
 `;
 
 export const MyInfoWakeupSongItemTitle = styled.h1`
@@ -42,9 +43,7 @@ export const MyInfoWakeupSongItemTitle = styled.h1`
 `;
 
 export const MyInfoWakeupSongItemSubInfoWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${Flex({ $alignItems: "center", $justifyContent: "space-between" })}
 `;
 
 export const MyInfoWakeupSongItemSubTitle = styled.span`
@@ -64,8 +63,7 @@ export const MyInfoWakeupSongItemApproveLabel = styled.div<{
   border-radius: 10px;
   font-size: 12px;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   background-color: ${({ status }) => status};
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;

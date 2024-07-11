@@ -1,3 +1,4 @@
+import { Flex } from "@src/style/flex";
 import { palette } from "@src/style/palette";
 import styled from "styled-components";
 
@@ -23,9 +24,7 @@ export const BannerContainer = styled.div`
   }
 
   .slick-dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${Flex({ $alignItems: "center", $justifyContent: "center" })}
     column-gap: 15px;
 
     .slick-active {
@@ -69,14 +68,17 @@ export const BannerContainer = styled.div`
 export const BannerManageButton = styled.button`
   width: 28px;
   height: 28px;
+
   position: absolute;
   left: 0px;
   top: 20px;
+
   display: none;
   border: 0px;
   background-color: white;
   border-radius: 0px 5px 5px 0px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+
   align-items: center;
   justify-content: center;
   font-size: 17px;

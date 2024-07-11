@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { skeletonAnimtaion } from "@b1nd/b1nd-styled-components-util";
+import { Flex } from "@src/style/flex";
 
 const MyInfoWakeupSongListFallback = () => {
   return (
@@ -13,11 +14,8 @@ const MyInfoWakeupSongListFallback = () => {
 
 const Container = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 34px;
   padding: 20px 0px;
+  ${Flex({ $flexDirection: "column", $alignItems: "center", $rowGap: "34px" })}
 `;
 
 const Item = styled.div`

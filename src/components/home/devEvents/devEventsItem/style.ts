@@ -1,15 +1,16 @@
 import { ellipsisLine } from "@src/style/libStyle";
 import styled from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const DevEventsItemContainer = styled.div`
   width: 227.2px;
   min-height: 270px;
   border: 1px solid ${({ theme }) => theme.borderColor};
   background-color: ${({ theme }) => theme.backgroundColor3};
-  display: flex;
-  flex-direction: column;
+
   cursor: pointer;
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const DevEventsItemImgWrap = styled.div`
@@ -34,17 +35,18 @@ export const DevEventsItemDate = styled.div`
   right: 9px;
   bottom: 8px;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
+
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const DevEventsItemContentWrap = styled.div`
   width: 100%;
   height: 100%;
+
   padding: 10px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const DevEventsItemTitle = styled.h1`
@@ -67,8 +69,7 @@ export const DevEventsItemOrganization = styled.p`
 export const DevEventsItemLabel = styled.div<{ borderColor: string }>`
   width: min-content;
   height: 20px;
-  display: flex;
-  align-items: center;
+
   font-size: 11px;
   margin-top: 5px;
   padding: 6px;
@@ -77,15 +78,14 @@ export const DevEventsItemLabel = styled.div<{ borderColor: string }>`
   border-radius: 2px;
   background-color: ${({ theme }) => theme.backgroundColor3};
   white-space: nowrap;
+
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const DevEventsTagWrap = styled.div`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
   margin-top: auto;
-  row-gap: 2px;
-  column-gap: 5px;
+  ${Flex({ $flexWrap: "wrap", $rowGap: "2px", $columnGap: "5px" })}
 `;
 
 export const DevEventsTagItem = styled.span`

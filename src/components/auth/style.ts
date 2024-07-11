@@ -1,13 +1,12 @@
 import styled, { keyframes } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const AuthBackground = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${palette.main};
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const AuthContainer = styled.div`
@@ -47,14 +46,16 @@ export const AuthPanelBlind = styled.div`
 
 export const AuthPanelTextWrap = styled.div`
   width: 540px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
   z-index: 2;
+
+  position: absolute;
   left: 0px;
   top: 0px;
+
   padding: 0px 54px;
   padding-top: 81px;
+
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const AuthPanelText = styled.h1`
@@ -77,9 +78,7 @@ export const AuthWrap = styled.div`
 
 export const AuthInputWrap = styled.div`
   height: 56px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
+  ${Flex({ $flexDirection: "column", $rowGap: "5px" })}
 `;
 
 export const AuthInputTitle = styled.div`
@@ -106,10 +105,8 @@ export const AuthInput = styled.input`
 `;
 
 export const AuthOppositePartWrap = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 7px;
   margin-right: auto;
+  ${Flex({ $alignItems: "center", $columnGap: "7px" })}
 `;
 
 export const AuthOppositePartText = styled.p`

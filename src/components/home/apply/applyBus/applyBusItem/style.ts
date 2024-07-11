@@ -1,15 +1,18 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const ApplyBusItemContainer = styled.div`
   width: 348px;
   min-height: 32px;
+
   border: 1px solid ${({ theme }) => theme.borderColor};
   padding-left: 8px;
-  display: flex;
-  align-items: center;
+
   cursor: pointer;
   margin-bottom: 16px;
+
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyBusItemText = styled.p`
@@ -31,13 +34,14 @@ export const ApplyBusItemLimit = styled.span<{ isLimit: boolean }>`
 export const ApplyBusItemCheckIcon = styled.div<{ check: boolean }>`
   width: 30px;
   height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   font-size: 30px;
   margin-left: auto;
   margin-right: 18px;
   color: ${({ theme }) => theme.borderColor};
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
+
   ${({ check }) =>
     check &&
     css`
@@ -48,25 +52,24 @@ export const ApplyBusItemCheckIcon = styled.div<{ check: boolean }>`
 export const ApplyBusItemDeleteButton = styled.button`
   width: 20px;
   height: 100%;
+
   background-color: ${({ theme }) => theme.desableBackground};
   border: 0px;
   border-left: 1px solid ${({ theme }) => theme.borderColor};
   cursor: pointer;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const ApplyBusItemDeleteIcon = styled.div`
   width: 14px;
   height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   font-size: 14px;
   color: ${({ theme }) => theme.contrast};
 
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
   ${ApplyBusItemDeleteButton}:hover & {
     color: ${palette.red["400"]};
   }

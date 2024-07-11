@@ -1,37 +1,31 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const FooterContainer = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.footerBackground};
-  display: flex;
-  justify-content: center;
   margin-top: 36px;
+  ${Flex({ $justifyContent: "center" })}
 `;
 
 export const FooterWrap = styled.div`
   width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 24px 0px;
+  ${Flex({ $alignItems: "center", $justifyContent: "space-between" })}
 `;
 
 export const FooterLeftWrap = styled.div`
   width: 920px;
   height: 261px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  ${Flex({ $flexDirection: "column", $justifyContent: "space-between" })}
 `;
 
 export const FooterTextWrap = styled.div`
-  display: flex;
-  align-items: center;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const FooterLogoWrap = styled.div`
-  display: flex;
-  align-items: center;
+  ${Flex({ $alignItems: "center" })}
   cursor: pointer;
 `;
 
@@ -54,19 +48,13 @@ export const FooterDescription = styled.p`
 
 export const FooterListWrap = styled.div`
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  column-gap: 10px;
-  margin: 10px 0px;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 30px 0 40px;
+  ${Flex({ $alignItems: "flex-start", $columnGap: "10px" })}
 `;
 
 export const FooterList = styled.ul`
   width: 150px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
+  ${Flex({ $flexDirection: "column", $rowGap: "15px" })}
 `;
 
 export const FooterListTitleItem = styled.li`
@@ -99,26 +87,26 @@ export const FooterVersion = styled.li`
 
 export const FooterRightWrap = styled.div`
   height: 261px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+  ${Flex({
+    $flexDirection: "column",
+    $alignItems: "flex-end",
+    $justifyContent: "space-between",
+  })}
 `;
 
 export const FooterSocialWrap = styled.div`
-  display: flex;
-  column-gap: 8px;
   margin-top: 2px;
+  ${Flex({ $columnGap: "8px" })}
 `;
 
 export const FooterSocialItem = styled.div`
   width: 36px;
   height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   border-radius: 100%;
   background-color: #404955;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const FooterSocialItemIcon = styled.div`
@@ -131,10 +119,11 @@ export const FooterSocialItemIcon = styled.div`
 
 export const FooterMobileWrap = styled.div`
   width: 134px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 5px;
+  ${Flex({
+    $flexDirection: "column",
+    $justifyContent: "center",
+    $rowGap: "5px",
+  })}
 `;
 
 export const FooterMobileTitle = styled.span`
@@ -146,23 +135,24 @@ export const FooterMobileTitle = styled.span`
 export const FooterMobileItemWrap = styled.div`
   width: 100%;
   height: 33px;
+
   border: 1px solid white;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
   padding: 0px 15px;
   cursor: pointer;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "space-between" })}
 `;
 
 export const FooterMobileItemLogo = styled.div`
   width: 14px;
   height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   font-size: 14px;
   color: white;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const FooterMobileItemText = styled.p`

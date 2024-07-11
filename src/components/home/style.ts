@@ -1,3 +1,4 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -5,12 +6,9 @@ export const Container = styled.div`
 `;
 
 export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
+  ${Flex({ $flexDirection: "column", $rowGap: "16px" })}
 `;
 
 export const Row = styled.div`
-  display: flex;
-  column-gap: 16px;
+  ${Flex({ $columnGap: "16px" })}
 `;

@@ -55,6 +55,7 @@ const ApplyLeaveForm = () => {
                 </S.ApplyLeaveFormDatePickerWrap>
               </S.ApplyLeaveFormInputWrap>
             </S.ApplyLeaveFormColumnWrap>
+
             <S.ApplyLeaveFormColumnWrap style={{ marginBottom: 5 }}>
               <S.ApplyLeaveFormColumnTitle>
                 도착 일자
@@ -75,9 +76,7 @@ const ApplyLeaveForm = () => {
                 </S.ApplyLeaveFormDatePickerWrap>
               </S.ApplyLeaveFormInputWrap>
             </S.ApplyLeaveFormColumnWrap>
-            <S.ApplyLeaveFormNoticeText>
-              ※시간은 24시간 형태로 작성해야합니다.
-            </S.ApplyLeaveFormNoticeText>
+
             <TextArea
               width={315}
               height={65}

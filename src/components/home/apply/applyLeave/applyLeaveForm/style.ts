@@ -1,16 +1,21 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const ApplyLeaveFormContainer = styled.div<{ isFold: boolean }>`
   width: 340px;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
   transition: left 0.3s ease 0s;
   position: relative;
   color: ${({ theme }) => theme.contrast};
+
+  ${Flex({
+    $flexDirection: "column",
+    $alignItems: "center",
+    $justifyContent: "center",
+  })}
+
   ${({ isFold }) =>
     isFold
       ? css`
@@ -23,9 +28,7 @@ export const ApplyLeaveFormContainer = styled.div<{ isFold: boolean }>`
 
 export const ApplyLeaveFormColumnWrap = styled.div`
   height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${Flex({ $alignItems: "center", $justifyContent: "space-between" })}
 `;
 
 export const ApplyLeaveFormColumnTitle = styled.h1`
@@ -37,15 +40,12 @@ export const ApplyLeaveFormColumnTitle = styled.h1`
 
 export const ApplyLeaveFormInputWrap = styled.div`
   width: 222px;
-  display: flex;
-  align-items: center;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyLeaveFormDatePickerWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const ApplyLeaveFormDatePickerIcon = styled.label`
@@ -67,11 +67,12 @@ export const ApplyLeaveFormDatePickerIcon = styled.label`
 export const ApplyLeaveFormTimeInputWrap = styled.div`
   width: 105px;
   height: 32px;
-  display: flex;
-  align-items: center;
+
   border: 1px solid ${({ theme }) => theme.borderColor};
   color: ${({ theme }) => theme.contrast};
   margin-left: 5px;
+
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyLeaveFormTimeInput = styled.input`

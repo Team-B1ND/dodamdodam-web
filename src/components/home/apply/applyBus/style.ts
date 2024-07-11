@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { customScrollBar } from "@src/style/libStyle";
+import { Flex } from "@src/style/flex";
 
 export const ApplyBusContainer = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${Flex({ $flexDirection: "column", $alignItems: "center" })}
 `;
 
 export const ApplyBusDate = styled.span`
@@ -24,10 +23,9 @@ export const ApplyBusItemContainer = styled.div`
 export const ApplyBusItemWrap = styled.div`
   width: 100%;
   height: 191px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   overflow-y: scroll;
 
+  ${Flex({ $flexDirection: "column", $alignItems: "center" })}
   ${customScrollBar}
 `;

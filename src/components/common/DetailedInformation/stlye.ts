@@ -1,12 +1,11 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const InformationContainer = styled.div`
   width: 100%;
   min-height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${Flex({ $flexDirection: "column", $alignItems: "center" })}
 
   row-gap: 15px;
 `;
@@ -29,10 +28,8 @@ export const InformationContentContainer = styled.div`
   max-width: 700px;
   min-width: 700px;
 
-  display: flex;
-  flex-direction: column;
+  ${Flex({ $flexDirection: "column", $rowGap: "20px" })}
 
-  row-gap: 20px;
   margin: 0px auto;
   margin-top: 50px;
 `;
@@ -43,7 +40,6 @@ export const InformationTitle = styled.h1`
 
 export const InformationContent = styled.p`
   display: flex;
-
   line-height: 25px;
 `;
 

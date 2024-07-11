@@ -1,11 +1,11 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const ApplyNotApproveListItemContainer = styled.div`
   width: 100%;
   height: 24px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const ApplyNotApproveListItemText = styled.span`
@@ -16,8 +16,9 @@ export const ApplyNotApproveListItemText = styled.span`
 export const ApplyNotApproveListItemDeleteButton = styled.button`
   width: 18px;
   height: 18px;
-  display: flex;
-  align-items: center;
+
+  ${Flex({ $alignItems: "center" })}
+
   cursor: pointer;
   display: none;
   margin: 0px auto;
@@ -33,8 +34,6 @@ export const ApplyNotApproveListItemDeleteButton = styled.button`
 export const ApplyNotApproveListItemDeleteIcon = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 18px;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;

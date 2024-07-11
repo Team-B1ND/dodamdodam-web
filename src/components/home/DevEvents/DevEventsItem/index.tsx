@@ -27,6 +27,7 @@ const DevEventsItem = ({ data }: Props) => {
             : `~${dateTransform.period(data.endDate)}`}
         </S.DevEventsItemDate>
       </S.DevEventsItemImgWrap>
+
       <S.DevEventsItemContentWrap>
         <S.DevEventsItemTitle>{data.title}</S.DevEventsItemTitle>
         <S.DevEventsItemOrganization>

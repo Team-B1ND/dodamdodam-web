@@ -2,10 +2,8 @@ import { useGetTodayAllowedWakeupSongQuery } from "@src/queries/wakeupSong/wakeu
 import dataCheck from "@src/util/check/dataCheck";
 import dateTransform from "@src/util/transform/dateTransform";
 import TodayWakeupSongItem from "../TodayWakeupSongItem";
-import {
-  TodayWakeupSongListContainer,
-  TodayWakeupSongListVoidText,
-} from "./style";
+import styled from "styled-components";
+import { Flex } from "@src/style/flex";
 
 const TodayWakeupSongList = () => {
   const todayDate = dateTransform.hyphen().split("-");
@@ -48,3 +46,16 @@ const TodayWakeupSongList = () => {
 };
 
 export default TodayWakeupSongList;
+
+const TodayWakeupSongListContainer = styled.div`
+  width: 246px;
+  height: 100%;
+  padding: 5px 0px;
+  ${Flex({ $flexDirection: "column", $justifyContent: "space-between" })}
+`;
+
+const TodayWakeupSongListVoidText = styled.p`
+  font-size: 14px;
+  color: ${({ theme }) => theme.contrast};
+  margin: auto 0px;
+`;

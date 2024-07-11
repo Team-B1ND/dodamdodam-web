@@ -1,4 +1,4 @@
-import { BannerItemContainer } from "./style";
+import styled from "styled-components";
 
 interface Props {
   title: string;
@@ -21,3 +21,10 @@ const BannerItem = ({ imgSrc, redirectURL, title }: Props) => {
 };
 
 export default BannerItem;
+
+const BannerItemContainer = styled.img`
+  width: 798px;
+  height: 108px;
+  object-fit: cover;
+  cursor: pointer;
+`;

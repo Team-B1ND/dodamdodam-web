@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { skeletonAnimtaion } from "@b1nd/b1nd-styled-components-util";
+import { Flex } from "@src/style/flex";
 
 const PointDashBoardFallbackLoader = () => {
   return (
@@ -19,10 +20,9 @@ const GraphItem = () => (
 );
 
 const GraphWrap = styled.div`
-  display: flex;
-  align-items: center;
   width: 100%;
   height: 34px;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 const GraphPointText = styled.div`

@@ -5,11 +5,12 @@ import { useRecoilValue } from "recoil";
 import { mealDateAtom } from "@src/store/meal/mealStore";
 import dateTransform from "@src/util/transform/dateTransform";
 import MealItem from "../MealItem";
-import { MealListContainer } from "./style";
 import MealBreakfastIcon from "@src/assets/icons/meal/morning.png";
 import MealLunchIcon from "@src/assets/icons/meal/afternoon.png";
 import MealDinnerIcon from "@src/assets/icons/meal/night.png";
 import isBetween from "dayjs/plugin/isBetween";
+import styled from "styled-components";
+import { Flex } from "@src/style/flex";
 dayjs.extend(isBetween);
 
 const MealList = () => {
@@ -64,3 +65,9 @@ const MealList = () => {
 };
 
 export default MealList;
+
+const MealListContainer = styled.div`
+  width: 460px;
+  height: 231px;
+  ${Flex({ $flexDirection: "column", $justifyContent: "space-between" })}
+`;

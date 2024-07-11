@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const ApplyNotApproveListFoldButton = styled.button`
   width: 28px;
   height: 28px;
+
   padding: 5px;
   display: flex;
   border: 1px solid ${({ theme }) => theme.borderColor};
@@ -36,38 +38,32 @@ export const ApplyNotApproveListContainer = styled.div<{ fold: boolean }>`
 `;
 
 export const ApplyNotApproveListWrap = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 124px;
   height: 265px;
+
   border-right: 1px solid ${({ theme }) => theme.borderColor};
   background-color: ${({ theme }) => theme.backgroundColor3};
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const ApplyNotApproveListFoldIcon = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: ${palette.main};
   font-size: 17px;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const ApplyNotApproveListVoidWrap = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const ApplyNotApproveListVoidIcon = styled.div`
   width: 42px;
   height: 42px;
   font-size: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: ${({ theme }) => theme.borderColor};
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;

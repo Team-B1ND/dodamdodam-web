@@ -1,11 +1,10 @@
+import { Flex } from "@src/style/flex";
 import styled from "styled-components";
 
 export const TodayScheduleItemContainer = styled.div`
   width: 100%;
   height: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  ${Flex({ $flexDirection: "column", $justifyContent: "space-between" })}
 `;
 
 export const TodayScheduleItemTitle = styled.h1`
@@ -18,9 +17,8 @@ export const TodayScheduleItemTitle = styled.h1`
 export const TodayScheduleItemTargetWrap = styled.div`
   width: 100%;
   height: 16px;
-  display: flex;
-  align-items: center;
   font-size: 12px;
+  ${Flex({ $alignItems: "center" })}
 `;
 
 export const TodayScheduleItemTargetCategory = styled.span`

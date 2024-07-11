@@ -1,16 +1,19 @@
 import styled, { css } from "styled-components";
 import { palette } from "@src/style/palette";
+import { Flex } from "@src/style/flex";
 
 export const HeaderContainer = styled.div`
   width: 100%;
   height: 100px;
+
   position: fixed;
   top: 0px;
+
   background-color: ${({ theme }) => theme.backgroundColor2};
-  display: flex;
-  justify-content: center;
   box-shadow: ${({ theme }) => theme.headerBoxShadow};
   z-index: 2;
+
+  ${Flex({ $justifyContent: "center" })}
 `;
 
 export const HeaderWrap = styled.div`
@@ -22,9 +25,11 @@ export const HeaderWrap = styled.div`
 export const HeaderLogo = styled.div`
   min-width: 120px;
   max-width: 120px;
+
   margin-right: 40px;
   height: 100%;
   display: flex;
+
   img {
     width: 100%;
     object-fit: scale-down;
@@ -41,16 +46,14 @@ export const HeaderLogo = styled.div`
 export const HeaderItemWrap = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: space-between;
+  ${Flex({ $justifyContent: "space-between" })}
 `;
 
 export const HeaderItem = styled.div<{ isSelect: boolean }>`
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: top;
   padding-top: 48px;
+  ${Flex({ $justifyContent: "center" })}
+
   span {
     text-decoration: none;
     font-size: 18px;
@@ -75,20 +78,18 @@ export const HeaderRelease = styled.div`
   min-width: 180px;
   max-width: 180px;
   height: 100%;
-  display: flex;
-  justify-content: end;
+
   margin-left: auto;
+  ${Flex({ $justifyContent: "end" })}
 `;
 
 export const HeaderReleaseIcon = styled.div`
   width: 30px;
   height: 30px;
+
   font-size: 24px;
   color: #2196f3;
   margin-top: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  svg {
-  }
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;

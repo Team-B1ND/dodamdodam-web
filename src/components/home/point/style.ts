@@ -1,3 +1,4 @@
+import { Flex } from "@src/style/flex";
 import styled, { css } from "styled-components";
 
 export const PointContainer = styled.div`
@@ -6,8 +7,8 @@ export const PointContainer = styled.div`
   color: ${({ theme }) => theme.contrast};
   border: 1px solid ${({ theme }) => theme.borderColor};
   background-color: ${({ theme }) => theme.backgroundColor3};
-  display: flex;
-  flex-direction: column;
+
+  ${Flex({ $flexDirection: "column" })}
 `;
 
 export const PointWrap = styled.div`
@@ -19,31 +20,23 @@ export const PointWrap = styled.div`
 
 export const PointLeftWrap = styled.div`
   width: 287px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  ${Flex({ $flexDirection: "column", $justifyContent: "center" })}
 `;
 
 export const PointRightWrap = styled.div`
   width: 95px;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 15px 0px;
+  ${Flex({ $flexDirection: "column", $justifyContent: "space-between" })}
 `;
 
 export const PointCategoryWrap = styled.div`
-  display: flex;
-  column-gap: 4px;
-  justify-content: end;
+  ${Flex({ $columnGap: "4px", $justifyContent: "end" })}
 `;
 
 export const PointCategoryItemWrap = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 4px;
   font-size: 12px;
+  ${Flex({ $alignItems: "center", $columnGap: "4px" })}
 `;
 
 export const PointCategoryItemCircle = styled.div`

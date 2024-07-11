@@ -1,30 +1,29 @@
 import styled, { css } from "styled-components";
 import { AuthPartFade } from "../style";
+import { Flex } from "@src/style/flex";
 
 export const SignupContainer = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
 
 export const SignupWrap = styled.div`
   width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   animation: ${AuthPartFade} 1s;
+  ${Flex({ $alignItems: "center", $flexDirection: "column" })}
 `;
 
 export const SignupInputForm = styled.div`
   width: 350px;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 24px;
   margin-bottom: 8px;
+
+  ${Flex({
+    $flexDirection: "column",
+    $justifyContent: "center",
+    $rowGap: "24px",
+  })}
 `;
 
 export const SignupPartButtonWrap = styled.div`
@@ -38,13 +37,13 @@ export const SignupPartButtonWrap = styled.div`
 export const SignupPartButton = styled.div<{ direction: "prev" | "next" }>`
   width: 125px;
   height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   border-radius: 5px;
   font-size: 16px;
   column-gap: 10px;
   cursor: pointer;
+
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 
   ${({ direction }) =>
     direction === "prev"
@@ -63,7 +62,5 @@ export const SignupPartButton = styled.div<{ direction: "prev" | "next" }>`
 export const SignupPartButtonIcon = styled.div`
   width: 16px;
   height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${Flex({ $alignItems: "center", $justifyContent: "center" })}
 `;
