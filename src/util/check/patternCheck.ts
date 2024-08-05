@@ -7,7 +7,7 @@ class PatternCheck {
   }
 
   public pwCheck(value: string): boolean {
-    if (/^[a-zA-Z0-9!@#$%^*+=-]{7,20}$/.test(value)) {
+    if (/^[a-zA-Z0-9!@#$%^*+=-]{7,20}$/.test(value) && !/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(value)) {
       return true;
     }
     return false;

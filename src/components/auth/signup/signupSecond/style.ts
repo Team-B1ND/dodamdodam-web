@@ -52,7 +52,9 @@ export const SignupAgreeDetail = styled.p`
   font-size: 14px;
   color: #7c7c7c;
   cursor: pointer;
-
+  a{
+    color: #7c7c7c;
+  }
   &:hover {
     text-decoration: underline;
   }

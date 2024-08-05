@@ -23,7 +23,7 @@ const SignupFirst = ({
           <AuthInputTitle>ID</AuthInputTitle>
           <AuthInput
             name="id"
-            value={signupData.id}
+            value={signupData.id }
             onChange={handleSignupData}
             placeholder="dgsw1234"
           />
@@ -43,20 +43,20 @@ const SignupFirst = ({
           <S.SignupSchoolInputWrap>
             <S.SignupSchoolInput
               name="grade"
-              value={signupData.grade}
+              value={signupData.grade== 0 ? "" : signupData.grade}
               onChange={handleSignupData}
               placeholder="학년"
               type="number"
             />
             <S.SignupSchoolInput
               name="room"
-              value={signupData.room}
+              value={signupData.room==0 ? "" : signupData.room}
               onChange={handleSignupData}
               placeholder="반"
               type="number"
             />
             <S.SignupSchoolInput
-              value={signupData.number}
+              value={signupData.number==0 ? "" : signupData.number}
               onChange={handleSignupData}
               name="number"
               placeholder="번호"

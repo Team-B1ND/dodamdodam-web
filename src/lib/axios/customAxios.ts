@@ -31,6 +31,6 @@ export const dodamAxiosSetAccessToken = (token: string) => {
   dodamAxios.defaults.headers.common[REQUEST_TOKEN_KEY] = `Bearer ${token}`;
 };
 
-dodamAxios.interceptors.request.use(requestHandler, (res) => res);
+dodamAxios.interceptors.request.use(requestHandler , (res) => res);
 
 dodamAxios.interceptors.response.use((res) => res, errorResponseHandler);

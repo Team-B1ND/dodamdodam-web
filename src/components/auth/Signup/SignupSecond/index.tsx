@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Signup, SignupAgree } from "@src/types/signup/signup.type";
 import * as SignupS from "../style";
 import { FiChevronLeft } from "@react-icons/all-files/fi/FiChevronLeft";
@@ -27,13 +28,13 @@ const SignupSecond = ({
   handleSignupAgree,
   submitSignupDataSecond,
 }: Props) => {
-  //회원가입쪽과 같은 로직으로, map을 돌리기 위해 object인 agrees를 배열로 만들어 리턴함.
+  
   const agreesList = useMemo(() => {
     const { first, second } = agrees;
 
     return [first, second];
   }, [agrees]);
-
+  const navigate = useNavigate();
   return (
     <>
       <SignupS.SignupInputForm style={{ marginBottom: 24 }}>
@@ -82,7 +83,10 @@ const SignupSecond = ({
               {agree.title}
             </S.SignupAgreeInputText>
           </S.SignupAgreeInputWrap>
-          <S.SignupAgreeDetail>상세 내용 보기</S.SignupAgreeDetail>
+
+          <S.SignupAgreeDetail>
+            <Link to={`https://dodam.b1nd.com/detailed-information/${agree.detailInfoLink}`}>상세 내용 보기</Link>
+          </S.SignupAgreeDetail>
         </S.SignupAgreeWrap>
       ))}
       <SignupS.SignupPartButtonWrap>

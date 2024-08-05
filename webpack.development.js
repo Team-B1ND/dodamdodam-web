@@ -7,7 +7,7 @@ module.exports = merge(webpackCommon, {
   devtool: "source-map",
   devServer: {
     hot: true,
-    port: 3400,
+    port: 3000,
     historyApiFallback: true,
   },
   plugins: [new ForkTsCheckerWebpackPlugin()],
