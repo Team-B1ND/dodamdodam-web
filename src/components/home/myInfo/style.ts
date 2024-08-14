@@ -68,7 +68,7 @@ export const MyInfoListWrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: scroll;
+  overflow: auto;
 
   ::-webkit-scrollbar {
     display: none;
