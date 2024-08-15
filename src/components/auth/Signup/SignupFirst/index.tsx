@@ -2,19 +2,27 @@ import React from "react";
 import { Signup } from "@src/types/signup/signup.type";
 import { AuthInput, AuthInputTitle, AuthInputWrap } from "../../style";
 import * as SignupS from "../style";
+import * as AuthS from "../../style";
 import * as S from "./style";
 import { FiChevronRight } from "@react-icons/all-files/fi/FiChevronRight";
+import { PasswordParm } from "@src/types/login/login.type";
+import OpenEye from "@src/assets/icons/sign/OpenEye.svg";
+import CloseEye from "@src/assets/icons/sign/CloseEye.svg"
 
 interface Props {
   signupData: Signup;
+  passwordType:PasswordParm;
   handleSignupData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitSignupDataFirst: () => void;
+  handlePasswordView:()=>void;
 }
 
 const SignupFirst = ({
   signupData,
+  passwordType,
   handleSignupData,
   submitSignupDataFirst,
+  handlePasswordView
 }: Props) => {
   return (
     <>
@@ -34,9 +42,12 @@ const SignupFirst = ({
             name="pw"
             value={signupData.pw}
             onChange={handleSignupData}
-            type="password"
+            type={passwordType.type}
             placeholder="abcdefg1234"
           />
+            <AuthS.AuthPasswordBtn>
+              <img src={passwordType.visible ? OpenEye : CloseEye} alt="error" onClick={handlePasswordView} />
+            </AuthS.AuthPasswordBtn>
         </AuthInputWrap>
         <AuthInputWrap style={{ height: "auto", minHeight: 56 }}>
           <AuthInputTitle>학번</AuthInputTitle>
