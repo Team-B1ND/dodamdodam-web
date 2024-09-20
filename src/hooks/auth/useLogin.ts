@@ -84,14 +84,6 @@ const useLogin = () => {
     },
     [loginData, navigate]
   );
-  // const handlePasswordView = () => {
-  //   setPasswordType(() => {
-  //     if (!passwordType.visible) {
-  //       return { type: "text", visible: true };
-  //     }
-  //     return { type: "password", visible: false };
-  //   });
-  // };
 
   return {
     loginData,

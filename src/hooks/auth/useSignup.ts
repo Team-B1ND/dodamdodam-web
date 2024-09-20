@@ -9,7 +9,7 @@ import { AxiosError } from "axios";
 import usePasswordCheck from "@src/util/check/passwordCheck";
 
 const useSignup = () => {
-  const [section, setSection] = useState("first");
+const [section, setSection] = useState("first");
 const {passwordType, handlePasswordView} =usePasswordCheck()
 
   const [signupData, setSignupData] = useState<Signup>({
