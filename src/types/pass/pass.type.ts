@@ -23,6 +23,7 @@ export interface ApplyPass {
   startTimeMinute: string;
   endTimeHour: string;
   endTimeMinute: string;
+  dinnerOrNot:boolean;
   idx: number;
 }
 

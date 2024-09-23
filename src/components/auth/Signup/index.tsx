@@ -6,36 +6,32 @@ import SignupFirst from "./SignupFirst";
 import SignupSecond from "./SignupSecond";
 import * as AuthS from "../style";
 
+
 interface Props {
   setIsLogin: Dispatch<SetStateAction<boolean>>;
 }
 
 const Signup = ({ setIsLogin }: Props) => {
   const {
-    section,
-    setSection,
-    signupData,
-    handleSignupData,
-    submitSignupDataFirst,
-    agrees,
-    handleSignupAgree,
-    submitSignupDataSecond,
+   ...sign
   } = useSignup();
 
   const signupComponents: ReactNode[] = [
     <SignupFirst
-      signupData={signupData}
-      handleSignupData={handleSignupData}
-      submitSignupDataFirst={submitSignupDataFirst}
+      signupData={sign.signupData}
+      handleSignupData={sign.handleSignupData}
+      submitSignupDataFirst={sign.submitSignupDataFirst}
+      passwordType={sign.passwordType}
+      handlePasswordView={sign.handlePasswordView}
       key="signupFisrtPart"
     />,
     <SignupSecond
-      setSection={setSection}
-      signupData={signupData}
-      handleSignupData={handleSignupData}
-      agrees={agrees}
-      handleSignupAgree={handleSignupAgree}
-      submitSignupDataSecond={submitSignupDataSecond}
+      setSection={sign.setSection}
+      signupData={sign.signupData}
+      handleSignupData={sign.handleSignupData}
+      agrees={sign.agrees}
+      handleSignupAgree={sign.handleSignupAgree}
+      submitSignupDataSecond={sign.submitSignupDataSecond}
       key="signupSecondPart"
     />,
   ];
@@ -44,7 +40,7 @@ const Signup = ({ setIsLogin }: Props) => {
     <S.SignupContainer>
       <S.SignupWrap>
         {signupComponents.map((component, idx) => {
-          return section === SIGNUP_SECTION_NAME[idx].title && component;
+          return sign.section === SIGNUP_SECTION_NAME[idx].title && component;
           // 회원가입 섹션이 2개가 있는데, 일일이 &&연산자로 하면 코드가 더러울거 같아서 배열에 담아서 map을 돌렸음.
         })}
         <AuthS.AuthOppositePartWrap>

@@ -6,9 +6,11 @@ import * as Sentry from "@sentry/react";
 import memberRepository from "@src/repository/member/member.repository";
 import ErrorHandler from "@src/util/error/ErrorHandler";
 import { AxiosError } from "axios";
+import usePasswordCheck from "@src/util/check/passwordCheck";
 
 const useSignup = () => {
-  const [section, setSection] = useState("first");
+const [section, setSection] = useState("first");
+const {passwordType, handlePasswordView} =usePasswordCheck()
 
   const [signupData, setSignupData] = useState<Signup>({
     id: "",
@@ -118,6 +120,7 @@ const useSignup = () => {
   }, [agrees, signupData]);
 
   return {
+    passwordType,
     section,
     setSection,
     signupData,
@@ -126,6 +129,7 @@ const useSignup = () => {
     agrees,
     handleSignupAgree,
     submitSignupDataSecond,
+    handlePasswordView
   };
 };
 

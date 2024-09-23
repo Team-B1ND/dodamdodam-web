@@ -76,6 +76,7 @@ export const AuthWrap = styled.div`
 `;
 
 export const AuthInputWrap = styled.div`
+  position: relative;
   height: 56px;
   display: flex;
   flex-direction: column;
@@ -103,6 +104,19 @@ export const AuthInput = styled.input`
     font-size: 14px;
     opacity: 30%;
   }
+`;
+
+export const AuthPasswordBtn = styled.div`
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  width: 25px;
+  height: 25px;
 `;
 
 export const AuthOppositePartWrap = styled.div`
