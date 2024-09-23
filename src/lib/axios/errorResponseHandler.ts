@@ -23,6 +23,7 @@ const errorResponseHandler = async (error: AxiosError) => {
     const usingRefreshToken = token.getToken(REFRESH_TOKEN_KEY);
 
     if (
+      usingAccessToken !==undefined &&
       usingRefreshToken !== undefined &&
       status === 401
     ) {
