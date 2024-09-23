@@ -6,9 +6,12 @@ import {
 } from "@team-b1nd/dodamdodam_web_component_library";
 import useApplyPass from "@src/hooks/pass/useApplyPass";
 import ApplyNotApproveList from "../../ApplyNotApproveList";
+import ApplyPassModal from "../ApplyPassModal";
 
 const ApplyPassForm = () => {
   const {
+    closeModal,
+    isOpen,
     isFold,
     setIsFold,
     notApprovedPasses,
@@ -125,6 +128,15 @@ const ApplyPassForm = () => {
           {isFold ? "신청" : "수정"}
         </Button>
       )}
+       <ApplyPassModal
+        width="500px"
+        height="300px"
+        zIndex={1000}
+        isOpen={isOpen}
+        close={closeModal}
+        submitData={passData}
+        passDataDate={passDataDate}
+      />
     </>
   );
 };

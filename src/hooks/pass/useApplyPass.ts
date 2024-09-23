@@ -12,6 +12,7 @@ import dataCheck from "@src/util/check/dataCheck";
 import { useQueryClient } from "react-query";
 import showToast from "@src/lib/toast/toast";
 import { captureException, withScope } from "@sentry/react";
+import ApplyPassModal from "@src/components/home/Apply/ApplyPass/ApplyPassModal";
 
 const useApplyPass = () => {
   const queryClient = useQueryClient();
@@ -28,6 +29,7 @@ const useApplyPass = () => {
     endTimeHour: "",
     endTimeMinute: "",
     reason: "",
+    dinnerOrNot:false,
     idx: 0,
   });
 
@@ -42,7 +44,7 @@ const useApplyPass = () => {
   );
 
   const [notApprovedPasses, setNotApprovedPasses] = useState<AppliedPass[]>([]);
-
+  
   //승인되지 않은 외출들을 담아주는 부분
   useEffect(() => {
     if (appliedPasses) {
@@ -69,6 +71,7 @@ const useApplyPass = () => {
       startTimeMinute: validStartTime[1],
       endTimeHour: validEndTime[0],
       endTimeMinute: validEndTime[1],
+      dinnerOrNot:false,
       ...notApprovedPass,
     };
   };
@@ -82,6 +85,7 @@ const useApplyPass = () => {
         reason: "",
         startTimeHour: "",
         startTimeMinute: "",
+        dinnerOrNot:false,
         idx: 0,
       });
       setPassDataDate(dateTransform.hyphen());
@@ -156,6 +160,10 @@ const useApplyPass = () => {
     },
     []
   );
+  //모달 닫기
+  const closeModal = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   // 외출 데이터 사유 핸들링 함수
   const handlePassDataReason = useCallback(
@@ -167,6 +175,8 @@ const useApplyPass = () => {
     []
   );
 
+  
+  const [isOpen, setOpen] = useState(false);
   const submitPassData = useCallback(async () => {
     const {
       startTimeHour,
@@ -174,6 +184,7 @@ const useApplyPass = () => {
       endTimeHour,
       endTimeMinute,
       reason,
+      dinnerOrNot,
     } = passData;
 
     const validApplyPass = {
@@ -184,6 +195,7 @@ const useApplyPass = () => {
       endAt: dayjs(`${passDataDate} ${endTimeHour}:${endTimeMinute}`).format(
         "YYYY-MM-DDTHH:mm:ss"
       ),
+      dinnerOrNot:true
     };
 
     if (validApplyPass.reason.trim() === "") {
@@ -230,9 +242,12 @@ const useApplyPass = () => {
       showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
       return;
     }
-
+    const Now = new Date()
     //외출 수정인지 외출 신청인지 구분하는 함수
     if (isFold) {
+    if(Now.getDay() === 3){
+      setOpen(true);
+    }else{
       postApplyPassMutation.mutateAsync(validApplyPass, {
         onSuccess: () => {
           queryClient.invalidateQueries("pass/getMyPasses");
@@ -245,6 +260,8 @@ const useApplyPass = () => {
           showToast("외출 신청 실패", "ERROR");
         },
       });
+
+    }
     } else {
       const passIdx = notApprovedPasses.find(
         (notApprovePass) => notApprovePass.id === passData.idx
@@ -288,6 +305,8 @@ const useApplyPass = () => {
     passDataDate,
     handlePassDataDate,
     submitPassData,
+    isOpen,
+    closeModal,
   };
 };
 
