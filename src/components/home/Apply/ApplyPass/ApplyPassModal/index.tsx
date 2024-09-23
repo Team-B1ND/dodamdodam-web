@@ -79,7 +79,7 @@ const ApplyPassModal = ({
             <S.Container>
                 <S.Header><h1>오늘 저녁 급식을 드시나요? 🥺</h1></S.Header>
                 <S.Content>
-                    <span>급식 수요 조사를 위해 설문 조사를 합니다. <br/> 응답해 주시기 바랍니다.</span>
+                    <span>저녁 급식 수요 조사를 위해 설문 조사를 합니다. <br/> 응답해 주시기 바랍니다.</span>
                     <S.ButtonContainer>
                 <Button 
                 width={110}
