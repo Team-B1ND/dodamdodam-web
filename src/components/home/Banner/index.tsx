@@ -3,7 +3,6 @@ import useBanner from "@src/hooks/banner/useBanner";
 import * as S from "./style";
 import Slider from "react-slick";
 import BannerItem from "./BannerItem";
-import { IoOptionsOutline } from "@react-icons/all-files/io5/IoOptionsOutline";
 
 const Banner = () => {
   const { approveBanners, isBannerAuthority } = useBanner();
@@ -45,13 +44,6 @@ const Banner = () => {
           />
         ))}
       </Slider>
-      {isBannerAuthority && (
-        <S.BannerManageButton
-          onClick={() => window.open("http://dodam.b1nd.com/bannersetting", "_blank")}
-        >
-          <IoOptionsOutline />
-        </S.BannerManageButton>
-      )}
     </S.BannerContainer>
   );
 };
