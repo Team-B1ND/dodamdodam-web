@@ -46,13 +46,8 @@ const ApplyPassModal = ({
           } = submitData;
           
         const submitPassData = (id:number)=>{
-            let dinnerCheck = false;
-         
-            if(id===1){
-                dinnerCheck=false;
-            }else{
-                dinnerCheck=true;
-            }
+          let dinnerCheck = id !== 1;
+
             const validApplyPassDinner ={
                 reason,
                 startAt: dayjs(
@@ -67,6 +62,7 @@ const ApplyPassModal = ({
                 onSuccess:()=>{
                     queryClient.invalidateQueries("pass/getMyPasses");
                     showToast("외출 신청 성공", "SUCCESS");
+                    close();
                 },
                 onError: () => {
                     showToast("외출 신청 실패", "ERROR");
@@ -76,7 +72,7 @@ const ApplyPassModal = ({
 
         return(
           <Modal isOpen={isOpen} close={close}>
-            <S.Container>
+            <S.Container onClick={(e) => e.stopPropagation()}>
                 <S.Header><h1>오늘 저녁 급식을 드시나요? 🥺</h1></S.Header>
                 <S.Content>
                     <span>저녁 급식 수요 조사를 위해 설문 조사를 합니다. <br/> 응답해 주시기 바랍니다.</span>
