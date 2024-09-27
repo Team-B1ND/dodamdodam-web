@@ -7,5 +7,6 @@ export const HEADER_LINKS = [
   { name: "심자신청", link: "http://dodam.b1nd.com/nightstudy" },
   { name: "DAuth", link: "http://dauth.b1nd.com/" },
   { name: "DGIT", link: "http://dgit.b1nd.com/" },
+  { name: "WIKI" , link: "https://sh031224.github.io/ask-for-information/"},
   { name: "리크루트", link: "http://dodam.b1nd.com/recruit" },
 ] as const;
