@@ -184,7 +184,6 @@ const useApplyPass = () => {
       endTimeHour,
       endTimeMinute,
       reason,
-      dinnerOrNot,
     } = passData;
 
     const validApplyPass = {
@@ -242,10 +241,17 @@ const useApplyPass = () => {
       showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
       return;
     }
-    const Now = new Date()
+    
     //외출 수정인지 외출 신청인지 구분하는 함수
+
+    //수요일인지 아닌지 확인하는 코드
+    const Now = new Date()
+    const { startAt}=validApplyPass
+    const startAtDay = new Date(startAt).getDay();
+    
     if (isFold) {
-    if(Now.getDay() === 3){
+      transformNotApprovedPass
+    if(Now.getDay() && startAtDay === 3){
       setOpen(true);
     }else{
       postApplyPassMutation.mutateAsync(validApplyPass, {
