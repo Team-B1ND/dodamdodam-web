@@ -34,7 +34,7 @@ jobs:
               "branch": "${{ github.ref }}",
               "source_directory": "./build",
               "project_name": "dodam",
-              "destination_directory": "/myinfo",
+              "destination_directory": "",
               "config_secret": "${{ secrets.CONFIG_JSON }}",
               "title": "${{ env.FINAL_TITLE }}"
             }
