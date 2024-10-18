@@ -38,3 +38,4 @@ jobs:
               "config_secret": "${{ secrets.CONFIG_JSON }}",
               "title": "${{ env.FINAL_TITLE }}"
             }
+            
