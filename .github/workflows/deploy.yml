@@ -1,0 +1,40 @@
+name: Trigger Web Deploy
+
+on:
+  push: 
+    branches: 
+      - master
+      
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      PR_TITLE: ${{ github.event.pull_request.title || '' }}
+      COMMIT_MESSAGE: ${{ github.event.head_commit.message || '' }}
+      FINAL_TITLE: ${{ github.event.pull_request.title || github.event.head_commit.message }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Trigger Deploy
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GIT_ACCESS_TOKEN }}
+          repository: team-b1nd/web-deploy-config
+          event-type: trigger-deploy
+          client-payload: |
+            {
+              "repo_name": "${{ github.repository }}",
+              "branch": "${{ github.ref }}",
+              "source_directory": "./build",
+              "project_name": "dodam",
+              "destination_directory": "/myinfo",
+              "config_secret": "${{ secrets.CONFIG_JSON }}",
+              "title": "${{ env.FINAL_TITLE }}"
+            }
