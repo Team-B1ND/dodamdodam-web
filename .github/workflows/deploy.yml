@@ -22,6 +22,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Clean Commit Message
+        id: clean-message
+        run: |
+          CLEAN_TITLE=$(echo "${{ env.FINAL_TITLE }}" | tr -d '\000-\031')
+          echo "CLEAN_TITLE=$CLEAN_TITLE" >> $GITHUB_ENV
+
       - name: Trigger Deploy
         uses: peter-evans/repository-dispatch@v2
         with:
@@ -36,5 +42,6 @@ jobs:
               "project_name": "dodam",
               "destination_directory": "",
               "config_secret": "${{ secrets.CONFIG_JSON }}",
-              "title": "${{ env.FINAL_TITLE }}"
+              "title": "${{ env.CLEAN_TITLE }}",
+              "package_manager": "npm"
             }
