@@ -40,8 +40,9 @@ jobs:
               "branch": "${{ github.ref }}",
               "source_directory": "./build",
               "project_name": "dodam",
-              "destination_directory": "",
+              "destination_directory": "/myinfo",
               "config_secret": "${{ secrets.CONFIG_JSON }}",
               "title": "${{ env.CLEAN_TITLE }}",
-              "package_manager": "npm"
+              "package_manager": "npm",
+              "build_command": "npm config set registry=https://npm.pkg.github.com/Team-B1ND && npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} && npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} && npm install"
             }
