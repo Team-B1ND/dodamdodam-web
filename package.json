@@ -43,8 +43,8 @@
     "util": "^0.12.5"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "webpack serve --config webpack.development.js --progress",
+    "build": "webpack --config webpack.production.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
