@@ -1,3 +1,4 @@
+//eslint-disable-next-line
 const { merge } = require("webpack-merge");
 const webpackCommon = require("./webpack.common");
 const { ESBuildPlugin, ESBuildMinifyPlugin } = require("esbuild-loader");

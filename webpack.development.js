@@ -1,3 +1,4 @@
+//eslint-disable-next-line
 const webpackCommon = require("./webpack.common");
 const { merge } = require("webpack-merge");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
