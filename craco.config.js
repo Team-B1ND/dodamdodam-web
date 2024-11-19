@@ -1,5 +1,3 @@
-const stream = require('stream-browerify');
-
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
@@ -7,7 +5,7 @@ module.exports = {
     },
     resolve: {
       fallback: {
-        stream: stream,
+        stream: require.resolve('stream-browserify'),
       },
     },
   },
