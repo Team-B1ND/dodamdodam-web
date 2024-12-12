@@ -237,8 +237,8 @@ const useApplyPass = () => {
       return;
     }
     
-    if (!reason || reason.replace(/\s+/g, "").length <= 2) {
-      showToast("사유의 길이를 2자 이상로 적어주세요!", "INFO");
+    if (!reason || reason.replace(/\s+/g, "").length <= 5) {
+      showToast("사유의 길이를 5자 이상로 적어주세요!", "INFO");
       return;
     }
     if (reason?.length > 50) {
