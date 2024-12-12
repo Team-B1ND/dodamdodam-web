@@ -214,6 +214,18 @@ const useApplyLeave = () => {
       showToast("외박신청은 최대 4개까지 가능해요!", "INFO");
       return;
     }
+    
+    if(/^[^a-zA-Z0-9가-힣]+$/.test(reason)){
+      showToast("특수문자만으로 사유를 작성할 수 없습니다!", "INFO");
+    return;
+    }
+    alert(reason.split(" ").join(" "))
+     
+    
+    if (!reason || reason.replace(/\s+/g, "").length <= 2){
+      showToast("사유의 길이를 2자 이상으로 적어주세요!", "INFO")
+      return;
+    }
 
     if (reason?.length > 50) {
       showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
