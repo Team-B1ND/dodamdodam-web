@@ -219,8 +219,6 @@ const useApplyLeave = () => {
       showToast("특수문자만으로 사유를 작성할 수 없습니다!", "INFO");
     return;
     }
-    alert(reason.split(" ").join(" "))
-     
     
     if (!reason || reason.replace(/\s+/g, "").length <= 2){
       showToast("사유의 길이를 2자 이상으로 적어주세요!", "INFO")
