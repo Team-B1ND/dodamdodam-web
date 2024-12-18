@@ -236,7 +236,11 @@ const useApplyPass = () => {
       showToast("복귀시간이 출발시간보다 빨라요!", "INFO");
       return;
     }
-
+    
+    if (!reason || reason.replace(/\s+/g, "").length <= 5) {
+      showToast("사유의 길이를 5자 이상로 적어주세요!", "INFO");
+      return;
+    }
     if (reason?.length > 50) {
       showToast("사유의 길이를 50자 이내로 적어주세요!", "INFO");
       return;

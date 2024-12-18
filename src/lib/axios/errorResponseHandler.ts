@@ -11,6 +11,16 @@ import authRepository from "@src/repository/auth/auth.repository";
 //리프레쉬 작업중인지 아닌지를 구분하는 변수
 let isRefreshing = false;
 
+let refreshSubscribers: ((accessToken: string) => void)[] = [];
+
+const onTokenRefreshed = (accessToken: string) => {
+  refreshSubscribers.map((callback) => callback(accessToken));
+};
+
+const addRefreshSubscriber = (callback: (accessToken: string) => void) => {
+  refreshSubscribers.push(callback);
+};
+
 
 const errorResponseHandler = async (error: AxiosError) => {
   if (error.response) {
@@ -23,7 +33,7 @@ const errorResponseHandler = async (error: AxiosError) => {
     const usingRefreshToken = token.getToken(REFRESH_TOKEN_KEY);
 
     if (
-      usingAccessToken !==undefined &&
+      usingAccessToken !== undefined &&
       usingRefreshToken !== undefined &&
       status === 401
     ) {
@@ -49,7 +59,7 @@ const errorResponseHandler = async (error: AxiosError) => {
           isRefreshing = false;
 
           //새로 받은 accessToken을 기반으로 이때까지 밀려있던 요청을 모두 처리
-          
+          onTokenRefreshed(newAccessToken);
         } catch (error) {
           //리프레쉬 하다가 오류난거면 리프레쉬도 만료된 것이므로 다시 로그인
           window.alert("세션이 만료되었습니다.");
@@ -57,13 +67,14 @@ const errorResponseHandler = async (error: AxiosError) => {
           window.location.href = "/sign";
         }
       }
-
-    
-    
+      return new Promise((resolve) => {
+        addRefreshSubscriber((accessToken: string) => {
+          originalRequest.headers![REQUEST_TOKEN_KEY] = `Bearer ${accessToken}`;
+          resolve(dodamAxios(originalRequest));
+        });
+      });
     }
   }
-
-  return Promise.reject(error);
 };
 
 export default errorResponseHandler;
