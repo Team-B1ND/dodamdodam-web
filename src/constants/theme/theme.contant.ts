@@ -1,1 +1,1 @@
-export const THEME_KEY = "theme" as const;
+export const THEME_KEY = "Dodam_theme" as const;
