@@ -3,5 +3,7 @@ import { Response } from "@src/types/util/response.type";
 
 export interface LoginParam extends Login {}
 export interface NewAccessTokenResponse extends Response {
-  data: string;
+  data: {
+    accessToken:string
+  }
 }
