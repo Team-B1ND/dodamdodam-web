@@ -18,7 +18,7 @@ const useTheme = () => {
 
   const handleTheme = useCallback((): void => {
     const switchTheme = currentTheme === DARK ? LIGHT : DARK;
-    cookie.setCookie(THEME_KEY, String(switchTheme));
+    window.localStorage.setItem(THEME_KEY, String(switchTheme));
     setCurrentTheme(switchTheme);
   }, [DARK, LIGHT, currentTheme, setCurrentTheme]);
 

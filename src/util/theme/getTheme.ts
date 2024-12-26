@@ -3,7 +3,7 @@ import { ETheme } from "@src/enum/theme/theme.enum";
 import cookie from "@src/lib/cookie/cookie";
 
 export const getTheme = (): ETheme => {
-  const themeMode = cookie.getCookie(THEME_KEY);
+  const themeMode = window.localStorage.getItem(THEME_KEY);
 
   if (typeof window !== "undefined" && !themeMode) {
     const isDarkTheme: boolean = window.matchMedia(
