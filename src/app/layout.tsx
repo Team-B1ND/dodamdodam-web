@@ -6,9 +6,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <head>
+        <link rel="icon" href="/logo/favicon.svg" />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
