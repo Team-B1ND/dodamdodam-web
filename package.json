@@ -9,9 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@b1nd/dodam-design-system": "^1.0.6",
+    "axios": "^1.13.6",
+    "dayjs": "^1.11.20",
     "next": "16.1.7",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "styled-components": "^6.3.11",
+    "tanstack-query": "^1.0.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
