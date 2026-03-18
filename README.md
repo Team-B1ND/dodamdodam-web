@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h4 align="center">학생들을 위한, 학생들이 만든, 스마트스쿨 플랫폼</h4>
 
-## Getting Started
+# [도담도담](https://dodam.b1nd.com/) 이란?
 
-First, run the development server:
+도담도담은 모든 학생과 모든 선생님에게 사고없이 편리함을 제공해줄 수 있는 스마트스쿨 플랫폼으로, 교내 모든 전교생이 사용하고 있어요.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> 아쉽지만 해당 서비스는 대소고학생 들만 사용할 수 있어요 🥲
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기능 리스트
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 학생 관리 기능
+  - 수기로 진행되던 외박 신청, 심야자습 신청 같은 작업을 웹사이트로 신청 할 수 있습니다.
+  - 개별 역할 학생이 기능 관리가 가능합니다. ( 자치위원, 방송부 등 )
+- 학생 편의 기능
+  - 매일 아침에 기숙사에서 나오는 기상송을 자기가 듣고싶은 노래로 신청 할 수 있습니다.
+  - 대구소프트웨어마이스터고등학교의 1년 급식표를 조회 할 수 있습니다.
+  - 대구소프트웨어마이스터고등학교의 일정을 조회할 수 있습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 기술 스택
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`TypeScript`, `React`, `Next.js`, `Tanstack-Query`, `Styled-Components`, `Axios`
