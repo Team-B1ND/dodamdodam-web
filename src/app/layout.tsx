@@ -1,4 +1,6 @@
+import { ThemeSetter } from "@b1nd/dodam-design-system/next";
 import localFont from "next/font/local";
+import "./globals.css";
 
 const pretendard = localFont({
   src: "../../public/font/PretendardVariable.woff2",
@@ -12,9 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/logo/favicon.svg" />
+        <ThemeSetter />
       </head>
       <body className={pretendard.className}>
         {children}
