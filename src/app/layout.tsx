@@ -19,7 +19,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo/favicon.svg" />
         <ThemeSetter />
       </head>
-      <body className={pretendard.className}>
+      <body className={"w-full h-screen " + pretendard.className}>
         {children}
       </body>
     </html>
