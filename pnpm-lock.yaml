@@ -11,6 +11,9 @@ importers:
       '@b1nd/dodam-design-system':
         specifier: ^1.0.6
         version: 1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
+      '@cher1shrxd/loading':
+        specifier: ^1.0.3
+        version: 1.0.3(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
       axios:
         specifier: ^1.13.6
         version: 1.13.6
@@ -639,6 +642,14 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@cher1shrxd/loading@1.0.3':
+    resolution: {integrity: sha512-KbVBy666729uBFW3fZ/ChR/H7RXnlpF4GR+7qbRw21FyacB2fzu96uZzZlcpDqZwbkFzJD62ylfZM+azrmNITA==}
+    peerDependencies:
+      next: '>=13.0.0'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+      zustand: '>=4.0.0'
 
   '@emnapi/core@1.9.0':
     resolution: {integrity: sha512-0DQ98G9ZQZOxfUcQn1waV2yS8aWdZ6kJMbYCJB3oUBecjWYO1fqJ+a1DRfPF3O5JEkwqwP1A9QEN/9mYm2Yd0w==}
@@ -3682,6 +3693,13 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@cher1shrxd/loading@1.0.3(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))':
+    dependencies:
+      next: 16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+      zustand: 5.0.12(@types/react@19.2.14)(react@19.2.3)
 
   '@emnapi/core@1.9.0':
     dependencies:
