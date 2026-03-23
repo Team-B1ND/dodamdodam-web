@@ -11,6 +11,9 @@ importers:
       '@b1nd/dodam-design-system':
         specifier: ^1.0.6
         version: 1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
+      '@cher1shrxd/api-client':
+        specifier: ^1.0.4
+        version: 1.0.4(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
       '@cher1shrxd/loading':
         specifier: ^1.0.3
         version: 1.0.3(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
@@ -642,6 +645,11 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@cher1shrxd/api-client@1.0.4':
+    resolution: {integrity: sha512-b3IERy3dEC/LAceru2iL9K2OpRPWztuOHLGVAZgZmU2U9YiLjd9+xTlZLQ914/sXpG/C7+4+JQtc3kJjastFaA==}
+    peerDependencies:
+      next: '>=14.0.0'
 
   '@cher1shrxd/loading@1.0.3':
     resolution: {integrity: sha512-KbVBy666729uBFW3fZ/ChR/H7RXnlpF4GR+7qbRw21FyacB2fzu96uZzZlcpDqZwbkFzJD62ylfZM+azrmNITA==}
@@ -3693,6 +3701,10 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@cher1shrxd/api-client@1.0.4(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))':
+    dependencies:
+      next: 16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
 
   '@cher1shrxd/loading@1.0.3(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))':
     dependencies:
