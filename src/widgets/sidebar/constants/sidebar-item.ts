@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Chart, ForkAndKnife, Home, MoonPlus, Person } from "@b1nd/dodam-design-system";
+import { Calendar, Chart, ForkAndKnife, Home, MoonPlus, Person } from "@b1nd/dodam-design-system/icons";
 import { SidebarMenuType } from "@src/widgets/sidebar/types/sidebar-item/sidebar-item";
 
 export const MENUS: SidebarMenuType[] = [

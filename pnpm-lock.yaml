@@ -12,8 +12,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(axios@1.13.6)
       '@b1nd/dodam-design-system':
-        specifier: ^1.0.6
-        version: 1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
+        specifier: 1.0.7
+        version: 1.0.7(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
       '@cher1shrxd/loading':
         specifier: ^1.0.3
         version: 1.0.3(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
@@ -81,8 +81,8 @@ packages:
     peerDependencies:
       axios: '>=1.13.6'
 
-  '@b1nd/dodam-design-system@1.0.6':
-    resolution: {integrity: sha512-IIxi9QyxxRQomyZ/cNIPon+8Xik9zucYLTWiKQ+MrPWFf11N94NZjHM5KqSsU1ehXfdNzPV/uZVOUHQIZdL5vw==}
+  '@b1nd/dodam-design-system@1.0.7':
+    resolution: {integrity: sha512-b7RlKiUOxmpX2yffptMVC/iB4lej9tpLfi1NtcBp+X+H/OAJHfB6sNp2vLJxyxh7fzCw2wTebucLLyyf+IW3Mg==}
     peerDependencies:
       '@emotion/cache': ^11.14.0
       '@emotion/react': ^11.14.0
@@ -2962,7 +2962,7 @@ snapshots:
     dependencies:
       axios: 1.13.6
 
-  '@b1nd/dodam-design-system@1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))':
+  '@b1nd/dodam-design-system@1.0.7(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))':
     dependencies:
       '@emotion/cache': 11.14.0
       '@emotion/react': 11.14.0(@types/react@19.2.14)(react@19.2.3)

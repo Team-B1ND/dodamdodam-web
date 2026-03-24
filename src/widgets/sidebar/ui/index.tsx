@@ -1,6 +1,8 @@
 "use client"
 
-import { colors, DoorOpen, toggleTheme, useTheme } from "@b1nd/dodam-design-system";
+import { colors } from "@b1nd/dodam-design-system/colors";
+import { DoorOpen } from "@b1nd/dodam-design-system/icons";
+import { toggleTheme, useTheme } from "@b1nd/dodam-design-system/themes";
 import { SidebarMenuType } from "@src/widgets/sidebar/types/sidebar-item/sidebar-item";
 import SidebarItem from "@src/widgets/sidebar/ui/sidebar-item"
 import { ReactElement } from "react";
