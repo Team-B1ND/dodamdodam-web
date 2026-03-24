@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@b1nd/api-client": "^1.0.1",
-    "@b1nd/dodam-design-system": "^1.0.6",
+    "@b1nd/dodam-design-system": "1.0.7",
     "@cher1shrxd/loading": "^1.0.3",
     "axios": "^1.13.6",
     "dayjs": "^1.11.20",

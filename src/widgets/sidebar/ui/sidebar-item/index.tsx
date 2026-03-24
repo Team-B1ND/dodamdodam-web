@@ -1,6 +1,7 @@
 "use client"
 
-import { colors } from "@b1nd/dodam-design-system";
+
+import { colors } from "@b1nd/dodam-design-system/colors";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
