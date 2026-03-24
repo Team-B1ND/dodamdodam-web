@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@b1nd/api-client':
+        specifier: ^1.0.1
+        version: 1.0.1(axios@1.13.6)
       '@b1nd/dodam-design-system':
         specifier: ^1.0.6
         version: 1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))
@@ -72,6 +75,11 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@b1nd/api-client@1.0.1':
+    resolution: {integrity: sha512-qHS21raVxoH2idmi5e0Zty/sSyY28lvGxQgYNFkdAtvDgLrrvE2l+oCVplAn2iY6xs5tqnpvgYUt8wqRl8lZxg==}
+    peerDependencies:
+      axios: '>=1.13.6'
 
   '@b1nd/dodam-design-system@1.0.6':
     resolution: {integrity: sha512-IIxi9QyxxRQomyZ/cNIPon+8Xik9zucYLTWiKQ+MrPWFf11N94NZjHM5KqSsU1ehXfdNzPV/uZVOUHQIZdL5vw==}
@@ -2949,6 +2957,10 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
+
+  '@b1nd/api-client@1.0.1(axios@1.13.6)':
+    dependencies:
+      axios: 1.13.6
 
   '@b1nd/dodam-design-system@1.0.6(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.3))(@types/react@19.2.14)(react@19.2.3))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(next@16.1.7(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zustand@5.0.12(@types/react@19.2.14)(react@19.2.3))':
     dependencies:
