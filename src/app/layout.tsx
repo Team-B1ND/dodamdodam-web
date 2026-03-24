@@ -2,7 +2,7 @@ import { ThemeSetter } from "@b1nd/dodam-design-system/next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { LoadingBar } from "@cher1shrxd/loading";
-import { colors } from "@b1nd/dodam-design-system";
+import { colors } from "@b1nd/dodam-design-system/colors";
 
 const pretendard = localFont({
   src: "../../public/font/PretendardVariable.woff2",
