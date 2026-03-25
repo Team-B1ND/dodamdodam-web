@@ -1,21 +1,75 @@
-<h4 align="center">학생들을 위한, 학생들이 만든, 스마트스쿨 플랫폼</h4>
+# React + TypeScript + Vite
 
-# [도담도담](https://dodam.b1nd.com/) 이란?
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-도담도담은 모든 학생과 모든 선생님에게 사고없이 편리함을 제공해줄 수 있는 스마트스쿨 플랫폼으로, 교내 모든 전교생이 사용하고 있어요.
+Currently, two official plugins are available:
 
-> 아쉽지만 해당 서비스는 대소고학생 들만 사용할 수 있어요 🥲
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## 기능 리스트
+## React Compiler
 
-- 학생 관리 기능
-  - 수기로 진행되던 외박 신청, 심야자습 신청 같은 작업을 웹사이트로 신청 할 수 있습니다.
-  - 개별 역할 학생이 기능 관리가 가능합니다. ( 자치위원, 방송부 등 )
-- 학생 편의 기능
-  - 매일 아침에 기숙사에서 나오는 기상송을 자기가 듣고싶은 노래로 신청 할 수 있습니다.
-  - 대구소프트웨어마이스터고등학교의 1년 급식표를 조회 할 수 있습니다.
-  - 대구소프트웨어마이스터고등학교의 일정을 조회할 수 있습니다.
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-# 기술 스택
+Note: This will impact Vite dev & build performances.
 
-`TypeScript`, `React`, `Next.js`, `Tanstack-Query`, `Styled-Components`, `Axios`
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

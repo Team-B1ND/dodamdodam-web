@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem("dds-theme");
+          const system = window.matchMedia("(prefers-color-scheme: dark)")
+            .matches
+            ? "dark"
+            : "light";
+          const theme =
+            stored === "dark" || stored === "light" ? stored : system;
+          document.documentElement.dataset.theme = theme;
+
+          const style = document.createElement("style");
+          style.textContent =
+            "*, *::before, *::after { transition: none !important; }";
+          document.head.appendChild(style);
+
+          window.addEventListener("DOMContentLoaded", () => {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                style.remove();
+              });
+            });
+          });
+        } catch {}
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dodamdodam-web</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
