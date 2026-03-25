@@ -21,7 +21,9 @@ function RouteComponent() {
             </Suspense>
           </div>
           <div className="flex flex-col gap-4 grow">
-            <Meal/>
+            <Suspense fallback={<Meal.Skeleton/>}>
+              <Meal/>
+            </Suspense>
           </div>
         </main>
       </div>
