@@ -68,10 +68,15 @@
   src: url("./shared/assets/fonts/Pretendard-Black.woff") format("woff");
 }
 
+.font-pretendard {
+  font-family: "Pretendard", sans-serif;
+}
+
 * {
   font-family: "Pretendard", sans-serif;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
+  outline: none;
   user-select: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {

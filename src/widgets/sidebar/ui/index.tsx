@@ -16,7 +16,7 @@ const Sidebar = ({
 }: Props) => {
   const theme = useTheme();
   return (
-    <div className="w-50 h-full p-3 bg-background-surface rounded-2xl inline-flex flex-col justify-start items-start gap-2 overflow-hidden">
+    <aside className="w-50 h-full p-3 bg-background-surface rounded-2xl inline-flex flex-col justify-start items-start gap-2 overflow-hidden">
       {logo}
       {menus.map((item) => (
         <SidebarItem
@@ -38,7 +38,7 @@ const Sidebar = ({
           <DoorOpen color={colors.static.white} pointer/>
         </button>
       </div>
-    </div>
+    </aside>
   );
 }
 
