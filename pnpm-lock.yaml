@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@b1nd/api-client':
-        specifier: ^1.0.1
-        version: 1.0.1(axios@1.13.6)
+        specifier: ^1.0.2
+        version: 1.0.2(axios@1.13.6)
       '@b1nd/dodam-design-system':
         specifier: ^1.0.7
         version: 1.0.7(@emotion/cache@11.14.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(framer-motion@11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(zustand@5.0.12(@types/react@19.2.14)(immer@9.0.21)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4)))
@@ -102,8 +102,8 @@ importers:
 
 packages:
 
-  '@b1nd/api-client@1.0.1':
-    resolution: {integrity: sha512-qHS21raVxoH2idmi5e0Zty/sSyY28lvGxQgYNFkdAtvDgLrrvE2l+oCVplAn2iY6xs5tqnpvgYUt8wqRl8lZxg==}
+  '@b1nd/api-client@1.0.2':
+    resolution: {integrity: sha512-sL/aIM0hgqPD60O347MnkX4TuMNsbrrcmaqinpNnryUxPjqCHGd2+1ZOXnZLGXA5BYcKrVhLpQIRAVB3r13DMg==}
     peerDependencies:
       axios: '>=1.13.6'
 
@@ -2005,7 +2005,7 @@ packages:
 
 snapshots:
 
-  '@b1nd/api-client@1.0.1(axios@1.13.6)':
+  '@b1nd/api-client@1.0.2(axios@1.13.6)':
     dependencies:
       axios: 1.13.6
 
