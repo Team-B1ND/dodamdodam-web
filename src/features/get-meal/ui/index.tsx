@@ -1,13 +1,14 @@
 import { mealTypeToText } from "@/features/get-meal/lib/meal-type-to-text"
 import useGetMealByDate from "@/features/get-meal/model/useGetMealByDate"
-import { getToday } from "@/shared/libs/day"
+import { formatDate } from "@/shared/libs/formatDate"
 import { colors } from "@b1nd/dodam-design-system/colors"
-import { Tag } from "@b1nd/dodam-design-system/components"
+import { DatePicker, FilledButton, PickerTrigger, Tag } from "@b1nd/dodam-design-system/components"
 import { ForkAndKnife } from "@b1nd/dodam-design-system/icons"
+import { useState } from "react"
 
 const Meal = () => {
-  const today = getToday();
-  const { data } = useGetMealByDate(today);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const { data } = useGetMealByDate(formatDate(selectedDate));
   
   return (
     <div className="small-container flex flex-col gap-4 text-text-primary">
@@ -16,13 +17,31 @@ const Meal = () => {
           <ForkAndKnife color={colors.text.primary} />
           <p className="text-headline font-bold">급식</p>
         </div>
+        <div className="flex gap-2 text-body1 font-medium">
+          <PickerTrigger
+            content={({ onClose }) => (
+              <DatePicker.Content
+                date={selectedDate}
+                onChangeDate={setSelectedDate}
+                onClose={onClose}
+              />
+            )}
+          >
+            <FilledButton
+              size="small"
+            >
+              {formatDate(selectedDate)}
+            </FilledButton>
+          </PickerTrigger>
+        </div>
       </header>
-      {data.map(item => (
-        <div key={`${item.date}_${item.mealType}`} className="flex flex-col gap-1 items-start">
+      {data.map((item) => (
+        <div
+          key={`${item.date}_${item.mealType}`}
+          className="flex flex-col gap-1 items-start"
+        >
           <Tag text={mealTypeToText(item.mealType)} color="blue" />
-          <p className="text-body2 font-medium">
-            {item.menus.join(", ")}
-          </p>
+          <p className="text-body2 font-medium">{item.menus.join(", ")}</p>
           <span className="text-label text-text-tertiary font-medium">
             {`${item.calorie}Kcal`}
           </span>
