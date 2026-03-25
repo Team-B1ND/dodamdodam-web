@@ -9,50 +9,104 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
+import { Route as NightStudyIndexRouteImport } from './routes/nightStudy/index'
+import { Route as MealIndexRouteImport } from './routes/meal/index'
+import { Route as homeIndexRouteImport } from './routes/(home)/index'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
+  id: '/schedule/',
+  path: '/schedule/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NightStudyIndexRoute = NightStudyIndexRouteImport.update({
+  id: '/nightStudy/',
+  path: '/nightStudy/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MealIndexRoute = MealIndexRouteImport.update({
+  id: '/meal/',
+  path: '/meal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const homeIndexRoute = homeIndexRouteImport.update({
+  id: '/(home)/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof homeIndexRoute
+  '/meal/': typeof MealIndexRoute
+  '/nightStudy/': typeof NightStudyIndexRoute
+  '/schedule/': typeof ScheduleIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof homeIndexRoute
+  '/meal': typeof MealIndexRoute
+  '/nightStudy': typeof NightStudyIndexRoute
+  '/schedule': typeof ScheduleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(home)/': typeof homeIndexRoute
+  '/meal/': typeof MealIndexRoute
+  '/nightStudy/': typeof NightStudyIndexRoute
+  '/schedule/': typeof ScheduleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/meal/' | '/nightStudy/' | '/schedule/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/meal' | '/nightStudy' | '/schedule'
+  id: '__root__' | '/(home)/' | '/meal/' | '/nightStudy/' | '/schedule/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  homeIndexRoute: typeof homeIndexRoute
+  MealIndexRoute: typeof MealIndexRoute
+  NightStudyIndexRoute: typeof NightStudyIndexRoute
+  ScheduleIndexRoute: typeof ScheduleIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/schedule/': {
+      id: '/schedule/'
+      path: '/schedule'
+      fullPath: '/schedule/'
+      preLoaderRoute: typeof ScheduleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nightStudy/': {
+      id: '/nightStudy/'
+      path: '/nightStudy'
+      fullPath: '/nightStudy/'
+      preLoaderRoute: typeof NightStudyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meal/': {
+      id: '/meal/'
+      path: '/meal'
+      fullPath: '/meal/'
+      preLoaderRoute: typeof MealIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(home)/': {
+      id: '/(home)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof homeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  homeIndexRoute: homeIndexRoute,
+  MealIndexRoute: MealIndexRoute,
+  NightStudyIndexRoute: NightStudyIndexRoute,
+  ScheduleIndexRoute: ScheduleIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

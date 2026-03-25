@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "@b1nd/dodam-design-system/colors/colors.css";
 @import "@b1nd/dodam-design-system/themes/theme.tailwind.css";
+@import "@b1nd/dodam-design-system/shapes/tokens.tailwind.css";
+@import "@b1nd/dodam-design-system/typography/tokens.tailwind.css";
+@import "@b1nd/dodam-design-system/breakpoints/tokens.tailwind.css";
 
 @font-face {
   font-family: "Pretendard";
