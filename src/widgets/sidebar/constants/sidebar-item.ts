@@ -19,7 +19,7 @@ export const MENUS: SidebarMenuType[] = [
   },
   {
     text: "심야자습",
-    herf: "/nightstudy",
+    herf: "/night-study",
     icon: MoonPlus,
   },
   {

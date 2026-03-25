@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
-import { Route as NightStudyIndexRouteImport } from './routes/nightStudy/index'
+import { Route as NightStudyIndexRouteImport } from './routes/night-study/index'
 import { Route as MealIndexRouteImport } from './routes/meal/index'
 import { Route as homeIndexRouteImport } from './routes/(home)/index'
 
@@ -20,8 +20,8 @@ const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const NightStudyIndexRoute = NightStudyIndexRouteImport.update({
-  id: '/nightStudy/',
-  path: '/nightStudy/',
+  id: '/night-study/',
+  path: '/night-study/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MealIndexRoute = MealIndexRouteImport.update({
@@ -38,28 +38,28 @@ const homeIndexRoute = homeIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof homeIndexRoute
   '/meal/': typeof MealIndexRoute
-  '/nightStudy/': typeof NightStudyIndexRoute
+  '/night-study/': typeof NightStudyIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof homeIndexRoute
   '/meal': typeof MealIndexRoute
-  '/nightStudy': typeof NightStudyIndexRoute
+  '/night-study': typeof NightStudyIndexRoute
   '/schedule': typeof ScheduleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(home)/': typeof homeIndexRoute
   '/meal/': typeof MealIndexRoute
-  '/nightStudy/': typeof NightStudyIndexRoute
+  '/night-study/': typeof NightStudyIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/meal/' | '/nightStudy/' | '/schedule/'
+  fullPaths: '/' | '/meal/' | '/night-study/' | '/schedule/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meal' | '/nightStudy' | '/schedule'
-  id: '__root__' | '/(home)/' | '/meal/' | '/nightStudy/' | '/schedule/'
+  to: '/' | '/meal' | '/night-study' | '/schedule'
+  id: '__root__' | '/(home)/' | '/meal/' | '/night-study/' | '/schedule/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,10 +78,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/nightStudy/': {
-      id: '/nightStudy/'
-      path: '/nightStudy'
-      fullPath: '/nightStudy/'
+    '/night-study/': {
+      id: '/night-study/'
+      path: '/night-study'
+      fullPath: '/night-study/'
       preLoaderRoute: typeof NightStudyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
