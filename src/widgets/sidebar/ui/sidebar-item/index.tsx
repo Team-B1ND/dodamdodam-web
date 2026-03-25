@@ -18,7 +18,7 @@ const SidebarItem = ({
   herf,
   onClick
 }: Props) => {
-  const pathname = useLocation().pathname;
+  const { pathname } = useLocation();
   const isParentActive = pathname === herf || pathname.startsWith(`${herf}/`);
 
   return (
