@@ -1,4 +1,4 @@
-export interface TimeTableType {
+export interface TimeTable {
   date: string;
   grade: number;
   room: number;
