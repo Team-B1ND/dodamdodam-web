@@ -1,14 +1,9 @@
-import { MyTimeTableApi } from "@/entities/time-table/api";
-import type { TimeTableType } from "@/entities/time-table/types";
-import { useSuspenseQuery, type UseSuspenseQueryOptions, type UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
+import { TimeTableApi } from "@/entities/time-table/api";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const useGetMyTimeTableQuery = (
-  options?: UseSuspenseQueryOptions<TimeTableType[], AxiosError>,
-): UseSuspenseQueryResult<TimeTableType[], AxiosError> =>
+export const useGetMyTimeTableQuery = () =>
   useSuspenseQuery({
     queryKey: ["time-table", "my"],
-    queryFn: () => MyTimeTableApi(),
+    queryFn: TimeTableApi.getMyTimeTable,
     staleTime: 1000 * 60 * 5,
-    ...options,
   });
