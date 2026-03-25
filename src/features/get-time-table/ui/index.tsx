@@ -63,4 +63,19 @@ const TimeTable = () => {
   );
 }
 
+TimeTable.Skeleton = () => {
+  return (
+    <div className="small-container flex flex-col gap-3 text-text-primary">
+      <header className="flex justify-between">
+        <div className="flex gap-2 justify-center items-center">
+          <Clock color={colors.text.primary} />
+          <p className="text-headline font-bold">시간표</p>
+        </div>
+        <div className="w-12 h-8 rounded-full skeleton"/>
+      </header>
+      <div className="h-76 grow skeleton rounded-large"/>
+    </div>
+  )
+}
+
 export default TimeTable

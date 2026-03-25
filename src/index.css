@@ -92,4 +92,8 @@ body {
 	.large-container {
 		@apply p-6 bg-background-surface rounded-large;
 	}
+
+  .skeleton {
+    @apply animate-pulse bg-fill-secondary;
+  }
 }
