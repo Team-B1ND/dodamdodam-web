@@ -33,7 +33,11 @@ const Meal = () => {
           </FilledButton>
         </PickerTrigger>
       </header>
-      {data.map((item) => (
+      {data.length === 0 ? (
+        <div className="flex justify-center items-center h-60">
+          주말엔 급식이 없어요.
+        </div>
+      ) : data.map((item) => (
         <div
           key={`${item.date}_${item.mealType}`}
           className="flex flex-col gap-1 items-start"
@@ -57,7 +61,7 @@ Meal.Skeleton = () => {
           <ForkAndKnife color={colors.text.primary} />
           <p className="text-headline font-bold">급식</p>
         </div>
-        <FilledButton size="small" className="skeleton">
+        <FilledButton size="small">
           로딩 중
         </FilledButton>
       </header>
