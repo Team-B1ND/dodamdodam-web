@@ -83,3 +83,13 @@ body {
   background-color: var(--dds-color-background-default);
   color: var(--dds-color-text-primary);
 }
+
+@layer components {
+	.small-container {
+		@apply px-5 py-4 bg-background-surface rounded-large;
+	}
+
+	.large-container {
+		@apply p-6 bg-background-surface rounded-large;
+	}
+}

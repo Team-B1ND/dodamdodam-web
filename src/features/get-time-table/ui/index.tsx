@@ -1,0 +1,66 @@
+import { TIME_TABLE_HEAD } from "@/features/get-time-table/constants/time-table";
+import { getPeriod } from "@/features/get-time-table/lib/time-table-period";
+import useGetTimeTable from "@/features/get-time-table/model/useGetTimeTable";
+import { getToday } from "@/shared/libs/day";
+import { colors } from "@b1nd/dodam-design-system/colors";
+import { Tag } from "@b1nd/dodam-design-system/components";
+import { Clock } from "@b1nd/dodam-design-system/icons"
+
+const TimeTable = () => {
+  const { data } = useGetTimeTable();
+  const today = getToday("YYYY-MM-DD");
+  const period = getPeriod();
+
+  return (
+    <div className="small-container flex flex-col gap-3 text-text-primary">
+      <header className="flex justify-between">
+        <div className="flex gap-2 justify-center items-center">
+          <Clock color={colors.text.primary} />
+          <p className="text-headline font-bold">시간표</p>
+        </div>
+        <Tag
+          text={`${data[0][0].grade}-${data[0][0].room}`}
+          color="blue"
+        />
+      </header>
+      <div className="bg-fill-primary p-3 rounded-large">
+        <table className="text-center w-full">
+          <thead>
+            <tr>
+              {TIME_TABLE_HEAD.map((item) => (
+                <th className="pb-1" key={item}>
+                  {item}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: 7 }).map((_, index) => (
+              <tr key={index}>
+                {Array.from({ length: 6 }).map((_, row_index) => (
+                  <td
+                    className={`py-1.5 text-label h-9 ${
+                      row_index !== 0 &&
+                      today === data[row_index - 1][index]?.date
+                        ? `${period === index + 1 
+                            ? `text-brand-primary` 
+                            : `text-text-primary`} font-medium`
+                        : `text-text-secondary font-light`
+                    }`}
+                    key={`${index}_${row_index}`}
+                  >
+                    {row_index === 0
+                      ? index + 1
+                      : (data[row_index - 1][index]?.subject ?? "-")}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default TimeTable
