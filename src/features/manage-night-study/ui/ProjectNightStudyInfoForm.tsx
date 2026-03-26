@@ -13,7 +13,7 @@ const ProjectNightStudyInfoForm = () => {
       <div className="w-full flex flex-col items-start gap-3">
         <h1 className="text-headline font-bold">신청 기한</h1>
         <div className="w-full flex flex-col items-start gap-4">
-          <div className="w-full flex items-center justify-between">
+          <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="flex flex-col gap-1">
               <p className="text-headline font-medium text-text-secondary">진행 시각</p>
               <p className="text-caption2 text-status-error">

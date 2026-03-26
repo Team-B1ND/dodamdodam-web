@@ -52,7 +52,7 @@ const PersonalNightStudyForm = () => {
           onChange={(e) => handleStringChange("period", e.target.value)}
         />
       </div>
-      <div className="w-full flex items-start gap-4">
+      <div className="w-full flex flex-col sm:flex-row items-start gap-4">
         <div className="flex-1 flex flex-col gap-3">
           <h1 className="text-headline font-bold">신청 기한</h1>
           <div className="w-full flex items-center justify-between">

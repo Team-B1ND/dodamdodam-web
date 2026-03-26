@@ -29,8 +29,8 @@ function RouteComponent() {
   const [page, setPage] = useState("personal");
 
   return (
-    <div className="w-full h-full flex gap-8 items-start">
-      <div className="flex-1 bg-background-surface rounded-large p-5 flex flex-col gap-4">
+    <div className="w-full h-full flex flex-col lg:flex-row gap-8 items-start">
+      <div className="flex-1 w-full bg-background-surface rounded-large p-5 flex flex-col gap-4">
         <SegmentedButton
           data={segment}
           setData={setSegment}
@@ -42,7 +42,7 @@ function RouteComponent() {
           <ProjectNightStudyForm />
         )}
       </div>
-      <div className="w-90 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start max-h-full">
+      <div className="w-full lg:w-90 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start lg:max-h-full">
         <h1 className="text-headline font-bold">
           My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
         </h1>
