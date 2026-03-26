@@ -1,6 +1,6 @@
 import { mealTypeToText } from "@/features/get-meal/lib/meal-type-to-text"
 import useGetMealByDate from "@/features/get-meal/model/useGetMealByDate"
-import { formatDate } from "@/shared/libs/formatDate"
+import { padDate } from "@/shared/utils/pad-date"
 import { colors } from "@b1nd/dodam-design-system/colors"
 import { DatePicker, FilledButton, PickerTrigger, Tag } from "@b1nd/dodam-design-system/components"
 import { ForkAndKnife } from "@b1nd/dodam-design-system/icons"
@@ -8,7 +8,7 @@ import { useState } from "react"
 
 const Meal = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const { data } = useGetMealByDate(formatDate(selectedDate));
+  const { data } = useGetMealByDate(padDate(selectedDate));
   
   return (
     <div className="small-container flex flex-col gap-4 text-text-primary">
@@ -29,7 +29,7 @@ const Meal = () => {
           <FilledButton
             size="small"
           >
-            {formatDate(selectedDate)}
+            {padDate(selectedDate)}
           </FilledButton>
         </PickerTrigger>
       </header>
