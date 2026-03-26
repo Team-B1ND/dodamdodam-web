@@ -1,5 +1,6 @@
 import Meal from '@/features/get-meal/ui';
 import TimeTable from '@/features/get-time-table/ui';
+import ManageOutSleeping from '@/features/manage-out-sleeping/ui';
 import { createFileRoute } from '@tanstack/react-router'
 import { Suspense } from 'react';
 
@@ -16,14 +17,15 @@ function RouteComponent() {
         </header>
         <main className="grid grid-cols-2 grow gap-4">
           <div className="flex flex-col gap-4 grow">
-            <Suspense fallback={<TimeTable.Skeleton/>}> 
+            <Suspense fallback={<TimeTable.Skeleton />}>
               <TimeTable />
             </Suspense>
           </div>
           <div className="flex flex-col gap-4 grow">
-            <Suspense fallback={<Meal.Skeleton/>}>
-              <Meal/>
+            <Suspense fallback={<Meal.Skeleton />}>
+              <Meal />
             </Suspense>
+            <ManageOutSleeping />
           </div>
         </main>
       </div>

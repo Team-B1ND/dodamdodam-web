@@ -18,3 +18,19 @@ export const useApplyOutSleepingMutation = () => {
     },
   });
 };
+
+export const useDeleteOutSleepingMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: OutSleepingApi.deleteMyOutSleeping,
+    onSuccess: async (res) => {
+      await queryClient.refetchQueries({ queryKey: ["out-sleeping", "my"] });
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+}
