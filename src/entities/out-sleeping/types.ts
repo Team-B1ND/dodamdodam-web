@@ -8,4 +8,18 @@ export interface OutSleeping {
   endAt: string;
 }
 
-export type OutSleepingApplyRequest = Omit<OutSleeping, "publicId" | "status">
+export type OutSleepingApplyRequest = Omit<OutSleeping, "publicId" | "status">;
+
+export interface OutSleepingApplication {
+  publicId: string;
+  reason: string;
+  status: OutSleepingStatus;
+  student: {
+    name: string;
+    grade: number;
+    room: number;
+    number: number;
+  };
+  startAt: string;
+  endAt: string;
+}
