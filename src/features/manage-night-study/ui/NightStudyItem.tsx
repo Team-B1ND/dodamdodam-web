@@ -8,9 +8,10 @@ import { useDeleteNightStudyMutation } from "@/entities/night-study/mutations";
 
 interface Props {
   data: NightStudy;
+  projectNightStudy?: boolean;
 }
 
-const NightStudyItem = ({ data }: Props) => {
+const NightStudyItem = ({ projectNightStudy = false, data }: Props) => {
   const { open } = useOverlay();
   const { mutateAsync, isPending } = useDeleteNightStudyMutation();
 
@@ -62,17 +63,17 @@ const NightStudyItem = ({ data }: Props) => {
       <div className="w-full h-px bg-border-normal" />
       <div className="w-full grid grid-cols-2 grid-rows-2 gap-2.5">
         <div className="row-[0/1] col-[0/1] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">시작</p>
-          <p className="text-caption1 font-bold">{parseDate(data.startAt)}</p>
+          <p className="text-caption1 font-medium text-text-tertiary">종료</p>
+          <p className="text-caption1 font-bold">{parseDate(data.endAt)}</p>
         </div>
         <div className="row-[1/2] [1/2] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">종료</p>
+          <p className="text-caption1 font-medium text-text-tertiary">시작</p>
           <p className="text-caption1 font-bold">{parseDate(data.startAt)}</p>
         </div>
         <div className="row-[1/2]-[1/2] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">시작</p>
+          <p className="text-caption1 font-medium text-text-tertiary">심자</p>
           <p className="text-caption1 font-bold">
-            {data.period > 1 ? `1~${data.period}까지` : "1까지"}
+            {projectNightStudy ? data.period : data.period > 1 ? `1~${data.period}까지` : "1까지"}
           </p>
         </div>
       </div>

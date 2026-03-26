@@ -20,7 +20,7 @@ const ProjectNightStudyList = () => {
     <div className="w-full flex flex-col gap-2.5">
       {nightStudies.length ? (
         nightStudies.map((nightStudy) => (
-          <NightStudyItem data={nightStudy} key={nightStudy.id} />
+          <NightStudyItem data={nightStudy} key={nightStudy.id} projectNightStudy />
         ))
       ) : (
         <p className="py-8 text-center text-border-normal">심자 신청 내역이 없어요.</p>
