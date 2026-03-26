@@ -1,12 +1,15 @@
 import { useApplyOutSleepingMutation } from "@/entities/out-sleeping/mutations";
+import { useApplyOutSleepingStore } from "@/features/manage-out-sleeping/stores/out-sleeping-apply";
 import { padDate } from "@/shared/utils/pad-date";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useState, type ChangeEvent } from "react";
 
 export const useApplyOutSleeping = () => {
-  const [startAt, setStartAt] = useState(new Date());
-  const [endAt, setEndAt] = useState(new Date());
-  const [reason, setReason] = useState("");
+  const { applyData, setApplyData } = useApplyOutSleepingStore();
+
+  const [startAt, setStartAt] = useState(new Date(applyData.startAt));
+  const [endAt, setEndAt] = useState(new Date(applyData.endAt));
+  const [reason, setReason] = useState(applyData.reason);
   const toast = useToast();
   const { mutateAsync, isPending } = useApplyOutSleepingMutation();
 
@@ -49,6 +52,14 @@ export const useApplyOutSleeping = () => {
     init();
   }
 
+  const saveOnChangePage = () => {
+    setApplyData({
+      startAt: padDate(startAt),
+      endAt: padDate(endAt),
+      reason,
+    });
+  }
+
   return {
     startAt,
     endAt,
@@ -57,6 +68,7 @@ export const useApplyOutSleeping = () => {
     reason,
     handleReason,
     submit,
-    isPending
+    isPending,
+    saveOnChangePage
   }
 }

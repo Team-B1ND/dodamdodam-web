@@ -1,6 +1,6 @@
 import { useDeleteOutSleepingMutation } from "@/entities/out-sleeping/mutations";
 import { useGetMyOutSleepingQuery } from "@/entities/out-sleeping/queries";
-import { useOutSleepingStore } from "@/features/manage-out-sleeping/stores/out-sleeping";
+import { useOutSleepingPageStore } from "@/features/manage-out-sleeping/stores/out-sleeping-page";
 import { parseOutSleepingStatus } from "@/features/manage-out-sleeping/utils/parse-out-sleeping-status";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { FilledButton, Tag } from "@b1nd/dodam-design-system/components";
@@ -10,7 +10,7 @@ const MyOutSleeingList = () => {
   const { data } = useGetMyOutSleepingQuery();
   const { mutateAsync, isPending } = useDeleteOutSleepingMutation();
 
-  const { setPage } = useOutSleepingStore();
+  const { setPage } = useOutSleepingPageStore();
 
   return (
     <div className="flex flex-col gap-3">
