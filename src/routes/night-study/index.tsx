@@ -1,7 +1,7 @@
-import type { NightStudyStatus } from "@/entities/night-study/types";
 import PersonalNightStudyForm from "@/features/manage-night-study/ui/PersonalNightStudyForm";
 import PersonalNightStudyList from "@/features/manage-night-study/ui/PersonalNightStudyList";
 import ProjectNightStudyForm from "@/features/manage-night-study/ui/ProjectNightStudyForm";
+import ProjectNightStudyList from "@/features/manage-night-study/ui/ProjectNightStudyList";
 import {
   SegmentedButton,
   type SegmentedButtonData,
@@ -26,24 +26,6 @@ function RouteComponent() {
       isActive: false,
     },
   ]);
-  const [statusSegment, setStatusSegment] = useState<SegmentedButtonData[]>([
-    {
-      text: "대기중",
-      value: "PENDING",
-      isActive: true,
-    },
-    {
-      text: "승인됨",
-      value: "ALLOWED",
-      isActive: false,
-    },
-    {
-      text: "거절됨",
-      value: "REJECTED",
-      isActive: false,
-    },
-  ]);
-  const [status, setStatus] = useState("PENDING");
   const [page, setPage] = useState("personal");
 
   return (
@@ -64,22 +46,16 @@ function RouteComponent() {
         <h1 className="text-headline font-bold">
           My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
         </h1>
-        <div className="w-full flex flex-col gap-2.5">
-          <SegmentedButton
-            data={statusSegment}
-            setData={setStatusSegment}
-            width="100%"
-            onBlockClick={setStatus}
-          />
-          <div className="w-full overflow-y-scroll">
-            {page === "personal" ? (
-              <Suspense fallback={<PersonalNightStudyList.Skeleton />}>
-                <PersonalNightStudyList status={status as NightStudyStatus} />
-              </Suspense>
-            ) : (
-              <></>
-            )}
-          </div>
+        <div className="w-full overflow-y-scroll">
+          {page === "personal" ? (
+            <Suspense fallback={<PersonalNightStudyList.Skeleton />}>
+              <PersonalNightStudyList />
+            </Suspense>
+          ) : (
+            <Suspense fallback={<ProjectNightStudyList.Skeleton />}>
+              <ProjectNightStudyList />
+            </Suspense>
+          )}
         </div>
       </div>
     </div>

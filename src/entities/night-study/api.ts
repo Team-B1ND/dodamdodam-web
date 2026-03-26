@@ -1,6 +1,5 @@
 import { apiClient } from "@/shared/libs/api-client";
 import type {
-  NightStudyStatus,
   PersonalNightStudy,
   PersonalNightStudyApplyRequest,
   ProjectNightStudy,
@@ -17,21 +16,15 @@ export const NightStudyApi = {
     return await apiClient.post("/nightstudy/personal", payload);
   },
 
-  async getProjectNightStudy(params: {
-    status: NightStudyStatus;
-    page: number;
-  }) {
+  async getProjectNightStudy(params: { page: number }) {
     return await apiClient.get<PageResponse<ProjectNightStudy>>(
-      `/nightstudy/my/project?status=${params.status}&page=${params.page}&size=10`,
+      `/nightstudy/my/project?page=${params.page}&size=10`,
     );
   },
 
-  async getPersonalNightStudy(params: {
-    status: NightStudyStatus;
-    page: number;
-  }) {
+  async getPersonalNightStudy(params: { page: number }) {
     return await apiClient.get<PageResponse<PersonalNightStudy>>(
-      `/nightstudy/my/personal?status=${params.status}&page=${params.page}&size=10`,
+      `/nightstudy/my/personal?page=${params.page}&size=10`,
     );
   },
 

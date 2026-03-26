@@ -3,30 +3,53 @@ import { padDate } from "@/shared/utils/pad-date";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useState } from "react";
 
+interface Form {
+  startAt: Date;
+  endAt: Date;
+  period: string;
+  needPhone: boolean;
+  needPhoneReason: string;
+  description: string;
+}
+
+const INITIAL_FORM: Form = {
+  startAt: new Date(),
+  endAt: new Date(),
+  period: "1",
+  needPhone: false,
+  needPhoneReason: "",
+  description: "",
+};
+
 export const useApplyPersonalNightStudy = () => {
-  const [startAt, setStartAt] = useState(new Date());
-  const [endAt, setEndAt] = useState(new Date());
-  const [period, setPeriod] = useState("1");
-  const [needPhone, setNeedPhone] = useState(false);
-  const [needPhoneReason, setNeedPhoneReason] = useState("");
-  const [description, setDescription] = useState("");
+  const [form, setForm] = useState<Form>(INITIAL_FORM);
   const { mutateAsync, isPending } = useApplyPersonalNightStudyMutation();
   const toast = useToast();
 
+  const handleDateChange = (field: "startAt" | "endAt", value: Date) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleStringChange = (
+    field: "period" | "needPhoneReason" | "description",
+    value: string
+  ) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleBooleanChange = (field: "needPhone", value: boolean) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
   const validate = () => {
-    if (needPhone && !needPhoneReason.trim()) return false;
-    if (description.trim().length > 250 || description.trim().length < 10)
+    if (form.needPhone && !form.needPhoneReason.trim()) return false;
+    if (form.description.trim().length > 250 || form.description.trim().length < 10)
       return false;
     return true;
   };
 
   const init = () => {
-    setStartAt(new Date());
-    setEndAt(new Date());
-    setPeriod("1");
-    setNeedPhone(false);
-    setNeedPhoneReason("");
-    setDescription("");
+    setForm(INITIAL_FORM);
   };
 
   const submit = async () => {
@@ -36,30 +59,22 @@ export const useApplyPersonalNightStudy = () => {
     }
 
     await mutateAsync({
-      description,
-      startAt: padDate(startAt),
-      endAt: padDate(endAt),
-      period: Number(period),
-      needPhone,
-      needPhoneReason: needPhone ? needPhoneReason : null,
+      description: form.description,
+      startAt: padDate(form.startAt),
+      endAt: padDate(form.endAt),
+      period: Number(form.period),
+      needPhone: form.needPhone,
+      needPhoneReason: form.needPhone ? form.needPhoneReason : null,
     });
 
     init();
   };
 
   return {
-    startAt,
-    setStartAt,
-    endAt,
-    setEndAt,
-    period,
-    setPeriod,
-    needPhone,
-    setNeedPhone,
-    needPhoneReason,
-    setNeedPhoneReason,
-    description,
-    setDescription,
+    form,
+    handleDateChange,
+    handleStringChange,
+    handleBooleanChange,
     submit,
     isPending,
   };

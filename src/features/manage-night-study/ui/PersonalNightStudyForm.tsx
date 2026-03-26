@@ -9,21 +9,15 @@ import { useApplyPersonalNightStudy } from "../hooks/useApplyPersonalNightStudy"
 
 const PersonalNightStudyForm = () => {
   const {
-    period,
-    setPeriod,
-    startAt,
-    setStartAt,
-    endAt,
-    setEndAt,
-    needPhone,
-    setNeedPhone,
-    needPhoneReason,
-    setNeedPhoneReason,
-    description,
-    setDescription,
+    form,
+    handleDateChange,
+    handleStringChange,
+    handleBooleanChange,
     submit,
     isPending,
   } = useApplyPersonalNightStudy();
+
+  const { period, startAt, endAt, needPhone, needPhoneReason, description } = form;
 
   return (
     <div className="w-full flex flex-col gap-4 items-end">
@@ -55,7 +49,7 @@ const PersonalNightStudyForm = () => {
           max={2}
           step={1}
           value={period}
-          onChange={(e) => setPeriod(e.target.value)}
+          onChange={(e) => handleStringChange("period", e.target.value)}
         />
       </div>
       <div className="w-full flex items-start gap-4">
@@ -67,7 +61,7 @@ const PersonalNightStudyForm = () => {
               content={({ onClose }) => (
                 <DatePicker.Content
                   date={startAt}
-                  onChangeDate={setStartAt}
+                  onChangeDate={(date) => handleDateChange("startAt", date)}
                   onClose={onClose}
                   disablePast
                 />
@@ -83,7 +77,7 @@ const PersonalNightStudyForm = () => {
               content={({ onClose }) => (
                 <DatePicker.Content
                   date={endAt}
-                  onChangeDate={setEndAt}
+                  onChangeDate={(date) => handleDateChange("endAt", date)}
                   onClose={onClose}
                   disablePast
                 />
@@ -100,7 +94,7 @@ const PersonalNightStudyForm = () => {
             <div className="w-full flex items-center gap-3">
               <Checkbox
                 size="small"
-                onClick={() => setNeedPhone((prev) => !prev)}
+                onClick={() => handleBooleanChange("needPhone", !needPhone)}
                 selected={needPhone}
               />
               <div className="flex flex-col gap-0.5">
@@ -114,7 +108,7 @@ const PersonalNightStudyForm = () => {
               className="w-full h-30 rounded-medium bg-fill-primary p-3 text-body1 font-medium resize-none placeholder:text-text-tertiary"
               placeholder="사유를 입력해주세요."
               value={needPhoneReason}
-              onChange={(e) => setNeedPhoneReason(e.target.value)}
+              onChange={(e) => handleStringChange("needPhoneReason", e.target.value)}
             />
           </div>
         </div>
@@ -130,7 +124,7 @@ const PersonalNightStudyForm = () => {
           className="w-full h-30 rounded-medium bg-fill-primary p-3 text-body1 font-medium resize-none placeholder:text-text-tertiary"
           placeholder="학습 내용을 입력해주세요."
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => handleStringChange("description", e.target.value)}
         />
       </div>
       <FilledButton size="large" disabled={isPending} onClick={submit}>

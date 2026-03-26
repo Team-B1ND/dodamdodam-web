@@ -1,11 +1,11 @@
-import { useGetPersonalNightStudyQuery } from "@/entities/night-study/queries";
+import { useGetProjectNightStudyQuery } from "@/entities/night-study/queries";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import NightStudyItem from "./NightStudyItem";
 
-const PersonalNightStudyList = () => {
+const ProjectNightStudyList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetPersonalNightStudyQuery();
+    useGetProjectNightStudyQuery();
   const nightStudies = data.pages.flatMap((page) => page.data.content);
 
   const { ref, inView } = useInView();
@@ -30,7 +30,7 @@ const PersonalNightStudyList = () => {
   );
 };
 
-PersonalNightStudyList.Skeleton = () => {
+ProjectNightStudyList.Skeleton = () => {
   return (
     <div className="w-full flex flex-col gap-2.5">
       {Array.from({ length: 5 }).map((_, idx) => (
@@ -40,4 +40,4 @@ PersonalNightStudyList.Skeleton = () => {
   );
 };
 
-export default PersonalNightStudyList;
+export default ProjectNightStudyList;

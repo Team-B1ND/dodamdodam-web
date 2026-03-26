@@ -1,12 +1,11 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import type { NightStudyStatus } from "./types";
 import { NightStudyApi } from "./api";
 
-export const useGetProjectNightStudyQuery = (status: NightStudyStatus) =>
+export const useGetProjectNightStudyQuery = () =>
   useSuspenseInfiniteQuery({
-    queryKey: ["my", "project", status],
+    queryKey: ["my", "project"],
     queryFn: ({ pageParam }) =>
-      NightStudyApi.getProjectNightStudy({ status, page: pageParam }),
+      NightStudyApi.getProjectNightStudy({ page: pageParam }),
 
     initialPageParam: 0,
 
@@ -16,11 +15,11 @@ export const useGetProjectNightStudyQuery = (status: NightStudyStatus) =>
     },
   });
 
-export const useGetPersonalNightStudyQuery = (status: NightStudyStatus) =>
+export const useGetPersonalNightStudyQuery = () =>
   useSuspenseInfiniteQuery({
-    queryKey: ["my", "personal", status],
+    queryKey: ["my", "personal"],
     queryFn: ({ pageParam }) =>
-      NightStudyApi.getPersonalNightStudy({ status, page: pageParam }),
+      NightStudyApi.getPersonalNightStudy({ page: pageParam }),
 
     initialPageParam: 0,
 
