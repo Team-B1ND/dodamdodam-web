@@ -1,3 +1,4 @@
+import BanStatus from "@/features/manage-night-study/ui/BanStatus";
 import PersonalNightStudyForm from "@/features/manage-night-study/ui/PersonalNightStudyForm";
 import PersonalNightStudyList from "@/features/manage-night-study/ui/PersonalNightStudyList";
 import ProjectNightStudyForm from "@/features/manage-night-study/ui/ProjectNightStudyForm";
@@ -42,20 +43,25 @@ function RouteComponent() {
           <ProjectNightStudyForm />
         )}
       </div>
-      <div className="w-full lg:w-90 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start lg:max-h-full">
-        <h1 className="text-headline font-bold">
-          My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
-        </h1>
-        <div className="w-full overflow-y-scroll">
-          {page === "personal" ? (
-            <Suspense fallback={<PersonalNightStudyList.Skeleton />}>
-              <PersonalNightStudyList />
-            </Suspense>
-          ) : (
-            <Suspense fallback={<ProjectNightStudyList.Skeleton />}>
-              <ProjectNightStudyList />
-            </Suspense>
-          )}
+      <div className="w-full lg:w-90 flex flex-col gap-4">
+        <Suspense fallback={null}>
+          <BanStatus />
+        </Suspense>
+        <div className="w-full h-128 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
+          <h1 className="text-headline font-bold">
+            My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
+          </h1>
+          <div className="w-full overflow-y-scroll">
+            {page === "personal" ? (
+              <Suspense fallback={<PersonalNightStudyList.Skeleton />}>
+                <PersonalNightStudyList />
+              </Suspense>
+            ) : (
+              <Suspense fallback={<ProjectNightStudyList.Skeleton />}>
+                <ProjectNightStudyList />
+              </Suspense>
+            )}
+          </div>
         </div>
       </div>
     </div>

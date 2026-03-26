@@ -6,7 +6,7 @@ export interface NightStudy {
   endAt: string;
   rejectionReason: string | null;
   isLeader: boolean;
-  status: NightStudyStatus
+  status: NightStudyStatus;
 }
 
 export interface ProjectNightStudy extends NightStudy {
@@ -31,3 +31,10 @@ export type PersonalNightStudyApplyRequest = Omit<
   PersonalNightStudy,
   "isLeader" | "id" | "rejectionReason" | "status"
 >;
+
+export interface BanStatusResponse {
+  userId: string;
+  reason: string;
+  endAt: string;
+  createdAt: string;
+}

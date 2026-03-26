@@ -1,30 +1,21 @@
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { NightStudyApi } from "./api";
 
 export const useGetProjectNightStudyQuery = () =>
-  useSuspenseInfiniteQuery({
+  useSuspenseQuery({
     queryKey: ["my", "project"],
-    queryFn: ({ pageParam }) =>
-      NightStudyApi.getProjectNightStudy({ page: pageParam }),
-
-    initialPageParam: 0,
-
-    getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-      if (!lastPage.data.hasNext) return undefined;
-      return lastPageParam + 1;
-    },
+    queryFn: NightStudyApi.getProjectNightStudy,
   });
 
 export const useGetPersonalNightStudyQuery = () =>
-  useSuspenseInfiniteQuery({
+  useSuspenseQuery({
     queryKey: ["my", "personal"],
-    queryFn: ({ pageParam }) =>
-      NightStudyApi.getPersonalNightStudy({ page: pageParam }),
+    queryFn: NightStudyApi.getPersonalNightStudy,
+  });
 
-    initialPageParam: 0,
-
-    getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-      if (!lastPage.data.hasNext) return undefined;
-      return lastPageParam + 1;
-    },
+export const useGetBanStatusQuery = () =>
+  useSuspenseQuery({
+    queryKey: ["ban", "my"],
+    queryFn: NightStudyApi.getBanStatus,
+    staleTime: 1000 * 60 * 60 * 24,
   });

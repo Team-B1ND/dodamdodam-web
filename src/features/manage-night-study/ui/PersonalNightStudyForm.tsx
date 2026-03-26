@@ -4,6 +4,7 @@ import {
   DatePicker,
   FilledButton,
   PickerTrigger,
+  Textarea
 } from "@b1nd/dodam-design-system/components";
 import { useApplyPersonalNightStudy } from "../hooks/useApplyPersonalNightStudy";
 
@@ -104,8 +105,7 @@ const PersonalNightStudyForm = () => {
                 </p>
               </div>
             </div>
-            <textarea
-              className="w-full h-30 rounded-medium bg-fill-primary p-3 text-body1 font-medium resize-none placeholder:text-text-tertiary"
+            <Textarea
               placeholder="사유를 입력해주세요."
               value={needPhoneReason}
               onChange={(e) => handleStringChange("needPhoneReason", e.target.value)}
@@ -120,8 +120,7 @@ const PersonalNightStudyForm = () => {
             10 ~ 250 이내로 작성해주세요.
           </p>
         </div>
-        <textarea
-          className="w-full h-30 rounded-medium bg-fill-primary p-3 text-body1 font-medium resize-none placeholder:text-text-tertiary"
+        <Textarea
           placeholder="학습 내용을 입력해주세요."
           value={description}
           onChange={(e) => handleStringChange("description", e.target.value)}
