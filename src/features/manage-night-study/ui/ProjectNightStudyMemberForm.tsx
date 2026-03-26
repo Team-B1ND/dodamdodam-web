@@ -13,7 +13,7 @@ const ProjectNightStudyMemberForm = () => {
   return (
     <div className="w-full flex flex-col gap-3 items-start">
       <h1 className="text-headline font-bold">인원 선택</h1>
-      <div className="w-full h-auto sm:h-110 p-4 border border-border-normal rounded-medium flex flex-col sm:flex-row items-start gap-4">
+      <div className="w-full h-auto sm:h-110 p-4 border border-border-normal rounded-medium flex flex-col sm:flex-row sm:items-start gap-4">
         <div className="h-60 sm:h-full flex-1 flex flex-col gap-4">
           <FilledTextField
             label=""
