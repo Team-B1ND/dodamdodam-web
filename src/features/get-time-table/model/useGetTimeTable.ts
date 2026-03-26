@@ -6,7 +6,7 @@ const useGetTimeTable = () => {
 
   return {
     data: Object.values(
-      data?.reduce<Record<string, TimeTableType[]>>((acc, cur) => {
+      data.data.reduce<Record<string, TimeTableType[]>>((acc, cur) => {
         (acc[cur.date] ||= []).push(cur);
         return acc;
       }, {}),

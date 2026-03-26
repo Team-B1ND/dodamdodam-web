@@ -10,7 +10,7 @@ const useGetMealByDate = (
   const { data } = useGetMealByDateQuery(date);
 
   return {
-    data: sortByLiteralOrder(data, "mealType", ["BREAKFAST", "LUNCH", "DINNER"])
+    data: sortByLiteralOrder(data.data, "mealType", ["BREAKFAST", "LUNCH", "DINNER"])
   }
 }
 

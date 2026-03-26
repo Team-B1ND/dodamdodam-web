@@ -2,7 +2,7 @@ import type { NightStudy } from "@/entities/night-study/types";
 import StatusTag from "./StatusTag";
 import { Trash } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { parseDate } from "../utils/parse-date";
+import { parseDate } from "../../../shared/utils/parse-date";
 import { Dialog, useOverlay } from "@b1nd/dodam-design-system/components";
 import { useDeleteNightStudyMutation } from "@/entities/night-study/mutations";
 

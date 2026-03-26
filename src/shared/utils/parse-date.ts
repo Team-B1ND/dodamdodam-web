@@ -1,3 +1,4 @@
+/** `YYYY-MM-DD` -> `MM`월 `DD`일 */
 export const parseDate = (date: string) => {
   const tokens = date.split("-");
   const mm = tokens[1];
