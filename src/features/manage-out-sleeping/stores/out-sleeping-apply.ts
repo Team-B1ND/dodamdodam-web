@@ -1,4 +1,4 @@
-import type { OutSleepingApplyRequest } from "@/entities/out-sleeping/type";
+import type { OutSleepingApplyRequest } from "@/entities/out-sleeping/types";
 import { padDate } from "@/shared/utils/pad-date";
 import { create } from "zustand";
 

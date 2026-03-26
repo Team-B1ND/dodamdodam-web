@@ -1,4 +1,4 @@
-import type { OutSleeping, OutSleepingApplyRequest } from "@/entities/out-sleeping/type";
+import type { OutSleeping, OutSleepingApplyRequest } from "@/entities/out-sleeping/types";
 import { apiClient } from "@/shared/libs/api-client";
 
 const OUT_SLEEPING_BASE = "/out-sleeping";

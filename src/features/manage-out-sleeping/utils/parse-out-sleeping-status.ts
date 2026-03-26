@@ -1,4 +1,4 @@
-import type { OutSleepingStatus } from "@/entities/out-sleeping/type";
+import type { OutSleepingStatus } from "@/entities/out-sleeping/types";
 
 export const parseOutSleepingStatus = (status: OutSleepingStatus) => {
   switch(status){
