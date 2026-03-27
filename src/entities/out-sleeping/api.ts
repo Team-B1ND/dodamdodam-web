@@ -26,4 +26,18 @@ export const OutSleepingApi = {
       `/out-sleeping?date=${params.date}&size=20&page=${params.page}`,
     );
   },
+
+  async allowOutSleeping(publicId: string) {
+    return await apiClient.patch(`${OUT_SLEEPING_BASE}/${publicId}/allow`);
+  },
+
+  async denyOutSleeping(payload: { publicId: string; denyReason?: string }) {
+    return await apiClient.patch(`${OUT_SLEEPING_BASE}/${payload.publicId}/deny`, {
+      denyReason: payload.denyReason,
+    });
+  },
+
+  async revertOutSleeping(publicId: string) {
+    return await apiClient.patch(`${OUT_SLEEPING_BASE}/${publicId}/revert`);
+  },
 };

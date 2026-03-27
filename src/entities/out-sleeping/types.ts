@@ -1,4 +1,4 @@
-export type OutSleepingStatus = "PENDING" | "ALLOWED" | "REJECTED";
+export type OutSleepingStatus = "PENDING" | "ALLOWED" | "DENIED";
 
 export interface OutSleeping {
   publicId: string;

@@ -4,7 +4,7 @@ import { DatePicker, FilledButton, PickerTrigger } from "@b1nd/dodam-design-syst
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 
-export const Route = createFileRoute("/teacher/outsleeping")({
+export const Route = createFileRoute("/teacher/outsleeping/")({
   component: RouteComponent,
 });
 
@@ -26,7 +26,7 @@ function RouteComponent() {
           {date ? padDate(date) : "YYYY-MM-DD"}
         </FilledButton>
       </PickerTrigger>
-      <Suspense fallback={null}>
+      <Suspense fallback={<OutSleepingApplications.Skeleton />}>
         <OutSleepingApplications date={date} />
       </Suspense>
     </div>

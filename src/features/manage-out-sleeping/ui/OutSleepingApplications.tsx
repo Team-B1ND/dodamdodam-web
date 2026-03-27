@@ -4,6 +4,10 @@ import { parseDate } from "@/shared/utils/parse-date";
 import { Table } from "@b1nd/dodam-design-system/components";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import OutSleepingActionCell from "./OutSleepingActionCell";
+import OutSleepingSkeletonRows from "./OutSleepingSkeletonRows";
+import { TABLE_KEYS } from "@/features/manage-out-sleeping/constants/table-keys";
+import { colors } from "@b1nd/dodam-design-system/colors";
 
 interface Props {
   date: Date;
@@ -22,17 +26,9 @@ const OutSleepingApplications = ({ date }: Props) => {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const keys: [string, string][] = [
-    ["이름", "80px"],
-    ["학번", "80px"],
-    ["기간", "160px"],
-    ["사유", "FULL"],
-    ["상태", "280px"],
-  ];
-
   const rows = applications.map((app) => {
     const { grade, room, number } = app.student;
-    const studentId = `${grade}${String(room).padStart(2, "0")}${String(number).padStart(2, "0")}`;
+    const studentId = `${grade}${room}${String(number).padStart(2, "0")}`;
     const period = `${parseDate(app.startAt)} ~ ${parseDate(app.endAt)}`;
     const statusLabel =
       app.status === "PENDING"
@@ -41,15 +37,70 @@ const OutSleepingApplications = ({ date }: Props) => {
           ? "승인됨"
           : "거절됨";
 
-    return [app.student.name, studentId, period, app.reason, statusLabel];
+    return [
+      app.student.name,
+      studentId,
+      period,
+      app.reason,
+      <p
+        style={{
+          color:
+            app.status === "ALLOWED"
+              ? colors.status.success
+              : app.status === "DENIED"
+                ? colors.status.error
+                : colors.text.secondary,
+        }}>
+        {statusLabel}
+      </p>,
+      <OutSleepingActionCell
+        key={app.publicId}
+        publicId={app.publicId}
+        status={app.status}
+      />,
+    ];
   });
 
   return (
     <div className="flex flex-col overflow-y-auto grow">
-      <Table keys={keys} data={rows} />
-      <div ref={ref} />
+      <div className="overflow-x-auto">
+        <div className="min-w-174">
+          <Table keys={TABLE_KEYS} data={rows} />
+          {isFetchingNextPage && <OutSleepingSkeletonRows count={3} />}
+          <div ref={ref} />
+        </div>
+      </div>
     </div>
   );
 };
+
+
+OutSleepingApplications.Skeleton = () => (
+  <div className="flex flex-col overflow-y-auto grow">
+    <div className="overflow-x-auto">
+      <div className="min-w-174">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr>
+              {TABLE_KEYS.map(([label, width]) => (
+                <th
+                  key={label}
+                  className="text-left px-3 text-text-secondary border-t border-border-normal"
+                  style={{
+                    height: 32,
+                    width: width === "FULL" ? undefined : width,
+                    minWidth: width === "FULL" ? 96 : width,
+                  }}>
+                  {label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        </table>
+        <OutSleepingSkeletonRows count={8} />
+      </div>
+    </div>
+  </div>
+);
 
 export default OutSleepingApplications;
