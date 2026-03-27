@@ -4,6 +4,6 @@ export const parseOutSleepingStatus = (status: OutSleepingStatus) => {
   switch(status){
     case "PENDING": return "대기중";
     case "ALLOWED": return "승인됨";
-    case "REJECTED": return "거절됨";
+    case "DENIED": return "거절됨";
   }
 }

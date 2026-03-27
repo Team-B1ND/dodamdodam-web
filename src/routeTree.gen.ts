@@ -13,6 +13,7 @@ import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
 import { Route as NightStudyIndexRouteImport } from './routes/night-study/index'
 import { Route as MealIndexRouteImport } from './routes/meal/index'
 import { Route as homeIndexRouteImport } from './routes/(home)/index'
+import { Route as TeacherOutsleepingIndexRouteImport } from './routes/teacher/outsleeping/index'
 
 const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   id: '/schedule/',
@@ -34,18 +35,25 @@ const homeIndexRoute = homeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeacherOutsleepingIndexRoute = TeacherOutsleepingIndexRouteImport.update({
+  id: '/teacher/outsleeping/',
+  path: '/teacher/outsleeping/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof homeIndexRoute
   '/meal/': typeof MealIndexRoute
   '/night-study/': typeof NightStudyIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
+  '/teacher/outsleeping/': typeof TeacherOutsleepingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof homeIndexRoute
   '/meal': typeof MealIndexRoute
   '/night-study': typeof NightStudyIndexRoute
   '/schedule': typeof ScheduleIndexRoute
+  '/teacher/outsleeping': typeof TeacherOutsleepingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,25 @@ export interface FileRoutesById {
   '/meal/': typeof MealIndexRoute
   '/night-study/': typeof NightStudyIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
+  '/teacher/outsleeping/': typeof TeacherOutsleepingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/meal/' | '/night-study/' | '/schedule/'
+  fullPaths:
+    | '/'
+    | '/meal/'
+    | '/night-study/'
+    | '/schedule/'
+    | '/teacher/outsleeping/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meal' | '/night-study' | '/schedule'
-  id: '__root__' | '/(home)/' | '/meal/' | '/night-study/' | '/schedule/'
+  to: '/' | '/meal' | '/night-study' | '/schedule' | '/teacher/outsleeping'
+  id:
+    | '__root__'
+    | '/(home)/'
+    | '/meal/'
+    | '/night-study/'
+    | '/schedule/'
+    | '/teacher/outsleeping/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +87,7 @@ export interface RootRouteChildren {
   MealIndexRoute: typeof MealIndexRoute
   NightStudyIndexRoute: typeof NightStudyIndexRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
+  TeacherOutsleepingIndexRoute: typeof TeacherOutsleepingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof homeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teacher/outsleeping/': {
+      id: '/teacher/outsleeping/'
+      path: '/teacher/outsleeping'
+      fullPath: '/teacher/outsleeping/'
+      preLoaderRoute: typeof TeacherOutsleepingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +135,7 @@ const rootRouteChildren: RootRouteChildren = {
   MealIndexRoute: MealIndexRoute,
   NightStudyIndexRoute: NightStudyIndexRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
+  TeacherOutsleepingIndexRoute: TeacherOutsleepingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
