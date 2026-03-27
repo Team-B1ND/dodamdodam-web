@@ -38,3 +38,65 @@ export interface BanStatusResponse {
   endAt: string;
   createdAt: string;
 }
+
+export interface NightStudyUser {
+  publicId: string;
+  username: string;
+  name: string;
+  phone?: string;
+  profileImage?: string;
+  status: string;
+  roles: string[];
+  student?: {
+    grade: number;
+    room: number;
+    number: number;
+  };
+  teacher?: {
+    position: string;
+  };
+}
+
+export interface PersonalNightStudyApplication {
+  id: string;
+  description: string;
+  period: number;
+  startAt: string;
+  endAt: string;
+  rejectionReason: string | null;
+  status: NightStudyStatus;
+  needPhone: boolean;
+  needPhoneReason: string | null;
+  leader: NightStudyUser;
+  members: NightStudyUser[];
+  type: "PERSONAL";
+  room: NightStudyRoom | null;
+}
+
+export interface ProjectNightStudyApplication {
+  id: string;
+  name: string;
+  description: string;
+  period: number;
+  startAt: string;
+  endAt: string;
+  rejectionReason: string | null;
+  status: NightStudyStatus;
+  needPhone: boolean;
+  needPhoneReason: string | null;
+  leader: NightStudyUser;
+  members: NightStudyUser[];
+  type: "PROJECT";
+  room: NightStudyRoom | null;
+}
+
+export interface NightStudyRoom {
+  id: number;
+  name: string;
+}
+
+export interface CreateBanRequest {
+  userId: string;
+  reason: string;
+  endAt: string;
+}
