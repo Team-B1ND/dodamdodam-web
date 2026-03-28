@@ -1,4 +1,5 @@
 import FixPasswordModal from "@/features/fix-password/ui";
+import FixProfileModal from "@/features/fix-profile/ui";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 import { Avatar, FilledButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components"
@@ -17,7 +18,7 @@ const UserProfileModal = () => {
       return type === "password" ? (
         <FixPasswordModal onClose={onClose}/>
       ) : (
-        <>Fix Profile Modal</>
+        <FixProfileModal onClose={onClose}/>
       )
     })
   }
@@ -44,7 +45,7 @@ const UserProfileModal = () => {
       />
       <div className="w-full grid grid-cols-2 gap-3">
         <FilledButton onClick={() => openModal("password")} >비밀번호 변경</FilledButton>
-        <FilledButton>프로필 수정</FilledButton>
+        <FilledButton onClick={() => openModal("profile")}>프로필 수정</FilledButton>
       </div>
     </div>
   );

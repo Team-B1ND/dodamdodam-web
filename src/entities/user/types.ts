@@ -40,7 +40,7 @@ export interface FixPassword {
 }
 
 export interface FixProfile {
-  name: string;
-  phone: string;
-  profileImage: string;
+  name: string | null;
+  phone: string | null;
+  profileImage: string | null;
 }
