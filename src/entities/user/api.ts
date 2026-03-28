@@ -1,6 +1,6 @@
 import { apiClient } from "@/shared/libs/api-client";
 import type { PageResponse } from "@b1nd/api-client";
-import type { FixPassword, User } from "./types";
+import type { FixPassword, FixProfile, User } from "./types";
 
 const USER_BASE = "/user"
 
@@ -17,5 +17,9 @@ export const UserApi = {
   
   async fixPassword(payload: FixPassword) {
     return await apiClient.patch(`${USER_BASE}/change-password`, payload);
-  }
+  },
+
+  async fixProfile(payload: FixProfile) {
+    return await apiClient.patch(`${USER_BASE}`, payload);
+  },
 };

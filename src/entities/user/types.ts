@@ -38,3 +38,9 @@ export interface FixPassword {
   postPassword: string;
   newPassword: string;
 }
+
+export interface FixProfile {
+  name: string;
+  phone: string;
+  profileImage: string;
+}
