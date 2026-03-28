@@ -33,3 +33,8 @@ export type UserRole =
   | "ADMIN"
   | "BROADCASTER"
   | "DORMITORY_MANAGER";
+
+export interface FixPassword {
+  postPassword: string;
+  newPassword: string;
+}
