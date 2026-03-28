@@ -4,6 +4,19 @@ import { Avatar, FilledButton, useOverlay } from "@b1nd/dodam-design-system/comp
 
 const UserProfile = () => {
   const { data } = useGetMe();
+  const overlay = useOverlay();
+
+  const openModal = () => {
+    overlay.open(({ close, exit, setDimClickHandler }) => {
+      setDimClickHandler(() => {
+        close();
+        exit();
+      });
+      return (
+        <UserProfileModal />
+      )
+    })
+  }
 
   return (
     <div className="flex flex-col w-70 min-w-70 h-fit gap-4 small-container">
@@ -14,6 +27,9 @@ const UserProfile = () => {
           <span className="text-label font-medium text-text-tertiary">{`${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번`}</span>
         </section>
       </div>
+      <FilledButton role="assistive" size="medium" onClick={openModal}>
+        내 정보
+      </FilledButton>
     </div>
   );
 }
