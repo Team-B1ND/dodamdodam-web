@@ -1,5 +1,6 @@
 import Meal from '@/features/get-meal/ui';
 import TimeTable from '@/features/get-time-table/ui';
+import UserProfile from '@/features/get-user/ui';
 import ManageOutSleeping from '@/features/manage-out-sleeping/ui';
 import { createFileRoute } from '@tanstack/react-router'
 import { Suspense } from 'react';
@@ -29,9 +30,9 @@ function RouteComponent() {
           </div>
         </main>
       </div>
-      <aside className="flex justify-center items-center w-72 h-80 bg-background-surface rounded-large">
-        aside
-      </aside>
+      <Suspense fallback={<UserProfile.Skeleton/>}>
+        <UserProfile />
+      </Suspense>
     </div>
   );
 }
