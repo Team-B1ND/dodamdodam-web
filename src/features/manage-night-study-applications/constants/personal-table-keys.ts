@@ -1,4 +1,6 @@
-export const PERSONAL_TABLE_KEYS: [string, string][] = [
+import type { ReactNode } from "react";
+
+export const PERSONAL_TABLE_KEYS: [ReactNode, string][] = [
   ["이름", "88px"],
   ["학반", "72px"],
   ["심자 사유", "FULL"],

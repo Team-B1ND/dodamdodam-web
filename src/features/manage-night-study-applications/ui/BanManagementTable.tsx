@@ -11,7 +11,7 @@ const BanManagementTable = () => {
   const query = useDebounce(keyword);
 
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto grow items-start">
+    <div className="flex items-start flex-col gap-3 overflow-hidden grow">
       <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
         <MagnifyingGlass size={24} color={colors.text.placeholder} />
         <input
@@ -21,7 +21,7 @@ const BanManagementTable = () => {
           onChange={(e) => setKeyword(e.target.value)}
         />
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="overflow-x-auto flex-1 w-full min-h-0 min-w-0 scrollbar">
         <div className="min-w-120">
           <Suspense fallback={<BanManagementTable.Skeleton />}>
             <BanStudentList keyword={query} />
@@ -32,7 +32,6 @@ const BanManagementTable = () => {
   );
 };
 
-
 BanManagementTable.Skeleton = () => (
   <>
     <table className="w-full border-collapse">
@@ -42,8 +41,10 @@ BanManagementTable.Skeleton = () => (
             <th
               key={`${label}-${i}`}
               className="text-left px-3 text-text-secondary border-t border-border-normal"
-              style={{ height: 32, width: width === "FULL" ? undefined : width }}
-            >
+              style={{
+                height: 32,
+                width: width === "FULL" ? undefined : width,
+              }}>
               {label}
             </th>
           ))}

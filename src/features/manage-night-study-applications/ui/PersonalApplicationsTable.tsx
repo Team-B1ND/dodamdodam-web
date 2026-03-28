@@ -1,148 +1,113 @@
-import type { NightStudyStatus, PersonalNightStudyApplication } from "@/entities/night-study/types";
-import { parseDate } from "@/shared/utils/parse-date";
-import { Table, useOverlay } from "@b1nd/dodam-design-system/components";
+import type { ApplicationTableFilters, NightStudyStatus } from "@/entities/night-study/types";
+import { useDebounce } from "@/shared/hooks/useDebounce";
+import { Dropdown } from "@b1nd/dodam-design-system/components";
 import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
-import { useState } from "react";
-import { PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
-import { usePersonalApplicationsTable } from "../hooks/usePersonalApplicationsTable";
-import PersonalActionCell from "./PersonalActionCell";
-import PersonalInfoDialog from "./PersonalInfoDialog";
-import PersonalSkeletonRows from "./PersonalSkeletonRows";
-import RejectDialog from "./RejectDialog";
 import { colors } from "@b1nd/dodam-design-system/colors";
-
-const STATUS_LABEL: Record<NightStudyStatus, string> = {
-  PENDING: "대기중",
-  ALLOWED: "승인",
-  REJECTED: "거절",
-};
-
-const STATUS_COLOR: Record<NightStudyStatus, string> = {
-  PENDING: colors.text.secondary,
-  ALLOWED: colors.status.success,
-  REJECTED: colors.status.error,
-};
+import { Suspense, useState } from "react";
+import {
+  GRADE_FILTER_ITEMS,
+  ROOM_FILTER_ITEMS,
+  STATUS_FILTER_ITEMS,
+} from "../constants/application-filter-items";
+import { PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
+import PersonalSkeletonRows from "./PersonalSkeletonRows";
+import PersonalTableData from "./PersonalTableData";
 
 const PersonalApplicationsTable = () => {
-  const { open } = useOverlay();
   const [keyword, setKeyword] = useState("");
-  const {
-    filtered: all,
-    ref,
-    isFetchingNextPage,
-    allow,
-    isAllowing,
-    reject,
-    isRejecting,
-    pending,
-    isPendingRevert,
-  } = usePersonalApplicationsTable();
+  const [status, setStatus] = useState<NightStudyStatus | undefined>(undefined);
+  const [grade, setGrade] = useState<number | undefined>(undefined);
+  const [room, setRoom] = useState<number | undefined>(undefined);
 
-  const filtered = keyword.trim()
-    ? all.filter((a) => a.leader.name.includes(keyword.trim()))
-    : all;
+  const debouncedKeyword = useDebounce(keyword);
 
-  const openInfoDialog = (app: PersonalNightStudyApplication) => {
-    open(({ close, exit, isOpen }) => (
-      <PersonalInfoDialog
-        application={app}
-        isOpen={isOpen}
-        onClose={() => { close(); exit(); }}
-      />
-    ));
+  const filters: ApplicationTableFilters = {
+    keyword: debouncedKeyword || undefined,
+    status,
+    grade,
+    room,
   };
-
-  const openRejectDialog = (appId: string) => {
-    open(({ close, exit, isOpen }) => (
-      <RejectDialog
-        isOpen={isOpen}
-        isPending={isRejecting}
-        onClose={() => { close(); exit(); }}
-        onConfirm={(reason) => {
-          reject(
-            { id: appId, rejectionReason: reason },
-            { onSettled: () => { close(); exit(); } },
-          );
-        }}
-      />
-    ));
-  };
-
-  const rows = filtered.map((app: PersonalNightStudyApplication) => [
-    <button
-      className="text-primary-normal font-medium hover:underline text-left"
-      onClick={() => openInfoDialog(app)}
-    >
-      {app.leader.name}
-    </button>,
-    app.leader.student
-      ? `${app.leader.student.grade}${app.leader.student.room}${String(app.leader.student.number).padStart(2, "0")}`
-      : "-",
-    <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
-    parseDate(app.startAt),
-    parseDate(app.endAt),
-    app.needPhone ? "O" : "X",
-    <p className="truncate max-w-xs text-text-secondary">{app.needPhoneReason ?? "-"}</p>,
-    <span style={{ color: STATUS_COLOR[app.status] }}>{STATUS_LABEL[app.status]}</span>,
-    <PersonalActionCell
-      status={app.status}
-      onAllow={() => allow(app.id)}
-      onReject={() => openRejectDialog(app.id)}
-      onPending={() => pending(app.id)}
-      isAllowing={isAllowing}
-      isPendingRevert={isPendingRevert}
-    />,
-  ]);
 
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto grow items-start">
-      <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
-        <MagnifyingGlass size={24} color={colors.text.placeholder} />
-        <input
-          className="flex-1 bg-transparent outline-none text-headline text-text-primary placeholder:text-text-placeholder"
-          placeholder="검색어를 입력하세요."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-        />
+    <div className="flex flex-col gap-3 overflow-hidden grow">
+      <div className="flex flex-wrap items-center justify-between shrink-0 gap-3">
+        <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
+          <MagnifyingGlass size={24} color={colors.text.placeholder} />
+          <input
+            className="flex-1 bg-transparent outline-none text-headline text-text-primary placeholder:text-text-placeholder"
+            placeholder="검색어를 입력하세요."
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-3 shrink-0">
+          <Dropdown
+            items={STATUS_FILTER_ITEMS}
+            value={status ?? ""}
+            onSelectedItemChange={(item) =>
+              setStatus(item.value === "" ? undefined : item.value as NightStudyStatus)
+            }
+          />
+          <Dropdown
+            items={GRADE_FILTER_ITEMS}
+            value={grade !== undefined ? String(grade) : ""}
+            onSelectedItemChange={(item) =>
+              setGrade(item.value === "" ? undefined : Number(item.value))
+            }
+          />
+          <Dropdown
+            items={ROOM_FILTER_ITEMS}
+            value={room !== undefined ? String(room) : ""}
+            onSelectedItemChange={(item) =>
+              setRoom(item.value === "" ? undefined : Number(item.value))
+            }
+          />
+        </div>
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="flex items-center justify-center grow text-text-secondary text-body1">
-          신청 내역이 없습니다.
-        </div>
-      ) : (
-        <div className="overflow-x-auto w-full">
-          <div className="min-w-sm">
-            <Table keys={PERSONAL_TABLE_KEYS} data={rows} />
-            {isFetchingNextPage && <PersonalSkeletonRows count={3} />}
-            <div ref={ref} />
-          </div>
-        </div>
-      )}
+      <Suspense fallback={<PersonalSkeletonRows count={8} />}>
+        <PersonalTableData key={`${debouncedKeyword}-${status}-${grade}-${room}`} {...filters} />
+      </Suspense>
     </div>
   );
 };
 
 
 PersonalApplicationsTable.Skeleton = () => (
-  <div className="overflow-x-auto">
-    <div className="min-w-sm">
-      <table className="w-full border-collapse">
-        <thead>
-          <tr>
-            {PERSONAL_TABLE_KEYS.map(([label, width], i) => (
+  <div className="flex flex-col gap-3 overflow-y-auto grow items-start">
+    <div className="flex items-center justify-between w-full shrink-0 gap-3">
+      <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3 w-100">
+        <MagnifyingGlass size={24} color={colors.text.placeholder} />
+      </div>
+      <div className="flex items-center gap-3 shrink-0">
+        <div className="skeleton h-12 w-28 rounded-medium" />
+        <div className="skeleton h-12 w-28 rounded-medium" />
+        <div className="skeleton h-12 w-28 rounded-medium" />
+      </div>
+    </div>
+    <div className="overflow-x-auto w-full">
+      <div className="min-w-sm">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr>
               <th
-                key={`${label}-${i}`}
                 className="text-left px-3 text-text-secondary border-t border-border-normal"
-                style={{ height: 32, width: width === "FULL" ? undefined : width }}
-              >
-                {label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-      </table>
-      <PersonalSkeletonRows count={8} />
+                style={{ height: 32, width: "40px" }}
+              />
+              {PERSONAL_TABLE_KEYS.map(([label, width], i) => (
+                <th
+                  key={`${String(label)}-${i}`}
+                  className="text-left px-3 text-text-secondary border-t border-border-normal"
+                  style={{ height: 32, width: width === "FULL" ? undefined : width }}
+                >
+                  {label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        </table>
+        <PersonalSkeletonRows count={8} />
+      </div>
     </div>
   </div>
 );

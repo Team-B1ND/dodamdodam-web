@@ -90,15 +90,31 @@ body {
 }
 
 @layer components {
-	.small-container {
-		@apply px-5 py-4 bg-background-surface rounded-large;
-	}
+  .small-container {
+    @apply px-5 py-4 bg-background-surface rounded-large;
+  }
 
-	.large-container {
-		@apply p-6 bg-background-surface rounded-large;
-	}
+  .large-container {
+    @apply p-6 bg-background-surface rounded-large;
+  }
 
   .skeleton {
     @apply animate-pulse bg-fill-secondary;
+  }
+}
+
+.scrollbar {
+  -ms-overflow-style: auto;
+  &::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--dds-color-fill-secondary);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
   }
 }

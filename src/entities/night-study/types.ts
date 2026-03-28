@@ -100,3 +100,10 @@ export interface CreateBanRequest {
   reason: string;
   endAt: string;
 }
+
+export interface ApplicationTableFilters {
+  keyword?: string;
+  status?: NightStudyStatus;
+  grade?: number;
+  room?: number;
+}

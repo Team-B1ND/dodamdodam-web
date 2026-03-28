@@ -4,6 +4,7 @@ import type {
   BanStatusResponse,
   CreateBanRequest,
   NightStudyRoom,
+  NightStudyStatus,
   PersonalNightStudy,
   PersonalNightStudyApplyRequest,
   PersonalNightStudyApplication,
@@ -41,17 +42,23 @@ export const NightStudyApi = {
     return await apiClient.get<BanStatusResponse>('/nightstudy/bans/my');
   },
 
-  async getPersonalApplications(params: { page: number; size?: number }) {
-    const { page, size = 20 } = params;
+  async getPersonalApplications(params: { page: number; size?: number; keyword?: string; status?: NightStudyStatus }) {
+    const { page, size = 20, keyword, status } = params;
+    const qs = new URLSearchParams({ type: "PERSONAL", page: String(page), size: String(size) });
+    if (keyword) qs.set("keyword", keyword);
+    if (status) qs.set("status", status);
     return await apiClient.get<PageResponse<PersonalNightStudyApplication>>(
-      `/nightstudy/applications?type=PERSONAL&page=${page}&size=${size}`,
+      `/nightstudy/applications?${qs.toString()}`,
     );
   },
 
-  async getProjectApplications(params: { page: number; size?: number }) {
-    const { page, size = 20 } = params;
+  async getProjectApplications(params: { page: number; size?: number; keyword?: string; status?: NightStudyStatus }) {
+    const { page, size = 20, keyword, status } = params;
+    const qs = new URLSearchParams({ type: "PROJECT", page: String(page), size: String(size) });
+    if (keyword) qs.set("keyword", keyword);
+    if (status) qs.set("status", status);
     return await apiClient.get<PageResponse<ProjectNightStudyApplication>>(
-      `/nightstudy/applications?type=PROJECT&page=${page}&size=${size}`,
+      `/nightstudy/applications?${qs.toString()}`,
     );
   },
 

@@ -50,7 +50,7 @@ const BanStudentList = ({ keyword }: Props) => {
 
   if (students.length === 0) {
     return (
-      <div className="flex items-center justify-center grow text-text-secondary text-body1">
+      <div className="w-full flex items-start justify-center grow text-text-secondary text-body1">
         학생을 찾을 수 없습니다.
       </div>
     );
