@@ -8,7 +8,7 @@ interface Props {
 const FixPasswordModal = ({
   onClose
 }: Props) => {
-  const { submit, postPassword, newPassword, setPostPassword, setNewPassword } = useFixPassword();
+  const { submit, postPassword, newPassword, setPostPassword, setNewPassword, isPending } = useFixPassword();
 
   return (
     <div className="small-container flex flex-col gap-5 w-100">
@@ -21,8 +21,8 @@ const FixPasswordModal = ({
         <FilledButton onClick={onClose} role="assistive">
           취소
         </FilledButton>
-        <FilledButton onClick={submit}>
-          완료
+        <FilledButton onClick={submit} disabled={isPending}>
+          {isPending ? "변경 중.." : "완료"}
         </FilledButton>
       </div>
     </div>
