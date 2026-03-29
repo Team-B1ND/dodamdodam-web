@@ -39,6 +39,15 @@ export interface FixPassword {
   newPassword: string;
 }
 
+export interface PhoneVerificationRequest {
+  phone: string;
+}
+
+export interface PhoneVerificationConfirmRequest {
+  phone: string;
+  code: string;
+}
+
 export interface FixProfile {
   name: string | null;
   phone: string | null;

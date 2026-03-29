@@ -1,6 +1,12 @@
 import { apiClient } from "@/shared/libs/api-client";
 import type { PageResponse } from "@b1nd/api-client";
-import type { FixPassword, FixProfile, User } from "./types";
+import type {
+  FixPassword,
+  FixProfile,
+  PhoneVerificationConfirmRequest,
+  PhoneVerificationRequest,
+  User,
+} from "./types";
 
 const USER_BASE = "/user"
 
@@ -17,6 +23,14 @@ export const UserApi = {
   
   async fixPassword(payload: FixPassword) {
     return await apiClient.patch(`${USER_BASE}/change-password`, payload);
+  },
+
+  async requestPhoneVerification(payload: PhoneVerificationRequest) {
+    return await apiClient.post(`${USER_BASE}/phone-verification/request`, payload);
+  },
+
+  async confirmPhoneVerification(payload: PhoneVerificationConfirmRequest) {
+    return await apiClient.post(`${USER_BASE}/phone-verification/confirm`, payload);
   },
 
   async fixProfile(payload: FixProfile) {

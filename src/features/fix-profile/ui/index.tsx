@@ -1,18 +1,108 @@
+import FixProfileActions from "@/features/fix-profile/ui/FixProfileActions";
+import PhoneVerificationSection from "@/features/fix-profile/ui/PhoneVerificationSection";
+import ProfileImageSection from "@/features/fix-profile/ui/ProfileImageSection";
 import { useFixProfile } from "@/features/fix-profile/model/useFixProfile";
+import { usePhoneVerification } from "@/features/fix-profile/model/usePhoneVerification";
+import { useGetMe } from "@/features/get-user/model/useGetMe";
+import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
-import { FilledButton, TextField } from "@b1nd/dodam-design-system/components"
+import { TextField } from "@b1nd/dodam-design-system/components";
 
 interface Props {
   onClose: () => void;
 }
 
 const FixProfileModal = ({
-  onClose 
+  onClose,
 }: Props) => {
-  const {name, setName, phone, setPhone, submit, isPending} = useFixProfile();
+  const { data } = useGetMe();
+  const {
+    name,
+    setName,
+    profileImage,
+    fileInputRef,
+    openProfileImagePicker,
+    changeProfileImage,
+    resetProfileImage,
+    submit,
+    isPending,
+    isUploadPending,
+  } = useFixProfile();
+  const {
+    phone,
+    setPhone,
+    originalPhone,
+    verificationCode,
+    setVerificationCode,
+    isPhoneChanged,
+    isPhoneVerified,
+    hasRequestedVerification,
+    hasActiveVerification,
+    verificationTimerText,
+    requestVerificationCode,
+    confirmVerificationCode,
+    isRequestPhoneVerificationPending,
+    isConfirmPhoneVerificationPending,
+  } = usePhoneVerification(data.phone ?? "");
+  const hasChanges =
+    name.trim() !== data.name ||
+    normalizePhoneNumber(phone) !== originalPhone ||
+    (profileImage ?? "") !== (data.profileImage ?? "");
+
+  const handleComplete = async () => {
+    if (!isPhoneChanged || isPhoneVerified) {
+      await submit({
+        phone,
+        originalPhone,
+        isPhoneChanged,
+        isPhoneVerified,
+      });
+      return;
+    }
+
+    if (!hasRequestedVerification) {
+      await requestVerificationCode();
+      return;
+    }
+
+    await confirmVerificationCode();
+  };
+
+  const completeButtonText = (() => {
+    if (isPending) {
+      return "수정 중..";
+    }
+
+    if (isRequestPhoneVerificationPending) {
+      return "전송 중..";
+    }
+
+    if (isConfirmPhoneVerificationPending) {
+      return "확인 중..";
+    }
+
+    if (!isPhoneChanged || isPhoneVerified) {
+      return "완료";
+    }
+
+    if (!hasRequestedVerification) {
+      return "인증번호 전송";
+    }
+
+    return "인증 확인";
+  })();
+
   return (
     <div className="small-container flex flex-col gap-5 w-100">
       <p className="text-heading2 font-bold text-text-primary">프로필 수정</p>
+      <ProfileImageSection
+        profileImage={profileImage}
+        fileInputRef={fileInputRef}
+        onChangeProfileImage={changeProfileImage}
+        onOpenProfileImagePicker={openProfileImagePicker}
+        onResetProfileImage={resetProfileImage}
+        isUploadPending={isUploadPending}
+      />
       <div className="flex flex-col gap-5">
         <TextField
           type="text"
@@ -28,17 +118,31 @@ const FixProfileModal = ({
           value={formatPhoneNumber(phone)}
           onChange={(e) => setPhone(e.target.value)}
         />
+        {isPhoneChanged && hasRequestedVerification && !isPhoneVerified && (
+          <PhoneVerificationSection
+            verificationCode={verificationCode}
+            verificationTimerText={verificationTimerText}
+            hasActiveVerification={hasActiveVerification}
+            isRequestPhoneVerificationPending={isRequestPhoneVerificationPending}
+            onChangeVerificationCode={setVerificationCode}
+            onRequestVerificationCode={requestVerificationCode}
+          />
+        )}
       </div>
-      <div className="w-full grid grid-cols-2 gap-3">
-        <FilledButton onClick={onClose} role="assistive">
-          취소
-        </FilledButton>
-        <FilledButton onClick={submit}>
-          {isPending ? "수정 중.." : "완료"}
-        </FilledButton>
-      </div>
+      <FixProfileActions
+        onClose={onClose}
+        onComplete={handleComplete}
+        completeButtonText={completeButtonText}
+        isCompleteDisabled={
+          !hasChanges ||
+          isPending ||
+          isUploadPending ||
+          isRequestPhoneVerificationPending ||
+          isConfirmPhoneVerificationPending
+        }
+      />
     </div>
   );
 };
 
-export default FixProfileModal
+export default FixProfileModal;

@@ -29,7 +29,11 @@ const UserProfileModal = () => {
         내 프로필
       </p>
       <div className="flex flex-col gap-2 justify-center">
-        <Avatar size={96} />
+        {data.profileImage ? (
+          <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={96} />
+        ) : (
+          <Avatar size={96} />
+        )}
         <section className="flex flex-col items-center">
           <p className="text-heading2 font-bold text-text-primary">
             {data.name}
@@ -44,8 +48,12 @@ const UserProfileModal = () => {
         width={360}
       />
       <div className="w-full grid grid-cols-2 gap-3">
-        <FilledButton onClick={() => openModal("password")} >비밀번호 변경</FilledButton>
-        <FilledButton onClick={() => openModal("profile")}>프로필 수정</FilledButton>
+        <FilledButton onClick={() => openModal("password")}>
+          비밀번호 변경
+        </FilledButton>
+        <FilledButton onClick={() => openModal("profile")}>
+          프로필 수정
+        </FilledButton>
       </div>
     </div>
   );

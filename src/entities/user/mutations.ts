@@ -30,3 +30,31 @@ export const useFixProfileMutation = () => {
     },
   });
 };
+
+export const useRequestPhoneVerificationMutation = () => {
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: UserApi.requestPhoneVerification,
+    onSuccess: async (res) => {
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
+export const useConfirmPhoneVerificationMutation = () => {
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: UserApi.confirmPhoneVerification,
+    onSuccess: async (res) => {
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
