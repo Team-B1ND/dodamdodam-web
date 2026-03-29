@@ -8,11 +8,16 @@ import type {
   PhoneVerificationConfirmRequest,
   PhoneVerificationRequest,
   User,
+  LoginRequest
 } from "./types";
 
 const USER_BASE = "/user"
 
 export const UserApi = {
+  async login(payload: LoginRequest) {
+    return await apiClient.post("/auth/login", payload);
+  },
+
   async searchStudents(params: { keyword: string; page: number }) {
     return await apiClient.get<PageResponse<User>>(
       `${USER_BASE}/search?roles=STUDENT&page=${params.page}&size=10${params.keyword ? `&keyword=${params.keyword}` : ""}`,
