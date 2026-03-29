@@ -3,6 +3,7 @@ import type { PageResponse } from "@b1nd/api-client";
 import type {
   FixPassword,
   FixProfile,
+  FixStudentProfile,
   PhoneVerificationConfirmRequest,
   PhoneVerificationRequest,
   User,
@@ -31,6 +32,10 @@ export const UserApi = {
 
   async confirmPhoneVerification(payload: PhoneVerificationConfirmRequest) {
     return await apiClient.post(`${USER_BASE}/phone-verification/confirm`, payload);
+  },
+
+  async fixStudentProfile(payload: FixStudentProfile) {
+    return await apiClient.patch(`${USER_BASE}/student`, payload);
   },
 
   async fixProfile(payload: FixProfile) {

@@ -1,4 +1,5 @@
 import { useFixProfileMutation } from "@/entities/user/mutations";
+import type { FixProfileSubmitParams } from "@/features/fix-profile/types";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
 import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
 import { useImageUpload } from "@/shared/hooks/useImageUpload";
@@ -16,6 +17,7 @@ export const useFixProfile = () => {
   const { mutateAsync, isPending } = useFixProfileMutation();
   const { uploadImage, isPending: isUploadPending } = useImageUpload();
   const unchangedProfileImage = data.profileImage ?? null;
+  const hasChanges = name.trim() !== data.name || (profileImage ?? "") !== (data.profileImage ?? "");
 
   const validate = (phone: string, isPhoneChanged: boolean, isPhoneVerified: boolean) => {
     const errorMessage: string[] = [];
@@ -56,12 +58,7 @@ export const useFixProfile = () => {
     setProfileImage("");
   };
 
-  const submit = async (params: {
-    phone: string;
-    originalPhone: string;
-    isPhoneChanged: boolean;
-    isPhoneVerified: boolean;
-  }) => {
+  const submit = async (params: FixProfileSubmitParams) => {
     const errorMessages = validate(
       params.phone,
       params.isPhoneChanged,
@@ -70,11 +67,17 @@ export const useFixProfile = () => {
 
     if (errorMessages.length > 0) {
       toast.warning(errorMessages.join(" 또한 "));
-      return;
+      return false;
     }
 
     const normalizedName = name.trim();
     const normalizedPhone = normalizePhoneNumber(params.phone);
+    const hasProfileChanges =
+      hasChanges || normalizedPhone !== params.originalPhone;
+
+    if (!hasProfileChanges) {
+      return true;
+    }
 
     // 변경사항이 없다면 null 보내기
     await mutateAsync({
@@ -82,12 +85,15 @@ export const useFixProfile = () => {
       phone: normalizedPhone === params.originalPhone ? null : normalizedPhone,
       profileImage: profileImage === unchangedProfileImage ? null : profileImage,
     });
+
+    return true;
   };
 
   return {
     name,
     setName,
     profileImage,
+    hasChanges,
     fileInputRef,
     openProfileImagePicker,
     changeProfileImage,

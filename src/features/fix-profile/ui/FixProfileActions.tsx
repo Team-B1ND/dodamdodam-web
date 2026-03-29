@@ -1,18 +1,12 @@
 import { FilledButton } from "@b1nd/dodam-design-system/components";
-
-interface Props {
-  onClose: () => void;
-  onComplete: () => void;
-  completeButtonText: string;
-  isCompleteDisabled: boolean;
-}
+import type { FixProfileActionsProps } from "@/features/fix-profile/types";
 
 const FixProfileActions = ({
   onClose,
   onComplete,
   completeButtonText,
   isCompleteDisabled,
-}: Props) => {
+}: FixProfileActionsProps) => {
   return (
     <div className="w-full grid grid-cols-2 gap-3">
       <FilledButton onClick={onClose} role="assistive">

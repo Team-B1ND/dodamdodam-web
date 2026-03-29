@@ -1,3 +1,4 @@
+import type { PhoneVerificationPhase } from "@/features/fix-profile/types";
 import {
   useConfirmPhoneVerificationMutation,
   useRequestPhoneVerificationMutation,
@@ -12,8 +13,7 @@ const PHONE_VERIFICATION_TIMEOUT = 2 * 60;
 export const usePhoneVerification = (initialPhone: string) => {
   const [phone, setPhoneState] = useState(initialPhone);
   const [verificationCode, setVerificationCode] = useState("");
-  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
-  const [hasRequestedVerification, setHasRequestedVerification] = useState(false);
+  const [verificationPhase, setVerificationPhase] = useState<PhoneVerificationPhase>("idle");
   const [verificationDeadline, setVerificationDeadline] = useState<number | null>(null);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
   const toast = useToast();
@@ -26,6 +26,7 @@ export const usePhoneVerification = (initialPhone: string) => {
   const originalPhone = normalizePhoneNumber(initialPhone);
   const normalizedPhone = normalizePhoneNumber(phone);
   const isPhoneChanged = normalizedPhone !== originalPhone;
+  const isPhoneVerified = verificationPhase === "verified";
   const isVerificationExpired =
     verificationDeadline !== null ? verificationDeadline <= currentTime : false;
   const remainingVerificationSeconds =
@@ -56,8 +57,7 @@ export const usePhoneVerification = (initialPhone: string) => {
 
   const setPhone = (value: string) => {
     setPhoneState(value);
-    setIsPhoneVerified(false);
-    setHasRequestedVerification(false);
+    setVerificationPhase("idle");
     setVerificationCode("");
     setVerificationDeadline(null);
   };
@@ -85,8 +85,7 @@ export const usePhoneVerification = (initialPhone: string) => {
     const nextDeadline = Date.now() + PHONE_VERIFICATION_TIMEOUT * 1000;
 
     setCurrentTime(Date.now());
-    setIsPhoneVerified(false);
-    setHasRequestedVerification(true);
+    setVerificationPhase("requested");
     setVerificationCode("");
     setVerificationDeadline(nextDeadline);
   };
@@ -107,7 +106,7 @@ export const usePhoneVerification = (initialPhone: string) => {
       code: verificationCode.trim(),
     });
 
-    setIsPhoneVerified(true);
+    setVerificationPhase("verified");
     setVerificationDeadline(null);
   };
 
@@ -118,9 +117,9 @@ export const usePhoneVerification = (initialPhone: string) => {
     normalizedPhone,
     verificationCode,
     setVerificationCode,
+    verificationPhase,
     isPhoneChanged,
     isPhoneVerified,
-    hasRequestedVerification,
     hasActiveVerification,
     verificationTimerText: formatRemainingTime(remainingVerificationSeconds),
     requestVerificationCode,

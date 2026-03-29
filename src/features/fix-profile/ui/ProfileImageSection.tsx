@@ -1,16 +1,7 @@
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { Avatar } from "@b1nd/dodam-design-system/components";
 import { Plus } from "@b1nd/dodam-design-system/icons";
-import type { ChangeEventHandler, RefObject } from "react";
-
-interface Props {
-  profileImage: string | null;
-  fileInputRef: RefObject<HTMLInputElement | null>;
-  onChangeProfileImage: ChangeEventHandler<HTMLInputElement>;
-  onOpenProfileImagePicker: () => void;
-  onResetProfileImage: () => void;
-  isUploadPending: boolean;
-}
+import type { ProfileImageSectionProps } from "@/features/fix-profile/types";
 
 const ProfileImageSection = ({
   profileImage,
@@ -19,7 +10,7 @@ const ProfileImageSection = ({
   onOpenProfileImagePicker,
   onResetProfileImage,
   isUploadPending,
-}: Props) => {
+}: ProfileImageSectionProps) => {
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative h-32 w-32">

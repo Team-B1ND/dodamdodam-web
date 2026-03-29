@@ -1,13 +1,5 @@
+import type { PhoneVerificationSectionProps } from "@/features/fix-profile/types";
 import { FilledButton, TextField } from "@b1nd/dodam-design-system/components";
-
-interface Props {
-  verificationCode: string;
-  verificationTimerText: string;
-  hasActiveVerification: boolean;
-  isRequestPhoneVerificationPending: boolean;
-  onChangeVerificationCode: (value: string) => void;
-  onRequestVerificationCode: () => void;
-}
 
 const PhoneVerificationSection = ({
   verificationCode,
@@ -16,7 +8,7 @@ const PhoneVerificationSection = ({
   isRequestPhoneVerificationPending,
   onChangeVerificationCode,
   onRequestVerificationCode,
-}: Props) => {
+}: PhoneVerificationSectionProps) => {
   return (
     <div className="flex flex-col gap-4">
       <TextField

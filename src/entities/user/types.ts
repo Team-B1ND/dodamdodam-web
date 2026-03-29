@@ -53,3 +53,9 @@ export interface FixProfile {
   phone: string | null;
   profileImage: string | null;
 }
+
+export interface FixStudentProfile {
+  grade: number | null;
+  room: number | null;
+  number: number | null;
+}

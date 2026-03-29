@@ -1,8 +1,11 @@
+import { getCompleteButtonState } from "@/features/fix-profile/lib/get-complete-button-state";
 import FixProfileActions from "@/features/fix-profile/ui/FixProfileActions";
 import PhoneVerificationSection from "@/features/fix-profile/ui/PhoneVerificationSection";
 import ProfileImageSection from "@/features/fix-profile/ui/ProfileImageSection";
+import StudentProfileSection from "@/features/fix-profile/ui/StudentProfileSection";
 import { useFixProfile } from "@/features/fix-profile/model/useFixProfile";
 import { usePhoneVerification } from "@/features/fix-profile/model/usePhoneVerification";
+import { useFixStudentProfile } from "@/features/fix-profile/model/useFixStudentProfile";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
 import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
@@ -20,6 +23,7 @@ const FixProfileModal = ({
     name,
     setName,
     profileImage,
+    hasChanges: hasProfileChanges,
     fileInputRef,
     openProfileImagePicker,
     changeProfileImage,
@@ -36,7 +40,7 @@ const FixProfileModal = ({
     setVerificationCode,
     isPhoneChanged,
     isPhoneVerified,
-    hasRequestedVerification,
+    verificationPhase,
     hasActiveVerification,
     verificationTimerText,
     requestVerificationCode,
@@ -44,53 +48,58 @@ const FixProfileModal = ({
     isRequestPhoneVerificationPending,
     isConfirmPhoneVerificationPending,
   } = usePhoneVerification(data.phone ?? "");
+  const {
+    isStudent,
+    grade,
+    room,
+    number,
+    setGrade,
+    setRoom,
+    setNumber,
+    hasChanges: hasStudentChanges,
+    submit: submitStudentProfile,
+    isPending: isStudentProfilePending,
+  } = useFixStudentProfile(data);
   const hasChanges =
-    name.trim() !== data.name ||
+    hasProfileChanges ||
     normalizePhoneNumber(phone) !== originalPhone ||
-    (profileImage ?? "") !== (data.profileImage ?? "");
+    hasStudentChanges;
+  const completeButtonState = getCompleteButtonState({
+    hasChanges,
+    isPending,
+    isUploadPending,
+    isRequestPhoneVerificationPending,
+    isConfirmPhoneVerificationPending,
+    isStudentProfilePending,
+    isPhoneChanged,
+    isPhoneVerified,
+    verificationPhase,
+  });
 
   const handleComplete = async () => {
     if (!isPhoneChanged || isPhoneVerified) {
-      await submit({
+      const isProfileSubmitted = await submit({
         phone,
         originalPhone,
         isPhoneChanged,
         isPhoneVerified,
       });
+
+      if (isProfileSubmitted === false) {
+        return;
+      }
+
+      await submitStudentProfile();
       return;
     }
 
-    if (!hasRequestedVerification) {
+    if (verificationPhase === "idle") {
       await requestVerificationCode();
       return;
     }
 
     await confirmVerificationCode();
   };
-
-  const completeButtonText = (() => {
-    if (isPending) {
-      return "수정 중..";
-    }
-
-    if (isRequestPhoneVerificationPending) {
-      return "전송 중..";
-    }
-
-    if (isConfirmPhoneVerificationPending) {
-      return "확인 중..";
-    }
-
-    if (!isPhoneChanged || isPhoneVerified) {
-      return "완료";
-    }
-
-    if (!hasRequestedVerification) {
-      return "인증번호 전송";
-    }
-
-    return "인증 확인";
-  })();
 
   return (
     <div className="small-container flex flex-col gap-5 w-100">
@@ -118,7 +127,17 @@ const FixProfileModal = ({
           value={formatPhoneNumber(phone)}
           onChange={(e) => setPhone(e.target.value)}
         />
-        {isPhoneChanged && hasRequestedVerification && !isPhoneVerified && (
+        {isStudent && (
+          <StudentProfileSection
+            grade={grade}
+            room={room}
+            number={number}
+            onChangeGrade={setGrade}
+            onChangeRoom={setRoom}
+            onChangeNumber={setNumber}
+          />
+        )}
+        {isPhoneChanged && verificationPhase === "requested" && !isPhoneVerified && (
           <PhoneVerificationSection
             verificationCode={verificationCode}
             verificationTimerText={verificationTimerText}
@@ -132,14 +151,8 @@ const FixProfileModal = ({
       <FixProfileActions
         onClose={onClose}
         onComplete={handleComplete}
-        completeButtonText={completeButtonText}
-        isCompleteDisabled={
-          !hasChanges ||
-          isPending ||
-          isUploadPending ||
-          isRequestPhoneVerificationPending ||
-          isConfirmPhoneVerificationPending
-        }
+        completeButtonText={completeButtonState.label}
+        isCompleteDisabled={completeButtonState.disabled}
       />
     </div>
   );
