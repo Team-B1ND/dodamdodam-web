@@ -59,3 +59,7 @@ export interface FixStudentProfile {
   room: number | null;
   number: number | null;
 }
+
+export interface FixTeacherProfile {
+  position: string | null;
+}

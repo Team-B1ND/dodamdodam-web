@@ -3,9 +3,11 @@ import FixProfileActions from "@/features/fix-profile/ui/FixProfileActions";
 import PhoneVerificationSection from "@/features/fix-profile/ui/PhoneVerificationSection";
 import ProfileImageSection from "@/features/fix-profile/ui/ProfileImageSection";
 import StudentProfileSection from "@/features/fix-profile/ui/StudentProfileSection";
+import TeacherProfileSection from "@/features/fix-profile/ui/TeacherProfileSection";
 import { useFixProfile } from "@/features/fix-profile/model/useFixProfile";
 import { usePhoneVerification } from "@/features/fix-profile/model/usePhoneVerification";
 import { useFixStudentProfile } from "@/features/fix-profile/model/useFixStudentProfile";
+import { useFixTeacherProfile } from "@/features/fix-profile/model/useFixTeacherProfile";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
 import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
@@ -60,10 +62,19 @@ const FixProfileModal = ({
     submit: submitStudentProfile,
     isPending: isStudentProfilePending,
   } = useFixStudentProfile(data);
+  const {
+    isTeacher,
+    position,
+    setPosition,
+    hasChanges: hasTeacherChanges,
+    submit: submitTeacherProfile,
+    isPending: isTeacherProfilePending,
+  } = useFixTeacherProfile(data);
   const hasChanges =
     hasProfileChanges ||
     normalizePhoneNumber(phone) !== originalPhone ||
-    hasStudentChanges;
+    hasStudentChanges ||
+    hasTeacherChanges;
   const completeButtonState = getCompleteButtonState({
     hasChanges,
     isPending,
@@ -71,6 +82,7 @@ const FixProfileModal = ({
     isRequestPhoneVerificationPending,
     isConfirmPhoneVerificationPending,
     isStudentProfilePending,
+    isTeacherProfilePending,
     isPhoneChanged,
     isPhoneVerified,
     verificationPhase,
@@ -90,6 +102,7 @@ const FixProfileModal = ({
       }
 
       await submitStudentProfile();
+      await submitTeacherProfile();
       return;
     }
 
@@ -135,6 +148,12 @@ const FixProfileModal = ({
             onChangeGrade={setGrade}
             onChangeRoom={setRoom}
             onChangeNumber={setNumber}
+          />
+        )}
+        {isTeacher && (
+          <TeacherProfileSection
+            position={position}
+            onChangePosition={setPosition}
           />
         )}
         {isPhoneChanged && verificationPhase === "requested" && !isPhoneVerified && (

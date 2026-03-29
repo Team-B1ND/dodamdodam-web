@@ -4,6 +4,7 @@ import type {
   FixPassword,
   FixProfile,
   FixStudentProfile,
+  FixTeacherProfile,
   PhoneVerificationConfirmRequest,
   PhoneVerificationRequest,
   User,
@@ -36,6 +37,10 @@ export const UserApi = {
 
   async fixStudentProfile(payload: FixStudentProfile) {
     return await apiClient.patch(`${USER_BASE}/student`, payload);
+  },
+
+  async fixTeacherProfile(payload: FixTeacherProfile) {
+    return await apiClient.patch(`${USER_BASE}/teacher`, payload);
   },
 
   async fixProfile(payload: FixProfile) {

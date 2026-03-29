@@ -47,6 +47,22 @@ export const useFixStudentProfileMutation = () => {
   });
 };
 
+export const useFixTeacherProfileMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: UserApi.fixTeacherProfile,
+    onSuccess: async (res) => {
+      await queryClient.refetchQueries({ queryKey: ["user", "my"] });
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
 export const useRequestPhoneVerificationMutation = () => {
   const toast = useToast();
 

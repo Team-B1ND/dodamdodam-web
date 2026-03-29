@@ -7,6 +7,7 @@ interface Params {
   isRequestPhoneVerificationPending: boolean;
   isConfirmPhoneVerificationPending: boolean;
   isStudentProfilePending: boolean;
+  isTeacherProfilePending: boolean;
   isPhoneChanged: boolean;
   isPhoneVerified: boolean;
   verificationPhase: "idle" | "requested" | "verified";
@@ -19,6 +20,7 @@ export const getCompleteButtonState = ({
   isRequestPhoneVerificationPending,
   isConfirmPhoneVerificationPending,
   isStudentProfilePending,
+  isTeacherProfilePending,
   isPhoneChanged,
   isPhoneVerified,
   verificationPhase,
@@ -40,6 +42,10 @@ export const getCompleteButtonState = ({
   }
 
   if (isStudentProfilePending) {
+    return { label: "수정 중..", disabled: true };
+  }
+
+  if (isTeacherProfilePending) {
     return { label: "수정 중..", disabled: true };
   }
 
