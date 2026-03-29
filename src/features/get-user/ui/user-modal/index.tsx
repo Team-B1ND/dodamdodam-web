@@ -28,19 +28,19 @@ const UserProfileModal = () => {
       <p className="w-full text-heading2 font-bold text-text-primary">
         내 프로필
       </p>
-      <div className="flex flex-col gap-2 justify-center">
+      <section className="flex flex-col items-center gap-2">
         {data.profileImage ? (
           <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={96} />
         ) : (
           <Avatar size={96} />
         )}
-        <section className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <p className="text-heading2 font-bold text-text-primary">
             {data.name}
           </p>
-          <span className="text-label font-medium text-text-tertiary">{`${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번`}</span>
-        </section>
-      </div>
+          <span className="text-label font-medium text-text-tertiary">{data.student ? `${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번` : "Admin Account"}</span>
+        </div>
+      </section>
       <TextField
         disabled
         type="text"

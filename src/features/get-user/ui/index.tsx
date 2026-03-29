@@ -24,7 +24,11 @@ const UserProfile = () => {
         {data.profileImage ? <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={48} /> : <Avatar size={48} />}
         <section className="flex flex-col">
           <p className="text-headline font-bold">{data.name}</p>
-          <span className="text-label font-medium text-text-tertiary">{`${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번`}</span>
+          {data.student ? (
+            <span className="text-label font-medium text-text-tertiary">{`${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번`}</span>
+          ) : (
+            <span className="">Admin Account</span>
+          )}
         </section>
       </div>
       <FilledButton role="assistive" size="medium" onClick={openModal}>
