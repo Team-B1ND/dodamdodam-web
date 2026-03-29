@@ -38,3 +38,33 @@ export type UserRole =
   | "ADMIN"
   | "BROADCASTER"
   | "DORMITORY_MANAGER";
+
+export interface FixPassword {
+  postPassword: string;
+  newPassword: string;
+}
+
+export interface PhoneVerificationRequest {
+  phone: string;
+}
+
+export interface PhoneVerificationConfirmRequest {
+  phone: string;
+  code: string;
+}
+
+export interface FixProfile {
+  name: string | null;
+  phone: string | null;
+  profileImage: string | null;
+}
+
+export interface FixStudentProfile {
+  grade: number | null;
+  room: number | null;
+  number: number | null;
+}
+
+export interface FixTeacherProfile {
+  position: string | null;
+}

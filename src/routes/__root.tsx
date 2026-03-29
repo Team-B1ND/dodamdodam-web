@@ -16,7 +16,7 @@ function RootComponent() {
   }
 
   return (
-    <div className="flex px-8 py-9 h-screen justify-start items-start gap-6 bg-background-default ">
+    <div className="flex px-8 pt-9 h-screen justify-start items-start gap-6 bg-background-default ">
       <Sidebar
         menus={MENUS}
         logo={

@@ -11,17 +11,14 @@ const TimeTable = () => {
   const today = getToday("YYYY-MM-DD");
   const period = getPeriod();
 
-  return (
+  return data.length !== 0 ? (
     <div className="small-container flex flex-col gap-3 text-text-primary">
       <header className="flex justify-between">
         <div className="flex gap-2 justify-center items-center">
           <Clock color={colors.text.primary} />
           <p className="text-headline font-bold">시간표</p>
         </div>
-        <Tag
-          text={`${data[0][0].grade}-${data[0][0].room}`}
-          color="blue"
-        />
+        <Tag text={`${data[0][0].grade}-${data[0][0].room}`} color="blue" />
       </header>
       <div className="bg-fill-primary p-3 rounded-large">
         <table className="text-center w-full">
@@ -42,9 +39,11 @@ const TimeTable = () => {
                     className={`py-1.5 text-label h-9 ${
                       row_index !== 0 &&
                       today === data[row_index - 1][index]?.date
-                        ? `${period === index + 1 
-                            ? `text-brand-primary` 
-                            : `text-text-primary`} font-medium`
+                        ? `${
+                            period === index + 1
+                              ? `text-brand-primary`
+                              : `text-text-primary`
+                          } font-medium`
                         : `text-text-secondary font-light`
                     }`}
                     key={`${index}_${row_index}`}
@@ -58,6 +57,18 @@ const TimeTable = () => {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  ) : (
+    <div className="small-container flex flex-col h-70 gap-3 text-text-primary">
+      <header className="flex justify-between">
+        <div className="flex gap-2 justify-center items-center">
+          <Clock color={colors.text.primary} />
+          <p className="text-headline font-bold">시간표</p>
+        </div>
+      </header>
+      <div className="w-full grow flex justify-center items-center">
+        시간표가 없어요!
       </div>
     </div>
   );
