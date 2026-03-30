@@ -3,14 +3,21 @@ import {
   useConfirmPhoneVerificationMutation,
   useRequestPhoneVerificationMutation,
 } from "@/entities/user/mutations";
-import { formatRemainingTime } from "@/features/fix-profile/utils/format-remaining-time";
-import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
+import { formatRemainingTime } from "@/shared/utils/format-remaining-time";
+import { normalizePhoneNumber } from "@/shared/utils/normalize-phone-number";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useEffect, useState } from "react";
 
 const PHONE_VERIFICATION_TIMEOUT = 2 * 60;
 
-export const usePhoneVerification = (initialPhone: string) => {
+interface UsePhoneVerificationOptions {
+  requireChangedPhone?: boolean;
+}
+
+export const usePhoneVerification = (
+  initialPhone: string,
+  options?: UsePhoneVerificationOptions,
+) => {
   const [phone, setPhoneState] = useState(initialPhone);
   const [verificationCode, setVerificationCode] = useState("");
   const [verificationPhase, setVerificationPhase] = useState<PhoneVerificationPhase>("idle");
@@ -27,6 +34,7 @@ export const usePhoneVerification = (initialPhone: string) => {
   const normalizedPhone = normalizePhoneNumber(phone);
   const isPhoneChanged = normalizedPhone !== originalPhone;
   const isPhoneVerified = verificationPhase === "verified";
+  const requireChangedPhone = options?.requireChangedPhone ?? true;
   const isVerificationExpired =
     verificationDeadline !== null ? verificationDeadline <= currentTime : false;
   const remainingVerificationSeconds =
@@ -57,6 +65,10 @@ export const usePhoneVerification = (initialPhone: string) => {
 
   const setPhone = (value: string) => {
     setPhoneState(value);
+    resetVerification();
+  };
+
+  const resetVerification = () => {
     setVerificationPhase("idle");
     setVerificationCode("");
     setVerificationDeadline(null);
@@ -68,7 +80,7 @@ export const usePhoneVerification = (initialPhone: string) => {
       return;
     }
 
-    if (!isPhoneChanged) {
+    if (requireChangedPhone && !isPhoneChanged) {
       toast.warning("기존 전화번호와 동일합니다.");
       return;
     }
@@ -113,6 +125,7 @@ export const usePhoneVerification = (initialPhone: string) => {
   return {
     phone,
     setPhone,
+    resetVerification,
     originalPhone,
     normalizedPhone,
     verificationCode,
