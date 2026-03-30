@@ -1,9 +1,11 @@
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { DoorOpen } from "@b1nd/dodam-design-system/icons";
+import { DoorOpen, Moon, Sun } from "@b1nd/dodam-design-system/icons";
 import { toggleTheme, useTheme } from "@b1nd/dodam-design-system/themes";
 import type { SidebarMenuType } from "../types/sidebar-item/sidebar-item";
 import type { ReactElement } from "react";
 import SidebarItem from "./sidebar-item";
+import { IconButton } from "@b1nd/dodam-design-system/components";
+import { Link } from "@tanstack/react-router";
 
 interface Props {
   logo: ReactElement;
@@ -16,8 +18,9 @@ const Sidebar = ({
 }: Props) => {
   const theme = useTheme();
   return (
-    <aside className="w-50 h-full p-3 bg-background-surface rounded-2xl inline-flex flex-col justify-start items-start gap-2 overflow-hidden">
-      {logo}
+    <aside className="items-center p-4 bg-background-surface rounded-2xl inline-flex flex-col gap-3 overflow-hidden">
+      <Link to="/">{logo}</Link>
+      <div className="h-px bg-border-normal w-full" />
       {menus.map((item) => (
         <SidebarItem
           key={item.text}
@@ -26,16 +29,28 @@ const Sidebar = ({
           herf={item.herf}
         />
       ))}
-      <div className="w-0 flex-1 relative" />
-      <div className="flex self-stretch items-center gap-2">
-        <button
-          onClick={toggleTheme}
-          className={`${theme === "light" ? "text-text-primary" : "text-static-white"} text-label font-bold h-9 flex justify-center items-center grow bg-fill-primary rounded-small cursor-pointer`}
-        >
-          {theme === "light" ? "DARK" : "LIGHT"}
+      <div className="h-px bg-border-normal w-full" />
+      <div className="flex flex-col gap-2">
+        <button onClick={toggleTheme}>
+          {theme === "light" ? (
+            <IconButton
+              iconSize={24}
+              size={48}
+              icon={<Moon color={colors.text.primary} size={24} pointer />}
+            />
+          ) : (
+            <IconButton
+              iconSize={24}
+              size={48}
+              icon={<Sun color={colors.text.primary} size={24} pointer />}
+            />
+          )}
         </button>
-        <button onClick={() => alert("Logout !")} className="w-9 h-9 flex justify-center items-center bg-status-error rounded-small cursor-pointer">
-          <DoorOpen color={colors.static.white} pointer/>
+        <button
+          onClick={() => alert("Logout !")}
+          className="w-12 h-12 flex justify-center items-center bg-status-error rounded-small cursor-pointer"
+        >
+          <DoorOpen color={colors.static.white} pointer />
         </button>
       </div>
     </aside>

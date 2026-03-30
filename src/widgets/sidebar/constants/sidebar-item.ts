@@ -28,7 +28,7 @@ export const MENUS: SidebarMenuType[] = [
     icon: Person,
   },
   {
-    text: "digt",
+    text: "디깃",
     herf: "https://dgit.b1nd.com/",
     icon: Chart,
   },
