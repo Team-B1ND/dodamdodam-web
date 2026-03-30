@@ -4,11 +4,11 @@ import "dayjs/locale/ko";
 
 dayjs.locale("ko");
 
-interface ScheduleListProps {
+interface Props {
   groupedSchedules: Record<string, ScheduleEvent[]>;
 }
 
-const ScheduleList = ({ groupedSchedules }: ScheduleListProps) => {
+const ScheduleList = ({ groupedSchedules }: Props) => {
   const entries = Object.entries(groupedSchedules);
 
   return (
