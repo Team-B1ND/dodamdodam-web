@@ -1,5 +1,6 @@
 import { useRegister } from "@/features/register/model/useRegister";
 import RegisterBaseInfo from "@/features/register/ui/RegisterBaseInfo";
+import RegisterPhoneInfo from "@/features/register/ui/RegisterPhoneInfo";
 import RegisterRoleInfo from "@/features/register/ui/RegisterRoleInfo";
 import RegisterTypeSelect from "@/features/register/ui/RegisterTypeSelect";
 import { useState } from "react";
@@ -26,7 +27,9 @@ const RegisterForm = () => {
     setTeacherPosition,
     registerUser,
     registerUserHandler,
-    validateCompleteRoleInfo
+    validateCompleteRoleInfo,
+    submit,
+    isSubmitPending,
   } = useRegister();
   
   switch (phase) {
@@ -82,7 +85,23 @@ const RegisterForm = () => {
         </div>
       );
     case 4:
-      return <div>4</div>;
+      return (
+        <div className="w-full flex flex-col gap-6 px-8 justify-center">
+          <div className="flex flex-col gap-2">
+            <p className="text-title2 font-bold text-text-primary">전화번호 인증</p>
+            <span className="text-headline font-medium text-text-tertiary">
+              5초만에 인증 끝내고 가입하기
+            </span>
+          </div>
+          <RegisterPhoneInfo
+            phaseController={phaseController}
+            phone={registerUser.phone}
+            phoneHandler={(phone) => registerUserHandler(phone, "phone")}
+            submit={submit}
+            isSubmitPending={isSubmitPending}
+          />
+        </div>
+      );
   };
 };
 
