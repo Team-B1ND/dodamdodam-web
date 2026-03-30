@@ -1,6 +1,7 @@
 import { SCHEDULE_CATEGORY_ITEMS } from "@/features/get-schedule/constants/schedule-category";
 import type { ScheduleEvent } from "@/entities/schedule/types";
 import dayjs from "dayjs";
+import { getToday } from "@/shared/libs/day";
 import { ScheduleCalendarCell } from "./ScheduleCalendarCell";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -21,7 +22,7 @@ const ScheduleCalendar = ({
   const firstDay = dayjs(currentMonth).startOf("month").day();
   const daysInMonth = dayjs(currentMonth).daysInMonth();
   const totalCells = 42;
-  const today = dayjs().format("YYYY-MM-DD");
+  const today = getToday();
 
   return (
     <section className="w-full xl:w-[70%] bg-background-surface rounded-large p-6 flex flex-col">
