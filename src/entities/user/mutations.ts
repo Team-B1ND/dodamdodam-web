@@ -120,8 +120,8 @@ export const useRegisterStudentMutation = () => {
   return useMutation({
     mutationFn: UserApi.registerStudent,
     onSuccess: () => {
-      navigate({ to: "/" });
-      toast.success("도담도담에 온 것을 환영해요!");
+      navigate({ to: "/login", search: { redirectUrl: "/" }});
+      toast.success("도담도담 가입을 환영해요!");
     },
     onError: (e: ErrorResponse) => {
       toast.error(e.message);
@@ -136,8 +136,8 @@ export const useRegisterTeacherMutation = () => {
   return useMutation({
     mutationFn: UserApi.registerTeacher,
     onSuccess: () => {
-      navigate({ to: "/" });
-      toast.success("도담도담에 온 것을 환영해요!");
+      navigate({ to: "/login", search: { redirectUrl: "/" }});
+      toast.success("도담도담에 가입을 환영해요!");
     },
     onError: (e: ErrorResponse) => {
       toast.error(e.message);
