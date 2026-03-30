@@ -28,7 +28,12 @@ export const ScheduleCalendarCell = ({
   const isInMonth = dateNumber >= 1 && dateNumber <= daysInMonth;
 
   if (!isInMonth) {
-    return <div className={`${cellBorderClass} border-line-primary`} />;
+    return (
+      <div
+        className={`${cellBorderClass} border`}
+        style={{ borderColor: "var(--dds-color-border-subtle)" }}
+      />
+    );
   }
 
   const date = dayjs(currentMonth).date(dateNumber).format("YYYY-MM-DD");
@@ -57,7 +62,8 @@ export const ScheduleCalendarCell = ({
   return (
     <div
       key={date}
-      className={`${cellBorderClass} border-line-primary px-2 py-1.5 flex flex-col items-end gap-1 relative overflow-visible`}
+      className={`${cellBorderClass} border px-2 py-1.5 flex flex-col items-end gap-1 relative overflow-visible`}
+      style={{ borderColor: "var(--dds-color-border-subtle)" }}
     >
       <span
         className={`text-body1 font-medium ${

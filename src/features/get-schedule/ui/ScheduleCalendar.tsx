@@ -64,12 +64,16 @@ const ScheduleCalendar = ({
         ))}
       </div>
 
-      <div className="border border-line-primary rounded-small overflow-hidden">
+      <div
+        className="border rounded-small overflow-hidden"
+        style={{ borderColor: "var(--dds-color-border-subtle)" }}
+      >
         <div className="grid grid-cols-7">
           {WEEK_DAYS.map((day) => (
             <div
               key={day}
-              className="h-8 border-b border-line-primary flex items-center justify-center text-label text-text-tertiary"
+              className="h-8 border-b flex items-center justify-center text-label text-text-tertiary"
+              style={{ borderColor: "var(--dds-color-border-subtle)" }}
             >
               {day}
             </div>
