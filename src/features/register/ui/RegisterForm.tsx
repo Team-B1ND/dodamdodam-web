@@ -74,6 +74,11 @@ const RegisterForm = () => {
               사용할 정보를 알려주세요.
             </span>
           </div>
+          <RegisterBaseInfo
+            phaseController={phaseController}
+            registerUser={registerUser}
+            registerUserHandler={registerUserHandler}
+          />
         </div>
       );
     case 4:
