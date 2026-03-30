@@ -8,6 +8,7 @@ export const Route = createFileRoute("/register/")({
 function RouteComponent() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-8 bg-background-default px-4 py-12 md:gap-0 md:px-0 md:py-0">
+      <RegisterCard/>
       <p className="text-sm font-medium tracking-[0.28px] text-text-placeholder md:absolute md:bottom-21">
         이미 계정이 있다면?{" "}
         <Link
