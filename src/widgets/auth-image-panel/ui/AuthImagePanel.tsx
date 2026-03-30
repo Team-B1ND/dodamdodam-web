@@ -1,4 +1,4 @@
-const LoginImagePanel = () => {
+const AuthImagePanel = () => {
   return (
     <div className="relative hidden h-125 w-100 shrink-0 flex-col items-center overflow-hidden rounded-xl pt-18 md:flex">
       <img
@@ -16,4 +16,4 @@ const LoginImagePanel = () => {
   );
 };
 
-export default LoginImagePanel;
+export default AuthImagePanel;

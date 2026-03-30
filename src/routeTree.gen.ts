@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
+import { Route as RegisterIndexRouteImport } from './routes/register/index'
 import { Route as NightStudyIndexRouteImport } from './routes/night-study/index'
 import { Route as MealIndexRouteImport } from './routes/meal/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
@@ -20,6 +21,11 @@ import { Route as DormitoryNightStudyIndexRouteImport } from './routes/dormitory
 const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   id: '/schedule/',
   path: '/schedule/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterIndexRoute = RegisterIndexRouteImport.update({
+  id: '/register/',
+  path: '/register/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NightStudyIndexRoute = NightStudyIndexRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/login/': typeof LoginIndexRoute
   '/meal/': typeof MealIndexRoute
   '/night-study/': typeof NightStudyIndexRoute
+  '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/dormitory/night-study/': typeof DormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof TeacherOutsleepingIndexRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginIndexRoute
   '/meal': typeof MealIndexRoute
   '/night-study': typeof NightStudyIndexRoute
+  '/register': typeof RegisterIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/dormitory/night-study': typeof DormitoryNightStudyIndexRoute
   '/teacher/outsleeping': typeof TeacherOutsleepingIndexRoute
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/login/': typeof LoginIndexRoute
   '/meal/': typeof MealIndexRoute
   '/night-study/': typeof NightStudyIndexRoute
+  '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/dormitory/night-study/': typeof DormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof TeacherOutsleepingIndexRoute
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/login/'
     | '/meal/'
     | '/night-study/'
+    | '/register/'
     | '/schedule/'
     | '/dormitory/night-study/'
     | '/teacher/outsleeping/'
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/meal'
     | '/night-study'
+    | '/register'
     | '/schedule'
     | '/dormitory/night-study'
     | '/teacher/outsleeping'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/login/'
     | '/meal/'
     | '/night-study/'
+    | '/register/'
     | '/schedule/'
     | '/dormitory/night-study/'
     | '/teacher/outsleeping/'
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   LoginIndexRoute: typeof LoginIndexRoute
   MealIndexRoute: typeof MealIndexRoute
   NightStudyIndexRoute: typeof NightStudyIndexRoute
+  RegisterIndexRoute: typeof RegisterIndexRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
   DormitoryNightStudyIndexRoute: typeof DormitoryNightStudyIndexRoute
   TeacherOutsleepingIndexRoute: typeof TeacherOutsleepingIndexRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/schedule'
       fullPath: '/schedule/'
       preLoaderRoute: typeof ScheduleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register/': {
+      id: '/register/'
+      path: '/register'
+      fullPath: '/register/'
+      preLoaderRoute: typeof RegisterIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/night-study/': {
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginIndexRoute: LoginIndexRoute,
   MealIndexRoute: MealIndexRoute,
   NightStudyIndexRoute: NightStudyIndexRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
   DormitoryNightStudyIndexRoute: DormitoryNightStudyIndexRoute,
   TeacherOutsleepingIndexRoute: TeacherOutsleepingIndexRoute,
