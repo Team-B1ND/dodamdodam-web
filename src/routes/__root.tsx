@@ -1,7 +1,6 @@
 import { Outlet, createRootRoute, useRouterState } from "@tanstack/react-router";
 import Sidebar from "@/widgets/sidebar/ui";
 import { MENUS } from "@/widgets/sidebar/constants/sidebar-item";
-import LongLogo from "@/shared/assets/icons/dodamLongLogo.svg";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -20,8 +19,9 @@ function RootComponent() {
       <Sidebar
         menus={MENUS}
         logo={
-          <div className="p-2">
-            <LongLogo />
+          <div className="flex w-12 h-12">
+            {/* <Logo /> */}
+            <img src="/favicon.svg" alt="dodam-logo" className="w-12 h-12" />
           </div>
         }
       />
