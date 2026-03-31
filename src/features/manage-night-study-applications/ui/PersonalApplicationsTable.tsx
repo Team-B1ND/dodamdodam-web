@@ -30,7 +30,7 @@ const PersonalApplicationsTable = () => {
 
   return (
     <div className="flex flex-col gap-3 overflow-hidden grow">
-      <div className="flex flex-wrap items-center justify-between shrink-0 gap-3">
+      <div className="flex flex-wrap flex-row items-center justify-between shrink-0 gap-3 max-md:flex-col max-md:items-start">
         <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
           <MagnifyingGlass size={24} color={colors.text.placeholder} />
           <input

@@ -54,7 +54,7 @@ const PersonalNightStudyForm = () => {
         />
       </div>
       <div className="w-full flex flex-col sm:flex-row items-start gap-4">
-        <div className="flex-1 flex flex-col gap-3">
+        <div className="flex-1 flex flex-col gap-3 w-full">
           <h1 className="text-headline font-bold">신청 기한</h1>
           <div className="w-full flex items-center justify-between">
             <p>시작 날짜</p>
@@ -89,7 +89,7 @@ const PersonalNightStudyForm = () => {
             </PickerTrigger>
           </div>
         </div>
-        <div className="flex-1 flex flex-col gap-3">
+        <div className="flex-1 flex flex-col gap-3 w-full">
           <h1 className="text-headline font-bold">핸드폰 필요 여부</h1>
           <div className="w-full flex flex-col gap-2">
             <div className="w-full flex items-center gap-3">

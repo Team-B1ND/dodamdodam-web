@@ -12,7 +12,7 @@ const ScheduleList = ({ groupedSchedules }: Props) => {
   const entries = Object.entries(groupedSchedules);
 
   return (
-    <aside className="w-full xl:w-[30%] bg-background-surface rounded-large p-4 max-h-52 flex flex-col">
+    <aside className="w-full md:w-80 bg-background-surface rounded-large p-4 max-h-52 flex flex-col">
       <div className="flex-1 overflow-y-auto flex flex-col gap-2">
         {entries.length === 0 ? (
           <p className="text-caption1 text-text-tertiary">일정이 없습니다.</p>

@@ -73,7 +73,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
 
   if (filtered.length === 0) {
     return (
-      <div className="w-full flex items-start justify-center grow text-text-secondary text-body1">
+      <div className="w-full flex items-center justify-center grow text-text-secondary text-body1">
         신청 내역이 없습니다.
       </div>
     );

@@ -16,7 +16,7 @@ interface Props {
 const Sidebar = ({ logo, menus, managingMenus }: Props) => {
   const theme = useTheme();
   return (
-    <aside className="items-center p-4 bg-background-surface rounded-2xl inline-flex flex-col gap-3 overflow-hidden">
+    <aside className="items-center p-4 bg-background-surface rounded-2xl flex flex-col h-fit gap-3 overflow-hidden min-w-20">
       <Link to="/">{logo}</Link>
       <div className="h-px bg-border-normal w-full" />
       {menus.map((item) => (

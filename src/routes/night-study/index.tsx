@@ -30,7 +30,7 @@ function RouteComponent() {
   const [page, setPage] = useState("personal");
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row gap-8 items-start">
+    <div className="w-full flex flex-col lg:flex-row gap-8 items-start">
       <div className="flex-1 w-full bg-background-surface rounded-large p-5 flex flex-col gap-4">
         <SegmentedButton
           data={segment}
@@ -43,11 +43,11 @@ function RouteComponent() {
           <ProjectNightStudyForm />
         )}
       </div>
-      <div className="w-full lg:w-90 flex flex-col gap-4">
+      <div className="w-full lg:w-80 flex flex-col gap-4">
         <Suspense fallback={null}>
           <BanStatus />
         </Suspense>
-        <div className="w-full h-128 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
+        <div className="w-full p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
           <h1 className="text-headline font-bold">
             My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
           </h1>

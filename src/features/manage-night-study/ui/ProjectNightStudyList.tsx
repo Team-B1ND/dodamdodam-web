@@ -26,7 +26,7 @@ const ProjectNightStudyList = () => {
 ProjectNightStudyList.Skeleton = () => {
   return (
     <div className="w-full flex flex-col gap-2.5">
-      {Array.from({ length: 5 }).map((_, idx) => (
+      {Array.from({ length: 2 }).map((_, idx) => (
         <NightStudyItem.Skeleton key={idx} />
       ))}
     </div>

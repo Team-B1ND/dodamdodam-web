@@ -30,7 +30,7 @@ const ProjectApplicationsTable = () => {
 
   return (
     <div className="flex flex-col gap-3 overflow-hidden grow">
-      <div className="flex flex-wrap items-center justify-between w-full shrink-0 gap-3">
+      <div className="flex flex-wrap items-center justify-between w-full shrink-0 gap-3 max-md:flex-col max-md:items-start">
         <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3 min-w-60">
           <MagnifyingGlass size={24} color={colors.text.placeholder} />
           <input
@@ -45,7 +45,11 @@ const ProjectApplicationsTable = () => {
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
             onSelectedItemChange={(item) =>
-              setStatus(item.value === "" ? undefined : item.value as NightStudyStatus)
+              setStatus(
+                item.value === ""
+                  ? undefined
+                  : (item.value as NightStudyStatus),
+              )
             }
           />
           <Dropdown
@@ -66,7 +70,10 @@ const ProjectApplicationsTable = () => {
       </div>
 
       <Suspense fallback={<ProjectSkeletonRows count={8} />}>
-        <ProjectTableData key={`${debouncedKeyword}-${status}-${grade}-${room}`} {...filters} />
+        <ProjectTableData
+          key={`${debouncedKeyword}-${status}-${grade}-${room}`}
+          {...filters}
+        />
       </Suspense>
     </div>
   );
