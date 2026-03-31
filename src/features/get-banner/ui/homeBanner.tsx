@@ -4,7 +4,7 @@ import { Indicator, Switcher } from "@b1nd/dodam-design-system/components";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
-const Banner = () => {
+const HomeBanner = () => {
   const { data } = useGetBanner();
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ const Banner = () => {
   );
 };
 
-Banner.Skeleton = () => {
+HomeBanner.Skeleton = () => {
   return <header className="w-full aspect-6.5/1 rounded-large skeleton" />
 }
 
-export default Banner;
+export default HomeBanner;

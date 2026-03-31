@@ -1,4 +1,4 @@
-import Banner from "@/features/get-banner/ui";
+import HomeBanner from "@/features/get-banner/ui/homeBanner";
 import Meal from "@/features/get-meal/ui";
 import ScheduleHome from "@/features/get-schedule/ui/ScheduleHome";
 import TimeTable from "@/features/get-time-table/ui";
@@ -15,8 +15,8 @@ function RouteComponent() {
   return (
     <div className="flex grow gap-6">
       <div className="flex flex-col gap-4 grow">
-        <QueryBoundary pendingFallback={<Banner.Skeleton />}>
-          <Banner />
+        <QueryBoundary pendingFallback={<HomeBanner.Skeleton />}>
+          <HomeBanner />
         </QueryBoundary>
         <main className="grid grid-cols-2 max-md:grid-cols-1 gap-4 min-h-0">
           <div className="hidden max-md:flex">
