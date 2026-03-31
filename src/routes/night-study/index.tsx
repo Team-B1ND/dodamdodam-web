@@ -47,7 +47,7 @@ function RouteComponent() {
         <Suspense fallback={null}>
           <BanStatus />
         </Suspense>
-        <div className="w-full h-128 p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
+        <div className="w-full p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
           <h1 className="text-headline font-bold">
             My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
           </h1>
