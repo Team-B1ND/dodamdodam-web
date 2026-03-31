@@ -4,6 +4,6 @@ export const useGetBanner = () => {
   const { data } = useGetBannerQuery();
 
   return {
-    data: data.data,
+    data: data.data.filter(item => item.isActive),
   }
 }
