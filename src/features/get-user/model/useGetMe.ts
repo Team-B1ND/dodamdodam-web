@@ -1,7 +1,7 @@
-import { useGetMeQuery } from "@/entities/user/queries";
+import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 
 export const useGetMe = () => {
-  const { data } = useGetMeQuery();
+  const { data } = useGetMeSuspenseQuery();
 
   return {
     data: data.data

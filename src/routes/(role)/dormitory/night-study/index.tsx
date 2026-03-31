@@ -8,7 +8,7 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 
-export const Route = createFileRoute("/dormitory/night-study/")({
+export const Route = createFileRoute("/(role)/dormitory/night-study/")({
   component: RouteComponent,
 });
 
