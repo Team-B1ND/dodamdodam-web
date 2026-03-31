@@ -19,7 +19,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="flex flex-col w-70 min-w-70 h-fit gap-4 small-container">
+    <div className="flex flex-col w-70 min-w-70 max-md:w-full h-fit gap-4 small-container">
       <div className="flex gap-3 grow items-center">
         {data.profileImage ? <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={48} /> : <Avatar size={48} />}
         <section className="flex flex-col">

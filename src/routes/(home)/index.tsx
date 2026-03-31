@@ -18,7 +18,12 @@ function RouteComponent() {
         <Suspense fallback={<Banner.Skeleton />}>
           <Banner />
         </Suspense>
-        <main className="grid grid-cols-2 grow gap-4">
+        <main className="grid grid-cols-2 max-md:grid-cols-1 grow gap-4">
+          <div className="hidden max-md:flex">
+            <Suspense fallback={<UserProfile.Skeleton />}>
+              <UserProfile />
+            </Suspense>
+          </div>
           <div className="flex flex-col gap-4 grow">
             <Suspense fallback={<ScheduleHome.Skeleton />}>
               <ScheduleHome />
@@ -35,9 +40,11 @@ function RouteComponent() {
           </div>
         </main>
       </div>
-      <Suspense fallback={<UserProfile.Skeleton />}>
-        <UserProfile />
-      </Suspense>
+      <div className="max-md:hidden">
+        <Suspense fallback={<UserProfile.Skeleton />}>
+          <UserProfile />
+        </Suspense>
+      </div>
     </div>
   );
 }
