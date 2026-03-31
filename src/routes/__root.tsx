@@ -1,6 +1,7 @@
 import {
   Outlet,
   createRootRoute,
+  type ErrorComponentProps,
   useRouterState,
 } from "@tanstack/react-router";
 import Sidebar from "@/widgets/sidebar/ui";
@@ -8,11 +9,31 @@ import { MENUS } from "@/widgets/sidebar/constants/sidebar-item";
 import { useGetMeQuery } from "@/entities/user/queries";
 import { DoorOpen, MoonPlus } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useMemo, useRef } from "react";
+import { useQueryErrorResetBoundary } from "@tanstack/react-query";
+import ErrorFallback from "@/shared/ui/error-fallback";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
 
 export const Route = createRootRoute({
   component: RootComponent,
+  errorComponent: RootErrorComponent,
 });
+
+function RootErrorComponent({ error, reset }: ErrorComponentProps) {
+  const { reset: resetQueryError } = useQueryErrorResetBoundary();
+
+  const handleRetry = () => {
+    resetQueryError();
+    reset();
+  };
+
+  return (
+    <div className="flex min-h-screen w-full items-center justify-center bg-background-default px-8 py-7">
+      <div className="w-full max-w-120">
+        <ErrorFallback error={error} onRetry={handleRetry} />
+      </div>
+    </div>
+  );
+}
 
 function RootComponent() {
   const { location } = useRouterState();
