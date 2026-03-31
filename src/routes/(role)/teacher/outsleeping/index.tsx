@@ -4,7 +4,7 @@ import { DatePicker, FilledButton, PickerTrigger } from "@b1nd/dodam-design-syst
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 
-export const Route = createFileRoute("/teacher/outsleeping/")({
+export const Route = createFileRoute("/(role)/teacher/outsleeping/")({
   component: RouteComponent,
 });
 
