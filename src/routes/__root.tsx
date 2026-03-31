@@ -52,25 +52,25 @@ function RootComponent() {
   }
 
   return (
-    <div className="flex justify-center w-full h-screen bg-background-default px-8 py-7">
-      <div className="flex justify-center w-lg max-w-lg gap-8 grow">
-        <Sidebar
-          menus={MENUS}
-          managingMenus={managingMenus}
-          logo={
-            <div className="flex w-12 h-12">
-              <img
-                src="/favicon.svg"
-                alt="dodam-logo"
-                className="w-12 h-12"
-              />
-            </div>
-          }
-        />
+    <div className="flex justify-center w-full h-screen bg-background-default">
+      <div className="flex justify-center w-lg max-w-lg grow min-h-0 gap-8">
+        <div className="flex shrink-0 py-7 pl-8">
+          <Sidebar
+            menus={MENUS}
+            managingMenus={managingMenus}
+            logo={
+              <div className="flex w-12 h-12">
+                <img src="/favicon.svg" alt="dodam-logo" className="w-12 h-12" />
+              </div>
+            }
+          />
+        </div>
 
-        <main className="flex flex-col grow overflow-y-auto min-h-0">
-          <Outlet />
-          <div className="h-9" />
+        <main className="flex grow min-h-0 flex-col overflow-y-auto py-7 pr-8">
+          <div className="flex min-h-full flex-col">
+            <Outlet />
+            <div className="h-9 shrink-0" />
+          </div>
         </main>
       </div>
     </div>

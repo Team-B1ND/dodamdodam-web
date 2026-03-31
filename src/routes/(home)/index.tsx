@@ -18,7 +18,7 @@ function RouteComponent() {
         <Suspense fallback={<Banner.Skeleton />}>
           <Banner />
         </Suspense>
-        <main className="grid grid-cols-2 max-md:grid-cols-1 grow gap-4">
+        <main className="grid grid-cols-2 max-md:grid-cols-1 gap-4 min-h-0">
           <div className="hidden max-md:flex">
             <Suspense fallback={<UserProfile.Skeleton />}>
               <UserProfile />
