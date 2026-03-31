@@ -30,7 +30,7 @@ const Banner = () => {
   );
 
   return (
-    <header className="relative flex flex-col gap-3 cursor-pointer bg-background-surface">
+    <header className="relative flex flex-col gap-3 cursor-pointer bg-background-surface rounded-large">
       <Switcher pages={pages} current={page} animated/>
       <div className="absolute bottom-2.5 w-full flex justify-center">
         <Indicator color={colors.static.white} total={data.length} current={page} onChangePage={setPage} />
