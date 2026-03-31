@@ -43,7 +43,7 @@ function RouteComponent() {
           <ProjectNightStudyForm />
         )}
       </div>
-      <div className="w-full lg:w-90 flex flex-col gap-4">
+      <div className="w-full lg:w-80 flex flex-col gap-4">
         <Suspense fallback={null}>
           <BanStatus />
         </Suspense>

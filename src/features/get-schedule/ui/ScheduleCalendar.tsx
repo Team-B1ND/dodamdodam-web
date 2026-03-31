@@ -25,7 +25,7 @@ const ScheduleCalendar = ({
   const today = getToday();
 
   return (
-    <section className="w-full xl:w-[70%] bg-background-surface rounded-large p-6 flex flex-col">
+    <section className="w-full bg-background-surface rounded-large p-6 flex flex-col">
       <header className="w-full flex items-center gap-3">
         <h1 className="text-heading1 font-bold">학사 일정</h1>
         <div className="grow" />
