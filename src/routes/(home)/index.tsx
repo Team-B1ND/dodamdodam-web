@@ -1,3 +1,4 @@
+import Banner from "@/features/get-banner/ui";
 import Meal from "@/features/get-meal/ui";
 import ScheduleHome from "@/features/get-schedule/ui/ScheduleHome";
 import TimeTable from "@/features/get-time-table/ui";
@@ -14,9 +15,9 @@ function RouteComponent() {
   return (
     <div className="flex grow gap-6 h-full">
       <div className="flex flex-col gap-4 grow">
-        <header className="flex justify-center items-center bg-background-surface aspect-[6.8/1] rounded-large">
-          Header
-        </header>
+        <Suspense fallback={<Banner.Skeleton />}>
+          <Banner />
+        </Suspense>
         <main className="grid grid-cols-2 grow gap-4">
           <div className="flex flex-col gap-4 grow">
             <Suspense fallback={<ScheduleHome.Skeleton />}>

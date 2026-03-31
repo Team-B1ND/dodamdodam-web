@@ -20,7 +20,6 @@ function RootComponent() {
         menus={MENUS}
         logo={
           <div className="flex w-12 h-12">
-            {/* <Logo /> */}
             <img src="/favicon.svg" alt="dodam-logo" className="w-12 h-12" />
           </div>
         }
