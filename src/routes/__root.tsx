@@ -7,7 +7,6 @@ import {
 import Sidebar from "@/widgets/sidebar/ui";
 import { MENUS } from "@/widgets/sidebar/constants/sidebar-item";
 import { useGetMeQuery } from "@/entities/user/queries";
-import { DoorOpen, MoonPlus } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useMemo, useRef } from "react";
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import ErrorFallback from "@/shared/ui/error-fallback";
@@ -54,7 +53,6 @@ function RootComponent() {
       managingMenus.push({
         text: "외박 관리",
         herf: "/teacher/outsleeping",
-        icon: DoorOpen,
       });
     }
 
@@ -62,7 +60,13 @@ function RootComponent() {
       managingMenus.push({
         text: "심자 관리",
         herf: "/dormitory/night-study",
-        icon: MoonPlus,
+      });
+    }
+
+    if (roles.includes("ADMIN")) {
+      managingMenus.push({
+        text: "어드민",
+        herf: "/admin",
       });
     }
 

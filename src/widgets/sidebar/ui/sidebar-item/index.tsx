@@ -4,7 +4,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { type FC, useState } from "react";
 
 interface Props {
-  Icon: FC<{
+  Icon?: FC<{
     color?: string;
     pointer?: boolean;
   }>;
@@ -27,10 +27,11 @@ const SidebarItem = ({
     pathname === herf || (herf !== "/" && pathname.startsWith(herf));
   const isHighlighted = isParentActive || isHovered;
   const backgroundClass = isParentActive
-    ? "bg-brand-primary pb-2"
+    ? `bg-brand-primary${isManagingMenu ? "" : " pb-2"}`
     : isHovered || isManagingMenu
-      ? "bg-fill-primary pb-2"
+      ? `bg-fill-primary${isManagingMenu ? "" : " pb-2"}`
       : "";
+  const sizeClass = isManagingMenu ? "h-12 w-12" : "w-12";
   const shouldWrapText = text.length >= 4;
   const splitIndex = shouldWrapText ? Math.ceil(text.length / 2) : text.length;
   const firstLineText = text.slice(0, splitIndex);
@@ -39,7 +40,7 @@ const SidebarItem = ({
   return (
     <Link
       to={herf}
-      className={`w-12 p-3 gap-1 flex flex-col items-center outline-none rounded-small ${backgroundClass}`}
+      className={`${sizeClass} p-3 gap-1 flex flex-col items-center justify-center outline-none rounded-small ${backgroundClass}`}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
