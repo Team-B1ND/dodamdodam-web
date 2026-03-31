@@ -12,13 +12,14 @@ const Banner = () => {
   const pages = data.map((item) =>
     item.linkUrl.startsWith("/") ? (
       <img
+        key={`banner_${item.id}`}
         src={item.imageUrl}
-        alt=""
+        alt={`banner_${item.id}`}
         onClick={() => navigate({ to: item.linkUrl })}
         className="cursor-pointer w-full aspect-6.5/1 rounded-large"
       />
     ) : (
-      <a href={item.linkUrl}>
+      <a href={item.linkUrl} key={`banner_${item.id}`}>
         <img
           src={item.imageUrl}
           alt={`banner_${item.id}`}
