@@ -72,11 +72,12 @@ ScheduleHome.Skeleton = () => {
           <div key={idx}>
             <div className="flex items-end gap-1">
               <div className="skeleton w-10 h-6 rounded-small" />
-              <div className="skeleton w-10 h-4 rounded-small" />
+              <div className="skeleton w-12 h-4 rounded-small" />
             </div>
             <div className="flex flex-col gap-1.5 mt-1">
               <div className="flex items-center gap-1.5">
-                <div className="skeleton w-[40%] h-4 rounded-small" />
+                {/* 스켈레톤 시 뷰 깨짐 방지용 꼼수.. */}
+                <div className="skeleton w-1000 h-4 rounded-small" />
               </div>
             </div>
           </div>
