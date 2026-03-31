@@ -13,7 +13,7 @@ export const Route = createFileRoute("/(home)/")({
 
 function RouteComponent() {
   return (
-    <div className="flex grow gap-6 h-full">
+    <div className="flex grow gap-6">
       <div className="flex flex-col gap-4 grow">
         <Suspense fallback={<Banner.Skeleton />}>
           <Banner />

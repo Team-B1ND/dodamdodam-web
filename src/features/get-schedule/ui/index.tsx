@@ -12,7 +12,7 @@ const Schedule = () => {
   } = useGetScheduleByDate();
 
   return (
-    <div className="w-full h-full flex flex-col xl:flex-row gap-4 items-start">
+    <div className="w-full flex flex-col xl:flex-row gap-4 items-start">
       <ScheduleCalendar
         currentMonth={currentMonth}
         monthLabel={monthLabel}

@@ -30,7 +30,7 @@ function RouteComponent() {
   const [page, setPage] = useState("personal");
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row gap-8 items-start">
+    <div className="w-full flex flex-col lg:flex-row gap-8 items-start">
       <div className="flex-1 w-full bg-background-surface rounded-large p-5 flex flex-col gap-4">
         <SegmentedButton
           data={segment}
