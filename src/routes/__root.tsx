@@ -11,11 +11,13 @@ import { DoorOpen, MoonPlus } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useMemo, useRef } from "react";
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import ErrorFallback from "@/shared/ui/error-fallback";
+import NotFound from "@/shared/ui/not-found";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
 
 export const Route = createRootRoute({
   component: RootComponent,
   errorComponent: RootErrorComponent,
+  notFoundComponent: NotFound,
 });
 
 function RootErrorComponent({ error, reset }: ErrorComponentProps) {
