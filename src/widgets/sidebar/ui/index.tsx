@@ -37,7 +37,7 @@ const Sidebar = ({ logo, menus, managingMenus }: Props) => {
           isManagingMenu
         />
       ))}
-      <div className="h-px bg-border-normal w-full" />
+      {managingMenus.length !== 0 ? <div className="h-px bg-border-normal w-full" /> : <></>}
       <div className="flex flex-col gap-2">
         {theme === "light" ? (
           <IconButton
