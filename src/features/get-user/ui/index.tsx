@@ -40,7 +40,7 @@ const UserProfile = () => {
 
 UserProfile.Skeleton = () => {
   return (
-    <div className="flex flex-col w-70 min-w-70 h-fit gap-4 small-container">
+    <div className="flex flex-col w-70 min-w-70 max-md:w-full h-fit gap-4 small-container">
       <div className="flex gap-3 grow items-center">
         <Avatar size={48} />
         <section className="flex flex-col gap-1">
