@@ -14,8 +14,10 @@ const ScheduleHome = () => {
   return (
     <aside className="w-full bg-background-surface rounded-large p-4 max-h-60 flex flex-col gap-4">
       <div className="w-full flex items-center">
-        <Calendar color={colors.text.primary} size={24} />
-        <p className="text-text-primary text-headline font-bold">일정</p>
+        <div className="flex gap-2 items-center">
+          <Calendar color={colors.text.primary} size={24} />
+          <p className="text-text-primary text-headline font-bold">일정</p>
+        </div>
         <div className="flex-1" />
         <Link to="/schedule">
           <ChevronRight color={colors.text.primary} size={16} pointer />
@@ -76,8 +78,7 @@ ScheduleHome.Skeleton = () => {
             </div>
             <div className="flex flex-col gap-1.5 mt-1">
               <div className="flex items-center gap-1.5">
-                {/* 스켈레톤 시 뷰 깨짐 방지용 꼼수.. */}
-                <div className="skeleton w-1000 h-4 rounded-small" />
+                <div className="skeleton w-full h-4 rounded-small" />
               </div>
             </div>
           </div>
