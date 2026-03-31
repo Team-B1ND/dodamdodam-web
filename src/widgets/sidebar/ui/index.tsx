@@ -37,38 +37,31 @@ const Sidebar = ({ logo, menus, managingMenus }: Props) => {
           isManagingMenu
         />
       ))}
-      {managingMenus.length !== 0 ? <div className="h-px bg-border-normal w-full" /> : <></>}
+      {managingMenus.length !== 0 ? (
+        <div className="h-px bg-border-normal w-full" />
+      ) : (
+        <></>
+      )}
       <div className="flex flex-col gap-2">
         {theme === "light" ? (
           <IconButton
             iconSize={24}
             size={48}
-            icon={
-              <Moon
-                color={colors.text.primary}
-                size={24}
-                pointer
-                onClick={toggleTheme}
-              />
-            }
+            onClick={toggleTheme}
+            icon={<Moon color={colors.text.primary} size={24} pointer />}
           />
         ) : (
           <IconButton
             iconSize={24}
             size={48}
-            icon={
-              <Sun
-                color={colors.text.primary}
-                size={24}
-                pointer
-                onClick={toggleTheme}
-              />
-            }
+            onClick={toggleTheme}
+            icon={<Sun color={colors.text.primary} size={24} pointer />}
           />
         )}
         <button
           onClick={() => alert("Logout !")}
-          className="w-12 h-12 flex justify-center items-center bg-status-error rounded-small cursor-pointer">
+          className="w-12 h-12 flex justify-center items-center bg-status-error rounded-small cursor-pointer"
+        >
           <DoorOpen color={colors.static.white} pointer />
         </button>
       </div>
