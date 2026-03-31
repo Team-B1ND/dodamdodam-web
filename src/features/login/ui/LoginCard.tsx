@@ -1,10 +1,10 @@
 import LoginForm from "./LoginForm";
-import LoginImagePanel from "./LoginImagePanel";
+import AuthImagePanel from "@/widgets/auth-image-panel/ui/AuthImagePanel";
 
 const LoginCard = () => {
   return (
     <div className="flex w-full flex-col overflow-hidden rounded-xl bg-background-surface p-3 md:w-200 md:flex-row">
-      <LoginImagePanel />
+      <AuthImagePanel/>
       <LoginForm />
     </div>
   );

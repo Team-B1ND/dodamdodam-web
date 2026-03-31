@@ -8,7 +8,9 @@ import type {
   PhoneVerificationConfirmRequest,
   PhoneVerificationRequest,
   User,
-  LoginRequest
+  LoginRequest,
+  StudentRegister,
+  TeacherRegister
 } from "./types";
 
 const USER_BASE = "/user"
@@ -27,17 +29,23 @@ export const UserApi = {
   async getMe() {
     return await apiClient.get<User>(`${USER_BASE}/me`);
   },
-  
+
   async fixPassword(payload: FixPassword) {
     return await apiClient.patch(`${USER_BASE}/change-password`, payload);
   },
 
   async requestPhoneVerification(payload: PhoneVerificationRequest) {
-    return await apiClient.post(`${USER_BASE}/phone-verification/request`, payload);
+    return await apiClient.post(
+      `${USER_BASE}/phone-verification/request`,
+      payload,
+    );
   },
 
   async confirmPhoneVerification(payload: PhoneVerificationConfirmRequest) {
-    return await apiClient.post(`${USER_BASE}/phone-verification/confirm`, payload);
+    return await apiClient.post(
+      `${USER_BASE}/phone-verification/confirm`,
+      payload,
+    );
   },
 
   async fixStudentProfile(payload: FixStudentProfile) {
@@ -50,5 +58,13 @@ export const UserApi = {
 
   async fixProfile(payload: FixProfile) {
     return await apiClient.patch(`${USER_BASE}`, payload);
+  },
+
+  async registerStudent(paylaod: StudentRegister) {
+    return await apiClient.post(`${USER_BASE}/register-student`, paylaod);
+  },
+
+  async registerTeacher(paylaod: TeacherRegister) {
+    return await apiClient.post(`${USER_BASE}/register-teacher`, paylaod);
   },
 };

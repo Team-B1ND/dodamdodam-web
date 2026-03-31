@@ -8,9 +8,9 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const { location } = useRouterState();
-  const isLoginPage = location.pathname.startsWith("/login");
+  const isNoneSidebarPage = location.pathname.startsWith("/login") || location.pathname.startsWith("/register");
 
-  if (isLoginPage) {
+  if (isNoneSidebarPage) {
     return <Outlet />;
   }
 

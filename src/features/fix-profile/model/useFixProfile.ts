@@ -1,8 +1,8 @@
 import { useFixProfileMutation } from "@/entities/user/mutations";
 import type { FixProfileSubmitParams } from "@/features/fix-profile/types";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
-import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
 import { useImageUpload } from "@/shared/hooks/useImageUpload";
+import { normalizePhoneNumber } from "@/shared/utils/normalize-phone-number";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import type { ChangeEvent } from "react";
 import { useRef, useState } from "react";

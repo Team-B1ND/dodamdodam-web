@@ -5,11 +5,11 @@ import ProfileImageSection from "@/features/fix-profile/ui/ProfileImageSection";
 import StudentProfileSection from "@/features/fix-profile/ui/StudentProfileSection";
 import TeacherProfileSection from "@/features/fix-profile/ui/TeacherProfileSection";
 import { useFixProfile } from "@/features/fix-profile/model/useFixProfile";
-import { usePhoneVerification } from "@/features/fix-profile/model/usePhoneVerification";
 import { useFixStudentProfile } from "@/features/fix-profile/model/useFixStudentProfile";
 import { useFixTeacherProfile } from "@/features/fix-profile/model/useFixTeacherProfile";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
-import { normalizePhoneNumber } from "@/features/fix-profile/utils/normalize-phone-number";
+import { usePhoneVerification } from "@/shared/hooks/usePhoneVerification";
+import { normalizePhoneNumber } from "@/shared/utils/normalize-phone-number";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 import { TextField } from "@b1nd/dodam-design-system/components";
 

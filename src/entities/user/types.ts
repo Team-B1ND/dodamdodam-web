@@ -68,3 +68,18 @@ export interface FixStudentProfile {
 export interface FixTeacherProfile {
   position: string | null;
 }
+
+
+// Register 
+
+export interface UserRegister {
+  username: string;
+  name: string;
+  password: string;
+  phone: string;
+}
+
+export type StudentPartialRegisterInfo = Omit<Partial<StudentInfo>, "isGraduated">;
+
+export type StudentRegister = UserRegister & StudentPartialRegisterInfo;
+export type TeacherRegister = UserRegister & TeacherInfo;

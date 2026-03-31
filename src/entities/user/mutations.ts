@@ -1,7 +1,7 @@
 import { UserApi } from "@/entities/user/api";
 import type { ErrorResponse } from "@b1nd/api-client";
 import { useToast } from "@b1nd/dodam-design-system/components";
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
 export const useFixPasswordMutation = () => {
@@ -12,9 +12,9 @@ export const useFixPasswordMutation = () => {
     onSuccess: async (res) => toast.success(res.message),
     onError: (e: ErrorResponse) => {
       toast.error(e.message);
-    }
-  })
-}
+    },
+  });
+};
 
 export const useFixProfileMutation = () => {
   const queryClient = useQueryClient();
@@ -23,7 +23,7 @@ export const useFixProfileMutation = () => {
   return useMutation({
     mutationFn: UserApi.fixProfile,
     onSuccess: async (res) => {
-      await queryClient.refetchQueries({ queryKey: ["user", "my"] })
+      await queryClient.refetchQueries({ queryKey: ["user", "my"] });
       toast.success(res.message);
     },
     onError: (e: ErrorResponse) => {
@@ -106,6 +106,38 @@ export const useLoginMutation = () => {
         navigate({ to: "/" });
         toast.success("로그인 성공!");
       }
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
+export const useRegisterStudentMutation = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: UserApi.registerStudent,
+    onSuccess: () => {
+      navigate({ to: "/login", search: { redirectUrl: "/" }});
+      toast.success("도담도담 가입을 환영해요!");
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
+export const useRegisterTeacherMutation = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: UserApi.registerTeacher,
+    onSuccess: () => {
+      navigate({ to: "/login", search: { redirectUrl: "/" }});
+      toast.success("도담도담에 가입을 환영해요!");
     },
     onError: (e: ErrorResponse) => {
       toast.error(e.message);
