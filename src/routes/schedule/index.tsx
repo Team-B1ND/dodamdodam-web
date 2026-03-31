@@ -1,6 +1,6 @@
 import Schedule from "@/features/get-schedule/ui";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense } from "react";
 
 export const Route = createFileRoute("/schedule/")({
   component: RouteComponent,
@@ -8,8 +8,8 @@ export const Route = createFileRoute("/schedule/")({
 
 function RouteComponent() {
   return (
-    <Suspense fallback={<Schedule.Skeleton />}>
+    <QueryBoundary pendingFallback={<Schedule.Skeleton />}>
       <Schedule />
-    </Suspense>
+    </QueryBoundary>
   );
 }

@@ -1,9 +1,10 @@
 import type { ApplicationTableFilters, NightStudyStatus } from "@/entities/night-study/types";
 import { useDebounce } from "@/shared/hooks/useDebounce";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { Dropdown } from "@b1nd/dodam-design-system/components";
 import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import {
   GRADE_FILTER_ITEMS,
   ROOM_FILTER_ITEMS,
@@ -69,12 +70,12 @@ const ProjectApplicationsTable = () => {
         </div>
       </div>
 
-      <Suspense fallback={<ProjectSkeletonRows count={8} />}>
+      <QueryBoundary pendingFallback={<ProjectSkeletonRows count={8} />}>
         <ProjectTableData
           key={`${debouncedKeyword}-${status}-${grade}-${room}`}
           {...filters}
         />
-      </Suspense>
+      </QueryBoundary>
     </div>
   );
 };

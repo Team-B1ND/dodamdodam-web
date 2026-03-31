@@ -1,12 +1,13 @@
 import BanManagementTable from "@/features/manage-night-study-applications/ui/BanManagementTable";
 import PersonalApplicationsTable from "@/features/manage-night-study-applications/ui/PersonalApplicationsTable";
 import ProjectApplicationsTable from "@/features/manage-night-study-applications/ui/ProjectApplicationsTable";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   SegmentedButton,
   type SegmentedButtonData,
 } from "@b1nd/dodam-design-system/components";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/(role)/dormitory/night-study/")({
   component: RouteComponent,
@@ -31,14 +32,14 @@ function RouteComponent() {
       />
 
       {mainTab === "personal" && (
-        <Suspense fallback={<PersonalApplicationsTable.Skeleton />}>
+        <QueryBoundary pendingFallback={<PersonalApplicationsTable.Skeleton />}>
           <PersonalApplicationsTable />
-        </Suspense>
+        </QueryBoundary>
       )}
       {mainTab === "project" && (
-        <Suspense fallback={<ProjectApplicationsTable.Skeleton />}>
+        <QueryBoundary pendingFallback={<ProjectApplicationsTable.Skeleton />}>
           <ProjectApplicationsTable />
-        </Suspense>
+        </QueryBoundary>
       )}
       {mainTab === "ban" && <BanManagementTable />}
     </div>

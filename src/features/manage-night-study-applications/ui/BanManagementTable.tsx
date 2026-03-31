@@ -1,6 +1,7 @@
 import { useDebounce } from "@/shared/hooks/useDebounce";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { BAN_TABLE_KEYS } from "../constants/ban-table-keys";
 import BanSkeletonRows from "./BanSkeletonRows";
 import BanStudentList from "./BanStudentList";
@@ -23,9 +24,9 @@ const BanManagementTable = () => {
       </div>
       <div className="overflow-x-auto flex-1 w-full min-h-0 min-w-0 scrollbar">
         <div className="min-w-120">
-          <Suspense fallback={<BanManagementTable.Skeleton />}>
+          <QueryBoundary pendingFallback={<BanManagementTable.Skeleton />}>
             <BanStudentList keyword={query} />
-          </Suspense>
+          </QueryBoundary>
         </div>
       </div>
     </div>

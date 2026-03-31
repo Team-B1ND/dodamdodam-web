@@ -1,6 +1,7 @@
 import { FilledTextField } from "@b1nd/dodam-design-system/components";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useDebounce } from "@/shared/hooks/useDebounce";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import MemberSearch from "./MemberSearch";
 import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
 import MemberItem from "./MemberItem";
@@ -23,9 +24,9 @@ const ProjectNightStudyMemberForm = () => {
             onChange={(e) => setKeyword(e.target.value)}
           />
           <div className="flex-1 border border-border-normal rounded-small overflow-y-scroll">
-            <Suspense fallback={<MemberSearch.Skeleton />}>
+            <QueryBoundary pendingFallback={<MemberSearch.Skeleton />}>
               <MemberSearch keyword={debouncedKeyword} />
-            </Suspense>
+            </QueryBoundary>
           </div>
         </div>
         <div className="h-60 sm:h-full flex-1 border border-border-normal rounded-small">

@@ -1,9 +1,9 @@
 import { useOutSleepingPageStore } from "@/features/manage-out-sleeping/stores/out-sleeping-page";
 import ApplyOutSleeping from "@/features/manage-out-sleeping/ui/ApplyOutSleeping";
 import MyOutSleeingList from "@/features/manage-out-sleeping/ui/MyOutSleeingList";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { DoorOpen } from "@b1nd/dodam-design-system/icons";
-import { Suspense } from "react";
 
 const ManageOutSleeping = () => {
   const { page } = useOutSleepingPageStore();
@@ -16,9 +16,9 @@ const ManageOutSleeping = () => {
       {page === "apply" ? (
         <ApplyOutSleeping/>
       ) : (
-        <Suspense fallback={<MyOutSleeingList.Skeleton/>}>
+        <QueryBoundary pendingFallback={<MyOutSleeingList.Skeleton/>}>
           <MyOutSleeingList/>
-        </Suspense>
+        </QueryBoundary>
       )}
     </div>
   );

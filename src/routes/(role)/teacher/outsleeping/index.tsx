@@ -1,8 +1,9 @@
 import OutSleepingApplications from "@/features/manage-out-sleeping/ui/OutSleepingApplications";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { padDate } from "@/shared/utils/pad-date";
 import { DatePicker, FilledButton, PickerTrigger } from "@b1nd/dodam-design-system/components";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/(role)/teacher/outsleeping/")({
   component: RouteComponent,
@@ -26,9 +27,9 @@ function RouteComponent() {
           {date ? padDate(date) : "YYYY-MM-DD"}
         </FilledButton>
       </PickerTrigger>
-      <Suspense fallback={<OutSleepingApplications.Skeleton />}>
+      <QueryBoundary pendingFallback={<OutSleepingApplications.Skeleton />}>
         <OutSleepingApplications date={date} />
-      </Suspense>
+      </QueryBoundary>
     </div>
   );
 }

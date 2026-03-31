@@ -1,7 +1,7 @@
 import type { ProjectNightStudyApplication } from "@/entities/night-study/types";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { parseDate } from "@/shared/utils/parse-date";
 import { Dialog } from "@b1nd/dodam-design-system/components";
-import { Suspense } from "react";
 import RoomGrid from "./RoomGrid";
 
 interface Props {
@@ -32,13 +32,13 @@ const RoomAssignmentModal = ({ application, isOpen, onClose }: Props) => {
             <span className="text-heading2 font-extrabold text-text-primary">{parseDate(application.endAt)}</span>
           </div>
         </div>
-        <Suspense fallback={<RoomGrid.Skeleton />}>
+        <QueryBoundary pendingFallback={<RoomGrid.Skeleton />}>
           <RoomGrid
             applicationId={application.id}
             initialRoomId={application.room?.id}
             onClose={onClose}
           />
-        </Suspense>
+        </QueryBoundary>
       </div>
     </Dialog>
   );

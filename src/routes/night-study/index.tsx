@@ -3,12 +3,13 @@ import PersonalNightStudyForm from "@/features/manage-night-study/ui/PersonalNig
 import PersonalNightStudyList from "@/features/manage-night-study/ui/PersonalNightStudyList";
 import ProjectNightStudyForm from "@/features/manage-night-study/ui/ProjectNightStudyForm";
 import ProjectNightStudyList from "@/features/manage-night-study/ui/ProjectNightStudyList";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   SegmentedButton,
   type SegmentedButtonData,
 } from "@b1nd/dodam-design-system/components";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/night-study/")({
   component: RouteComponent,
@@ -44,22 +45,22 @@ function RouteComponent() {
         )}
       </div>
       <div className="w-full lg:w-80 flex flex-col gap-4">
-        <Suspense fallback={null}>
+        <QueryBoundary pendingFallback={null}>
           <BanStatus />
-        </Suspense>
+        </QueryBoundary>
         <div className="w-full p-5 bg-background-surface rounded-large flex flex-col gap-4 items-start">
           <h1 className="text-headline font-bold">
             My {page === "personal" ? "개인" : "프로젝트"} 심자 신청
           </h1>
           <div className="w-full overflow-y-scroll">
             {page === "personal" ? (
-              <Suspense fallback={<PersonalNightStudyList.Skeleton />}>
+              <QueryBoundary pendingFallback={<PersonalNightStudyList.Skeleton />}>
                 <PersonalNightStudyList />
-              </Suspense>
+              </QueryBoundary>
             ) : (
-              <Suspense fallback={<ProjectNightStudyList.Skeleton />}>
+              <QueryBoundary pendingFallback={<ProjectNightStudyList.Skeleton />}>
                 <ProjectNightStudyList />
-              </Suspense>
+              </QueryBoundary>
             )}
           </div>
         </div>

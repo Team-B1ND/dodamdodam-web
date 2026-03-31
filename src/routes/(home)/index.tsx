@@ -4,8 +4,8 @@ import ScheduleHome from "@/features/get-schedule/ui/ScheduleHome";
 import TimeTable from "@/features/get-time-table/ui";
 import UserProfile from "@/features/get-user/ui";
 import ManageOutSleeping from "@/features/manage-out-sleeping/ui";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense } from "react";
 
 export const Route = createFileRoute("/(home)/")({
   component: RouteComponent,
@@ -15,35 +15,35 @@ function RouteComponent() {
   return (
     <div className="flex grow gap-6">
       <div className="flex flex-col gap-4 grow">
-        <Suspense fallback={<Banner.Skeleton />}>
+        <QueryBoundary pendingFallback={<Banner.Skeleton />}>
           <Banner />
-        </Suspense>
+        </QueryBoundary>
         <main className="grid grid-cols-2 max-md:grid-cols-1 gap-4 min-h-0">
           <div className="hidden max-md:flex">
-            <Suspense fallback={<UserProfile.Skeleton />}>
+            <QueryBoundary pendingFallback={<UserProfile.Skeleton />}>
               <UserProfile />
-            </Suspense>
+            </QueryBoundary>
           </div>
           <div className="flex flex-col gap-4 grow">
-            <Suspense fallback={<ScheduleHome.Skeleton />}>
+            <QueryBoundary pendingFallback={<ScheduleHome.Skeleton />}>
               <ScheduleHome />
-            </Suspense>
-            <Suspense fallback={<TimeTable.Skeleton />}>
+            </QueryBoundary>
+            <QueryBoundary pendingFallback={<TimeTable.Skeleton />}>
               <TimeTable />
-            </Suspense>
+            </QueryBoundary>
           </div>
           <div className="flex flex-col gap-4 grow">
-            <Suspense fallback={<Meal.Skeleton />}>
+            <QueryBoundary pendingFallback={<Meal.Skeleton />}>
               <Meal />
-            </Suspense>
+            </QueryBoundary>
             <ManageOutSleeping />
           </div>
         </main>
       </div>
       <div className="max-md:hidden">
-        <Suspense fallback={<UserProfile.Skeleton />}>
+        <QueryBoundary pendingFallback={<UserProfile.Skeleton />}>
           <UserProfile />
-        </Suspense>
+        </QueryBoundary>
       </div>
     </div>
   );
