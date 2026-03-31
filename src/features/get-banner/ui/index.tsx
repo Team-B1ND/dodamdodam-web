@@ -40,7 +40,7 @@ const Banner = () => {
 };
 
 Banner.Skeleton = () => {
-  return <header className="w-full aspect-6.5/1 rounded-large bg-background-surface" />
+  return <header className="w-full aspect-6.5/1 rounded-large skeleton" />
 }
 
 export default Banner;
