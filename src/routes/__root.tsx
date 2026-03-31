@@ -7,7 +7,7 @@ import Sidebar from "@/widgets/sidebar/ui";
 import { MENUS } from "@/widgets/sidebar/constants/sidebar-item";
 import { useGetMeQuery } from "@/entities/user/queries";
 import { DoorOpen, MoonPlus } from "@b1nd/dodam-design-system/icons";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
 
 export const Route = createRootRoute({
@@ -16,6 +16,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const { location } = useRouterState();
+  const mainRef = useRef<HTMLElement>(null);
   const isNoneSidebarPage =
     location.pathname.startsWith("/login") ||
     location.pathname.startsWith("/register");
@@ -47,6 +48,10 @@ function RootComponent() {
     return managingMenus;
   }, [rolesKey]);
 
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+
   if (isNoneSidebarPage) {
     return <Outlet />;
   }
@@ -66,7 +71,10 @@ function RootComponent() {
           />
         </div>
 
-        <main className="flex grow min-h-0 flex-col overflow-y-auto py-7 pr-8">
+        <main
+          ref={mainRef}
+          className="flex grow min-h-0 flex-col overflow-y-auto py-7 pr-8"
+        >
           <div className="flex min-h-full flex-col">
             <Outlet />
             <div className="h-9 shrink-0" />
