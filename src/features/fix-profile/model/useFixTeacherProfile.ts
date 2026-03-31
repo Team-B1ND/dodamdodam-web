@@ -6,7 +6,7 @@ export const useFixTeacherProfile = (user: User) => {
   const [position, setPosition] = useState(user.teacher?.position ?? "");
   const { mutateAsync, isPending } = useFixTeacherProfileMutation();
 
-  const isTeacher = true;
+  const isTeacher = user.roles.includes("TEACHER");
   const hasChanges = position.trim() !== (user.teacher?.position ?? "");
 
   const submit = async () => {
