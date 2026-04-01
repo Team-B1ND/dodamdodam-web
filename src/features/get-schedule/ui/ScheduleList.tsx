@@ -56,7 +56,6 @@ ScheduleList.Skeleton = () => {
       <div className="flex flex-col gap-3">
         <div className="w-24 h-7 rounded-extrasmall skeleton" />
         <div className="w-full h-20 rounded-small skeleton" />
-        <div className="w-full h-20 rounded-small skeleton" />
       </div>
     </aside>
   );

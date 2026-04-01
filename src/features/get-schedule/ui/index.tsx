@@ -19,7 +19,7 @@ const Schedule = () => {
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">
       <div
         className={`w-full transition-opacity ${
-          isLoading ? "opacity-70" : "opacity-100"
+          isLoading ? "opacity-50" : "opacity-100"
         }`}
       >
         <ScheduleCalendar
