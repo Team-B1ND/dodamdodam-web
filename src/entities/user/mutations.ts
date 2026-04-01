@@ -94,16 +94,19 @@ export const useConfirmPhoneVerificationMutation = () => {
 
 export const useLoginMutation = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { redirectUrl } = useSearch({ from: "/login/" });
 
   return useMutation({
     mutationFn: UserApi.login,
-    onSuccess: () => {
+    onSuccess: async () => {
+      queryClient.clear();
+
       if (redirectUrl) {
         window.location.href = redirectUrl;
       } else {
-        navigate({ to: "/" });
+        await navigate({ to: "/" });
         toast.success("로그인 성공!");
       }
     },
