@@ -8,8 +8,13 @@ const Schedule = () => {
     monthLabel,
     scheduleEvents,
     groupedSchedules,
+    isPending,
     moveMonth,
   } = useGetScheduleByDate();
+
+  if (isPending && scheduleEvents.length === 0) {
+    return <Schedule.Skeleton />;
+  }
 
   return (
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">
