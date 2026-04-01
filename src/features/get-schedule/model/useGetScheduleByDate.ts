@@ -2,16 +2,17 @@ import { useGetSchedulesQuery } from "@/entities/schedule/queries";
 import type { ScheduleEvent } from "@/entities/schedule/types";
 import { toScheduleEvent } from "@/features/get-schedule/lib/to-schedule-event";
 import dayjs from "dayjs";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 
 const useGetScheduleByDate = () => {
   const [currentMonth, setCurrentMonth] = useState(
     dayjs().format("YYYY-MM-DD"),
   );
+  const [isMonthTransitionPending, startMonthTransition] = useTransition();
 
   const date = dayjs(currentMonth).startOf("month").format("YYYY-MM-DD");
 
-  const { data, isPending, isFetching } = useGetSchedulesQuery(date);
+  const { data, isFetching } = useGetSchedulesQuery(date);
   const scheduleList = data?.data ?? [];
 
   const scheduleEvents = useMemo(
@@ -46,11 +47,13 @@ const useGetScheduleByDate = () => {
   }, [scheduleEvents]);
 
   const moveMonth = (direction: "prev" | "next") => {
-    setCurrentMonth((prev) =>
-      dayjs(prev)
-        .add(direction === "next" ? 1 : -1, "month")
-        .format("YYYY-MM-DD"),
-    );
+    startMonthTransition(() => {
+      setCurrentMonth((prev) =>
+        dayjs(prev)
+          .add(direction === "next" ? 1 : -1, "month")
+          .format("YYYY-MM-DD"),
+      );
+    });
   };
 
   return {
@@ -58,8 +61,8 @@ const useGetScheduleByDate = () => {
     monthLabel: dayjs(currentMonth).format("YYYY년 M월"),
     scheduleEvents,
     groupedSchedules,
-    isPending,
     isFetching,
+    isMonthTransitionPending,
     moveMonth,
   };
 };

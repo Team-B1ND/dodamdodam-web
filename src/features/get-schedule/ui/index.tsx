@@ -8,16 +8,17 @@ const Schedule = () => {
     monthLabel,
     scheduleEvents,
     groupedSchedules,
-    isPending,
+    isFetching,
+    isMonthTransitionPending,
     moveMonth,
   } = useGetScheduleByDate();
 
-  if (isPending && scheduleEvents.length === 0) {
-    return <Schedule.Skeleton />;
-  }
-
   return (
-    <div className="w-full flex flex-col md:flex-row gap-8 items-start">
+    <div
+      className={`w-full flex flex-col md:flex-row gap-8 items-start transition-opacity ${
+        isFetching || isMonthTransitionPending ? "opacity-50" : "opacity-100"
+      }`}
+    >
       <ScheduleCalendar
         currentMonth={currentMonth}
         monthLabel={monthLabel}
