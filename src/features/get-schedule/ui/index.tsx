@@ -45,11 +45,7 @@ Schedule.Skeleton = () => {
         <div className="w-40 h-8 rounded-extrasmall skeleton" />
         <div className="w-full h-140 rounded-small skeleton" />
       </div>
-      <div className="large-container w-80 max-md:w-full flex flex-col gap-3">
-        <div className="w-24 h-7 rounded-extrasmall skeleton" />
-        <div className="w-full h-20 rounded-small skeleton" />
-        <div className="w-full h-20 rounded-small skeleton" />
-      </div>
+      <ScheduleList.Skeleton />
     </div>
   );
 };
