@@ -1,5 +1,5 @@
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
-import { Calendar, Chart, Home, MoonPlus } from "@b1nd/dodam-design-system/icons";
+import { Calendar, Home, MoonPlus } from "@b1nd/dodam-design-system/icons";
 
 export const MENUS: SidebarMenuType[] = [
   {
@@ -27,9 +27,9 @@ export const MENUS: SidebarMenuType[] = [
   //   herf: "/club",
   //   icon: Person,
   // },
-  {
-    text: "디깃",
-    herf: "https://dgit.b1nd.com/",
-    icon: Chart,
-  },
+  // {
+  //   text: "디깃",
+  //   herf: "https://dgit.b1nd.com/",
+  //   icon: Chart,
+  // },
 ];
