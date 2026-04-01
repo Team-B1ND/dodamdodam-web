@@ -9,7 +9,7 @@ const HomeBanner = () => {
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
 
-  const pages = data.map((item) =>
+  const pages = data.filter(item => item.isActive).map((item) =>
     item.linkUrl.startsWith("/") ? (
       <img
         key={`banner_${item.id}`}
