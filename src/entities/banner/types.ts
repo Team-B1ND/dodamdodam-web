@@ -4,3 +4,10 @@ export interface Banner {
   linkUrl: string;
   isActive: boolean;
 }
+
+export type CreateBanner = Omit<Banner, "id" | "isActive">;
+
+export interface PatchBannerStatus {
+  id: number;
+  active: boolean;
+}

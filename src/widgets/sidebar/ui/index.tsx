@@ -45,7 +45,6 @@ const Sidebar = ({ logo, menus, managingMenus }: Props) => {
       {managingMenus.map((item) => (
         <SidebarItem
           key={item.text}
-          Icon={item.icon}
           text={item.text}
           herf={item.herf}
           isManagingMenu
