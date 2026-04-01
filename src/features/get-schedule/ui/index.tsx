@@ -13,11 +13,13 @@ const Schedule = () => {
     moveMonth,
   } = useGetScheduleByDate();
 
+  const isLoading = isFetching || isMonthTransitionPending;
+
   return (
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">
       <div
         className={`w-full transition-opacity ${
-          isFetching || isMonthTransitionPending ? "opacity-70" : "opacity-100"
+          isLoading ? "opacity-70" : "opacity-100"
         }`}
       >
         <ScheduleCalendar
@@ -27,10 +29,11 @@ const Schedule = () => {
           moveMonth={moveMonth}
         />
       </div>
-      <ScheduleList
-        groupedSchedules={groupedSchedules}
-        isLoading={isFetching || isMonthTransitionPending}
-      />
+      {isLoading ? (
+        <ScheduleList.Skeleton />
+      ) : (
+        <ScheduleList groupedSchedules={groupedSchedules} />
+      )}
     </div>
   );
 };
