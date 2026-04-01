@@ -4,3 +4,5 @@ export interface Banner {
   linkUrl: string;
   isActive: boolean;
 }
+
+export type CreateBanner = Omit<Banner, "id" | "isActive">;
