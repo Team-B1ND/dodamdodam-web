@@ -25,7 +25,7 @@ const ScheduleHome = () => {
       </div>
       <div className="flex-1 overflow-y-auto flex flex-col gap-2">
         {entries.length === 0 ? (
-          <p className="text-caption1 text-text-tertiary">일정이 없습니다.</p>
+          <p className="text-caption1 text-text-tertiary">일정이 없어요.</p>
         ) : (
           entries.map(([date, schedules]) => (
             <div key={date}>
