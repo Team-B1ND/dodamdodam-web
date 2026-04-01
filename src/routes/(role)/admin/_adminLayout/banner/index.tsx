@@ -1,5 +1,6 @@
 import CreateBanner from '@/features/create-banner/ui'
-import AdminBanner from '@/features/get-banner/ui/adminBanner'
+import AdminBanner from '@/features/get-banner/ui/AdminBanner'
+import QueryBoundary from '@/shared/ui/query-boundary'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/(role)/admin/_adminLayout/banner/')({
@@ -9,7 +10,9 @@ export const Route = createFileRoute('/(role)/admin/_adminLayout/banner/')({
 function RouteComponent() {
   return (
     <div className='flex gap-4'>
-      <AdminBanner />
+      <QueryBoundary pendingFallback={<AdminBanner.Skeleton />}>
+        <AdminBanner />
+      </QueryBoundary>
       <CreateBanner/>
     </div>
   )

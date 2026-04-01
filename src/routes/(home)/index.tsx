@@ -1,4 +1,4 @@
-import HomeBanner from "@/features/get-banner/ui/homeBanner";
+import HomeBanner from "@/features/get-banner/ui/HomeBanner";
 import Meal from "@/features/get-meal/ui";
 import ScheduleHome from "@/features/get-schedule/ui/ScheduleHome";
 import TimeTable from "@/features/get-time-table/ui";
