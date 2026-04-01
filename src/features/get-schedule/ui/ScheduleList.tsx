@@ -15,7 +15,9 @@ const ScheduleList = ({ groupedSchedules }: Props) => {
     <aside className="w-full md:w-80 bg-background-surface rounded-large p-4 max-h-52 flex flex-col">
       <div className="flex-1 overflow-y-auto flex flex-col gap-2">
         {entries.length === 0 ? (
-          <p className="text-caption1 text-text-tertiary">일정이 없습니다.</p>
+          <div className="flex justify-center items-center h-60 text-caption1 text-text-tertiary">
+            일정이 없어요.
+          </div>
         ) : (
           entries.map(([date, schedules]) => (
             <div key={date}>
@@ -43,6 +45,17 @@ const ScheduleList = ({ groupedSchedules }: Props) => {
             </div>
           ))
         )}
+      </div>
+    </aside>
+  );
+};
+
+ScheduleList.Skeleton = () => {
+  return (
+    <aside className="w-full md:w-80 bg-background-surface rounded-large p-4 max-h-52 flex flex-col">
+      <div className="flex flex-col gap-3">
+        <div className="w-24 h-7 rounded-extrasmall skeleton" />
+        <div className="w-full h-20 rounded-small skeleton" />
       </div>
     </aside>
   );
