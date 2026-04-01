@@ -56,21 +56,18 @@ const Sidebar = ({ logo, menus, managingMenus }: Props) => {
         <></>
       )}
       <div className="flex flex-col gap-2">
-        {theme === "light" ? (
-          <IconButton
-            iconSize={24}
-            size={48}
-            onClick={toggleTheme}
-            icon={<Moon color={colors.text.primary} size={24} pointer />}
-          />
-        ) : (
-          <IconButton
-            iconSize={24}
-            size={48}
-            onClick={toggleTheme}
-            icon={<Sun color={colors.text.primary} size={24} pointer />}
-          />
-        )}
+        <IconButton
+          iconSize={24}
+          size={48}
+          onClick={toggleTheme}
+          icon={
+            theme === "light" ? (
+              <Sun color={colors.text.primary} size={24} pointer />
+            ) : (
+              <Moon color={colors.text.primary} size={24} pointer />
+            )
+          }
+        />
         <button
           onClick={openLogoutDialog}
           className="w-12 h-12 flex justify-center items-center bg-status-error rounded-small cursor-pointer"

@@ -1,5 +1,19 @@
+import type { ErrorResponse } from "@b1nd/api-client";
 import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { redirectToLogin } from "@/shared/utils/redirect-to-login";
 import { UserApi } from "./api";
+
+const getMeQueryFn = async () => {
+  try {
+    return await UserApi.getMe();
+  } catch (error) {
+    if ((error as ErrorResponse).status === 403) {
+      redirectToLogin();
+    }
+
+    throw error;
+  }
+};
 
 export const useSearchStudentQuery = (keyword: string) =>
   useSuspenseInfiniteQuery({
@@ -18,13 +32,13 @@ export const useSearchStudentQuery = (keyword: string) =>
 export const useGetMeSuspenseQuery = () =>
   useSuspenseQuery({
     queryKey: ["user", "my"],
-    queryFn: UserApi.getMe,
+    queryFn: getMeQueryFn,
     staleTime: 1000 * 60 * 5
   });
 
 export const useGetMeQuery = () =>
   useQuery({
     queryKey: ["user", "my"],
-    queryFn: UserApi.getMe,
+    queryFn: getMeQueryFn,
     staleTime: 1000 * 60 * 5
   });
