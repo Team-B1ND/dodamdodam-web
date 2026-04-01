@@ -15,8 +15,8 @@ const CreateBanner = () => {
   } = useCreateBanner();
 
   return (
-    <aside className="w-120 flex flex-col large-container gap-6">
-      <h1 className="text-heading1 font-bold">배너 등록</h1>
+    <aside className="flex flex-col gap-6 w-100 min-w-100 large-container">
+      <h1 className="font-bold text-heading1">배너 등록</h1>
       <input
         ref={fileInputRef}
         type="file"
@@ -32,7 +32,7 @@ const CreateBanner = () => {
           <img
             src={imageUrl}
             alt="banner-preview"
-            className="h-full w-full object-cover"
+            className="object-cover w-full h-full"
           />
         ) : (
           <span>{isUploadPending ? "이미지 업로드 중.." : "배너 이미지 업로드"}</span>
