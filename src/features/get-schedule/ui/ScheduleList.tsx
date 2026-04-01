@@ -6,10 +6,23 @@ dayjs.locale("ko");
 
 interface Props {
   groupedSchedules: Record<string, ScheduleEvent[]>;
+  isLoading?: boolean;
 }
 
-const ScheduleList = ({ groupedSchedules }: Props) => {
+const ScheduleList = ({ groupedSchedules, isLoading }: Props) => {
   const entries = Object.entries(groupedSchedules);
+
+  if (isLoading) {
+    return (
+      <aside className="w-full md:w-80 bg-background-surface rounded-large p-4 max-h-52 flex flex-col">
+        <div className="flex flex-col gap-3">
+          <div className="w-24 h-7 rounded-extrasmall skeleton" />
+          <div className="w-full h-20 rounded-small skeleton" />
+          <div className="w-full h-20 rounded-small skeleton" />
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside className="w-full md:w-80 bg-background-surface rounded-large p-4 max-h-52 flex flex-col">

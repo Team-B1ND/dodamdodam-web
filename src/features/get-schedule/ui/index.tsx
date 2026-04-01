@@ -14,18 +14,23 @@ const Schedule = () => {
   } = useGetScheduleByDate();
 
   return (
-    <div
-      className={`w-full flex flex-col md:flex-row gap-8 items-start transition-opacity ${
-        isFetching || isMonthTransitionPending ? "opacity-50" : "opacity-100"
-      }`}
-    >
-      <ScheduleCalendar
-        currentMonth={currentMonth}
-        monthLabel={monthLabel}
-        scheduleEvents={scheduleEvents}
-        moveMonth={moveMonth}
+    <div className="w-full flex flex-col md:flex-row gap-8 items-start">
+      <div
+        className={`w-full transition-opacity ${
+          isFetching || isMonthTransitionPending ? "opacity-70" : "opacity-100"
+        }`}
+      >
+        <ScheduleCalendar
+          currentMonth={currentMonth}
+          monthLabel={monthLabel}
+          scheduleEvents={scheduleEvents}
+          moveMonth={moveMonth}
+        />
+      </div>
+      <ScheduleList
+        groupedSchedules={groupedSchedules}
+        isLoading={isFetching || isMonthTransitionPending}
       />
-      <ScheduleList groupedSchedules={groupedSchedules} />
     </div>
   );
 };
