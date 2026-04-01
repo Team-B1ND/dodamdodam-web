@@ -3,6 +3,7 @@ import type { ScheduleEvent } from "@/entities/schedule/types";
 import dayjs from "dayjs";
 import { getToday } from "@/shared/libs/day";
 import { ScheduleCalendarCell } from "./ScheduleCalendarCell";
+import { ChevronRight, ChevronLeft } from "@b1nd/dodam-design-system/icons";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -35,7 +36,7 @@ const ScheduleCalendar = ({
             className="px-2 py-1 cursor-pointer"
             aria-label="이전 달"
           >
-            ‹
+            <ChevronLeft size={16} />
           </button>
           <span>{monthLabel}</span>
           <button
@@ -43,7 +44,7 @@ const ScheduleCalendar = ({
             className="px-2 py-1 cursor-pointer"
             aria-label="다음 달"
           >
-            ›
+            <ChevronRight size={16} />
           </button>
         </div>
       </header>
