@@ -51,7 +51,7 @@ const SidebarItem = ({
         />
       )}
       {isManagingMenu ? (
-        <span className="flex w-8 flex-col items-center text-caption2 font-medium leading-tight text-text-primary">
+        <span className={`flex w-8 flex-col items-center text-caption2 font-medium leading-tight ${isParentActive ? "text-static-white" : "text-text-primary"}`}>
           <span>{firstLineText}</span>
           {secondLineText && <span>{secondLineText}</span>}
         </span>
