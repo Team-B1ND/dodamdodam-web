@@ -6,3 +6,8 @@ export interface Banner {
 }
 
 export type CreateBanner = Omit<Banner, "id" | "isActive">;
+
+export interface PatchBannerStatus {
+  id: number;
+  active: boolean;
+}

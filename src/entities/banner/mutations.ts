@@ -19,3 +19,18 @@ export const useCreateBannerMutation = () => {
   });
 };
 
+export const usePatchBannerStatusMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: BannerApi.patchBannerStatus,
+    onSuccess: async (res) => {
+      await queryClient.refetchQueries({ queryKey: ["banner"] });
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+}

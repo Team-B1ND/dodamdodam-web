@@ -29,14 +29,16 @@ const HomeBanner = () => {
     ),
   );
 
-  return (
+  return pages.length !== 0 ? (
     <header className="relative flex flex-col gap-3 cursor-pointer bg-background-surface rounded-large">
       <Switcher pages={pages} current={page} animated/>
       <div className="absolute bottom-2.5 w-full flex justify-center">
-        <Indicator color={colors.static.white} total={data.length} current={page} onChangePage={setPage} />
+        <Indicator color={colors.static.white} total={pages.length} current={page} onChangePage={setPage} />
       </div>
     </header>
-  );
+  ) : (
+    <></>
+  )
 };
 
 HomeBanner.Skeleton = () => {
