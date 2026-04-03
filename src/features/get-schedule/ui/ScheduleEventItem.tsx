@@ -25,8 +25,8 @@ export const ScheduleEventItem = ({
           className="size-1.5 rounded-full shrink-0"
           style={{ backgroundColor: item.backgroundColor }}
         />
-        <span className="toastui-calendar-weekday-event-title text-text-secondary">
-          <span className="toastui-calendar-template-time">
+        <span className="text-text-secondary">
+          <span>
             <strong>09:00</strong>&nbsp;
             <span>{item.title}</span>
           </span>
@@ -54,8 +54,8 @@ export const ScheduleEventItem = ({
         width: `calc(${spanDays * 100}% + ${spanDays - 1}px)`,
       }}
     >
-      <span className="toastui-calendar-weekday-event-title text-static-white">
-        <span className="toastui-calendar-template-time">
+      <span className="text-static-white">
+        <span>
           <strong>09:00</strong>&nbsp;
           <span>{item.title}</span>
         </span>

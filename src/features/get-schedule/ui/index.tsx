@@ -8,18 +8,32 @@ const Schedule = () => {
     monthLabel,
     scheduleEvents,
     groupedSchedules,
+    isFetching,
+    isMonthTransitionPending,
     moveMonth,
   } = useGetScheduleByDate();
 
+  const isLoading = isFetching || isMonthTransitionPending;
+
   return (
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">
-      <ScheduleCalendar
-        currentMonth={currentMonth}
-        monthLabel={monthLabel}
-        scheduleEvents={scheduleEvents}
-        moveMonth={moveMonth}
-      />
-      <ScheduleList groupedSchedules={groupedSchedules} />
+      <div
+        className={`w-full transition-opacity ${
+          isLoading ? "opacity-50" : "opacity-100"
+        }`}
+      >
+        <ScheduleCalendar
+          currentMonth={currentMonth}
+          monthLabel={monthLabel}
+          scheduleEvents={scheduleEvents}
+          moveMonth={moveMonth}
+        />
+      </div>
+      {isLoading ? (
+        <ScheduleList.Skeleton />
+      ) : (
+        <ScheduleList groupedSchedules={groupedSchedules} />
+      )}
     </div>
   );
 };
@@ -31,11 +45,7 @@ Schedule.Skeleton = () => {
         <div className="w-40 h-8 rounded-extrasmall skeleton" />
         <div className="w-full h-140 rounded-small skeleton" />
       </div>
-      <div className="large-container w-80 max-md:w-full flex flex-col gap-3">
-        <div className="w-24 h-7 rounded-extrasmall skeleton" />
-        <div className="w-full h-20 rounded-small skeleton" />
-        <div className="w-full h-20 rounded-small skeleton" />
-      </div>
+      <ScheduleList.Skeleton />
     </div>
   );
 };
