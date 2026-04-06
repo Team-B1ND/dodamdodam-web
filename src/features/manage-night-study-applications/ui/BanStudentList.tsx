@@ -5,6 +5,7 @@ import { useBanManagementTable } from "../hooks/useBanManagementTable";
 import BanActionCell from "./BanActionCell";
 import BanDialog from "./BanDialog";
 import BanSkeletonRows from "./BanSkeletonRows";
+import { parseStudentId } from "@/shared/utils/parse-student-id";
 
 interface Props {
   keyword: string;
@@ -58,13 +59,11 @@ const BanStudentList = ({ keyword }: Props) => {
 
   const rows = students.map((user: User) => {
     const ban = banMap.get(user.publicId) ?? null;
-    const studentId = user.student
-      ? `${user.student.grade}${user.student.room}${String(user.student.number).padStart(2, "0")}`
-      : "-";
+    const student = user.student;
 
     return [
       user.name,
-      studentId,
+      student ? parseStudentId(student.grade, student.room, student.number) : "-",
       user.phone ?? "-",
       "",
       <BanActionCell
