@@ -10,7 +10,8 @@ import type {
   User,
   LoginRequest,
   StudentRegister,
-  TeacherRegister
+  TeacherRegister,
+  SearchUserParams
 } from "./types";
 
 const USER_BASE = "/user"
@@ -24,6 +25,14 @@ export const UserApi = {
     return await apiClient.get<PageResponse<User>>(
       `${USER_BASE}/search?roles=STUDENT&page=${params.page}&size=10${params.keyword ? `&keyword=${params.keyword}` : ""}`,
     );
+  },
+
+  async searchUser(params: SearchUserParams) {
+    const roleQuery = params.roles.map(role => `roles=${role}`).join("&");
+    const keywordQuery = params.keyword ? `&keyword=${params.keyword}` : "";
+    return await apiClient.get<PageResponse<User>>(
+      `${USER_BASE}/search?${roleQuery}${roleQuery ? "&" : ""}generationOnly=${params.generationOnly}&page=${params.page}&size=10${keywordQuery}`
+    )
   },
 
   async getMe() {

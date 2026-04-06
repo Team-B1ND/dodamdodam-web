@@ -15,7 +15,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 h-fit min-h-0'>
       <header className='large-container'>
         <SegmentedButton 
           data={page} 

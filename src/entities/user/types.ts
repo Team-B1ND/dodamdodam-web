@@ -3,13 +3,15 @@ export interface LoginRequest {
   password: string;
 }
 
+export type UserStatus = "ACTIVE" | "DEACTIVE" | "PENDING";
+
 export interface User {
   publicId: string;
   username: string;
   name: string;
   phone: string;
   profileImage?: string;
-  status: string;
+  status: UserStatus;
   roles: UserRole[];
   student?: StudentInfo;
   teacher?: TeacherInfo;
@@ -32,12 +34,21 @@ export interface AdminInfo {
   githubId: string;
 }
 
+
 export type UserRole =
-  | "STUDENT"
-  | "TEACHER"
-  | "ADMIN"
-  | "BROADCASTER"
-  | "DORMITORY_MANAGER";
+| "STUDENT"
+| "TEACHER"
+| "ADMIN"
+| "BROADCASTER"
+| "DORMITORY_MANAGER";
+
+export const USER_ROLE_MAP: Record<UserRole, string> = {
+  "STUDENT": "학생",
+  "TEACHER": "선생님",
+  "ADMIN": "관리자",
+  "BROADCASTER": "방송부",
+  "DORMITORY_MANAGER": "자치위원",
+} as const;
 
 export interface FixPassword {
   postPassword: string;
@@ -83,3 +94,13 @@ export type StudentPartialRegisterInfo = Omit<Partial<StudentInfo>, "isGraduated
 
 export type StudentRegister = UserRegister & StudentPartialRegisterInfo;
 export type TeacherRegister = UserRegister & TeacherInfo;
+
+
+// searchUser
+
+export interface SearchUserParams {
+  keyword: string;
+  roles: UserRole[];
+  generationOnly: boolean;
+  page: number;
+}
