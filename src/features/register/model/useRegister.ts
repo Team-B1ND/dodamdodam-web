@@ -21,23 +21,28 @@ export const useRegister = () => {
   const { mutateAsync: registerTeacher, isPending: isRegisterTeacherPending } =
     useRegisterTeacherMutation();
 
-  const validateCompleteRoleInfo = () => {
+  const validateCompleteRoleInfo = (type?: RegisterType) => {
     const errorMessage = [];
 
     const grade = Number(studentInfo.slice(0, 1));
     const room = Number(studentInfo.slice(1, 2));
     const number = Number(studentInfo.slice(2));
-
-    if (grade === 0 || grade > 3) {
-      errorMessage.push("학년");
-    }
-    
-    if (room === 0 || room > 4) {
-      errorMessage.push("반");
-    }
-
-    if (number === 0 || number >= 19) {
-      errorMessage.push("번호");
+    if (type === "STUDENT") {
+      if (grade === 0 || grade > 3) {
+        errorMessage.push("학년");
+      }
+      
+      if (room === 0 || room > 4) {
+        errorMessage.push("반");
+      }
+  
+      if (number === 0 || number >= 19) {
+        errorMessage.push("번호");
+      }
+    } else {
+      if (teacherPosition.trim().length === 0) {
+        errorMessage.push("직무");
+      }
     }
 
     return errorMessage;
