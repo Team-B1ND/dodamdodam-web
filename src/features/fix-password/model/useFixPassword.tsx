@@ -3,7 +3,7 @@ import { isValidPassword } from "@/shared/utils/validate-password";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useState } from "react"
 
-const useFixPassword = () => {
+const useFixPassword = (onClose: () => void) => {
   const [postPassword, setPostPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const toast = useToast();
@@ -41,6 +41,7 @@ const useFixPassword = () => {
       postPassword,
       newPassword
     });
+    onClose();
   }
 
   return {

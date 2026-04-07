@@ -8,7 +8,7 @@ interface Props {
 const FixPasswordModal = ({
   onClose
 }: Props) => {
-  const { submit, postPassword, newPassword, setPostPassword, setNewPassword, isPending } = useFixPassword();
+  const { submit, postPassword, newPassword, setPostPassword, setNewPassword, isPending } = useFixPassword(onClose);
 
   return (
     <div className="small-container flex flex-col gap-5 w-100">
