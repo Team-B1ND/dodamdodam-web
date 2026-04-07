@@ -96,11 +96,17 @@ export type StudentRegister = UserRegister & StudentPartialRegisterInfo;
 export type TeacherRegister = UserRegister & TeacherInfo;
 
 
-// searchUser
+// Search User
 
 export interface SearchUserParams {
   keyword: string;
   roles: UserRole[];
   generationOnly: boolean;
   page: number;
+}
+
+// Manage User
+
+export interface EnableUser {
+  userId: string;
 }

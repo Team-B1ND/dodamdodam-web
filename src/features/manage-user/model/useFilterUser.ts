@@ -19,7 +19,7 @@ export const useFilterUser = (): UseFilterUserReturn => {
   const userStatusDropdown: DropdownItem[] = [
     { name: "전체", value: "" },
     { name: "승인", value: "ACTIVE" },
-    { name: "미승인", value: "DEACTIVE" },
+    { name: "대기 중", value: "PENDING" },
   ];
   const [selectedStatus, setSelectedStatus] = useState("전체");
   const [roles, setRoles] = useState<UserRole[]>([]);

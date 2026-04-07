@@ -11,7 +11,8 @@ import type {
   LoginRequest,
   StudentRegister,
   TeacherRegister,
-  SearchUserParams
+  SearchUserParams,
+  EnableUser
 } from "./types";
 
 const USER_BASE = "/user"
@@ -75,5 +76,9 @@ export const UserApi = {
 
   async registerTeacher(paylaod: TeacherRegister) {
     return await apiClient.post(`${USER_BASE}/register-teacher`, paylaod);
+  },
+
+  async enableUser(payload: EnableUser) {
+    return await apiClient.post(`${USER_BASE}/enable`, payload);
   },
 };

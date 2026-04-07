@@ -8,7 +8,7 @@ import { useInView } from "react-intersection-observer";
 const USER_STATUS_VALUE_MAP: Record<string, UserStatus | null> = {
   전체: null,
   승인: "ACTIVE",
-  미승인: "DEACTIVE",
+  "대기 중": "PENDING",
 };
 
 export const useManageUserTable = ({
@@ -52,4 +52,3 @@ export const useManageUserTable = ({
     isFetchingNextPage,
   };
 };
-
