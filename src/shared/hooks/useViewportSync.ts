@@ -10,7 +10,7 @@ export const useViewportSync = () => {
 
     const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
 
-    // Ensure store matches current viewport on mount.
+    // 생성 시 스토어의 뷰포트가 현재 뷰포트와 일치하는지 확인
     setIsMobile(mediaQuery.matches);
 
     const handleChange = (event: MediaQueryListEvent) => {
@@ -23,12 +23,6 @@ export const useViewportSync = () => {
         mediaQuery.removeEventListener("change", handleChange);
       };
     }
-
-    // Safari < 14 uses addListener/removeListener
-    mediaQuery.addListener(handleChange);
-    return () => {
-      mediaQuery.removeListener(handleChange);
-    };
   }, [setIsMobile]);
 };
 
