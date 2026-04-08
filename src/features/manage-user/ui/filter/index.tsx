@@ -11,7 +11,7 @@ import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
 import { useState } from "react";
 
 const ManageUserFilter = (props: UseFilterUserReturn) => {
-  const [isDetailFilterOpen, setIsDetailFilterOpen] = useState(true);
+  const [isDetailFilterOpen, setIsDetailFilterOpen] = useState(false);
   const {
     keyword,
     setKeyword,
