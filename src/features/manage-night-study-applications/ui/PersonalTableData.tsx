@@ -31,6 +31,9 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
 
   const filteredIds = filtered.map((a) => a.id);
   const isAllSelected = filtered.length > 0 && selectedIds.size === filtered.length;
+  const hasSelectedAllowedApplication = filtered.some(
+    (app) => selectedIds.has(app.id) && app.status === "ALLOWED",
+  );
 
   const openInfoDialog = (app: PersonalNightStudyApplication) => {
     open(({ close, exit, isOpen }) => (
@@ -130,7 +133,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
             role="primary"
             size="small"
             display="inline"
-            disabled={isAllowing}
+            disabled={isAllowing || hasSelectedAllowedApplication}
             onClick={() => handleBulkAllow(Array.from(selectedIds))}
           >
             일괄 승인
@@ -145,11 +148,11 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
           </FilledButton>
         </div>
       )}
-      <div className="flex-1 min-h-0 min-w-0 overflow-x-scroll scrollbar">
+      <div className="flex-1 min-h-0 min-w-0 overflow-y-scroll scrollbar">
         <div className="min-w-sm">
           <Table keys={tableKeys} data={rows} />
           {isFetchingNextPage && <PersonalSkeletonRows count={3} />}
-          <div ref={ref} />
+          <div ref={ref} className="h-2" />
         </div>
       </div>
     </>

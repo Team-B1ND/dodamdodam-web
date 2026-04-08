@@ -24,7 +24,7 @@ function RouteComponent() {
   const [mainTab, setMainTab] = useState<MainTab>("personal");
 
   return (
-    <div className="w-full h-full bg-background-surface rounded-large p-5 flex flex-col gap-4">
+    <div className="w-full h-[98%] bg-background-surface rounded-large p-5 flex flex-col gap-4">
       <SegmentedButton
         data={mainSegment}
         setData={setMainSegment}

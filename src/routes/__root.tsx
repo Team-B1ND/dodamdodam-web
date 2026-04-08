@@ -7,11 +7,13 @@ import {
 import Sidebar from "@/widgets/sidebar/ui";
 import { MENUS } from "@/widgets/sidebar/constants/sidebar-item";
 import { useGetMeQuery } from "@/entities/user/queries";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import ErrorFallback from "@/shared/ui/error-fallback";
 import NotFound from "@/shared/ui/not-found";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
+import { useViewportSync } from "@/shared/hooks/useViewportSync";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -37,6 +39,10 @@ function RootErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 function RootComponent() {
+  useViewportSync();
+  const isMobile = useIsMobile();
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   const { location } = useRouterState();
   const mainRef = useRef<HTMLElement>(null);
   const isNoneSidebarPage =
@@ -84,23 +90,24 @@ function RootComponent() {
   }
 
   return (
-    <div className="flex justify-center w-full h-screen bg-background-default">
+    <div className="relative flex justify-center w-full h-screen bg-background-default">
       <div className="flex justify-center w-lg max-w-lg grow min-h-0 gap-8">
-        <div className="flex shrink-0 py-7 pl-8">
-          <Sidebar
-            menus={MENUS}
-            managingMenus={managingMenus}
-            logo={
-              <div className="flex w-12 h-12">
-                <img src="/favicon.svg" alt="dodam-logo" className="w-12 h-12" />
-              </div>
-            }
-          />
-        </div>
+        <Sidebar
+          isMobile={isMobile}
+          isMobileSidebarOpen={isMobileSidebarOpen}
+          setIsMobileSidebarOpen={setIsMobileSidebarOpen}
+          menus={MENUS}
+          managingMenus={managingMenus}
+          logo={
+            <div className="flex w-12 h-12">
+              <img src="/favicon.svg" alt="dodam-logo" className="w-12 h-12" />
+            </div>
+          }
+        />
 
         <main
           ref={mainRef}
-          className="flex grow min-h-0 flex-col overflow-y-auto py-7 pr-8"
+          className="flex grow min-h-0 flex-col overflow-y-auto py-7 sm:pr-8 max-sm:py-5 max-sm:px-5"
         >
           <div className="flex min-h-full flex-col">
             <Outlet />
