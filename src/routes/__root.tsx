@@ -12,6 +12,8 @@ import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import ErrorFallback from "@/shared/ui/error-fallback";
 import NotFound from "@/shared/ui/not-found";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
+import { useViewportSync } from "@/shared/hooks/useViewportSync";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -37,9 +39,8 @@ function RootErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 function RootComponent() {
-  const [isMobile, setIsMobile] = useState(() =>
-    window.matchMedia("(max-width: 640px)").matches,
-  );
+  useViewportSync();
+  const isMobile = useIsMobile();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const { location } = useRouterState();
@@ -83,20 +84,6 @@ function RootComponent() {
   useEffect(() => {
     mainRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [location.pathname]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 640px)");
-
-    const handleChange = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
-  }, []);
 
   if (isNoneSidebarPage) {
     return <Outlet />;
