@@ -6,11 +6,16 @@ import { useUserStatusControl } from "@/features/manage-user/model/useUserStatus
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Checkbox, FilledButton, Table } from "@b1nd/dodam-design-system/components";
+import {
+  Checkbox,
+  Dialog,
+  FilledButton,
+  Table,
+  useOverlay,
+} from "@b1nd/dodam-design-system/components";
 import {
   CheckmarkCircleFill,
   Clock,
-  XmarkCircle,
 } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -23,6 +28,7 @@ const ManageUserTable = ({
   UseFilterUserReturn,
   "keyword" | "selectedStatus" | "roles" | "generationOnly"
 >) => {
+  const { open } = useOverlay();
   const { users, ref, isFetchingNextPage } = useManageUserTable({
     keyword,
     selectedStatus,
@@ -32,18 +38,20 @@ const ManageUserTable = ({
   const {
     selectedIds,
     isAllSelected,
-    isPending,
+    isEnabling,
+    isDeactivating,
     hasSelectedNonPendingUser,
+    hasSelectedDeactiveUser,
     toggleAll,
     toggleOne,
     handleBulkEnable,
+    handleBulkDeactivate,
   } = useUserStatusControl(users);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
 
   const getStatusIcon = (status: UserStatus) => {
     return status === "ACTIVE" ? <CheckmarkCircleFill color={colors.status.success}/> 
-    : status === "DEACTIVE" ? <XmarkCircle /> 
     : status === "PENDING" ? <Clock /> : <></>;
   }
 
@@ -89,6 +97,38 @@ const ManageUserTable = ({
     setIsScrollable(element.scrollHeight > element.clientHeight);
   }, [rows.length, isFetchingNextPage, selectedIds.size]);
 
+  const handleOpenBulkDeactivateDialog = () => {
+    open(({ close, exit, isOpen }) => (
+      <Dialog
+        open={isOpen}
+        title="정말 일괄 비활성화할까요?"
+        description="선택한 유저들을 비활성화 상태로 변경해요."
+      >
+        <Dialog.FilledButton
+          role="assistive"
+          disabled={isDeactivating}
+          onClick={() => {
+            close();
+            exit();
+          }}
+        >
+          취소
+        </Dialog.FilledButton>
+        <Dialog.FilledButton
+          role="negative"
+          disabled={isDeactivating}
+          onClick={() => {
+            handleBulkDeactivate();
+            close();
+            exit();
+          }}
+        >
+          비활성화
+        </Dialog.FilledButton>
+      </Dialog>
+    ));
+  };
+
   return (
     <>
       {selectedIds.size > 0 ? (
@@ -97,10 +137,19 @@ const ManageUserTable = ({
             role="primary"
             size="small"
             display="inline"
-            disabled={isPending || hasSelectedNonPendingUser}
+            disabled={isEnabling || hasSelectedNonPendingUser}
             onClick={handleBulkEnable}
           >
             일괄 승인
+          </FilledButton>
+          <FilledButton
+            role="negative"
+            size="small"
+            display="inline"
+            disabled={isDeactivating || hasSelectedDeactiveUser}
+            onClick={handleOpenBulkDeactivateDialog}
+          >
+            일괄 비활성화
           </FilledButton>
         </div>
       ) : null}

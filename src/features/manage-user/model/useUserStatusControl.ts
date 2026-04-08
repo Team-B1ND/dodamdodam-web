@@ -1,10 +1,15 @@
-import { useEnableUserMutation } from "@/entities/user/mutations";
+import {
+  useDeactivateUserMutation,
+  useEnableUserMutation,
+} from "@/entities/user/mutations";
 import type { User } from "@/entities/user/types";
 import { useState } from "react";
 
 export const useUserStatusControl = (users: User[]) => {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const { mutate: enableUser, isPending } = useEnableUserMutation();
+  const { mutate: enableUser, isPending: isEnabling } = useEnableUserMutation();
+  const { mutate: deactivateUser, isPending: isDeactivating } =
+    useDeactivateUserMutation();
 
   const userMap = new Map(users.map((user) => [user.publicId, user]));
   const selectedUsers = Array.from(selectedIds)
@@ -14,6 +19,9 @@ export const useUserStatusControl = (users: User[]) => {
   const isAllSelected = users.length > 0 && selectedIds.size === users.length;
   const hasSelectedNonPendingUser = selectedUsers.some(
     (user) => user.status !== "PENDING",
+  );
+  const hasSelectedDeactiveUser = selectedUsers.some(
+    (user) => user.status === "DEACTIVE",
   );
 
   const toggleAll = (ids: string[]) => {
@@ -53,13 +61,33 @@ export const useUserStatusControl = (users: User[]) => {
     });
   };
 
+  const handleBulkDeactivate = () => {
+    selectedUsers.forEach((user) => {
+      deactivateUser(
+        { userId: user.publicId },
+        {
+          onSuccess: () => {
+            setSelectedIds((prev) => {
+              const next = new Set(prev);
+              next.delete(user.publicId);
+              return next;
+            });
+          },
+        },
+      );
+    });
+  };
+
   return {
     selectedIds,
     isAllSelected,
-    isPending,
+    isEnabling,
+    isDeactivating,
     hasSelectedNonPendingUser,
+    hasSelectedDeactiveUser,
     toggleAll,
     toggleOne,
     handleBulkEnable,
+    handleBulkDeactivate,
   };
 };

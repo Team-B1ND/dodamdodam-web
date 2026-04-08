@@ -12,7 +12,8 @@ import type {
   StudentRegister,
   TeacherRegister,
   SearchUserParams,
-  EnableUser
+  EnableUser,
+  DeactivateUser
 } from "./types";
 
 const USER_BASE = "/user"
@@ -81,4 +82,9 @@ export const UserApi = {
   async enableUser(payload: EnableUser) {
     return await apiClient.post(`${USER_BASE}/enable`, payload);
   },
+
+  async deactivateUser(payload: DeactivateUser) {
+    return await apiClient.patch(`${USER_BASE}/deactivate`, payload);
+  },
+  
 };

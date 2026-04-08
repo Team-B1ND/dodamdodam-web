@@ -110,3 +110,7 @@ export interface SearchUserParams {
 export interface EnableUser {
   userId: string;
 }
+
+export interface DeactivateUser {
+  userId: string;
+}
