@@ -34,11 +34,11 @@ const TimeTable = () => {
           <tbody>
             {Array.from({ length: 7 }).map((_, index) => (
               <tr key={index}>
-                {Array.from({ length: 6 }).map((_, row_index) => (
+                {Array.from({ length: 6 }).map((_, rowIndex) => (
                   <td
                     className={`py-1.5 text-label h-9 ${
-                      row_index !== 0 &&
-                      today === data[row_index - 1][index]?.date
+                      rowIndex !== 0 &&
+                      today === data[rowIndex - 1][index]?.date
                         ? `${
                             period === index + 1
                               ? `text-brand-primary`
@@ -46,14 +46,14 @@ const TimeTable = () => {
                           } font-medium`
                         : `text-text-secondary font-light`
                     }`}
-                    key={`${index}_${row_index}`}
+                    key={`${index}_${rowIndex}`}
                   >
-                    {row_index === 0 ? (
+                    {rowIndex === 0 ? (
                       index + 1
                     ) : (
                       <div>
-                        <p>{data[row_index - 1][index]?.subject ?? "-"}</p>
-                        <p className="text-caption2">{data[row_index - 1][index]?.teacher ?? ""}</p>
+                        <p>{data[rowIndex - 1][index]?.subject ?? "-"}</p>
+                        <p className="text-caption2">{data[rowIndex - 1][index]?.teacher ?? ""}</p>
                       </div>
                     )}
                   </td>
