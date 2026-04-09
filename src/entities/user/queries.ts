@@ -34,11 +34,18 @@ export const useSearchUserQuery = ({
   keyword,
   roles,
   generationOnly,
+  status,
 }: Omit<SearchUserParams, "page">) =>
   useSuspenseInfiniteQuery({
-    queryKey: ["user", "search", keyword, roles, generationOnly],
+    queryKey: ["user", "search", keyword, roles, generationOnly, status],
     queryFn: ({ pageParam }) =>
-      UserApi.searchUser({ keyword, roles, generationOnly, page: pageParam }),
+      UserApi.searchUser({
+        keyword,
+        roles,
+        generationOnly,
+        status,
+        page: pageParam,
+      }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
       if (!lastPage.data.hasNext) return undefined;

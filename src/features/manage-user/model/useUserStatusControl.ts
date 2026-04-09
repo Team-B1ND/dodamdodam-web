@@ -21,7 +21,7 @@ export const useUserStatusControl = (users: User[]) => {
     (user) => user.status !== "PENDING",
   );
   const hasSelectedDeactiveUser = selectedUsers.some(
-    (user) => user.status === "DEACTIVE",
+    (user) => user.status === "DEACTIVATED",
   );
 
   const toggleAll = (ids: string[]) => {

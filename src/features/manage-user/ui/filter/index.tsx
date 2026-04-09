@@ -44,7 +44,7 @@ const ManageUserFilter = (props: UseFilterUserReturn) => {
         </FilledButton>
       </div>
       {isDetailFilterOpen ? (
-        <div className="flex items-center border border-border-normal rounded-small small-container gap-9">
+        <div className="flex items-center border border-border-normal rounded-small small-container gap-9 gap-y-3 flex-wrap">
           <div className="flex gap-3 items-center">
             <p className="text-headline font-bold">권한</p>
             {Object.keys(USER_ROLE_MAP).map(item => (

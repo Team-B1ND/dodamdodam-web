@@ -17,7 +17,7 @@ import {
   CheckmarkCircleFill,
   Clock,
 } from "@b1nd/dodam-design-system/icons";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const ManageUserTable = ({
   keyword,
@@ -29,7 +29,7 @@ const ManageUserTable = ({
   "keyword" | "selectedStatus" | "roles" | "generationOnly"
 >) => {
   const { open } = useOverlay();
-  const { users, ref, isFetchingNextPage } = useManageUserTable({
+  const { users, ref, hasNextPage, isFetchingNextPage } = useManageUserTable({
     keyword,
     selectedStatus,
     roles,
@@ -47,8 +47,6 @@ const ManageUserTable = ({
     handleBulkEnable,
     handleBulkDeactivate,
   } = useUserStatusControl(users);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isScrollable, setIsScrollable] = useState(false);
 
   const getStatusIcon = (status: UserStatus) => {
     return status === "ACTIVE" ? <CheckmarkCircleFill color={colors.status.success}/> 
@@ -88,14 +86,6 @@ const ManageUserTable = ({
       item.roles.map(item => USER_ROLE_MAP[item]).join(", ")
     ];
   });
-
-  useEffect(() => {
-    const element = scrollContainerRef.current;
-
-    if (!element) return;
-
-    setIsScrollable(element.scrollHeight > element.clientHeight);
-  }, [rows.length, isFetchingNextPage, selectedIds.size]);
 
   const handleOpenBulkDeactivateDialog = () => {
     open(({ close, exit, isOpen }) => (
@@ -154,7 +144,6 @@ const ManageUserTable = ({
         </div>
       ) : null}
       <div
-        ref={scrollContainerRef}
         className="overflow-x-auto flex-1 overflow-scroll min-h-0 scrollbar"
       >
         <Table data={rows} keys={tableKeys} />
@@ -165,7 +154,7 @@ const ManageUserTable = ({
             ))}
           </div>
         ) : null}
-        {isScrollable ? <div ref={ref} /> : null}
+        {hasNextPage ? <div ref={ref} className="h-2 shrink-0" /> : null}
       </div>
     </>
   );

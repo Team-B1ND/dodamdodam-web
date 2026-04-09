@@ -30,11 +30,20 @@ export const UserApi = {
   },
 
   async searchUser(params: SearchUserParams) {
-    const roleQuery = params.roles.map(role => `roles=${role}`).join("&");
-    const keywordQuery = params.keyword ? `&keyword=${params.keyword}` : "";
+    const roleQuery = params.roles.map((role) => `roles=${role}`);
+    const statusQuery = params.status.map((status) => `status=${status}`);
+    const query = [
+      ...roleQuery,
+      ...statusQuery,
+      `generationOnly=${params.generationOnly}`,
+      `page=${params.page}`,
+      "size=10",
+      ...(params.keyword ? [`keyword=${params.keyword}`] : []),
+    ].join("&");
+
     return await apiClient.get<PageResponse<User>>(
-      `${USER_BASE}/search?${roleQuery}${roleQuery ? "&" : ""}generationOnly=${params.generationOnly}&page=${params.page}&size=10${keywordQuery}`
-    )
+      `${USER_BASE}/search?${query}`,
+    );
   },
 
   async getMe() {

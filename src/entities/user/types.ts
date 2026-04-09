@@ -3,7 +3,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export type UserStatus = "ACTIVE" | "DEACTIVE" | "PENDING";
+export type UserStatus = "ACTIVE" | "DEACTIVATED" | "PENDING";
 
 export interface User {
   publicId: string;
@@ -103,6 +103,7 @@ export interface SearchUserParams {
   roles: UserRole[];
   generationOnly: boolean;
   page: number;
+  status: UserStatus[];
 }
 
 // Manage User
