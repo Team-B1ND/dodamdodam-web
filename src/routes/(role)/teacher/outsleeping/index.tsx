@@ -1,7 +1,8 @@
 import OutSleepingApplications from "@/features/manage-out-sleeping/ui/OutSleepingApplications";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import { padDate } from "@/shared/utils/pad-date";
-import { DatePicker, FilledButton, PickerTrigger } from "@b1nd/dodam-design-system/components";
+import { DatePicker, FilledButton, PickerTrigger, useOverlay } from "@b1nd/dodam-design-system/components";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -11,8 +12,37 @@ export const Route = createFileRoute("/(role)/teacher/outsleeping/")({
 
 function RouteComponent() {
   const [date, setDate] = useState(new Date());
+  const isMobile = useIsMobile();
+  const overlay = useOverlay();
 
-  return (
+  const openModal = () => {
+    overlay.open(({ close, exit, setDimClickHandler }) => {
+      const onClose = () => {
+        close();
+        exit();
+      };
+      setDimClickHandler(onClose);
+      return (
+        <DatePicker.Content
+          date={date}
+          onChangeDate={setDate}
+          onClose={onClose}
+          disablePast
+        />
+      );
+    })
+  }
+
+  return isMobile ? (
+    <div className="flex flex-col gap-4 h-full large-container">
+      <FilledButton role="assistive" size="large" onClick={openModal}>
+        {date ? padDate(date) : "YYYY-MM-DD"}
+      </FilledButton>
+      <QueryBoundary pendingFallback={<OutSleepingApplications.Skeleton />}>
+        <OutSleepingApplications date={date} />
+      </QueryBoundary>
+    </div>
+  ) : (
     <div className="w-full h-full bg-background-surface rounded-large p-5 flex flex-col gap-4">
       <PickerTrigger
         content={({ onClose }) => (
@@ -22,7 +52,8 @@ function RouteComponent() {
             onClose={onClose}
             disablePast
           />
-        )}>
+        )}
+      >
         <FilledButton role="assistive" size="large">
           {date ? padDate(date) : "YYYY-MM-DD"}
         </FilledButton>

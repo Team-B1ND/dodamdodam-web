@@ -1,14 +1,8 @@
-import {
-  useAllowOutSleepingMutation,
-  useDenyOutSleepingMutation,
-  useRevertOutSleepingMutation,
-} from "@/entities/out-sleeping/mutations";
 import type { OutSleepingStatus } from "@/entities/out-sleeping/types";
 import {
   FilledButton,
-  useOverlay,
 } from "@b1nd/dodam-design-system/components";
-import OutSleepingDenyDialog from "./OutSleepingDenyDialog";
+import { useManageOutSleeping } from "@/features/manage-out-sleeping/model/useManageOutSleeping";
 
 interface Props {
   publicId: string;
@@ -16,35 +10,13 @@ interface Props {
 }
 
 const OutSleepingActionCell = ({ publicId, status }: Props) => {
-  const { open } = useOverlay();
-
-  const { mutate: allow, isPending: isAllowing } = useAllowOutSleepingMutation();
-  const { mutate: deny, isPending: isDenying } = useDenyOutSleepingMutation();
-  const { mutate: revert, isPending: isReverting } = useRevertOutSleepingMutation();
-
-  const handleDeny = () => {
-    open(({ close, exit, isOpen }) => (
-      <OutSleepingDenyDialog
-        isOpen={isOpen}
-        isPending={isDenying}
-        onClose={() => {
-          close();
-          exit();
-        }}
-        onConfirm={(reason) => {
-          deny(
-            { publicId, denyReason: reason },
-            {
-              onSettled: () => {
-                close();
-                exit();
-              },
-            },
-          );
-        }}
-      />
-    ));
-  };
+  const {
+    allowOutSleeping,
+    openDenyDialog,
+    revertOutSleeping,
+    isAllowing,
+    isReverting,
+  } = useManageOutSleeping();
 
   if (status === "PENDING") {
     return (
@@ -54,7 +26,7 @@ const OutSleepingActionCell = ({ publicId, status }: Props) => {
           size="small"
           display="inline"
           disabled={isAllowing}
-          onClick={() => allow(publicId)}
+          onClick={() => allowOutSleeping(publicId)}
         >
           승인
         </FilledButton>
@@ -62,7 +34,7 @@ const OutSleepingActionCell = ({ publicId, status }: Props) => {
           role="negative"
           size="small"
           display="inline"
-          onClick={handleDeny}
+          onClick={() => openDenyDialog(publicId)}
         >
           거절
         </FilledButton>
@@ -76,7 +48,7 @@ const OutSleepingActionCell = ({ publicId, status }: Props) => {
       size="small"
       display="inline"
       disabled={isReverting}
-      onClick={() => revert(publicId)}
+      onClick={() => revertOutSleeping(publicId)}
     >
       되돌리기
     </FilledButton>
