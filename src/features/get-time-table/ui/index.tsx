@@ -48,9 +48,14 @@ const TimeTable = () => {
                     }`}
                     key={`${index}_${row_index}`}
                   >
-                    {row_index === 0
-                      ? index + 1
-                      : (data[row_index - 1][index]?.subject ?? "-")}
+                    {row_index === 0 ? (
+                      index + 1
+                    ) : (
+                      <div>
+                        <p>{data[row_index - 1][index]?.subject ?? "-"}</p>
+                        <p className="text-caption2">{data[row_index - 1][index]?.teacher ?? ""}</p>
+                      </div>
+                    )}
                   </td>
                 ))}
               </tr>
