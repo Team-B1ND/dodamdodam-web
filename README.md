@@ -1,75 +1,67 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="./public/dodamLogoPrimary.svg" width="33%" alt="dodamdodam" />
+</p>
+<h4 align="center">학생들을 위해 학생들이 만든 스마트 스쿨 플랫폼</h4>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# [도담도담](https://dodam.b1nd.com/) 이란?
 
-Currently, two official plugins are available:
+도담도담은 DGSW 학생 및 선생님에게 편리함을 제공하는 스마트스쿨 플랫폼으로, **전교생 200명**과 **다수의 선생님**들이 사용하고 있어요.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> 아쉽지만 해당 서비스는 DGSW 학생만 이용할 수 있어요 🥲
 
-## React Compiler
+- 도담도담은 2018년 제작된 *T-Messenge*를 계승하여 운영중인 **DGSW 스마트 스쿨 플랫폼**이에요.
+- 지속적인 요구사항 반영을 통해 꾸준히 실사용 서비스로서 운영 중이에요.
+- Web, iOS, Android 환경에서 모두 동일한 기능으로 사용 가능해요.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Note: This will impact Vite dev & build performances.
+# 기능 소개
 
-## Expanding the ESLint configuration
+- 급식
+  - 오늘의 급식을 확인할 수 있어요.
+  - *다이어터를 위해 칼로리도 알려준답니다.*
+- 일정
+  - 월별 일정을 학년별로 확인 가능해요.
+- 시간표
+  - 반별 시간표를 확인 가능해요.
+  - 혹시나 시간표가 선생님의 출장 등으로 변경되더라도, 즉시 반영되어 확인 가능해요.
+  - **더 편리한 사용을 위해, iOS 위젯을 제공하고 있어요.**
+- 외박 신청
+  - 외박 사유와 함께 외박을 신청할 수 있어요.
+- 외박 관리 ( 선생님 )
+  - 선생님은 외박 신청자 목록을 확인하고 승인 및 거절 가능해요.
+- 심야자습 신청
+  - 수기로 진행되던 심자 신청을 도담도담에서 진행해요.
+  - 프로젝트 및 일반 심자 신청을 모두 진행할 수 있어요.
+- 심야자습 관리 ( 자치위원회 )
+  - 자치위원회에서 심야자습 관리를 진행할 수 있어요.
+  - 심야자습 정지 및 프로젝트 심야자습 실 배정 등이 가능해요.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 기여
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+> 도담도담은 오픈소스로, 마음껏 기여 가능해요.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+바인드팀에서 제작한 이슈 템플릿을 사용해, 건의할 점을 알려주세요! <br/>
+또는 직접 [포크](https://github.com/Team-B1ND/dodamdodam-web-v4/fork)해 제안할 수도 있어요.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# 사용된 기술 스택
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+`React`, `TypeScript`, `Tanstack-Query`, `Tanstack-Router`, `emotion`, `TailwindCSS`, `Axios`, `Framer`, `Zustand`,
+
+
+# 사용된 아키텍쳐
+
+현재 도담도담 웹은 **유지보수성과 개발자 경험의 향상**을 위해 **FSD 아키텍쳐** 를 사용 중이에요.
+
+```text
+src
+├── routes ( Tanstack-Router )
+├── entities ( API & 엔티티 정의 )
+├── features ( 개별 기능 모음 )
+├── widgets ( 여러 페이지에서 재사용되는 독립적 컴포넌트 단위 )
+├── shared ( 전역에서 재사용되는 훅이나 타입 등 )
+├── main.tsx
+├── index.css
+└── routeTree.gen.ts 
 ```
