@@ -5,3 +5,9 @@ export const BAN_TABLE_KEYS: [string, string][] = [
   ["", "FULL"],
   ["심자 정지 여부", "132px"],
 ];
+
+export const MOBILE_BAN_TABLE_KEYS: [string, string][] = [
+  ["이름", "120px"],
+  ["학반", "160px"],
+  ["심자 정지 여부", "132px"],
+];

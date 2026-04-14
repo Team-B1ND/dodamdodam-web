@@ -1,6 +1,10 @@
 import type { User } from "@/entities/user/types";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import { Table, useOverlay } from "@b1nd/dodam-design-system/components";
-import { BAN_TABLE_KEYS } from "../constants/ban-table-keys";
+import {
+  BAN_TABLE_KEYS,
+  MOBILE_BAN_TABLE_KEYS,
+} from "../constants/ban-table-keys";
 import { useBanManagementTable } from "../hooks/useBanManagementTable";
 import BanActionCell from "./BanActionCell";
 import BanDialog from "./BanDialog";
@@ -11,6 +15,7 @@ interface Props {
 }
 
 const BanStudentList = ({ keyword }: Props) => {
+  const isMobile = useIsMobile();
   const { open } = useOverlay();
   const {
     students,
@@ -61,24 +66,33 @@ const BanStudentList = ({ keyword }: Props) => {
     const studentId = user.student
       ? `${user.student.grade}${user.student.room}${String(user.student.number).padStart(2, "0")}`
       : "-";
-
-    return [
-      user.name,
-      studentId,
-      user.phone ?? "-",
-      "",
+    const actionCell = (
       <BanActionCell
         isBanned={ban !== null}
         onBan={() => openBanDialog(user)}
         onUnban={() => deleteBan(user.publicId)}
         isDeleting={isDeleting}
-      />,
-    ];
+      />
+    );
+
+    return isMobile
+      ? [
+          user.name,
+          studentId,
+          actionCell,
+        ]
+      : [
+          user.name,
+          studentId,
+          user.phone ?? "-",
+          "",
+          actionCell,
+        ];
   });
 
   return (
     <>
-      <Table keys={BAN_TABLE_KEYS} data={rows} />
+      <Table keys={isMobile ? MOBILE_BAN_TABLE_KEYS : BAN_TABLE_KEYS} data={rows} />
       {isFetchingNextPage && <BanSkeletonRows count={3} />}
       <div ref={ref} />
     </>

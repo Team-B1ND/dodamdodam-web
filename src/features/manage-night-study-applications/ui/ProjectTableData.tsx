@@ -1,8 +1,12 @@
 import type { ApplicationTableFilters, ProjectNightStudyApplication } from "@/entities/night-study/types";
 import { parseDate } from "@/shared/utils/parse-date";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import { Table, useOverlay } from "@b1nd/dodam-design-system/components";
 import { NIGHT_STUDY_STATUS_COLOR, NIGHT_STUDY_STATUS_LABEL } from "../constants/night-study-status";
-import { PROJECT_TABLE_KEYS } from "../constants/project-table-keys";
+import {
+  MOBILE_PROJECT_TABLE_KEYS,
+  PROJECT_TABLE_KEYS,
+} from "../constants/project-table-keys";
 import { useProjectApplicationsTable } from "../hooks/useProjectApplicationsTable";
 import ProjectActionCell from "./ProjectActionCell";
 import ProjectInfoDialog from "./ProjectInfoDialog";
@@ -11,6 +15,7 @@ import RejectDialog from "./RejectDialog";
 import RoomAssignmentModal from "./RoomAssignmentModal";
 
 const ProjectTableData = (filters: ApplicationTableFilters) => {
+  const isMobile = useIsMobile();
   const { open } = useOverlay();
   const {
     filtered,
@@ -68,34 +73,54 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
     );
   }
 
-  const rows = filtered.map((app: ProjectNightStudyApplication) => [
-    <button
-      className="text-primary-normal font-medium hover:underline text-left"
-      onClick={() => openInfoDialog(app)}
-    >
-      {app.name}
-    </button>,
-    <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
-    `${app.period}교시`,
-    app.room?.name ?? "-",
-    parseDate(app.startAt),
-    parseDate(app.endAt),
-    <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
-    <ProjectActionCell
-      status={app.status}
-      onAllow={() => allow(app.id)}
-      onReject={() => openRejectDialog(app.id)}
-      onPending={() => pending(app.id)}
-      onAssignRoom={() => openRoomDialog(app)}
-      isAllowing={isAllowing}
-      isPendingRevert={isPendingRevert}
-    />,
-  ]);
+  const rows = filtered.map((app: ProjectNightStudyApplication) => {
+    const actionCell = (
+      <ProjectActionCell
+        status={app.status}
+        onAllow={() => allow(app.id)}
+        onReject={() => openRejectDialog(app.id)}
+        onPending={() => pending(app.id)}
+        onAssignRoom={() => openRoomDialog(app)}
+        isAllowing={isAllowing}
+        isPendingRevert={isPendingRevert}
+      />
+    );
+
+    if (isMobile) {
+      return [
+        <button
+          className="text-primary-normal font-medium hover:underline text-left"
+          onClick={() => openInfoDialog(app)}
+        >
+          {app.name}
+        </button>,
+        app.room?.name ?? "-",
+        <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
+        actionCell,
+      ];
+    }
+
+    return [
+      <button
+        className="text-primary-normal font-medium hover:underline text-left"
+        onClick={() => openInfoDialog(app)}
+      >
+        {app.name}
+      </button>,
+      <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
+      `${app.period}교시`,
+      app.room?.name ?? "-",
+      parseDate(app.startAt),
+      parseDate(app.endAt),
+      <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
+      actionCell,
+    ];
+  });
 
   return (
     <div className="flex-1 min-h-0 min-w-0 overflow-x-scroll scrollbar">
-      <div className="min-w-sm">
-        <Table keys={PROJECT_TABLE_KEYS} data={rows} />
+      <div className="sm:min-w-sm">
+        <Table keys={isMobile ? MOBILE_PROJECT_TABLE_KEYS : PROJECT_TABLE_KEYS} data={rows} />
         {isFetchingNextPage && <ProjectSkeletonRows count={3} />}
         <div ref={ref} />
       </div>
