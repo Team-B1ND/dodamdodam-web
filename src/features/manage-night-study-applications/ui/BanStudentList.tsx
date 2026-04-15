@@ -9,6 +9,7 @@ import { useBanManagementTable } from "../hooks/useBanManagementTable";
 import BanActionCell from "./BanActionCell";
 import BanDialog from "./BanDialog";
 import BanSkeletonRows from "./BanSkeletonRows";
+import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 
 interface Props {
   keyword: string;
@@ -84,7 +85,7 @@ const BanStudentList = ({ keyword }: Props) => {
       : [
           user.name,
           studentId,
-          user.phone ?? "-",
+          formatPhoneNumber(user.phone) ?? "-",
           "",
           actionCell,
         ];
