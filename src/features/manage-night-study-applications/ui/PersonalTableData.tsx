@@ -140,6 +140,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
       ? `${app.leader.student.grade}${app.leader.student.room}${String(app.leader.student.number).padStart(2, "0")}`
       : "-",
     <div className="truncate max-w-xs text-text-secondary">{app.status === "REJECTED" ? <p className="text-status-error">{`거절 사유 : ${app.rejectionReason}`}</p> : app.description}</div>,
+    `심${app.period}까지`,
     parseDate(app.startAt),
     parseDate(app.endAt),
     app.needPhone ? "O" : "X",

@@ -4,6 +4,7 @@ export const PERSONAL_TABLE_KEYS: [ReactNode, string][] = [
   ["이름", "88px"],
   ["학반", "72px"],
   ["심자 사유", "FULL"],
+  ["진행시간", "80px"],
   ["시작일", "96px"],
   ["종료일", "96px"],
   ["휴대폰", "64px"],
