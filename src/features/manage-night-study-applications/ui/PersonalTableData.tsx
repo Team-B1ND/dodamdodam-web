@@ -3,15 +3,17 @@ import { parseDate } from "@/shared/utils/parse-date";
 import { Checkbox, FilledButton, Table, useOverlay } from "@b1nd/dodam-design-system/components";
 import type { ReactNode } from "react";
 import { NIGHT_STUDY_STATUS_COLOR, NIGHT_STUDY_STATUS_LABEL } from "../constants/night-study-status";
-import { PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
+import { PERSONAL_MOBILE_TABLE_KEYS, PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
 import { usePersonalApplicationsTable } from "../hooks/usePersonalApplicationsTable";
 import PersonalActionCell from "./PersonalActionCell";
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import PersonalSkeletonRows from "./PersonalSkeletonRows";
 import RejectDialog from "./RejectDialog";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 
 const PersonalTableData = (filters: ApplicationTableFilters) => {
   const { open } = useOverlay();
+  const isMobile = useIsMobile();
   const {
     filtered,
     selectedIds,
@@ -91,10 +93,10 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
       />,
       "40px",
     ],
-    ...PERSONAL_TABLE_KEYS,
+    ...(isMobile ? PERSONAL_MOBILE_TABLE_KEYS : PERSONAL_TABLE_KEYS),
   ];
 
-  const rows = filtered.map((app: PersonalNightStudyApplication) => [
+  const rows = filtered.map((app: PersonalNightStudyApplication) => isMobile ? [
     <Checkbox
       selected={selectedIds.has(app.id)}
       onClick={() => toggleOne(app.id)}
@@ -109,12 +111,44 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
     app.leader.student
       ? `${app.leader.student.grade}${app.leader.student.room}${String(app.leader.student.number).padStart(2, "0")}`
       : "-",
-    <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
+    <div className="shrink-0 whitespace-nowrap">
+      <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>
+        {NIGHT_STUDY_STATUS_LABEL[app.status]}
+      </span>
+    </div>,
+    <PersonalActionCell
+      status={app.status}
+      onAllow={() => allow(app.id)}
+      onReject={() => openRejectDialog(app.id)}
+      onPending={() => pending(app.id)}
+      isAllowing={isAllowing}
+      isPendingRevert={isPendingRevert}
+    />,
+  ] : [
+    <Checkbox
+      selected={selectedIds.has(app.id)}
+      onClick={() => toggleOne(app.id)}
+      size="small"
+    />,
+    <button
+      className="text-primary-normal font-medium hover:underline text-left"
+      onClick={() => openInfoDialog(app)}
+    >
+      {app.leader.name}
+    </button>,
+    app.leader.student
+      ? `${app.leader.student.grade}${app.leader.student.room}${String(app.leader.student.number).padStart(2, "0")}`
+      : "-",
+    <div className="truncate max-w-xs text-text-secondary">{app.status === "REJECTED" ? <p className="text-status-error">{`거절 사유 : ${app.rejectionReason}`}</p> : app.description}</div>,
+    `심${app.period}까지`,
     parseDate(app.startAt),
     parseDate(app.endAt),
     app.needPhone ? "O" : "X",
-    <p className="truncate max-w-xs text-text-secondary">{app.needPhoneReason ?? "-"}</p>,
-    <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
+    <div className="shrink-0 whitespace-nowrap">
+      <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>
+        {NIGHT_STUDY_STATUS_LABEL[app.status]}
+      </span>
+    </div>,
     <PersonalActionCell
       status={app.status}
       onAllow={() => allow(app.id)}
@@ -126,7 +160,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
   ]);
 
   return (
-    <>
+    <div className="flex flex-col overflow-y-auto grow min-w-0">
       {selectedIds.size > 0 && (
         <div className="flex items-center gap-2 self-start">
           <FilledButton
@@ -148,14 +182,14 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
           </FilledButton>
         </div>
       )}
-      <div className="flex-1 min-h-0 min-w-0 overflow-y-scroll scrollbar">
-        <div className="min-w-sm">
+      <div className="overflow-x-auto min-w-0">
+        <div className="sm:min-w-174">
           <Table keys={tableKeys} data={rows} />
           {isFetchingNextPage && <PersonalSkeletonRows count={3} />}
           <div ref={ref} className="h-2" />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

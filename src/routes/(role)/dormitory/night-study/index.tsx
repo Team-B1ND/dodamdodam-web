@@ -1,6 +1,7 @@
 import BanManagementTable from "@/features/manage-night-study-applications/ui/BanManagementTable";
 import PersonalApplicationsTable from "@/features/manage-night-study-applications/ui/PersonalApplicationsTable";
 import ProjectApplicationsTable from "@/features/manage-night-study-applications/ui/ProjectApplicationsTable";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   SegmentedButton,
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/(role)/dormitory/night-study/")({
 type MainTab = "personal" | "project" | "ban";
 
 function RouteComponent() {
+  const isMobile = useIsMobile();
   const [mainSegment, setMainSegment] = useState<SegmentedButtonData[]>([
     { text: "일반 심자", value: "personal", isActive: true },
     { text: "프로젝트", value: "project", isActive: false },
@@ -24,7 +26,7 @@ function RouteComponent() {
   const [mainTab, setMainTab] = useState<MainTab>("personal");
 
   return (
-    <div className="w-full h-[98%] bg-background-surface rounded-large p-5 flex flex-col gap-4">
+    <div className={`h-[98%] large-container flex flex-col gap-4 min-w-0 ${isMobile ? "" : "w-full"}`}>
       <SegmentedButton
         data={mainSegment}
         setData={setMainSegment}
