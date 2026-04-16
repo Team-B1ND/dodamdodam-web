@@ -46,7 +46,7 @@ export const useApplyPersonalNightStudy = () => {
     if (form.needPhone && !form.needPhoneReason.trim()) {
       errorMessage.push("필수 입력 필드를 채워주세요.");
     };
-    if (form.startAt.getDate() > form.endAt.getDate()) {
+    if (form.startAt.getTime() > form.endAt.getTime()) {
       errorMessage.push("시작 날짜가 종료 날짜 이전일 수 없습니다.");
     };
     if (form.description.trim().length >= 250 || form.description.trim().length <= 10) {
