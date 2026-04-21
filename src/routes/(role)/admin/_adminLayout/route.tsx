@@ -10,7 +10,6 @@ function RouteComponent() {
   const [page, setPage] = useState<SegmentedButtonData[]>([
     { text: "유저", value: "", isActive: true },
     { text: "배너", value: "banner", isActive: false },
-    { text: "앱인도담", value: "app-in", isActive: false },
   ]);
   const navigate = useNavigate();
 
