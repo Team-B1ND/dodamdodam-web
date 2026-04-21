@@ -10,6 +10,7 @@ import BanActionCell from "./BanActionCell";
 import BanDialog from "./BanDialog";
 import BanSkeletonRows from "./BanSkeletonRows";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
+import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 
 interface Props {
   keyword: string;
@@ -64,13 +65,10 @@ const BanStudentList = ({ keyword }: Props) => {
 
   const rows = students.map((user: User) => {
     const ban = banMap.get(user.publicId) ?? null;
-    const student = user.student;
-
-    return [
-      user.name,
-      student ? parseStudentId(student.grade, student.room, student.number) : "-",
-      user.phone ?? "-",
-      "",
+    const studentId = user.student
+      ? parseStudentId(user.student.grade, user.student.room, user.student.number)
+      : "-";
+    const actionCell = (
       <BanActionCell
         isBanned={ban !== null}
         onBan={() => openBanDialog(user)}
@@ -80,11 +78,7 @@ const BanStudentList = ({ keyword }: Props) => {
     );
 
     return isMobile
-      ? [
-          user.name,
-          studentId,
-          actionCell,
-        ]
+      ? [user.name, studentId, actionCell]
       : [
           user.name,
           studentId,
