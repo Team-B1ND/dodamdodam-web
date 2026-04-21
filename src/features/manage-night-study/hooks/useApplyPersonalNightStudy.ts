@@ -48,6 +48,8 @@ export const useApplyPersonalNightStudy = () => {
     };
     if (form.startAt.getTime() > form.endAt.getTime()) {
       errorMessage.push("시작 날짜가 종료 날짜 이전일 수 없습니다.");
+    } else if (Math.abs(form.endAt.getTime() - form.startAt.getTime()) > 7*24*60*60*1000) {
+      errorMessage.push("일주일 이상은 신청 불가능합니다.")
     };
     if (form.description.trim().length >= 250 || form.description.trim().length <= 10) {
       errorMessage.push("10글자 이상, 250자 이하로 작성해주세요.");
