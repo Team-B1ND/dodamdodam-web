@@ -19,7 +19,7 @@ import { Route as roleTeacherOutsleepingIndexRouteImport } from './routes/(role)
 import { Route as roleDormitoryNightStudyIndexRouteImport } from './routes/(role)/dormitory/night-study/index'
 import { Route as roleAdminAdminLayoutBannerIndexRouteImport } from './routes/(role)/admin/_adminLayout/banner/index'
 import { Route as roleAdminAdminLayoutAppInIndexRouteImport } from './routes/(role)/admin/_adminLayout/app-in/index'
-import { Route as roleAdminAdminLayoutuserIndexRouteImport } from './routes/(role)/admin/_adminLayout/(user)/index'
+import { Route as roleAdminAdminLayoutmanageUserIndexRouteImport } from './routes/(role)/admin/_adminLayout/(manage-user)/index'
 
 const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   id: '/schedule/',
@@ -76,9 +76,9 @@ const roleAdminAdminLayoutAppInIndexRoute =
     path: '/app-in/',
     getParentRoute: () => roleAdminAdminLayoutRouteRoute,
   } as any)
-const roleAdminAdminLayoutuserIndexRoute =
-  roleAdminAdminLayoutuserIndexRouteImport.update({
-    id: '/(user)/',
+const roleAdminAdminLayoutmanageUserIndexRoute =
+  roleAdminAdminLayoutmanageUserIndexRouteImport.update({
+    id: '/(manage-user)/',
     path: '/',
     getParentRoute: () => roleAdminAdminLayoutRouteRoute,
   } as any)
@@ -92,7 +92,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
-  '/admin/': typeof roleAdminAdminLayoutuserIndexRoute
+  '/admin/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
   '/admin/banner/': typeof roleAdminAdminLayoutBannerIndexRoute
 }
@@ -104,7 +104,7 @@ export interface FileRoutesByTo {
   '/schedule': typeof ScheduleIndexRoute
   '/dormitory/night-study': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping': typeof roleTeacherOutsleepingIndexRoute
-  '/admin': typeof roleAdminAdminLayoutuserIndexRoute
+  '/admin': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in': typeof roleAdminAdminLayoutAppInIndexRoute
   '/admin/banner': typeof roleAdminAdminLayoutBannerIndexRoute
 }
@@ -118,7 +118,7 @@ export interface FileRoutesById {
   '/(role)/admin/_adminLayout': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/(role)/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/(role)/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
-  '/(role)/admin/_adminLayout/(user)/': typeof roleAdminAdminLayoutuserIndexRoute
+  '/(role)/admin/_adminLayout/(manage-user)/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/(role)/admin/_adminLayout/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
   '/(role)/admin/_adminLayout/banner/': typeof roleAdminAdminLayoutBannerIndexRoute
 }
@@ -158,7 +158,7 @@ export interface FileRouteTypes {
     | '/(role)/admin/_adminLayout'
     | '/(role)/dormitory/night-study/'
     | '/(role)/teacher/outsleeping/'
-    | '/(role)/admin/_adminLayout/(user)/'
+    | '/(role)/admin/_adminLayout/(manage-user)/'
     | '/(role)/admin/_adminLayout/app-in/'
     | '/(role)/admin/_adminLayout/banner/'
   fileRoutesById: FileRoutesById
@@ -246,25 +246,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof roleAdminAdminLayoutAppInIndexRouteImport
       parentRoute: typeof roleAdminAdminLayoutRouteRoute
     }
-    '/(role)/admin/_adminLayout/(user)/': {
-      id: '/(role)/admin/_adminLayout/(user)/'
+    '/(role)/admin/_adminLayout/(manage-user)/': {
+      id: '/(role)/admin/_adminLayout/(manage-user)/'
       path: '/'
       fullPath: '/admin/'
-      preLoaderRoute: typeof roleAdminAdminLayoutuserIndexRouteImport
+      preLoaderRoute: typeof roleAdminAdminLayoutmanageUserIndexRouteImport
       parentRoute: typeof roleAdminAdminLayoutRouteRoute
     }
   }
 }
 
 interface roleAdminAdminLayoutRouteRouteChildren {
-  roleAdminAdminLayoutuserIndexRoute: typeof roleAdminAdminLayoutuserIndexRoute
+  roleAdminAdminLayoutmanageUserIndexRoute: typeof roleAdminAdminLayoutmanageUserIndexRoute
   roleAdminAdminLayoutAppInIndexRoute: typeof roleAdminAdminLayoutAppInIndexRoute
   roleAdminAdminLayoutBannerIndexRoute: typeof roleAdminAdminLayoutBannerIndexRoute
 }
 
 const roleAdminAdminLayoutRouteRouteChildren: roleAdminAdminLayoutRouteRouteChildren =
   {
-    roleAdminAdminLayoutuserIndexRoute: roleAdminAdminLayoutuserIndexRoute,
+    roleAdminAdminLayoutmanageUserIndexRoute:
+      roleAdminAdminLayoutmanageUserIndexRoute,
     roleAdminAdminLayoutAppInIndexRoute: roleAdminAdminLayoutAppInIndexRoute,
     roleAdminAdminLayoutBannerIndexRoute: roleAdminAdminLayoutBannerIndexRoute,
   }

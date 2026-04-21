@@ -10,12 +10,11 @@ function RouteComponent() {
   const [page, setPage] = useState<SegmentedButtonData[]>([
     { text: "유저", value: "", isActive: true },
     { text: "배너", value: "banner", isActive: false },
-    { text: "앱인도담", value: "app-in", isActive: false },
   ]);
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 h-fit min-h-0'>
       <header className='large-container'>
         <SegmentedButton 
           data={page} 
