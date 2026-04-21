@@ -42,10 +42,17 @@ export const useApplyPersonalNightStudy = () => {
   };
 
   const validate = () => {
-    if (form.needPhone && !form.needPhoneReason.trim()) return false;
-    if (form.description.trim().length > 250 || form.description.trim().length < 10)
-      return false;
-    return true;
+    const errorMessage = [];
+    if (form.needPhone && !form.needPhoneReason.trim()) {
+      errorMessage.push("필수 입력 필드를 채워주세요.");
+    };
+    if (form.startAt.getTime() > form.endAt.getTime()) {
+      errorMessage.push("시작 날짜가 종료 날짜 이전일 수 없습니다.");
+    };
+    if (form.description.trim().length >= 250 || form.description.trim().length <= 10) {
+      errorMessage.push("10글자 이상, 250자 이하로 작성해주세요.");
+    }
+    return errorMessage;
   };
 
   const init = () => {
@@ -53,8 +60,8 @@ export const useApplyPersonalNightStudy = () => {
   };
 
   const submit = async () => {
-    if (!validate()) {
-      toast.warning("필수 입력 필드를 모두 채워주세요.");
+    if (validate().length !== 0) {
+      toast.warning(validate().join(" 또한 "));
       return;
     }
 
