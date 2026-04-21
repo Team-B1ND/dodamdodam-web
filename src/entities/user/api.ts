@@ -10,7 +10,10 @@ import type {
   User,
   LoginRequest,
   StudentRegister,
-  TeacherRegister
+  TeacherRegister,
+  SearchUserParams,
+  EnableUser,
+  DeactivateUser
 } from "./types";
 
 const USER_BASE = "/user"
@@ -23,6 +26,23 @@ export const UserApi = {
   async searchStudents(params: { keyword: string; page: number }) {
     return await apiClient.get<PageResponse<User>>(
       `${USER_BASE}/search?roles=STUDENT&page=${params.page}&size=10${params.keyword ? `&keyword=${params.keyword}` : ""}`,
+    );
+  },
+
+  async searchUser(params: SearchUserParams) {
+    const roleQuery = params.roles.map((role) => `roles=${role}`);
+    const statusQuery = params.status.map((status) => `status=${status}`);
+    const query = [
+      ...roleQuery,
+      ...statusQuery,
+      `generationOnly=${params.generationOnly}`,
+      `page=${params.page}`,
+      "size=10",
+      ...(params.keyword ? [`keyword=${params.keyword}`] : []),
+    ].join("&");
+
+    return await apiClient.get<PageResponse<User>>(
+      `${USER_BASE}/search?${query}`,
     );
   },
 
@@ -67,4 +87,13 @@ export const UserApi = {
   async registerTeacher(paylaod: TeacherRegister) {
     return await apiClient.post(`${USER_BASE}/register-teacher`, paylaod);
   },
+
+  async enableUser(payload: EnableUser) {
+    return await apiClient.post(`${USER_BASE}/enable`, payload);
+  },
+
+  async deactivateUser(payload: DeactivateUser) {
+    return await apiClient.patch(`${USER_BASE}/deactivate`, payload);
+  },
+  
 };
