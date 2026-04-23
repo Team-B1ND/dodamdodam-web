@@ -58,7 +58,7 @@ const RegisterForm = () => {
             </span>
           </div>
           <RegisterRoleInfo 
-            validateCompleteRoleInfo={validateCompleteRoleInfo}
+            validateCompleteRoleInfo={() => validateCompleteRoleInfo(registerType)}
             phaseController={phaseController} 
             registerType={registerType}
             studentInfo={studentInfo}
