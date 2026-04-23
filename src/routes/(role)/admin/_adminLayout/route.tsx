@@ -1,6 +1,7 @@
 import { SegmentedButton, type SegmentedButtonData } from '@b1nd/dodam-design-system/components'
+import { useGetMeQuery } from '@/entities/user/queries';
 import { createFileRoute, Outlet, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/(role)/admin/_adminLayout')({
   component: RouteComponent,
@@ -12,6 +13,22 @@ function RouteComponent() {
     { text: "배너", value: "banner", isActive: false },
   ]);
   const navigate = useNavigate();
+  const { data: meData, isPending, isError } = useGetMeQuery();
+  const isAdmin = meData?.data.roles.includes("ADMIN") ?? false;
+
+  useEffect(() => {
+    if (!meData || isAdmin) return;
+
+    navigate({ to: "/", replace: true });
+  }, [isAdmin, meData, navigate]);
+
+  if (isPending) {
+    return <div className="large-container h-16 skeleton" />;
+  }
+
+  if (isError || !isAdmin) {
+    return null;
+  }
 
   return (
     <div className='flex flex-col gap-4 h-fit min-h-0'>
