@@ -11,6 +11,7 @@ export interface NightStudy {
 
 export interface ProjectNightStudy extends NightStudy {
   name: string;
+  room: NightStudyRoom;
 }
 
 export interface PersonalNightStudy extends NightStudy {

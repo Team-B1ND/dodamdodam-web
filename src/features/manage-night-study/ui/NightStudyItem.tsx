@@ -1,4 +1,4 @@
-import type { NightStudy } from "@/entities/night-study/types";
+import type { NightStudy, ProjectNightStudy } from "@/entities/night-study/types";
 import StatusTag from "./StatusTag";
 import { Trash } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
@@ -7,13 +7,17 @@ import { Dialog, useOverlay } from "@b1nd/dodam-design-system/components";
 import { useDeleteNightStudyMutation } from "@/entities/night-study/mutations";
 
 interface Props {
-  data: NightStudy;
+  data: NightStudy | ProjectNightStudy;
   projectNightStudy?: boolean;
 }
 
 const NightStudyItem = ({ projectNightStudy = false, data }: Props) => {
   const { open } = useOverlay();
   const { mutateAsync, isPending } = useDeleteNightStudyMutation();
+  
+  const isProjectStudy = (data: NightStudy): data is ProjectNightStudy => {
+    return (data as ProjectNightStudy).room !== undefined
+  }
 
   const handleOpenDeleteDialog = () => {
     open(({ close, exit, isOpen }) => (
@@ -73,9 +77,23 @@ const NightStudyItem = ({ projectNightStudy = false, data }: Props) => {
         <div className="row-[1/2]-[1/2] flex items-center gap-2">
           <p className="text-caption1 font-medium text-text-tertiary">심자</p>
           <p className="text-caption1 font-bold">
-            {projectNightStudy ? data.period : data.period > 1 ? `1~${data.period}까지` : "1까지"}
+            {projectNightStudy
+              ? data.period
+              : data.period > 1
+                ? `1~${data.period}까지`
+                : "1까지"}
           </p>
         </div>
+        {isProjectStudy(data) ? (
+          <div className="row-[1/2]-[1/2] flex items-center gap-2">
+            <p className="text-caption1 font-medium text-text-tertiary">사용 실</p>
+            <p className="text-caption1 font-bold">
+              {data.room ? data.room.name : "미지정"}
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
