@@ -1,4 +1,4 @@
-import { useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { NightStudyApi } from "./api";
 import type { ApplicationTableFilters } from "./types";
 
@@ -57,4 +57,10 @@ export const useGetBanListQuery = () =>
   useSuspenseQuery({
     queryKey: ["nightstudy", "bans"],
     queryFn: NightStudyApi.getBanList,
+  });
+
+export const useGetNightStudyCountQuery = () =>
+  useQuery({
+    queryKey: ["nightstudy", "applications", "count"],
+    queryFn: NightStudyApi.getNightStudyCount,
   });

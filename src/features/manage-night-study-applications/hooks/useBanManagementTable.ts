@@ -30,6 +30,7 @@ export const useBanManagementTable = (keyword: string) => {
     students,
     banMap,
     ref,
+    hasNextPage,
     isFetchingNextPage,
     createBan,
     isCreating,

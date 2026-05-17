@@ -11,6 +11,7 @@ export interface NightStudy {
 
 export interface ProjectNightStudy extends NightStudy {
   name: string;
+  room?: NightStudyRoom;
 }
 
 export interface PersonalNightStudy extends NightStudy {
@@ -106,4 +107,11 @@ export interface ApplicationTableFilters {
   status?: NightStudyStatus;
   grade?: number;
   room?: number;
+}
+
+export type NightStudyCount = Record<"personal" | "project" | "total", NightStudyCountDataType>
+
+export interface NightStudyCountDataType {
+  period1: number;
+  period2: number;
 }
