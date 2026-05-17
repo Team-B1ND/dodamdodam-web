@@ -1,4 +1,5 @@
 import type { ApplicationTableFilters, NightStudyStatus } from "@/entities/night-study/types";
+import { useGetNightStudyCountQuery } from "@/entities/night-study/queries";
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import { Dropdown } from "@b1nd/dodam-design-system/components";
@@ -19,8 +20,12 @@ const PersonalApplicationsTable = () => {
   const [status, setStatus] = useState<NightStudyStatus | undefined>(undefined);
   const [grade, setGrade] = useState<number | undefined>(undefined);
   const [room, setRoom] = useState<number | undefined>(undefined);
+  const { data: countData } = useGetNightStudyCountQuery();
 
   const debouncedKeyword = useDebounce(keyword);
+  const personalCount =
+    (countData?.data.personal.period1 ?? 0) +
+    (countData?.data.personal.period2 ?? 0);
 
   const filters: ApplicationTableFilters = {
     keyword: debouncedKeyword || undefined,
@@ -42,6 +47,7 @@ const PersonalApplicationsTable = () => {
           />
         </div>
         <div className="flex items-center gap-3 shrink-0">
+          <p className="text-body2 text-text-secondary">{`승인 인원 ${personalCount}명`}</p>
           <Dropdown
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
