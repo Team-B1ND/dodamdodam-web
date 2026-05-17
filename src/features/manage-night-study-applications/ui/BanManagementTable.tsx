@@ -22,7 +22,7 @@ const BanManagementTable = () => {
           onChange={(e) => setKeyword(e.target.value)}
         />
       </div>
-      <div className="overflow-x-auto flex-1 w-full min-h-0 min-w-0 scrollbar">
+      <div className="overflow-x-auto overflow-y-auto flex-1 w-full min-h-0 min-w-0 scrollbar">
         <div className="min-w-120">
           <QueryBoundary pendingFallback={<BanManagementTable.Skeleton />}>
             <BanStudentList keyword={query} />

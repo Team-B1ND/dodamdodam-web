@@ -23,6 +23,7 @@ const BanStudentList = ({ keyword }: Props) => {
     students,
     banMap,
     ref,
+    hasNextPage,
     isFetchingNextPage,
     createBan,
     isCreating,
@@ -92,7 +93,7 @@ const BanStudentList = ({ keyword }: Props) => {
     <>
       <Table keys={isMobile ? MOBILE_BAN_TABLE_KEYS : BAN_TABLE_KEYS} data={rows} />
       {isFetchingNextPage && <BanSkeletonRows count={3} />}
-      <div ref={ref} />
+      {hasNextPage ? <div ref={ref} className="h-2 shrink-0" /> : null}
     </>
   );
 };
