@@ -10,6 +10,7 @@ const TimeTable = () => {
   const { data } = useGetTimeTable();
   const today = getToday("YYYY-MM-DD");
   const period = getPeriod();
+  const firstClass = data.flat().find(Boolean);
 
   return data.length !== 0 ? (
     <div className="small-container flex flex-col gap-3 text-text-primary">
@@ -18,7 +19,9 @@ const TimeTable = () => {
           <Clock color={colors.text.primary} />
           <p className="text-headline font-bold">시간표</p>
         </div>
-        <Tag text={`${data[0][0].grade}-${data[0][0].room}`} color="blue" />
+        {firstClass ? (
+          <Tag text={`${firstClass.grade}-${firstClass.room}`} color="blue" />
+        ) : null}
       </header>
       <div className="bg-fill-primary p-3 rounded-large">
         <table className="text-center w-full">
@@ -37,8 +40,8 @@ const TimeTable = () => {
                 {Array.from({ length: 6 }).map((_, rowIndex) => (
                   <td
                     className={`py-1.5 text-label h-9 ${
-                      rowIndex !== 0 &&
-                      today === data[rowIndex - 1][index]?.date
+                      rowIndex !== 0 && 
+                      today === data[rowIndex - 1]?.[index]?.date
                         ? `${
                             period === index + 1
                               ? `text-brand-primary`

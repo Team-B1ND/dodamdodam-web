@@ -26,9 +26,9 @@ const UserProfile = () => {
           <p className="text-headline font-bold">{data.name}</p>
           {data.student ? (
             <span className="text-label font-medium text-text-tertiary">{`${data.student?.grade}학년 ${data.student?.room}반 ${data.student?.number}번`}</span>
-          ) : (
+          ) : data.admin ? (
             <span className="">Admin Account</span>
-          )}
+          ) : (<span className="">Teacher Account</span>)}
         </section>
       </div>
       <FilledButton role="assistive" size="medium" onClick={openModal}>
