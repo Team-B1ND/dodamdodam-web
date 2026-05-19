@@ -8,6 +8,7 @@ import { colors } from "@b1nd/dodam-design-system/colors";
 import { useState } from "react";
 import {
   GRADE_FILTER_ITEMS,
+  PERIOD_FILTER_ITEMS,
   ROOM_FILTER_ITEMS,
   STATUS_FILTER_ITEMS,
 } from "../constants/application-filter-items";
@@ -20,6 +21,7 @@ const ProjectApplicationsTable = () => {
   const [status, setStatus] = useState<NightStudyStatus | undefined>(undefined);
   const [grade, setGrade] = useState<number | undefined>(undefined);
   const [room, setRoom] = useState<number | undefined>(undefined);
+  const [period, setPeriod] = useState<number | undefined>(undefined);
   const { data: countData } = useGetNightStudyCountQuery();
 
   const debouncedKeyword = useDebounce(keyword);
@@ -32,6 +34,7 @@ const ProjectApplicationsTable = () => {
     status,
     grade,
     room,
+    period,
   };
 
   return (
@@ -73,19 +76,25 @@ const ProjectApplicationsTable = () => {
               setRoom(item.value === "" ? undefined : Number(item.value))
             }
           />
+          <Dropdown
+            items={PERIOD_FILTER_ITEMS}
+            value={period !== undefined ? String(period) : ""}
+            onSelectedItemChange={(item) =>
+              setPeriod(item.value === "" ? undefined : Number(item.value))
+            }
+          />
         </div>
       </div>
 
       <QueryBoundary pendingFallback={<ProjectSkeletonRows count={8} />}>
         <ProjectTableData
-          key={`${debouncedKeyword}-${status}-${grade}-${room}`}
+          key={`${debouncedKeyword}-${status}-${grade}-${room}-${period}`}
           {...filters}
         />
       </QueryBoundary>
     </div>
   );
 };
-
 
 ProjectApplicationsTable.Skeleton = () => (
   <div className="flex flex-col gap-3 overflow-y-auto grow items-start">
