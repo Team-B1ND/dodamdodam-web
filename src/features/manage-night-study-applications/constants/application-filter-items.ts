@@ -19,3 +19,9 @@ export const ROOM_FILTER_ITEMS = [
   { name: "3반", value: "3" },
   { name: "4반", value: "4" },
 ];
+
+export const PERIOD_FILTER_ITEMS = [
+  { name: "모든 심자", value: "" },
+  { name: "심자 1", value: "1" },
+  { name: "심자 2", value: "2" },
+];

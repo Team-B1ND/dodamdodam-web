@@ -107,6 +107,7 @@ export interface ApplicationTableFilters {
   status?: NightStudyStatus;
   grade?: number;
   room?: number;
+  period?: number;
 }
 
 export type NightStudyCount = Record<"personal" | "project" | "total", NightStudyCountDataType>
