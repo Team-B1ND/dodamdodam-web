@@ -15,6 +15,7 @@ import {
 import { PROJECT_TABLE_KEYS } from "../constants/project-table-keys";
 import ProjectSkeletonRows from "./ProjectSkeletonRows";
 import ProjectTableData from "./ProjectTableData";
+import NightStudyExcelButton from "./NightStudyExcelButton";
 
 const ProjectApplicationsTable = () => {
   const [keyword, setKeyword] = useState("");
@@ -51,6 +52,7 @@ const ProjectApplicationsTable = () => {
         </div>
         <div className="flex items-center gap-3 shrink-0">
           <p className="text-body2 text-text-secondary">{`승인 인원 ${projectCount}명`}</p>
+          <NightStudyExcelButton type="project" filters={filters} />
           <Dropdown
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
