@@ -1,6 +1,5 @@
 import type { NightStudy, ProjectNightStudy } from "@/entities/night-study/types";
 import StatusTag from "./StatusTag";
-import NightStudyReason from './NightStudyReason';
 import { Trash } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { parseDate } from "../../../shared/utils/parse-date";
@@ -60,27 +59,38 @@ const NightStudyItem = ({ projectNightStudy = false, data }: Props) => {
           onClick={handleOpenDeleteDialog}
         />
       </div>
-      <NightStudyReason status={data.status} description={data.description} rejectionReason={data.rejectionReason}/>
+      <textarea
+        className="w-full h-12 resize-none"
+        value={data.description}
+        readOnly
+      />
       <div className="w-full h-px bg-border-normal" />
       <div className="w-full grid grid-cols-2 grid-rows-2 gap-2.5">
-        <div className="row-[0/1] col-[0/1] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">종료</p>
-          <p className="text-caption1 font-bold">{parseDate(data.endAt)}</p>
-        </div>
-        <div className="row-[1/2] [1/2] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">시작</p>
-          <p className="text-caption1 font-bold">{parseDate(data.startAt)}</p>
-        </div>
-        <div className="row-[1/2]-[1/2] flex items-center gap-2">
-          <p className="text-caption1 font-medium text-text-tertiary">심자</p>
-          <p className="text-caption1 font-bold">
-            {projectNightStudy
-              ? data.period
-              : data.period > 1
-                ? `1~${data.period}까지`
-                : "1까지"}
-          </p>
-        </div>
+        {data.status !== "REJECTED" ? 
+        <>
+          <div className="row-[0/1] col-[0/1] flex items-center gap-2">
+            <p className="text-caption1 font-medium text-text-tertiary">종료</p>
+            <p className="text-caption1 font-bold">{parseDate(data.endAt)}</p>
+          </div>
+          <div className="row-[1/2] [1/2] flex items-center gap-2">
+            <p className="text-caption1 font-medium text-text-tertiary">시작</p>
+            <p className="text-caption1 font-bold">{parseDate(data.startAt)}</p>
+          </div>
+          <div className="row-[1/2]-[1/2] flex items-center gap-2">
+            <p className="text-caption1 font-medium text-text-tertiary">심자</p>
+            <p className="text-caption1 font-bold">
+              {projectNightStudy
+                ? data.period
+                : data.period > 1
+                  ? `1~${data.period}까지`
+                  : "1까지"}
+            </p>
+          </div>
+        </> : 
+        <div className="row-[1/3] col-[1/3] flex items-center gap-2">
+          <p className="text-caption1 font-medium text-text-tertiary">거절 사유</p>
+          <p className="text-caption1 font-bold">{data.rejectionReason}</p>
+        </div>}
         {isProjectStudy(data) ? (
           <div className="row-[1/2]-[1/2] flex items-center gap-2">
             <p className="text-caption1 font-medium text-text-tertiary">사용 실</p>
