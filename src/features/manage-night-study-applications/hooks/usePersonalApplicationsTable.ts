@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = {}) => {
-  const { keyword, status, grade, room } = filters;
+  const { keyword, status, grade, room, period } = filters;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetPersonalApplicationsQuery({ keyword, status });
@@ -20,6 +20,7 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
     const student = app.leader.student;
     if (grade !== undefined && student?.grade !== grade) return false;
     if (room !== undefined && student?.room !== room) return false;
+    if (period !== undefined && app?.period !== period) return false;
     return true;
   });
 

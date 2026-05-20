@@ -84,7 +84,7 @@ const BanStudentList = ({ keyword }: Props) => {
           user.name,
           studentId,
           formatPhoneNumber(user.phone) ?? "-",
-          "",
+          ban?.reason,
           actionCell,
         ];
   });

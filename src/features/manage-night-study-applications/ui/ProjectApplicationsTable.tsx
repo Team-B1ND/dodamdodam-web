@@ -8,18 +8,21 @@ import { colors } from "@b1nd/dodam-design-system/colors";
 import { useState } from "react";
 import {
   GRADE_FILTER_ITEMS,
+  PERIOD_FILTER_ITEMS,
   ROOM_FILTER_ITEMS,
   STATUS_FILTER_ITEMS,
 } from "../constants/application-filter-items";
 import { PROJECT_TABLE_KEYS } from "../constants/project-table-keys";
 import ProjectSkeletonRows from "./ProjectSkeletonRows";
 import ProjectTableData from "./ProjectTableData";
+import NightStudyExcelButton from "./NightStudyExcelButton";
 
 const ProjectApplicationsTable = () => {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<NightStudyStatus | undefined>(undefined);
   const [grade, setGrade] = useState<number | undefined>(undefined);
   const [room, setRoom] = useState<number | undefined>(undefined);
+  const [period, setPeriod] = useState<number | undefined>(undefined);
   const { data: countData } = useGetNightStudyCountQuery();
 
   const debouncedKeyword = useDebounce(keyword);
@@ -32,6 +35,7 @@ const ProjectApplicationsTable = () => {
     status,
     grade,
     room,
+    period,
   };
 
   return (
@@ -48,6 +52,7 @@ const ProjectApplicationsTable = () => {
         </div>
         <div className="flex items-center gap-3 shrink-0">
           <p className="text-body2 text-text-secondary">{`승인 인원 ${projectCount}명`}</p>
+          <NightStudyExcelButton type="project" filters={filters} />
           <Dropdown
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
@@ -73,19 +78,25 @@ const ProjectApplicationsTable = () => {
               setRoom(item.value === "" ? undefined : Number(item.value))
             }
           />
+          <Dropdown
+            items={PERIOD_FILTER_ITEMS}
+            value={period !== undefined ? String(period) : ""}
+            onSelectedItemChange={(item) =>
+              setPeriod(item.value === "" ? undefined : Number(item.value))
+            }
+          />
         </div>
       </div>
 
       <QueryBoundary pendingFallback={<ProjectSkeletonRows count={8} />}>
         <ProjectTableData
-          key={`${debouncedKeyword}-${status}-${grade}-${room}`}
+          key={`${debouncedKeyword}-${status}-${grade}-${room}-${period}`}
           {...filters}
         />
       </QueryBoundary>
     </div>
   );
 };
-
 
 ProjectApplicationsTable.Skeleton = () => (
   <div className="flex flex-col gap-3 overflow-y-auto grow items-start">

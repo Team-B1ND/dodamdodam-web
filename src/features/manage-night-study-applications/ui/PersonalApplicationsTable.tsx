@@ -8,18 +8,21 @@ import { colors } from "@b1nd/dodam-design-system/colors";
 import { useState } from "react";
 import {
   GRADE_FILTER_ITEMS,
+  PERIOD_FILTER_ITEMS,
   ROOM_FILTER_ITEMS,
   STATUS_FILTER_ITEMS,
 } from "../constants/application-filter-items";
 import { PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
 import PersonalSkeletonRows from "./PersonalSkeletonRows";
 import PersonalTableData from "./PersonalTableData";
+import NightStudyExcelButton from "./NightStudyExcelButton";
 
 const PersonalApplicationsTable = () => {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<NightStudyStatus | undefined>(undefined);
   const [grade, setGrade] = useState<number | undefined>(undefined);
   const [room, setRoom] = useState<number | undefined>(undefined);
+  const [period, setPeriod] = useState<number | undefined>(undefined);
   const { data: countData } = useGetNightStudyCountQuery();
 
   const debouncedKeyword = useDebounce(keyword);
@@ -32,6 +35,7 @@ const PersonalApplicationsTable = () => {
     status,
     grade,
     room,
+    period,
   };
 
   return (
@@ -48,11 +52,16 @@ const PersonalApplicationsTable = () => {
         </div>
         <div className="flex items-center gap-3 shrink-0">
           <p className="text-body2 text-text-secondary">{`승인 인원 ${personalCount}명`}</p>
+          <NightStudyExcelButton type="personal" filters={filters} />
           <Dropdown
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
             onSelectedItemChange={(item) =>
-              setStatus(item.value === "" ? undefined : item.value as NightStudyStatus)
+              setStatus(
+                item.value === ""
+                  ? undefined
+                  : (item.value as NightStudyStatus),
+              )
             }
           />
           <Dropdown
@@ -69,16 +78,25 @@ const PersonalApplicationsTable = () => {
               setRoom(item.value === "" ? undefined : Number(item.value))
             }
           />
+          <Dropdown
+            items={PERIOD_FILTER_ITEMS}
+            value={period !== undefined ? String(period) : ""}
+            onSelectedItemChange={(item) =>
+              setPeriod(item.value === "" ? undefined : Number(item.value))
+            }
+          />
         </div>
       </div>
 
       <QueryBoundary pendingFallback={<PersonalSkeletonRows count={8} />}>
-        <PersonalTableData key={`${debouncedKeyword}-${status}-${grade}-${room}`} {...filters} />
+        <PersonalTableData
+          key={`${debouncedKeyword}-${status}-${grade}-${room}-${period}`}
+          {...filters}
+        />
       </QueryBoundary>
     </div>
   );
 };
-
 
 PersonalApplicationsTable.Skeleton = () => (
   <div className="flex flex-col gap-3 overflow-y-auto grow items-start">
