@@ -1,5 +1,6 @@
 import type { NightStudy, ProjectNightStudy } from "@/entities/night-study/types";
 import StatusTag from "./StatusTag";
+import NightStudyReason from './NightStudyReason';
 import { Trash } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { parseDate } from "../../../shared/utils/parse-date";
@@ -59,11 +60,7 @@ const NightStudyItem = ({ projectNightStudy = false, data }: Props) => {
           onClick={handleOpenDeleteDialog}
         />
       </div>
-      <textarea
-        className="w-full h-12 resize-none"
-        value={data.description}
-        readOnly
-      />
+      <NightStudyReason status={data.status} description={data.description} rejectionReason={data.rejectionReason}/>
       <div className="w-full h-px bg-border-normal" />
       <div className="w-full grid grid-cols-2 grid-rows-2 gap-2.5">
         <div className="row-[0/1] col-[0/1] flex items-center gap-2">
