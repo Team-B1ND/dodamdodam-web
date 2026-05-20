@@ -26,9 +26,8 @@ const PersonalApplicationsTable = () => {
   const { data: countData } = useGetNightStudyCountQuery();
 
   const debouncedKeyword = useDebounce(keyword);
-  const personalCount =
-    (countData?.data.personal.period1 ?? 0) +
-    (countData?.data.personal.period2 ?? 0);
+  const period1Count = countData?.data.personal.period1 ?? 0;
+  const period2Count = countData?.data.personal.period2 ?? 0;
 
   const filters: ApplicationTableFilters = {
     keyword: debouncedKeyword || undefined,
@@ -51,7 +50,7 @@ const PersonalApplicationsTable = () => {
           />
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <p className="text-body2 text-text-secondary">{`승인 인원 ${personalCount}명`}</p>
+          <p className="text-body2 text-text-secondary">{`심자1: ${period1Count}명, 심자2: ${period2Count}명`}</p>
           <NightStudyExcelButton type="personal" filters={filters} />
           <Dropdown
             items={STATUS_FILTER_ITEMS}
