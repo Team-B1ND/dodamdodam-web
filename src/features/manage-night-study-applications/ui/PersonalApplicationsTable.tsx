@@ -15,6 +15,7 @@ import {
 import { PERSONAL_TABLE_KEYS } from "../constants/personal-table-keys";
 import PersonalSkeletonRows from "./PersonalSkeletonRows";
 import PersonalTableData from "./PersonalTableData";
+import NightStudyExcelButton from "./NightStudyExcelButton";
 
 const PersonalApplicationsTable = () => {
   const [keyword, setKeyword] = useState("");
@@ -51,6 +52,7 @@ const PersonalApplicationsTable = () => {
         </div>
         <div className="flex items-center gap-3 shrink-0">
           <p className="text-body2 text-text-secondary">{`승인 인원 ${personalCount}명`}</p>
+          <NightStudyExcelButton type="personal" filters={filters} />
           <Dropdown
             items={STATUS_FILTER_ITEMS}
             value={status ?? ""}
