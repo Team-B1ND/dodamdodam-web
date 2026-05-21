@@ -17,13 +17,14 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
 
   const all = data.pages.flatMap((p) => p.data.content);
 
-  const today = dayjs().startOf("day");
+  
 
   const filtered = all.filter((app) => {
     const student = app.leader.student;
     if (grade !== undefined && student?.grade !== grade) return false;
     if (room !== undefined && student?.room !== room) return false;
     if (period !== undefined && app?.period !== period) return false;
+    const today = dayjs().startOf("day");
     const start = dayjs(app.startAt);
     const end = dayjs(app.endAt);
     if (today.isBefore(start) || today.isAfter(end)) return false;
