@@ -38,6 +38,13 @@ export interface BanStatusResponse {
   reason: string;
   endAt: string;
   createdAt: string;
+  name: string;
+  student?: {
+    grade: number;
+    room: number;
+    number: number;
+  };
+  phone: string;
 }
 
 export interface NightStudyUser {
