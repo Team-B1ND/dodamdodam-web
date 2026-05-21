@@ -7,6 +7,7 @@ import {
 import { useGetPersonalApplicationsQuery } from "@/entities/night-study/queries";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import dayjs from "dayjs";
 
 export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = {}) => {
   const { keyword, status, grade, room, period } = filters;
@@ -16,13 +17,19 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
 
   const all = data.pages.flatMap((p) => p.data.content);
 
+  const today = dayjs().startOf("day");
+
   const filtered = all.filter((app) => {
     const student = app.leader.student;
     if (grade !== undefined && student?.grade !== grade) return false;
     if (room !== undefined && student?.room !== room) return false;
     if (period !== undefined && app?.period !== period) return false;
+    const start = dayjs(app.startAt);
+    const end = dayjs(app.endAt);
+    if (today.isBefore(start) || today.isAfter(end)) return false;
     return true;
   });
+  
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
