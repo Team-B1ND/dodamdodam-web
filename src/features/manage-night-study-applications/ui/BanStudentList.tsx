@@ -1,11 +1,13 @@
-import type { User } from "@/entities/user/types";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import { Table, useOverlay } from "@b1nd/dodam-design-system/components";
 import {
   BAN_TABLE_KEYS,
   MOBILE_BAN_TABLE_KEYS,
 } from "../constants/ban-table-keys";
-import { useBanManagementTable } from "../hooks/useBanManagementTable";
+import {
+  type BanFilterStatus,
+  useBanManagementTable,
+} from "../hooks/useBanManagementTable";
 import BanActionCell from "./BanActionCell";
 import BanDialog from "./BanDialog";
 import BanSkeletonRows from "./BanSkeletonRows";
@@ -14,14 +16,14 @@ import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
 
 interface Props {
   keyword: string;
+  banStatus: BanFilterStatus;
 }
 
-const BanStudentList = ({ keyword }: Props) => {
+const BanStudentList = ({ keyword, banStatus }: Props) => {
   const isMobile = useIsMobile();
   const { open } = useOverlay();
   const {
     students,
-    banMap,
     ref,
     hasNextPage,
     isFetchingNextPage,
@@ -29,9 +31,9 @@ const BanStudentList = ({ keyword }: Props) => {
     isCreating,
     deleteBan,
     isDeleting,
-  } = useBanManagementTable(keyword);
+  } = useBanManagementTable(keyword, banStatus);
 
-  const openBanDialog = (user: User) => {
+  const openBanDialog = (user: { publicId: string; name: string }) => {
     open(({ close, exit, isOpen }) => (
       <BanDialog
         studentName={user.name}
@@ -64,8 +66,8 @@ const BanStudentList = ({ keyword }: Props) => {
     );
   }
 
-  const rows = students.map((user: User) => {
-    const ban = banMap.get(user.publicId) ?? null;
+  const rows = students.map((user) => {
+    const ban = user.ban;
     const studentId = user.student
       ? parseStudentId(user.student.grade, user.student.room, user.student.number)
       : "-";
