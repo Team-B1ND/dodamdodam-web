@@ -1,31 +1,49 @@
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import QueryBoundary from "@/shared/ui/query-boundary";
+import { Dropdown } from "@b1nd/dodam-design-system/components";
 import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
 import { useState } from "react";
 import { BAN_TABLE_KEYS } from "../constants/ban-table-keys";
+import type { BanFilterStatus } from "../hooks/useBanManagementTable";
 import BanSkeletonRows from "./BanSkeletonRows";
 import BanStudentList from "./BanStudentList";
 import { colors } from "@b1nd/dodam-design-system/colors";
 
+const BAN_FILTER_ITEMS = [
+  { name: "전체 학생", value: "ALL" },
+  { name: "정지 학생", value: "BANNED" },
+  { name: "미정지 학생", value: "UNBANNED" },
+];
+
 const BanManagementTable = () => {
   const [keyword, setKeyword] = useState("");
+  const [banStatus, setBanStatus] = useState<BanFilterStatus>("ALL");
   const query = useDebounce(keyword);
 
   return (
     <div className="flex items-start flex-col gap-3 overflow-hidden grow">
-      <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
-        <MagnifyingGlass size={24} color={colors.text.placeholder} />
-        <input
-          className="flex-1 bg-transparent outline-none text-headline text-text-primary placeholder:text-text-placeholder"
-          placeholder="검색어를 입력하세요."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+      <div className="flex flex-wrap flex-row items-center justify-between w-full shrink-0 gap-3 max-md:flex-col max-md:items-start">
+        <div className="flex items-center gap-3 h-12 bg-fill-primary rounded-small px-3">
+          <MagnifyingGlass size={24} color={colors.text.placeholder} />
+          <input
+            className="flex-1 bg-transparent outline-none text-headline text-text-primary placeholder:text-text-placeholder"
+            placeholder="검색어를 입력하세요."
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </div>
+        <Dropdown
+          items={BAN_FILTER_ITEMS}
+          value={banStatus}
+          onSelectedItemChange={(item) =>
+            setBanStatus(item.value as BanFilterStatus)
+          }
         />
       </div>
       <div className="overflow-x-auto overflow-y-auto flex-1 w-full min-h-0 min-w-0 scrollbar">
         <div className="min-w-120">
           <QueryBoundary pendingFallback={<BanManagementTable.Skeleton />}>
-            <BanStudentList keyword={query} />
+            <BanStudentList keyword={query} banStatus={banStatus} />
           </QueryBoundary>
         </div>
       </div>
