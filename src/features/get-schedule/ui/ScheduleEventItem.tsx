@@ -51,7 +51,7 @@ export const ScheduleEventItem = ({
       className="h-5 rounded-[3px] px-1.5 text-static-white flex items-center whitespace-nowrap overflow-hidden relative z-10"
       style={{
         backgroundColor: item.backgroundColor,
-        width: `calc(${spanDays * 100}% + ${spanDays - 1}px)`,
+        width: `calc(${spanDays * 100}% + ${spanDays - 1}px + ${1.05 * spanDays}rem - 1rem)`,
       }}
     >
       <span className="text-static-white">
