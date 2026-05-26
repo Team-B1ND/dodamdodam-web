@@ -49,12 +49,7 @@ export const ScheduleEventItem = ({
         width: `calc(${spanDays * 100}% + ${spanDays - 1}px)`,
       }}
     >
-      <span className="text-static-white">
-        <span>
-          <strong>09:00</strong>&nbsp;
-          <span>{item.title}</span>
-        </span>
-      </span>
+      <span className="text-static-white overflow-hidden text-ellipsis text-nowrap">{item.title}</span>
     </div>
   );
 };
