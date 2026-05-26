@@ -18,17 +18,21 @@ export const useApplyOutSleeping = () => {
   };
 
   const validate = () => {
-    const errorMessage = []
+    const errorMessage = [];
+
+    if (padDate(startAt) < padDate(new Date())) {
+      errorMessage.push("출발 일자는 현재보다 이전일 수 없어요.");
+    }
     
-    if (startAt.getTime() >= endAt.getTime()) {
-      errorMessage.push("도착 일자는 출발 일자 이후여야 합니다.");
-    };
+    if (padDate(startAt) >= padDate(endAt)) {
+      errorMessage.push("도착 일자는 출발 일자 이후여야 해요.");
+    }
     
     if (reason.trim().length === 0) {
-      errorMessage.push("사유를 입력해주세요.")
-    };
+      errorMessage.push("사유를 입력해주세요.");
+    }
 
-    return errorMessage
+    return errorMessage;
   }
 
   const init = () => {
