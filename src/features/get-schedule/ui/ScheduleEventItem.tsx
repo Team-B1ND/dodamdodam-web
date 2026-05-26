@@ -25,12 +25,7 @@ export const ScheduleEventItem = ({
           className="size-1.5 rounded-full shrink-0"
           style={{ backgroundColor: item.backgroundColor }}
         />
-        <span className="text-text-secondary">
-          <span>
-            <strong>09:00</strong>&nbsp;
-            <span>{item.title}</span>
-          </span>
-        </span>
+        <span className="text-text-secondary overflow-hidden text-ellipsis text-nowrap">{item.title}</span>
       </div>
     );
   }
