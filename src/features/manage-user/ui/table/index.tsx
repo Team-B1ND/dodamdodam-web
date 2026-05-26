@@ -1,4 +1,4 @@
-import { USER_ROLE_MAP, type UserStatus } from "@/entities/user/types";
+import { USER_ROLE_MAP, type User, type UserStatus } from "@/entities/user/types";
 import { USER_TABLE_KEYS } from "@/features/manage-user/constants/user-table-keys";
 import type { UseFilterUserReturn } from "@/features/manage-user/model/useFilterUser";
 import { useManageUserTable } from "@/features/manage-user/model/useManageUserTable";
@@ -18,6 +18,8 @@ import {
   Clock,
 } from "@b1nd/dodam-design-system/icons";
 import { type ReactNode } from "react";
+import RoleGrantDialog from '../RoleGrantDialog';
+import { useGrantDormitoryMutation } from '@/entities/user/mutations';
 
 const ManageUserTable = ({
   keyword,
@@ -29,6 +31,7 @@ const ManageUserTable = ({
   "keyword" | "selectedStatus" | "roles" | "generationOnly"
 >) => {
   const { open } = useOverlay();
+  const { mutateAsync: grantRole, isPending: isGrantingRole } = useGrantDormitoryMutation();
   const { users, ref, hasNextPage, isFetchingNextPage } = useManageUserTable({
     keyword,
     selectedStatus,
@@ -47,6 +50,22 @@ const ManageUserTable = ({
     handleBulkEnable,
     handleBulkDeactivate,
   } = useUserStatusControl(users);
+
+  const openGrantDialog = (app: Pick<User, "roles" | "publicId">) => {
+    open(({ close, exit, isOpen }) => (
+      <RoleGrantDialog
+        application={app}
+        isOpen={isOpen}
+        onClose={() => { close(); exit(); }}
+        onGrantRole={async () => {
+          await grantRole({ userId: app.publicId });
+          close();
+          exit();
+        }}
+        isGrantingRole={isGrantingRole}
+      />
+    ));
+  };
 
   const getStatusIcon = (status: UserStatus) => {
     return status === "ACTIVE" ? <CheckmarkCircleFill color={colors.status.success}/> 
@@ -83,7 +102,7 @@ const ManageUserTable = ({
         : "-",
       teacher ? teacher.position : "-",
       formatPhoneNumber(item.phone),
-      item.roles.map(item => USER_ROLE_MAP[item]).join(", ")
+      <button className="hover:underline" onClick={() => openGrantDialog(item)}>{item.roles.map(item => USER_ROLE_MAP[item]).join(", ")}</button>
     ];
   });
 
