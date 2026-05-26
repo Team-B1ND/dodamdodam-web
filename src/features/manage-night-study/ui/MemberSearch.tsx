@@ -1,4 +1,4 @@
-import { useSearchStudentQuery } from "@/entities/user/queries";
+import { useGetMeSuspenseQuery, useSearchStudentQuery } from "@/entities/user/queries";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
@@ -12,6 +12,7 @@ const MemberSearch = ({ keyword }: Props) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSearchStudentQuery(keyword.trim());
   const students = data.pages.flatMap((data) => data.data.content);
+  const user = useGetMeSuspenseQuery();
   const { handleMember, isSelected } = useApplyProjectNightStudy();
 
   const { ref, inView } = useInView();
@@ -24,17 +25,17 @@ const MemberSearch = ({ keyword }: Props) => {
 
   return (
     <div className="w-full flex flex-col py-2 pr-4">
-      {students.some((std) => !isSelected(std.publicId)) ? (
-        students.map((student) =>
-          isSelected(student.publicId) ? null : (
-            <MemberItem
-              handleSelect={handleMember}
-              selected={isSelected(student.publicId)}
-              data={student}
-              key={student.publicId}
-            />
-          ),
-        )
+      {students.some((std) => !isSelected(std.publicId) && user.data.data.publicId !== std.publicId) ? (
+        students.map((student) => {
+            return isSelected(student.publicId) || user.data.data.publicId === student.publicId ? null : (
+              <MemberItem
+                handleSelect={handleMember}
+                selected={isSelected(student.publicId)}
+                data={student}
+                key={student.publicId}
+              />
+            )
+        })
       ) : (
         <p className="py-8 text-center text-border-normal">학생이 없어요.</p>
       )}
