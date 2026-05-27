@@ -29,8 +29,8 @@ const RoleGrantDialog = ({
           <FilledButton
             role={
               application.roles.includes("DORMITORY_MANAGER")
-                ? "primary"
-                : "negative"
+                ? "negative"
+                : "primary"
             }
             onClick={() => {
               onGrantRole();
