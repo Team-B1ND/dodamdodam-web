@@ -115,3 +115,7 @@ export interface EnableUser {
 export interface DeactivateUser {
   userId: string;
 }
+
+export interface GrantDormitory {
+  userId: string
+}

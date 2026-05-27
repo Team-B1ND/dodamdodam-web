@@ -179,3 +179,19 @@ export const useRegisterTeacherMutation = () => {
     },
   });
 };
+
+export const useGrantDormitoryMutation = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: UserApi.grantDormitory,
+    onSuccess: () => {
+      toast.success("자치위원 권한 부여가 완료되었어요!")
+      queryClient.refetchQueries({ queryKey: ["user"] })
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message)
+    }
+  })
+}
