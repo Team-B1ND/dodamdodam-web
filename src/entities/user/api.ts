@@ -13,7 +13,8 @@ import type {
   TeacherRegister,
   SearchUserParams,
   EnableUser,
-  DeactivateUser
+  DeactivateUser,
+  GrantDormitory
 } from "./types";
 
 const USER_BASE = "/user"
@@ -95,5 +96,8 @@ export const UserApi = {
   async deactivateUser(payload: DeactivateUser) {
     return await apiClient.patch(`${USER_BASE}/deactivate`, payload);
   },
-  
+
+  async grantDormitory(payload: GrantDormitory) {
+    return await apiClient.patch(`${USER_BASE}/grant-dormitory-manager`, payload)
+  }
 };

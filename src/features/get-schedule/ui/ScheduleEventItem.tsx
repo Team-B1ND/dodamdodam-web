@@ -25,12 +25,7 @@ export const ScheduleEventItem = ({
           className="size-1.5 rounded-full shrink-0"
           style={{ backgroundColor: item.backgroundColor }}
         />
-        <span className="text-text-secondary">
-          <span>
-            <strong>09:00</strong>&nbsp;
-            <span>{item.title}</span>
-          </span>
-        </span>
+        <span className="text-text-secondary overflow-hidden text-ellipsis text-nowrap">{item.title}</span>
       </div>
     );
   }
@@ -51,15 +46,10 @@ export const ScheduleEventItem = ({
       className="h-5 rounded-[3px] px-1.5 text-static-white flex items-center whitespace-nowrap overflow-hidden relative z-10"
       style={{
         backgroundColor: item.backgroundColor,
-        width: `calc(${spanDays * 100}% + ${spanDays - 1}px)`,
+        width: `calc(${spanDays * 100}% + ${spanDays - 1}px + ${1.05 * spanDays}rem - 1rem)`,
       }}
     >
-      <span className="text-static-white">
-        <span>
-          <strong>09:00</strong>&nbsp;
-          <span>{item.title}</span>
-        </span>
-      </span>
+      <span className="text-static-white overflow-hidden text-ellipsis text-nowrap">{item.title}</span>
     </div>
   );
 };
