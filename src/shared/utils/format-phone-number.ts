@@ -3,6 +3,7 @@
  * 숫자만 추출 후 최대 11자리 기준으로 포맷
  */
 export function formatPhoneNumber(input: string): string {
+  if (!input) return "";
   const numbers = input.replace(/\D/g, "").slice(0, 11);
 
   if (numbers.length <= 3) return numbers;

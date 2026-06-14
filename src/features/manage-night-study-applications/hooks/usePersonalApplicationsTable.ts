@@ -50,7 +50,9 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
   const { mutate: pending, isPending: isPendingRevert } = usePendingApplicationMutation();
 
   const handleBulkAllow = (ids: string[]) => {
-    ids.forEach((id) => allow(id));
+    ids
+      .filter((id) => filtered.find((app) => app.id === id)?.status !== "ALLOWED")
+      .forEach((id) => allow(id));
     setSelectedIds(new Set());
   };
 

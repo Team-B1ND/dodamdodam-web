@@ -33,9 +33,6 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
 
   const filteredIds = filtered.map((a) => a.id);
   const isAllSelected = filtered.length > 0 && selectedIds.size === filtered.length;
-  const hasSelectedAllowedApplication = filtered.some(
-    (app) => selectedIds.has(app.id) && app.status === "ALLOWED",
-  );
 
   const openInfoDialog = (app: PersonalNightStudyApplication) => {
     open(({ close, exit, isOpen }) => (
@@ -167,7 +164,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
             role="primary"
             size="small"
             display="inline"
-            disabled={isAllowing || hasSelectedAllowedApplication}
+            disabled={isAllowing}
             onClick={() => handleBulkAllow(Array.from(selectedIds))}
           >
             일괄 승인
