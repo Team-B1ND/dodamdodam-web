@@ -34,14 +34,13 @@ export const ScheduleEventItem = ({
     ? startDate
     : rowStartDate;
 
-  if (!cellDate.isSame(segmentStart, "day")) {
-    return null;
-  }
-
   const segmentEnd = endDate.isBefore(rowEndDate, "day") ? endDate : rowEndDate;
   const spanDays = segmentEnd.diff(segmentStart, "day") + 1;
+  const isInSegmentRange =
+    !cellDate.isBefore(segmentStart, "day") &&
+    !cellDate.isAfter(segmentEnd, "day");
 
-  return (
+  return cellDate.isSame(segmentStart, "day") ? (
     <div
       className="h-5 rounded-[3px] px-1.5 text-static-white flex items-center whitespace-nowrap overflow-hidden relative z-10"
       style={{
@@ -51,5 +50,7 @@ export const ScheduleEventItem = ({
     >
       <span className="text-static-white overflow-hidden text-ellipsis text-nowrap">{item.title}</span>
     </div>
-  );
+  ) : isInSegmentRange ? (
+    <div className="h-5" aria-hidden />
+  ) : null;
 };
