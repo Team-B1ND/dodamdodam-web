@@ -9,7 +9,13 @@ dayjs.locale("ko");
 
 const ScheduleHome = () => {
   const { groupedSchedules } = useGetScheduleByDate();
-  const entries = Object.entries(groupedSchedules);
+  const today = dayjs().startOf("day");
+  const entries = Object.entries(groupedSchedules)
+    .map(([date, schedules]) => [
+      date,
+      schedules.filter((item) => !dayjs(item.end).isBefore(today, "day")),
+    ] as const)
+    .filter(([, schedules]) => schedules.length > 0);
 
   return (
     <aside className="w-full bg-background-surface rounded-large p-4 max-h-60 flex flex-col gap-4">
@@ -27,31 +33,46 @@ const ScheduleHome = () => {
         {entries.length === 0 ? (
           <p className="text-caption1 text-text-tertiary">일정이 없어요.</p>
         ) : (
-          entries.map(([date, schedules]) => (
-            <div key={date}>
-              <div className="flex items-end gap-1">
-                <p className="text-heading2 font-extrabold">
-                  {dayjs(date).format("D일")}
-                </p>
-                <p className="text-label text-text-tertiary">
-                  {dayjs(date).format("dddd")}
-                </p>
+          entries.map(([date, schedules]) => {
+            const hasPeriodSchedule = schedules.some(
+              (item) => item.start !== item.end,
+            );
+            const endDate = schedules.reduce(
+              (latest, item) =>
+                dayjs(item.end).isAfter(latest, "day") ? item.end : latest,
+              date,
+            );
+
+            return (
+              <div key={date}>
+                <div className="flex items-end gap-1">
+                  <p className="text-heading2 font-extrabold">
+                    {hasPeriodSchedule
+                      ? `${dayjs(date).format("D일")}-${dayjs(endDate).format("D일")}`
+                      : dayjs(date).format("D일")}
+                  </p>
+                  {!hasPeriodSchedule && (
+                    <p className="text-label text-text-tertiary">
+                      {dayjs(date).format("dddd")}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-1.5 mt-1">
+                  {schedules.map((item) => (
+                    <div key={item.id} className="flex items-center gap-1.5">
+                      <span
+                        className="size-1.5 rounded-full"
+                        style={{ backgroundColor: item.backgroundColor }}
+                      />
+                      <span className="text-caption1 text-text-secondary truncate">
+                        {item.title}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col gap-1.5 mt-1">
-                {schedules.map((item) => (
-                  <div key={item.id} className="flex items-center gap-1.5">
-                    <span
-                      className="size-1.5 rounded-full"
-                      style={{ backgroundColor: item.backgroundColor }}
-                    />
-                    <span className="text-caption1 text-text-secondary truncate">
-                      {item.title}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </aside>

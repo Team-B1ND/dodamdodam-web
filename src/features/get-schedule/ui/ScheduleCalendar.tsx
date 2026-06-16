@@ -81,7 +81,7 @@ const ScheduleCalendar = ({
           ))}
         </div>
 
-        <div className="grid grid-cols-7 auto-rows-[96px]">
+        <div className="grid grid-cols-7 auto-rows-[120px]">
           {Array.from({ length: totalCells }).map((_, index) => (
             <ScheduleCalendarCell
               key={index}

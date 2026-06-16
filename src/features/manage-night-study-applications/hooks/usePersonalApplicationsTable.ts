@@ -51,7 +51,7 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
 
   const handleBulkAllow = (ids: string[]) => {
     ids
-      .filter((id) => filtered.find((app) => app.id === id)?.status !== "ALLOWED")
+      .filter((id) => filtered.find((app) => app.id === id)?.status === "PENDING")
       .forEach((id) => allow(id));
     setSelectedIds(new Set());
   };
