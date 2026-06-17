@@ -1,8 +1,14 @@
 import ScheduleCalendar from "@/features/get-schedule/ui/ScheduleCalendar";
 import ScheduleList from "@/features/get-schedule/ui/ScheduleList";
 import useGetScheduleByDate from "@/features/get-schedule/model/useGetScheduleByDate";
+import { useGetMe } from "@/features/get-user/model/useGetMe";
+import { FilledButton } from "@b1nd/dodam-design-system/components";
+import AddScheduleDialog from "./AddScheduleDialog";
+import { useState } from "react";
 
 const Schedule = () => {
+  const { data: me } = useGetMe();
+  const [isAddPanelOpen, setIsAddPanelOpen] = useState(false);
   const {
     currentMonth,
     monthLabel,
@@ -14,6 +20,7 @@ const Schedule = () => {
   } = useGetScheduleByDate();
 
   const isLoading = isFetching || isMonthTransitionPending;
+  const isManager = me.roles.includes("TEACHER") || me.roles.includes("ADMIN");
 
   return (
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">
@@ -32,7 +39,27 @@ const Schedule = () => {
       {isLoading ? (
         <ScheduleList.Skeleton />
       ) : (
-        <ScheduleList groupedSchedules={groupedSchedules} />
+        <aside className="flex flex-col gap-4 w-full md:w-80">
+          <ScheduleList groupedSchedules={groupedSchedules} />
+          {isManager && (
+            <>
+              {!isAddPanelOpen && (
+                <FilledButton
+                  role="primary"
+                  size="medium"
+                  display="fill"
+                  onClick={() => setIsAddPanelOpen(true)}
+                >
+                  일정 추가
+                </FilledButton>
+              )}
+              <AddScheduleDialog
+                isOpen={isAddPanelOpen}
+                onClose={() => setIsAddPanelOpen(false)}
+              />
+            </>
+          )}
+        </aside>
       )}
     </div>
   );
