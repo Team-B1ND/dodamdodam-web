@@ -26,7 +26,7 @@ export const UserApi = {
 
   async searchStudents(params: { keyword: string; page: number }) {
     return await apiClient.get<PageResponse<User>>(
-      `${USER_BASE}/search?roles=STUDENT&page=${params.page}&size=10${params.keyword ? `&keyword=${params.keyword}` : ""}`,
+      `${USER_BASE}/search?roles=STUDENT&page=${params.page}&size=10${params.keyword ? `&keyword=${params.keyword}` : ""}&status=ACTIVE`,
     );
   },
 
