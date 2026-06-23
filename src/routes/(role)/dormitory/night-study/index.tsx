@@ -1,3 +1,4 @@
+import AttendanceTable from "@/features/manage-night-study-applications/ui/AttendanceTable";
 import BanManagementTable from "@/features/manage-night-study-applications/ui/BanManagementTable";
 import PersonalApplicationsTable from "@/features/manage-night-study-applications/ui/PersonalApplicationsTable";
 import ProjectApplicationsTable from "@/features/manage-night-study-applications/ui/ProjectApplicationsTable";
@@ -14,13 +15,14 @@ export const Route = createFileRoute("/(role)/dormitory/night-study/")({
   component: RouteComponent,
 });
 
-type MainTab = "personal" | "project" | "ban";
+type MainTab = "personal" | "project" | "attendance" | "ban";
 
 function RouteComponent() {
   const isMobile = useIsMobile();
   const [mainSegment, setMainSegment] = useState<SegmentedButtonData[]>([
     { text: "일반 심자", value: "personal", isActive: true },
     { text: "프로젝트", value: "project", isActive: false },
+    { text: "출석 체크", value: "attendance", isActive: false },
     { text: "심자정지", value: "ban", isActive: false },
   ]);
   const [mainTab, setMainTab] = useState<MainTab>("personal");
@@ -43,6 +45,7 @@ function RouteComponent() {
           <ProjectApplicationsTable />
         </QueryBoundary>
       )}
+      {mainTab === "attendance" && <AttendanceTable />}
       {mainTab === "ban" && <BanManagementTable />}
     </div>
   );
