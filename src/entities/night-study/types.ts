@@ -109,6 +109,23 @@ export interface CreateBanRequest {
   endAt: string;
 }
 
+export interface Attendance {
+  userId: string;
+  date: string;
+  period: number;
+  attended: boolean;
+}
+
+export interface AttendanceParams {
+  userId: string;
+  date?: string;
+  period: number;
+}
+
+export interface UpdateAttendanceRequest extends AttendanceParams {
+  attended: boolean;
+}
+
 export interface ApplicationTableFilters {
   keyword?: string;
   status?: NightStudyStatus;
