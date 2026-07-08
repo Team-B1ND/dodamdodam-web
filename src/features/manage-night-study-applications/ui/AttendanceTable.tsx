@@ -3,7 +3,9 @@ import { useDebounce } from "@/shared/hooks/useDebounce";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   Dropdown,
+  FilledButton,
   Table,
+  useToast,
 } from "@b1nd/dodam-design-system/components";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { MagnifyingGlass } from "@b1nd/dodam-design-system/icons";
@@ -13,6 +15,7 @@ import {
   type AttendanceFilterStatus,
   useAttendanceTable,
 } from "../hooks/useAttendanceTable";
+import { downloadAttendanceSummaryExcel } from "../utils/night-study-excel";
 import AttendanceActionCell from "./AttendanceActionCell";
 import AttendanceSkeletonRows from "./AttendanceSkeletonRows";
 
@@ -26,6 +29,42 @@ const ATTENDANCE_PERIOD_ITEMS = [
   { name: "심자 1", value: "1" },
   { name: "심자 2", value: "2" },
 ];
+
+const AttendanceExcelButton = ({
+  keyword,
+  period,
+}: {
+  keyword: string;
+  period: number;
+}) => {
+  const toast = useToast();
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setIsDownloading(true);
+      await downloadAttendanceSummaryExcel({ keyword, period });
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "엑셀 파일 생성에 실패했습니다.",
+      );
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  return (
+    <FilledButton
+      role="assistive"
+      size="medium"
+      display="inline"
+      disabled={isDownloading}
+      onClick={handleDownload}
+    >
+      {isDownloading ? "다운로드 중.." : "엑셀 다운로드"}
+    </FilledButton>
+  );
+};
 
 const AttendanceTableData = ({
   keyword,
@@ -114,6 +153,7 @@ const AttendanceTable = () => {
           />
         </div>
         <div className="flex items-center gap-3 shrink-0">
+          <AttendanceExcelButton keyword={query} period={period} />
           <Dropdown
             items={ATTENDANCE_FILTER_ITEMS}
             value={attendStatus}
