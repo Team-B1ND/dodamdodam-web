@@ -1,6 +1,6 @@
-import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQueries, useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { NightStudyApi } from "./api";
-import type { ApplicationTableFilters } from "./types";
+import type { ApplicationTableFilters, AttendanceParams } from "./types";
 
 type ApplicationApiFilters = Pick<ApplicationTableFilters, "keyword" | "status">;
 
@@ -63,4 +63,15 @@ export const useGetNightStudyCountQuery = () =>
   useQuery({
     queryKey: ["nightstudy", "applications", "count"],
     queryFn: NightStudyApi.getNightStudyCount,
+  });
+
+export const attendanceQueryKey = ({ userId, date, period }: AttendanceParams) =>
+  ["nightstudy", "attendance", userId, date ?? "", period] as const;
+
+export const useGetAttendanceQueries = (params: AttendanceParams[]) =>
+  useQueries({
+    queries: params.map((param) => ({
+      queryKey: attendanceQueryKey(param),
+      queryFn: () => NightStudyApi.getAttendance(param),
+    })),
   });

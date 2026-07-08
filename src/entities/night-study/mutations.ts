@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { NightStudyApi } from "./api";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import type { ErrorResponse } from "@b1nd/api-client";
+import { attendanceQueryKey } from "./queries";
 
 const APPLICATIONS_KEY = ["nightstudy", "applications"];
 
@@ -142,6 +143,24 @@ export const useDeleteBanMutation = () => {
     mutationFn: NightStudyApi.deleteBan,
     onSuccess: async (res) => {
       await queryClient.refetchQueries({ queryKey: ["nightstudy", "bans"] });
+      toast.success(res.message);
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
+export const useUpdateAttendanceMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: NightStudyApi.updateAttendance,
+    onSuccess: async (res, payload) => {
+      await queryClient.refetchQueries({
+        queryKey: attendanceQueryKey(payload),
+      });
       toast.success(res.message);
     },
     onError: (e: ErrorResponse) => {

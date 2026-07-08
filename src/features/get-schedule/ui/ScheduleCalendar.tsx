@@ -3,6 +3,7 @@ import type { ScheduleEvent } from "@/entities/schedule/types";
 import dayjs from "dayjs";
 import { getToday } from "@/shared/libs/day";
 import { ScheduleCalendarCell } from "./ScheduleCalendarCell";
+import { IconButton } from "@b1nd/dodam-design-system/components";
 import { ChevronRight, ChevronLeft } from "@b1nd/dodam-design-system/icons";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -30,22 +31,20 @@ const ScheduleCalendar = ({
       <header className="w-full flex items-center gap-3">
         <h1 className="text-heading1 font-bold">학사 일정</h1>
         <div className="grow" />
-        <div className="flex items-center text-label text-text-tertiary font-medium">
-          <button
+        <div className="flex items-center text-label text-text-tertiary font-medium gap-1">
+          <IconButton
             onClick={() => moveMonth("prev")}
-            className="px-2 py-1 cursor-pointer"
             aria-label="이전 달"
-          >
-            <ChevronLeft size={16} />
-          </button>
+            icon={ <ChevronLeft />}
+            size={32}
+          />
           <span>{monthLabel}</span>
-          <button
+          <IconButton
             onClick={() => moveMonth("next")}
-            className="px-2 py-1 cursor-pointer"
             aria-label="다음 달"
-          >
-            <ChevronRight size={16} />
-          </button>
+            icon={ <ChevronRight />}
+            size={32}
+          />
         </div>
       </header>
 

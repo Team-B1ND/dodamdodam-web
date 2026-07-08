@@ -3,6 +3,8 @@ import type { PageResponse } from "@b1nd/api-client";
 import type {
   BanStatusResponse,
   CreateBanRequest,
+  Attendance,
+  AttendanceParams,
   NightStudyRoom,
   NightStudyStatus,
   PersonalNightStudy,
@@ -12,6 +14,7 @@ import type {
   ProjectNightStudyApplyRequest,
   ProjectNightStudyApplication,
   NightStudyCount,
+  UpdateAttendanceRequest,
 } from "./types";
 
 const NIGHT_STUDY_BASE = "/nightstudy";
@@ -103,5 +106,26 @@ export const NightStudyApi = {
 
   async deleteBan(userId: string) {
     return await apiClient.delete(`${NIGHT_STUDY_BASE}/bans/${userId}`);
+  },
+
+  async getAttendance(params: AttendanceParams) {
+    const { userId, date, period } = params;
+    const qs = new URLSearchParams({ period: String(period) });
+    if (date) qs.set("date", date);
+
+    return await apiClient.get<Attendance>(
+      `${NIGHT_STUDY_BASE}/attendance/${userId}?${qs.toString()}`,
+    );
+  },
+
+  async updateAttendance(payload: UpdateAttendanceRequest) {
+    const { userId, date, period, attended } = payload;
+    const qs = new URLSearchParams({ period: String(period) });
+    if (date) qs.set("date", date);
+
+    return await apiClient.patch<Attendance>(
+      `${NIGHT_STUDY_BASE}/attendance/${userId}?${qs.toString()}`,
+      { attended },
+    );
   },
 };
