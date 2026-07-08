@@ -157,7 +157,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
   ]);
 
   return (
-    <div className="flex flex-col overflow-y-auto grow min-w-0">
+    <div className="flex flex-col overflow-y-auto grow min-w-0 gap-3">
       {selectedIds.size > 0 && (
         <div className="flex items-center gap-2 self-start">
           <FilledButton
