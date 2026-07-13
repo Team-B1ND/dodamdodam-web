@@ -2,6 +2,7 @@ import AttendanceTable from "@/features/manage-night-study-applications/ui/Atten
 import BanManagementTable from "@/features/manage-night-study-applications/ui/BanManagementTable";
 import PersonalApplicationsTable from "@/features/manage-night-study-applications/ui/PersonalApplicationsTable";
 import ProjectApplicationsTable from "@/features/manage-night-study-applications/ui/ProjectApplicationsTable";
+import NightStudyTotalTable from "@/features/manage-night-study-applications/ui/NightStudyTotalTable";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
@@ -15,13 +16,14 @@ export const Route = createFileRoute("/(role)/dormitory/night-study/")({
   component: RouteComponent,
 });
 
-type MainTab = "personal" | "project" | "attendance" | "ban";
+type MainTab = "personal" | "project" | "total" | "attendance" | "ban";
 
 function RouteComponent() {
   const isMobile = useIsMobile();
   const [mainSegment, setMainSegment] = useState<SegmentedButtonData[]>([
     { text: "일반 심자", value: "personal", isActive: true },
     { text: "프로젝트", value: "project", isActive: false },
+    { text: "인원 조회", value: "total", isActive: false },
     { text: "출석 체크", value: "attendance", isActive: false },
     { text: "심자정지", value: "ban", isActive: false },
   ]);
@@ -33,6 +35,7 @@ function RouteComponent() {
         data={mainSegment}
         setData={setMainSegment}
         onBlockClick={(v) => setMainTab(v as MainTab)}
+        width="30rem"
       />
 
       {mainTab === "personal" && (
@@ -43,6 +46,11 @@ function RouteComponent() {
       {mainTab === "project" && (
         <QueryBoundary pendingFallback={<ProjectApplicationsTable.Skeleton />}>
           <ProjectApplicationsTable />
+        </QueryBoundary>
+      )}
+      {mainTab === "total" && (
+        <QueryBoundary pendingFallback={<NightStudyTotalTable.Skeleton />}>
+          <NightStudyTotalTable />
         </QueryBoundary>
       )}
       {mainTab === "attendance" && <AttendanceTable />}

@@ -65,6 +65,12 @@ export const useGetNightStudyCountQuery = () =>
     queryFn: NightStudyApi.getNightStudyCount,
   });
 
+export const useGetNightStudyTotalQuery = () =>
+  useSuspenseQuery({
+    queryKey: ["nightstudy", "applications", "total"],
+    queryFn: NightStudyApi.getNightStudyTotal,
+  });
+
 export const attendanceQueryKey = ({ userId, date, period }: AttendanceParams) =>
   ["nightstudy", "attendance", userId, date ?? "", period] as const;
 
