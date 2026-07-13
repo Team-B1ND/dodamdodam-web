@@ -3,7 +3,7 @@ import type { NightStudyFloorTotal } from "@/entities/night-study/types";
 import {Dropdown, Table, type TableKey} from "@b1nd/dodam-design-system/components";
 import { useState } from "react";
 
-const TABLE_KEYS: TableKey = [
+const TABLE_KEYS: TableKey[] = [
   ["층", "FULL"],
   ["일반 심자", "160px"],
   ["프로젝트 심자", "160px"],
