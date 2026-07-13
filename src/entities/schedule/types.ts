@@ -6,6 +6,13 @@ export interface Schedule {
   targets: string[];
 }
 
+export interface AddScheduleRequest {
+  title: string;
+  startAt: string;
+  endAt: string;
+  targets: string[];
+}
+
 export interface ScheduleEvent {
   id: string;
   title: string;
