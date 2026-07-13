@@ -35,6 +35,7 @@ function RouteComponent() {
         data={mainSegment}
         setData={setMainSegment}
         onBlockClick={(v) => setMainTab(v as MainTab)}
+        width="30rem"
       />
 
       {mainTab === "personal" && (
