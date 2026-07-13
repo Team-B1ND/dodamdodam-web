@@ -15,6 +15,7 @@ import {
 } from "../hooks/useAttendanceTable";
 import AttendanceActionCell from "./AttendanceActionCell";
 import AttendanceSkeletonRows from "./AttendanceSkeletonRows";
+import NightStudyAttendanceExcelButton from "./NightStudyAttendanceExcelButton";
 
 const ATTENDANCE_FILTER_ITEMS = [
   { name: "전체 상태", value: "ALL" },
@@ -114,6 +115,7 @@ const AttendanceTable = () => {
           />
         </div>
         <div className="flex items-center gap-3 shrink-0">
+          <NightStudyAttendanceExcelButton keyword={query} period={period} />
           <Dropdown
             items={ATTENDANCE_FILTER_ITEMS}
             value={attendStatus}

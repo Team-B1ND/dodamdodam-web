@@ -140,3 +140,18 @@ export interface NightStudyCountDataType {
   period1: number;
   period2: number;
 }
+
+export interface NightStudyTotalCount {
+  personal: number;
+  project: number;
+}
+
+export interface NightStudyFloorTotal {
+  floor: number;
+  count: Record<"period1" | "period2", NightStudyTotalCount>;
+}
+
+export interface NightStudyTotal {
+  floors: NightStudyFloorTotal[];
+  total: Record<"period1" | "period2", NightStudyTotalCount>;
+}

@@ -14,6 +14,7 @@ import type {
   ProjectNightStudyApplyRequest,
   ProjectNightStudyApplication,
   NightStudyCount,
+  NightStudyTotal,
   UpdateAttendanceRequest,
 } from "./types";
 
@@ -94,6 +95,10 @@ export const NightStudyApi = {
 
   async getNightStudyCount() {
     return await apiClient.get<NightStudyCount>(`${NIGHT_STUDY_BASE}/applications/count`);
+  },
+
+  async getNightStudyTotal() {
+    return await apiClient.get<NightStudyTotal>(`${NIGHT_STUDY_BASE}/applications/total`);
   },
 
   async getBanList() {
