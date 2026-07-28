@@ -62,7 +62,9 @@ const ProjectNightStudyMemberForm = () => {
                 <MemberSearch keyword={debouncedKeyword} />
               </QueryBoundary>
             ) : (
-              <TeamSearch keyword={debouncedKeyword} />
+              <QueryBoundary pendingFallback={<TeamSearch.Skeleton />}>
+                <TeamSearch keyword={debouncedKeyword} />
+              </QueryBoundary>
             )}
           </div>
         </div>
