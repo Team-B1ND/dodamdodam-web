@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeamIndexRouteImport } from './routes/team/index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
 import { Route as RegisterIndexRouteImport } from './routes/register/index'
 import { Route as NightStudyIndexRouteImport } from './routes/night-study/index'
@@ -21,6 +22,11 @@ import { Route as roleAdminAdminLayoutBannerIndexRouteImport } from './routes/(r
 import { Route as roleAdminAdminLayoutAppInIndexRouteImport } from './routes/(role)/admin/_adminLayout/app-in/index'
 import { Route as roleAdminAdminLayoutmanageUserIndexRouteImport } from './routes/(role)/admin/_adminLayout/(manage-user)/index'
 
+const TeamIndexRoute = TeamIndexRouteImport.update({
+  id: '/team/',
+  path: '/team/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   id: '/schedule/',
   path: '/schedule/',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/night-study/': typeof NightStudyIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/admin': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/night-study': typeof NightStudyIndexRoute
   '/register': typeof RegisterIndexRoute
   '/schedule': typeof ScheduleIndexRoute
+  '/team': typeof TeamIndexRoute
   '/dormitory/night-study': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping': typeof roleTeacherOutsleepingIndexRoute
   '/admin': typeof roleAdminAdminLayoutmanageUserIndexRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/night-study/': typeof NightStudyIndexRoute
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/(role)/admin/_adminLayout': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/(role)/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/(role)/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/night-study/'
     | '/register/'
     | '/schedule/'
+    | '/team/'
     | '/admin'
     | '/dormitory/night-study/'
     | '/teacher/outsleeping/'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/night-study'
     | '/register'
     | '/schedule'
+    | '/team'
     | '/dormitory/night-study'
     | '/teacher/outsleeping'
     | '/admin'
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/night-study/'
     | '/register/'
     | '/schedule/'
+    | '/team/'
     | '/(role)/admin/_adminLayout'
     | '/(role)/dormitory/night-study/'
     | '/(role)/teacher/outsleeping/'
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   NightStudyIndexRoute: typeof NightStudyIndexRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
+  TeamIndexRoute: typeof TeamIndexRoute
   roleAdminAdminLayoutRouteRoute: typeof roleAdminAdminLayoutRouteRouteWithChildren
   roleDormitoryNightStudyIndexRoute: typeof roleDormitoryNightStudyIndexRoute
   roleTeacherOutsleepingIndexRoute: typeof roleTeacherOutsleepingIndexRoute
@@ -176,6 +189,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/team/': {
+      id: '/team/'
+      path: '/team'
+      fullPath: '/team/'
+      preLoaderRoute: typeof TeamIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schedule/': {
       id: '/schedule/'
       path: '/schedule'
@@ -281,6 +301,7 @@ const rootRouteChildren: RootRouteChildren = {
   NightStudyIndexRoute: NightStudyIndexRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
+  TeamIndexRoute: TeamIndexRoute,
   roleAdminAdminLayoutRouteRoute: roleAdminAdminLayoutRouteRouteWithChildren,
   roleDormitoryNightStudyIndexRoute: roleDormitoryNightStudyIndexRoute,
   roleTeacherOutsleepingIndexRoute: roleTeacherOutsleepingIndexRoute,
