@@ -43,6 +43,10 @@ export const useApplyProjectNightStudy = () => {
     }
   };
 
+  const clearMembers = () => {
+    setForm({ ...form, members: [] });
+  };
+
   const isSelected = (memberId: string) => {
     return !!form.members.find((m) => m.publicId === memberId);
   };
@@ -91,6 +95,7 @@ export const useApplyProjectNightStudy = () => {
     handleStringChange,
     handleDropdownChange,
     handleMember,
+    clearMembers,
     submit,
     isPending,
     isSelected,

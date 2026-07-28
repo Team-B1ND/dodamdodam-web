@@ -12,7 +12,8 @@ import {
 } from "@b1nd/dodam-design-system/components";
 
 const ProjectNightStudyMemberForm = () => {
-  const { form, handleMember, isSelected } = useApplyProjectNightStudy();
+  const { form, handleMember, clearMembers, isSelected } =
+    useApplyProjectNightStudy();
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword);
   const [segment, setSegment] = useState<SegmentedButtonData[]>([
@@ -28,6 +29,13 @@ const ProjectNightStudyMemberForm = () => {
     },
   ]);
   const [memberType, setMemberType] = useState("personal");
+  const handleMemberTypeChange = (type: string) => {
+    if (type === memberType) return;
+
+    setMemberType(type);
+    setKeyword("");
+    clearMembers();
+  };
 
   return (
     <div className="w-full flex flex-col gap-3 items-start">
@@ -37,7 +45,7 @@ const ProjectNightStudyMemberForm = () => {
           <SegmentedButton
             data={segment}
             setData={setSegment}
-            onBlockClick={setMemberType}
+            onBlockClick={handleMemberTypeChange}
           />
           <FilledTextField
             label=""
