@@ -47,7 +47,11 @@ export const useCreateTeam = () => {
       isTeamCreated = true;
 
       // ponytail: 생성 응답에 publicId가 추가되면 이 조회 단계는 제거한다.
-      const teams = await TeamApi.getMyTeams();
+      const teams = await TeamApi.getMyTeams({
+        page: 0,
+        size: 20,
+        sort: "id,desc",
+      });
       const createdTeam = teams.data.content.find(
         (team) => team.imageUrl === uploadedImage.url,
       );
