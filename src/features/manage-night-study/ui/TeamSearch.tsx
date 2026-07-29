@@ -2,13 +2,18 @@ import {
   useGetMyTeamsQuery,
   useGetTeamMembersQuery,
 } from "@/entities/team/queries";
+import type { Team } from "@/entities/team/types";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { colors } from "@b1nd/dodam-design-system/colors";
+import { Avatar } from "@b1nd/dodam-design-system/components";
+import QueryBoundary from "@/shared/ui/query-boundary";
 import {
+  CheckmarkCircleFill,
+  CheckmarkCircleLine,
   ChevronDown,
   ChevronRight,
 } from "@b1nd/dodam-design-system/icons";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
 import MemberItem from "./MemberItem";
@@ -17,32 +22,80 @@ interface Props {
   keyword: string;
 }
 
-const TeamMembers = ({ publicId }: { publicId: string }) => {
-  const { data } = useGetTeamMembersQuery(publicId);
-  const { data: me } = useGetMeSuspenseQuery();
-  const { handleMember, isSelected } = useApplyProjectNightStudy();
+const TeamAvatar = ({ team }: { team: Team }) =>
+  team.imageUrl ? (
+    <img
+      src={team.imageUrl}
+      alt={`${team.name} 팀 이미지`}
+      className="size-8 rounded-full object-cover"
+    />
+  ) : (
+    <Avatar size={32} />
+  );
 
-  return data.data
+const ExpandedTeam = ({
+  team,
+  onToggle,
+}: {
+  team: Team;
+  onToggle: () => void;
+}) => {
+  const { data } = useGetTeamMembersQuery(team.publicId);
+  const { data: me } = useGetMeSuspenseQuery();
+  const { handleMember, handleMembers, isSelected } =
+    useApplyProjectNightStudy();
+  const members = data.data
     .filter(
       (member) => member.isAccept && member.userId !== me.data.publicId,
     )
-    .map((member) => {
-      const projectMember = {
-        publicId: member.userId,
-        name: member.name,
-        profileImage: member.profileImage,
-        student: member.student,
-      };
+    .map((member) => ({
+      publicId: member.userId,
+      name: member.name,
+      profileImage: member.profileImage,
+      student: member.student,
+    }));
+  const allSelected =
+    members.length > 0 &&
+    members.every((member) => isSelected(member.publicId));
 
-      return (
-        <MemberItem
-          key={member.userId}
-          data={projectMember}
-          handleSelect={handleMember}
-          selected={isSelected(member.userId)}
-        />
-      );
-    });
+  return (
+    <>
+      <div className="px-4 h-12 w-full flex items-center gap-2">
+        <button
+          type="button"
+          aria-label={`${team.name} 팀 접기`}
+          aria-expanded
+          onClick={onToggle}
+        >
+          <ChevronDown color={colors.text.primary} size={20} />
+        </button>
+        <TeamAvatar team={team} />
+        <span className="text-label font-bold">{team.name}</span>
+        <div className="flex-1" />
+        <button
+          type="button"
+          aria-label={`${team.name} 팀원 전체 ${allSelected ? "해제" : "선택"}`}
+          onClick={() => handleMembers(members)}
+        >
+          {allSelected ? (
+            <CheckmarkCircleFill color={colors.brand.primary} size={24} />
+          ) : (
+            <CheckmarkCircleLine color={colors.border.normal} size={24} />
+          )}
+        </button>
+      </div>
+      <div className="pl-7">
+        {members.map((member) => (
+          <MemberItem
+            key={member.publicId}
+            data={member}
+            handleSelect={handleMember}
+            selected={isSelected(member.publicId)}
+          />
+        ))}
+      </div>
+    </>
+  );
 };
 
 const TeamSearch = ({ keyword }: Props) => {
@@ -70,32 +123,30 @@ const TeamSearch = ({ keyword }: Props) => {
     <div className="w-full flex flex-col py-2">
       {teams.map((team) => {
         const isOpen = openTeamIds.includes(team.publicId);
+        const toggleTeam = () =>
+          setOpenTeamIds((ids) =>
+            isOpen
+              ? ids.filter((id) => id !== team.publicId)
+              : [...ids, team.publicId],
+          );
 
         return (
           <div key={team.publicId}>
-            <button
-              type="button"
-              className="px-4 h-12 w-full flex items-center gap-2 text-left"
-              aria-expanded={isOpen}
-              onClick={() =>
-                setOpenTeamIds((ids) =>
-                  isOpen
-                    ? ids.filter((id) => id !== team.publicId)
-                    : [...ids, team.publicId],
-                )
-              }
-            >
-              {isOpen ? (
-                <ChevronDown color={colors.text.primary} size={20} />
-              ) : (
+            {isOpen ? (
+              <QueryBoundary pendingFallback={<MemberItem.Skeleton />}>
+                <ExpandedTeam team={team} onToggle={toggleTeam} />
+              </QueryBoundary>
+            ) : (
+              <button
+                type="button"
+                className="px-4 h-12 w-full flex items-center gap-2 text-left"
+                aria-expanded={false}
+                onClick={toggleTeam}
+              >
                 <ChevronRight color={colors.text.primary} size={20} />
-              )}
-              <span className="text-label font-bold">{team.name}</span>
-            </button>
-            {isOpen && (
-              <Suspense fallback={<MemberItem.Skeleton />}>
-                <TeamMembers publicId={team.publicId} />
-              </Suspense>
+                <TeamAvatar team={team} />
+                <span className="text-label font-bold">{team.name}</span>
+              </button>
             )}
           </div>
         );
@@ -110,6 +161,7 @@ TeamSearch.Skeleton = () => (
     {Array.from({ length: 5 }).map((_, index) => (
       <div key={index} className="px-4 h-12 flex items-center gap-2">
         <div className="size-5 rounded-extrasmall skeleton" />
+        <div className="size-8 rounded-full skeleton" />
         <div className="w-20 h-4 rounded-extrasmall skeleton" />
       </div>
     ))}

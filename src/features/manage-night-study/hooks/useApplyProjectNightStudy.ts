@@ -43,6 +43,24 @@ export const useApplyProjectNightStudy = () => {
     }
   };
 
+  const handleMembers = (members: ProjectMember[]) => {
+    const selectedIds = new Set(form.members.map((member) => member.publicId));
+    const memberIds = new Set(members.map((member) => member.publicId));
+    const allSelected =
+      members.length > 0 &&
+      members.every((member) => selectedIds.has(member.publicId));
+
+    setForm({
+      ...form,
+      members: allSelected
+        ? form.members.filter((member) => !memberIds.has(member.publicId))
+        : [
+            ...form.members,
+            ...members.filter((member) => !selectedIds.has(member.publicId)),
+          ],
+    });
+  };
+
   const clearMembers = () => {
     setForm({ ...form, members: [] });
   };
@@ -95,6 +113,7 @@ export const useApplyProjectNightStudy = () => {
     handleStringChange,
     handleDropdownChange,
     handleMember,
+    handleMembers,
     clearMembers,
     submit,
     isPending,
