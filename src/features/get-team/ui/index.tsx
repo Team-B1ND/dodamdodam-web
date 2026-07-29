@@ -4,12 +4,14 @@ import {
   SegmentedButton,
   type SegmentedButtonData,
 } from "@b1nd/dodam-design-system/components";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import MyTeamList from "./MyTeamList";
 import TeamInviteList from "./TeamInviteList";
 import TeamList from "./TeamList";
 
 const Team = () => {
+  const navigate = useNavigate();
   const [segment, setSegment] = useState<SegmentedButtonData[]>([
     { text: "소속", value: "my", isActive: true },
     { text: "초대", value: "invite", isActive: false },
@@ -33,7 +35,12 @@ const Team = () => {
             <QueryBoundary pendingFallback={<MyTeamList.Skeleton />}>
               <MyTeamList />
             </QueryBoundary>
-            <FilledButton role="primary" size="medium" display="fill" disabled>
+            <FilledButton
+              role="primary"
+              size="medium"
+              display="fill"
+              onClick={() => navigate({ to: "/team/create" })}
+            >
               팀 만들기
             </FilledButton>
           </>
