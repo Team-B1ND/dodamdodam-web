@@ -1,9 +1,16 @@
+import { useLeaveTeamMutation } from "@/entities/team/mutations";
 import { useGetMyTeamsQuery } from "@/entities/team/queries";
-import { FilledButton } from "@b1nd/dodam-design-system/components";
+import {
+  Dialog,
+  FilledButton,
+  useOverlay,
+} from "@b1nd/dodam-design-system/components";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const MyTeamList = () => {
+  const { open } = useOverlay();
+  const { mutateAsync: leaveTeam, isPending } = useLeaveTeamMutation();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetMyTeamsQuery();
   const teams = data.pages.flatMap((page) => page.data.content);
@@ -14,6 +21,41 @@ const MyTeamList = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const openLeaveDialog = (publicId: string, name: string) => {
+    open(({ close, exit, isOpen }) => {
+      const onClose = () => {
+        close();
+        exit();
+      };
+
+      return (
+        <Dialog
+          open={isOpen}
+          title={`${name} 팀에서 탈퇴할까요?`}
+          description="탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+        >
+          <Dialog.FilledButton
+            role="assistive"
+            disabled={isPending}
+            onClick={onClose}
+          >
+            취소
+          </Dialog.FilledButton>
+          <Dialog.FilledButton
+            role="negative"
+            disabled={isPending}
+            onClick={async () => {
+              await leaveTeam(publicId);
+              onClose();
+            }}
+          >
+            탈퇴
+          </Dialog.FilledButton>
+        </Dialog>
+      );
+    });
+  };
 
   return (
     <div className="small-container flex flex-col gap-4">
@@ -27,7 +69,8 @@ const MyTeamList = () => {
               role="negative"
               size="small"
               display="inline"
-              disabled
+              disabled={isPending}
+              onClick={() => openLeaveDialog(team.publicId, team.name)}
             >
               탈퇴
             </FilledButton>
