@@ -3,7 +3,7 @@ import { padDate } from "@/shared/utils/pad-date";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import type { DropdownItem } from "@b1nd/dodam-design-system/components";
 import { useProjectFormStore } from "../stores/project-form";
-import type { User } from "@/entities/user/types";
+import type { ProjectMember } from "../stores/project-form";
 import { useState } from "react";
 
 export const useApplyProjectNightStudy = () => {
@@ -24,7 +24,7 @@ export const useApplyProjectNightStudy = () => {
     setForm({ ...form, [field]: value });
   };
 
-  const addMember = (member: User) => {
+  const addMember = (member: ProjectMember) => {
     setForm({ ...form, members: [...form.members, member] });
   };
 
@@ -35,12 +35,34 @@ export const useApplyProjectNightStudy = () => {
     });
   };
 
-  const handleMember = (member: User) => {
+  const handleMember = (member: ProjectMember) => {
     if (form.members.find((m) => m.publicId === member.publicId)) {
       removeMember(member.publicId);
     } else {
       addMember(member);
     }
+  };
+
+  const handleMembers = (members: ProjectMember[]) => {
+    const selectedIds = new Set(form.members.map((member) => member.publicId));
+    const memberIds = new Set(members.map((member) => member.publicId));
+    const allSelected =
+      members.length > 0 &&
+      members.every((member) => selectedIds.has(member.publicId));
+
+    setForm({
+      ...form,
+      members: allSelected
+        ? form.members.filter((member) => !memberIds.has(member.publicId))
+        : [
+            ...form.members,
+            ...members.filter((member) => !selectedIds.has(member.publicId)),
+          ],
+    });
+  };
+
+  const clearMembers = () => {
+    setForm({ ...form, members: [] });
   };
 
   const isSelected = (memberId: string) => {
@@ -91,6 +113,8 @@ export const useApplyProjectNightStudy = () => {
     handleStringChange,
     handleDropdownChange,
     handleMember,
+    handleMembers,
+    clearMembers,
     submit,
     isPending,
     isSelected,
