@@ -2,6 +2,7 @@ import {
   useGetMyTeamsQuery,
   useGetTeamMembersQuery,
 } from "@/entities/team/queries";
+import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import {
   ChevronDown,
@@ -18,10 +19,13 @@ interface Props {
 
 const TeamMembers = ({ publicId }: { publicId: string }) => {
   const { data } = useGetTeamMembersQuery(publicId);
+  const { data: me } = useGetMeSuspenseQuery();
   const { handleMember, isSelected } = useApplyProjectNightStudy();
 
   return data.data
-    .filter((member) => member.isAccept)
+    .filter(
+      (member) => member.isAccept && member.userId !== me.data.publicId,
+    )
     .map((member) => {
       const projectMember = {
         publicId: member.userId,
