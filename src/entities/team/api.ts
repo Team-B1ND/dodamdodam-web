@@ -7,7 +7,7 @@ const TEAM_BASE = "/nightstudy/teams";
 export const TeamApi = {
   async getMyTeams({ page, size = 10 }: { page: number; size?: number }) {
     return await apiClient.get<PageResponse<Team>>(
-      `${TEAM_BASE}?page=${page}&size=${size}&sort=id`,
+      `${TEAM_BASE}/my?page=${page}&size=${size}&sort=id`,
     );
   },
 
