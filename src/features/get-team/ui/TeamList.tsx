@@ -16,7 +16,7 @@ const TeamList = () => {
 
   return (
     <section className="large-container w-full flex-1 flex flex-col gap-4">
-      <h1 className="text-headline font-bold">팀 목록</h1>
+      <h1 className="text-headline text-text-primary font-bold">팀 목록</h1>
       {teams.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-5">
           {teams.map((team) => (
@@ -34,14 +34,18 @@ const TeamList = () => {
                 <div className="w-full aspect-square rounded-large bg-fill-primary" />
               )}
               <div className="px-1">
-                <h2 className="text-headline font-bold">{team.name}</h2>
+                <h2 className="text-headline text-text-primary font-bold">
+                  {team.name}
+                </h2>
                 <p className="truncate text-body1">{team.description}</p>
               </div>
             </article>
           ))}
         </div>
       ) : (
-        <p className="py-8 text-center text-text-tertiary">팀이 없어요.</p>
+        <p className="py-8 text-center text-body1 text-text-tertiary">
+          팀이 없어요.
+        </p>
       )}
       <div ref={ref} />
     </section>

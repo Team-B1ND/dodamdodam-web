@@ -37,7 +37,7 @@ const TeamInviteList = () => {
           </div>
         ))
       ) : (
-        <p className="py-4 text-center text-text-tertiary">
+        <p className="py-4 text-center text-body1 text-text-tertiary">
           받은 초대가 없어요.
         </p>
       )}

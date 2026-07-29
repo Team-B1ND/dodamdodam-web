@@ -24,21 +24,18 @@ const MyTeamList = () => {
 
   const openLeaveDialog = (publicId: string, name: string) => {
     open(({ close, exit, isOpen }) => {
-      const onClose = () => {
-        close();
-        exit();
-      };
-
       return (
         <Dialog
           open={isOpen}
           title={`${name} 팀에서 탈퇴할까요?`}
           description="탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+          onClose={close}
+          onExited={exit}
         >
           <Dialog.FilledButton
             role="assistive"
             disabled={isPending}
-            onClick={onClose}
+            onClick={close}
           >
             취소
           </Dialog.FilledButton>
@@ -47,7 +44,7 @@ const MyTeamList = () => {
             disabled={isPending}
             onClick={async () => {
               await leaveTeam(publicId);
-              onClose();
+              close();
             }}
           >
             탈퇴
@@ -77,7 +74,7 @@ const MyTeamList = () => {
           </div>
         ))
       ) : (
-        <p className="py-4 text-center text-text-tertiary">
+        <p className="py-4 text-center text-body1 text-text-tertiary">
           소속된 팀이 없어요.
         </p>
       )}
