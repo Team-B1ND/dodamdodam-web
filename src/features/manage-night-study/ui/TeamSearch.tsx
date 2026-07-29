@@ -51,7 +51,7 @@ const ExpandedTeam = ({
     .map((member) => ({
       publicId: member.userId,
       name: member.name,
-      profileImage: member.profileImage,
+      profileImage: member.profileImage ?? undefined,
       student: member.student,
     }));
   const allSelected =
