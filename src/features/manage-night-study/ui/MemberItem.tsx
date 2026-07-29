@@ -1,4 +1,4 @@
-import type { User } from "@/entities/user/types";
+import type { ProjectMember } from "../stores/project-form";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { Avatar } from "@b1nd/dodam-design-system/components";
 import {
@@ -7,9 +7,9 @@ import {
 } from "@b1nd/dodam-design-system/icons";
 
 interface Props {
-  data: User;
+  data: ProjectMember;
   selected: boolean;
-  handleSelect: (user: User) => void;
+  handleSelect: (user: ProjectMember) => void;
 }
 
 const MemberItem = ({ data, selected, handleSelect }: Props) => {

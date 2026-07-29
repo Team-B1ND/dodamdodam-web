@@ -13,6 +13,25 @@ export const useLeaveTeamMutation = () => {
       await queryClient.refetchQueries({ queryKey: ["team"] });
       toast.success(response.message);
     },
+  });
+};
+
+export const useCreateTeamMutation = () => {
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: TeamApi.createTeam,
+    onError: (error: ErrorResponse) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useInviteTeamMutation = () => {
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: TeamApi.inviteTeam,
     onError: (error: ErrorResponse) => {
       toast.error(error.message);
     },

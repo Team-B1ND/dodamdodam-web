@@ -1,7 +1,14 @@
 import type { DropdownItem } from "@b1nd/dodam-design-system/components";
 import { create } from "zustand";
 import { PERIOD_OPTIONS } from "../constants/period-options";
-import type { User } from "@/entities/user/types";
+import type { StudentInfo } from "@/entities/user/types";
+
+export interface ProjectMember {
+  publicId: string;
+  name: string;
+  profileImage?: string;
+  student?: Pick<StudentInfo, "grade" | "room">;
+}
 
 interface Form {
   period: DropdownItem;
@@ -9,7 +16,7 @@ interface Form {
   endAt: Date;
   name: string;
   description: string;
-  members: User[];
+  members: ProjectMember[];
 }
 
 interface State {
