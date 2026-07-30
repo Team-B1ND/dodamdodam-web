@@ -28,7 +28,7 @@ const MyTeamList = () => {
         <Dialog
           open={isOpen}
           title={`${name} 팀에서 탈퇴할까요?`}
-          description="탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+          description="팀장인 경우 팀이 삭제돼요. 탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
           onClose={close}
           onExited={exit}
         >
