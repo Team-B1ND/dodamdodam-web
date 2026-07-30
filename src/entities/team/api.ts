@@ -65,6 +65,6 @@ export const TeamApi = {
   },
 
   async leaveTeam(publicId: string) {
-    return await apiClient.delete(`${TEAM_BASE}/${publicId}`);
-  }
-}
+    return await apiClient.delete(`${TEAM_BASE}/leave/${publicId}`);
+  },
+};

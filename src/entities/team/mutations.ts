@@ -13,6 +13,9 @@ export const useLeaveTeamMutation = () => {
       await queryClient.refetchQueries({ queryKey: ["team"] });
       toast.success(response.message);
     },
+    onError: (error: ErrorResponse) => {
+      toast.error(error.message);
+    },
   });
 };
 
