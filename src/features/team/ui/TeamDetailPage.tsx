@@ -109,6 +109,20 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
 
           <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
             <div className="flex gap-2">
+              {currentMember?.isOwner && (
+                <FilledButton
+                  onClick={() =>
+                    navigate({
+                      to: "/team/$publicId/edit",
+                      params: { publicId },
+                    })
+                  }
+                  role="primary"
+                  size="medium"
+                >
+                  수정하기
+                </FilledButton>
+              )}
               {currentMember && (
                 <FilledButton
                   onClick={openLeaveDialog}

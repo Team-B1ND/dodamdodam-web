@@ -1,4 +1,4 @@
-import type { User } from "@/entities/user/types";
+import type { StudentInfo } from "@/entities/user/types";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { Avatar } from "@b1nd/dodam-design-system/components";
 import {
@@ -6,19 +6,29 @@ import {
   CheckmarkCircleLine,
 } from "@b1nd/dodam-design-system/icons";
 
+export interface TeamSelectableMember {
+  publicId: string;
+  name: string;
+  profileImage?: string | null;
+  student?: Pick<StudentInfo, "grade" | "room" | "number">;
+}
+
 interface TeamMemberItemProps {
-  member: User;
-  onSelect: (member: User) => void;
+  disabled?: boolean;
+  member: TeamSelectableMember;
+  onSelect: (member: TeamSelectableMember) => void;
   selected: boolean;
 }
 
 const TeamMemberItem = ({
+  disabled = false,
   member,
   onSelect,
   selected,
 }: TeamMemberItemProps) => (
   <button
-    className="flex h-12 w-full items-center gap-2 rounded-small px-3 text-left hover:bg-fill-secondary focus-visible:bg-fill-secondary"
+    className="flex h-12 w-full items-center gap-2 rounded-small px-3 text-left hover:bg-fill-secondary focus-visible:bg-fill-secondary disabled:cursor-default disabled:hover:bg-transparent"
+    disabled={disabled}
     onClick={() => onSelect(member)}
     type="button"
   >

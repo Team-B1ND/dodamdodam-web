@@ -1,17 +1,20 @@
 import { useSearchStudentQuery } from "@/entities/user/queries";
-import type { User } from "@/entities/user/types";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import TeamMemberItem from "./TeamMemberItem";
+import TeamMemberItem, {
+  type TeamSelectableMember,
+} from "./TeamMemberItem";
 
 interface TeamMemberSearchProps {
   keyword: string;
+  isDisabled?: (memberId: string) => boolean;
   isSelected: (memberId: string) => boolean;
-  onSelect: (member: User) => void;
+  onSelect: (member: TeamSelectableMember) => void;
 }
 
 const TeamMemberSearch = ({
   keyword,
+  isDisabled,
   isSelected,
   onSelect,
 }: TeamMemberSearchProps) => {
@@ -34,6 +37,7 @@ const TeamMemberSearch = ({
     <div className="py-2 pr-3">
       {students.map((student) => (
         <TeamMemberItem
+          disabled={isDisabled?.(student.publicId)}
           key={student.publicId}
           member={student}
           onSelect={onSelect}

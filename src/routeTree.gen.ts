@@ -18,6 +18,7 @@ import { Route as homeIndexRouteImport } from './routes/(home)/index'
 import { Route as TeamCreateIndexRouteImport } from './routes/team/create/index'
 import { Route as TeamPublicIdIndexRouteImport } from './routes/team/$publicId/index'
 import { Route as roleAdminAdminLayoutRouteRouteImport } from './routes/(role)/admin/_adminLayout/route'
+import { Route as TeamPublicIdEditIndexRouteImport } from './routes/team/$publicId/edit/index'
 import { Route as roleTeacherOutsleepingIndexRouteImport } from './routes/(role)/teacher/outsleeping/index'
 import { Route as roleDormitoryNightStudyIndexRouteImport } from './routes/(role)/dormitory/night-study/index'
 import { Route as roleAdminAdminLayoutBannerIndexRouteImport } from './routes/(role)/admin/_adminLayout/banner/index'
@@ -70,6 +71,11 @@ const roleAdminAdminLayoutRouteRoute =
     path: '/admin',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TeamPublicIdEditIndexRoute = TeamPublicIdEditIndexRouteImport.update({
+  id: '/team/$publicId/edit/',
+  path: '/team/$publicId/edit/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const roleTeacherOutsleepingIndexRoute =
   roleTeacherOutsleepingIndexRouteImport.update({
     id: '/(role)/teacher/outsleeping/',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/team/create/': typeof TeamCreateIndexRoute
   '/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
+  '/team/$publicId/edit/': typeof TeamPublicIdEditIndexRoute
   '/admin/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
   '/admin/banner/': typeof roleAdminAdminLayoutBannerIndexRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/team/create': typeof TeamCreateIndexRoute
   '/dormitory/night-study': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping': typeof roleTeacherOutsleepingIndexRoute
+  '/team/$publicId/edit': typeof TeamPublicIdEditIndexRoute
   '/admin': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in': typeof roleAdminAdminLayoutAppInIndexRoute
   '/admin/banner': typeof roleAdminAdminLayoutBannerIndexRoute
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/team/create/': typeof TeamCreateIndexRoute
   '/(role)/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/(role)/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
+  '/team/$publicId/edit/': typeof TeamPublicIdEditIndexRoute
   '/(role)/admin/_adminLayout/(manage-user)/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/(role)/admin/_adminLayout/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
   '/(role)/admin/_adminLayout/banner/': typeof roleAdminAdminLayoutBannerIndexRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/team/create/'
     | '/dormitory/night-study/'
     | '/teacher/outsleeping/'
+    | '/team/$publicId/edit/'
     | '/admin/'
     | '/admin/app-in/'
     | '/admin/banner/'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/team/create'
     | '/dormitory/night-study'
     | '/teacher/outsleeping'
+    | '/team/$publicId/edit'
     | '/admin'
     | '/admin/app-in'
     | '/admin/banner'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/team/create/'
     | '/(role)/dormitory/night-study/'
     | '/(role)/teacher/outsleeping/'
+    | '/team/$publicId/edit/'
     | '/(role)/admin/_adminLayout/(manage-user)/'
     | '/(role)/admin/_adminLayout/app-in/'
     | '/(role)/admin/_adminLayout/banner/'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   TeamCreateIndexRoute: typeof TeamCreateIndexRoute
   roleDormitoryNightStudyIndexRoute: typeof roleDormitoryNightStudyIndexRoute
   roleTeacherOutsleepingIndexRoute: typeof roleTeacherOutsleepingIndexRoute
+  TeamPublicIdEditIndexRoute: typeof TeamPublicIdEditIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -276,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof roleAdminAdminLayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team/$publicId/edit/': {
+      id: '/team/$publicId/edit/'
+      path: '/team/$publicId/edit'
+      fullPath: '/team/$publicId/edit/'
+      preLoaderRoute: typeof TeamPublicIdEditIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(role)/teacher/outsleeping/': {
@@ -347,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamCreateIndexRoute: TeamCreateIndexRoute,
   roleDormitoryNightStudyIndexRoute: roleDormitoryNightStudyIndexRoute,
   roleTeacherOutsleepingIndexRoute: roleTeacherOutsleepingIndexRoute,
+  TeamPublicIdEditIndexRoute: TeamPublicIdEditIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

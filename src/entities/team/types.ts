@@ -24,6 +24,13 @@ export interface CreateTeamRequest {
   imageUrl: string;
 }
 
+export interface UpdateTeamRequest {
+  publicId: string;
+  name: string;
+  description?: string;
+  imageUrl?: string;
+}
+
 export interface InviteTeamRequest {
   publicId: string;
   members: string[];
