@@ -37,3 +37,35 @@ export const useInviteTeamMutation = () => {
     },
   });
 };
+
+export const useAcceptTeamInvitationMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: TeamApi.acceptInvitation,
+    onSuccess: async (response) => {
+      await queryClient.refetchQueries({ queryKey: ["team"] });
+      toast.success(response.message);
+    },
+    onError: (error: ErrorResponse) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useRejectTeamInvitationMutation = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  return useMutation({
+    mutationFn: TeamApi.rejectInvitation,
+    onSuccess: async (response) => {
+      await queryClient.refetchQueries({ queryKey: ["team"] });
+      toast.success(response.message);
+    },
+    onError: (error: ErrorResponse) => {
+      toast.error(error.message);
+    },
+  });
+};

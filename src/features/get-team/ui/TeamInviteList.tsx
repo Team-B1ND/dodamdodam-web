@@ -1,9 +1,17 @@
+import {
+  useAcceptTeamInvitationMutation,
+  useRejectTeamInvitationMutation,
+} from "@/entities/team/mutations";
 import { useGetMyInvitationsQuery } from "@/entities/team/queries";
 import { FilledButton } from "@b1nd/dodam-design-system/components";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const TeamInviteList = () => {
+  const { mutate: acceptInvitation, isPending: isAcceptPending } =
+    useAcceptTeamInvitationMutation();
+  const { mutate: rejectInvitation, isPending: isRejectPending } =
+    useRejectTeamInvitationMutation();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetMyInvitationsQuery();
   const invitations = data.pages.flatMap((page) => page.data.content);
@@ -23,14 +31,20 @@ const TeamInviteList = () => {
           <div key={invitation.publicId} className="flex items-center gap-2">
             <span className="text-headline font-medium">{invitation.name}</span>
             <div className="flex-1" />
-            <FilledButton size="small" display="inline" disabled>
+            <FilledButton
+              size="small"
+              display="inline"
+              disabled={isAcceptPending || isRejectPending}
+              onClick={() => acceptInvitation(invitation.publicId)}
+            >
               승인
             </FilledButton>
             <FilledButton
               role="negative"
               size="small"
               display="inline"
-              disabled
+              disabled={isAcceptPending || isRejectPending}
+              onClick={() => rejectInvitation(invitation.publicId)}
             >
               거절
             </FilledButton>

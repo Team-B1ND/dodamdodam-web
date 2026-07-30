@@ -56,6 +56,14 @@ export const TeamApi = {
     return await apiClient.post(`${TEAM_BASE}/invite`, payload);
   },
 
+  async acceptInvitation(publicId: string) {
+    return await apiClient.patch(`${TEAM_BASE}/invite/accept/${publicId}`);
+  },
+
+  async rejectInvitation(publicId: string) {
+    return await apiClient.delete(`${TEAM_BASE}/invite/reject/${publicId}`);
+  },
+
   async leaveTeam(publicId: string) {
     return await apiClient.delete(`${TEAM_BASE}/${publicId}`);
   }
