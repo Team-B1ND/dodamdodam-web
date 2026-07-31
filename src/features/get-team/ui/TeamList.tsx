@@ -1,4 +1,5 @@
 import { useGetTeamsQuery } from "@/entities/team/queries";
+import { Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -20,9 +21,11 @@ const TeamList = () => {
       {teams.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-5">
           {teams.map((team) => (
-            <article
+            <Link
               key={team.publicId}
-              className="min-w-0 flex flex-col gap-2"
+              className="min-w-0 flex flex-col gap-2 rounded-large focus-visible:ring-2 focus-visible:ring-brand-primary"
+              params={{ publicId: team.publicId }}
+              to="/team/$publicId"
             >
               {team.imageUrl ? (
                 <img
@@ -39,7 +42,7 @@ const TeamList = () => {
                 </h2>
                 <p className="truncate text-body1">{team.description}</p>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       ) : (

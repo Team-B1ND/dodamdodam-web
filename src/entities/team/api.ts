@@ -5,6 +5,7 @@ import type {
   InviteTeamRequest,
   Team,
   TeamMember,
+  UpdateTeamRequest,
 } from "./types";
 
 const TEAM_BASE = "/nightstudy/teams";
@@ -18,6 +19,10 @@ interface GetMyTeamsParams {
 export const TeamApi = {
   async createTeam(payload: CreateTeamRequest) {
     return await apiClient.post(TEAM_BASE, payload);
+  },
+
+  async updateTeam(payload: UpdateTeamRequest) {
+    return await apiClient.patch(TEAM_BASE, payload);
   },
 
   async getTeams({ page, size = 12 }: { page: number; size?: number }) {
@@ -65,6 +70,6 @@ export const TeamApi = {
   },
 
   async leaveTeam(publicId: string) {
-    return await apiClient.delete(`${TEAM_BASE}/${publicId}`);
-  }
-}
+    return await apiClient.delete(`${TEAM_BASE}/leave/${publicId}`);
+  },
+};
