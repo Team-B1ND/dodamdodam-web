@@ -5,6 +5,10 @@ import type {
   CreateBanRequest,
   Attendance,
   AttendanceParams,
+  AttendanceRoom,
+  AttendanceRoomDetail,
+  AttendanceRoomDetailParams,
+  AttendanceRoomParams,
   NightStudyRoom,
   NightStudyStatus,
   PersonalNightStudy,
@@ -85,6 +89,26 @@ export const NightStudyApi = {
 
   async getRooms() {
     return await apiClient.get<NightStudyRoom[]>(`${NIGHT_STUDY_BASE}/rooms`);
+  },
+
+  async getAttendanceRooms(params: AttendanceRoomParams) {
+    const { date, period } = params;
+    const qs = new URLSearchParams({ period: String(period) });
+    if (date) qs.set("date", date);
+
+    return await apiClient.get<AttendanceRoom[]>(
+      `${NIGHT_STUDY_BASE}/rooms?${qs.toString()}`,
+    );
+  },
+
+  async getAttendanceRoom(params: AttendanceRoomDetailParams) {
+    const { roomId, date, period } = params;
+    const qs = new URLSearchParams({ period: String(period) });
+    if (date) qs.set("date", date);
+
+    return await apiClient.get<AttendanceRoomDetail>(
+      `${NIGHT_STUDY_BASE}/rooms/${encodeURIComponent(roomId)}?${qs.toString()}`,
+    );
   },
 
   async assignRoom(payload: { id: string; roomId: number }) {

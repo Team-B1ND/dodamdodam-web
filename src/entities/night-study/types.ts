@@ -103,6 +103,35 @@ export interface NightStudyRoom {
   name: string;
 }
 
+export interface AttendanceRoom {
+  roomId: string;
+  roomName: string;
+  memberCount: number;
+  unchecked: number;
+}
+
+export interface AttendanceRoomMember {
+  userId: string;
+  name: string;
+  grade: number;
+  room: number;
+  number: number;
+  attended: boolean;
+}
+
+export interface AttendanceRoomDetail {
+  roomMembers: AttendanceRoomMember[];
+}
+
+export interface AttendanceRoomParams {
+  date?: string;
+  period: number;
+}
+
+export interface AttendanceRoomDetailParams extends AttendanceRoomParams {
+  roomId: string;
+}
+
 export interface CreateBanRequest {
   userId: string;
   reason: string;
