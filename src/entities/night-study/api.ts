@@ -97,7 +97,7 @@ export const NightStudyApi = {
     if (date) qs.set("date", date);
 
     return await apiClient.get<AttendanceRoom[]>(
-      `${NIGHT_STUDY_BASE}/rooms?${qs.toString()}`,
+      `${NIGHT_STUDY_BASE}/rooms/status?${qs.toString()}`,
     );
   },
 
@@ -107,7 +107,7 @@ export const NightStudyApi = {
     if (date) qs.set("date", date);
 
     return await apiClient.get<AttendanceRoomDetail>(
-      `${NIGHT_STUDY_BASE}/rooms/${encodeURIComponent(roomId)}?${qs.toString()}`,
+      `${NIGHT_STUDY_BASE}/rooms/status/${encodeURIComponent(roomId)}?${qs.toString()}`,
     );
   },
 
