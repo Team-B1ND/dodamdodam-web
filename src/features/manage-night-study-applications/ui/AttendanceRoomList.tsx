@@ -41,8 +41,9 @@ const AttendanceRoomList = ({
   const [status, setStatus] = useState<RoomStatus>("ALL");
 
   const rooms = data.data.filter((room) => {
-    const matchesKeyword =
-      room.roomName?.toLowerCase().includes(keyword.toLowerCase()) ?? false;
+    const matchesKeyword = room.roomName
+      .toLowerCase()
+      .includes(keyword.toLowerCase());
     const matchesStatus =
       status === "ALL" ||
       (status === "CHECKED" ? room.unchecked === 0 : room.unchecked > 0);

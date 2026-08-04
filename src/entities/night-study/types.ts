@@ -113,6 +113,7 @@ export interface AttendanceRoom {
 export interface AttendanceRoomMember {
   userId: string;
   name: string;
+  profileImage: string;
   grade: number;
   room: number;
   number: number;
@@ -120,7 +121,7 @@ export interface AttendanceRoomMember {
 }
 
 export interface AttendanceRoomDetail {
-  roomMembers: AttendanceRoomMember[];
+  roomMember: AttendanceRoomMember[];
 }
 
 export interface AttendanceRoomParams {

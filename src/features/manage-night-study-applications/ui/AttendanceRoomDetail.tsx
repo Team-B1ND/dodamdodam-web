@@ -43,7 +43,7 @@ const AttendanceRoomDetail = ({ room, date, period, onBack }: Props) => {
   const [status, setStatus] = useState<AttendanceStatus>("ALL");
   const [grade, setGrade] = useState("ALL");
   const [classroom, setClassroom] = useState("ALL");
-  const members = data.data.roomMembers;
+  const members = data.data.roomMember;
 
   const gradeItems = useMemo<DropdownItem[]>(
     () => [
