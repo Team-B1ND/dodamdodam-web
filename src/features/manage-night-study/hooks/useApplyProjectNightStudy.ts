@@ -83,7 +83,7 @@ export const useApplyProjectNightStudy = () => {
   };
 
   const submit = async () => {
-    if (!validate()) {
+    if (!validate() || !form.wishRoom) {
       toast.warning("필수 입력 필드를 모두 채워주세요.");
       return;
     }
@@ -105,6 +105,7 @@ export const useApplyProjectNightStudy = () => {
       endAt: padDate(form.endAt),
       period: Number(form.period.value),
       members: form.members.map((m) => m.publicId),
+      wishRoomId: Number(form.wishRoom.value),
     });
 
     init();

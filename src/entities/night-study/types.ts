@@ -26,6 +26,7 @@ export type ProjectNightStudyApplyRequest = Omit<
   "isLeader" | "id" | "rejectionReason" | "status"
 > & {
   members: string[];
+  wishRoomId: number;
 };
 
 export type PersonalNightStudyApplyRequest = Omit<
