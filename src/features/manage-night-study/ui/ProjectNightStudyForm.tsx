@@ -8,6 +8,7 @@ import { ArrowRight } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import ProjectNightStudyMemberForm from "./ProjectNightStudyMemberForm";
 import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
+import QueryBoundary from "@/shared/ui/query-boundary";
 
 const ProjectNightStudyForm = () => {
   const { submit, isPending, page, setPage } = useApplyProjectNightStudy();
@@ -16,7 +17,12 @@ const ProjectNightStudyForm = () => {
     <div className="w-full flex flex-col gap-4">
       <Switcher
         animated
-        pages={[<ProjectNightStudyInfoForm />, <ProjectNightStudyMemberForm />]}
+        pages={[
+          <QueryBoundary pendingFallback={null}>
+            <ProjectNightStudyInfoForm />
+          </QueryBoundary>,
+          <ProjectNightStudyMemberForm />,
+        ]}
         current={page}
       />
       <div className="self-end items-end flex flex-col gap-4">

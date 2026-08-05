@@ -2,11 +2,28 @@ import { DatePicker, Dropdown, FilledButton, FilledTextField, PickerTrigger } fr
 import { PERIOD_OPTIONS } from "../constants/period-options";
 import { padDate } from "@/shared/utils/pad-date";
 import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
+import { useGetRoomsQuery } from "@/entities/night-study/queries";
+import { useEffect, useMemo } from "react";
 
 const ProjectNightStudyInfoForm = () => {
   const { form, handleDateChange, handleStringChange, handleDropdownChange } =
     useApplyProjectNightStudy();
-  const { period, startAt, endAt, name, description } = form;
+  const { period, wishRoom, startAt, endAt, name, description } = form;
+  const { data: rooms } = useGetRoomsQuery();
+  const roomOptions = useMemo(
+    () =>
+      rooms.data.map((room) => ({
+        name: room.name,
+        value: String(room.id),
+      })),
+    [rooms.data],
+  );
+
+  useEffect(() => {
+    if (!wishRoom && roomOptions[0]) {
+      handleDropdownChange("wishRoom", roomOptions[0]);
+    }
+  }, [handleDropdownChange, roomOptions, wishRoom]);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -57,6 +74,16 @@ const ProjectNightStudyInfoForm = () => {
                 {endAt ? padDate(endAt) : "YYYY-MM-DD"}
               </FilledButton>
             </PickerTrigger>
+          </div>
+          <div className="w-full flex items-center justify-between">
+            <p className="text-headline font-medium text-text-secondary">희망 랩실</p>
+            <Dropdown
+              items={roomOptions}
+              onSelectedItemChange={(item) =>
+                handleDropdownChange("wishRoom", item)
+              }
+              value={wishRoom?.name ?? roomOptions[0]?.name ?? ""}
+            />
           </div>
         </div>
       </div>

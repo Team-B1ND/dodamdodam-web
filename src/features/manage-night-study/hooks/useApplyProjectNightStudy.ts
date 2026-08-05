@@ -20,7 +20,10 @@ export const useApplyProjectNightStudy = () => {
     setForm({ ...form, [field]: value });
   };
 
-  const handleDropdownChange = (field: "period", value: DropdownItem) => {
+  const handleDropdownChange = (
+    field: "period" | "wishRoom",
+    value: DropdownItem,
+  ) => {
     setForm({ ...form, [field]: value });
   };
 
