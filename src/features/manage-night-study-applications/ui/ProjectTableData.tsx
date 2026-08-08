@@ -1,3 +1,4 @@
+import { useGetRoomsQuery } from "@/entities/night-study/queries";
 import type { ApplicationTableFilters, ProjectNightStudyApplication } from "@/entities/night-study/types";
 import { parseDate } from "@/shared/utils/parse-date";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
@@ -17,6 +18,8 @@ import RoomAssignmentModal from "./RoomAssignmentModal";
 const ProjectTableData = (filters: ApplicationTableFilters) => {
   const isMobile = useIsMobile();
   const { open } = useOverlay();
+  const { data: roomsData } = useGetRoomsQuery();
+  const rooms = roomsData.data;
   const {
     filtered,
     ref,
@@ -74,6 +77,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
   }
 
   const rows = filtered.map((app: ProjectNightStudyApplication) => {
+    const wishRoomName = rooms.find((room) => room.id === app.wishRoomId)?.name ?? "-";
     const actionCell = (
       <ProjectActionCell
         status={app.status}
@@ -94,6 +98,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
         >
           {app.name}
         </button>,
+        wishRoomName,
         app.room?.name ?? "-",
         <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
         actionCell,
@@ -109,6 +114,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
       </button>,
       <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
       `심자 ${app.period}`,
+      wishRoomName,
       app.room?.name ?? "-",
       parseDate(app.startAt),
       parseDate(app.endAt),
