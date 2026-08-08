@@ -89,7 +89,7 @@ export interface ProjectNightStudyApplication {
   period: number;
   startAt: string;
   endAt: string;
-  wishRoomId: number;
+  wishRoom: NightStudyRoom;
   rejectionReason: string | null;
   status: NightStudyStatus;
   needPhone: boolean;
