@@ -108,7 +108,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
         {app.name}
       </button>,
       <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
-      `${app.period}교시`,
+      `심자 ${app.period}`,
       app.room?.name ?? "-",
       parseDate(app.startAt),
       parseDate(app.endAt),
