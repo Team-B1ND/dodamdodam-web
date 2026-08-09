@@ -1,6 +1,11 @@
 import { useQueries, useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { NightStudyApi } from "./api";
-import type { ApplicationTableFilters, AttendanceParams } from "./types";
+import type {
+  ApplicationTableFilters,
+  AttendanceParams,
+  AttendanceRoomDetailParams,
+  AttendanceRoomParams,
+} from "./types";
 
 type ApplicationApiFilters = Pick<ApplicationTableFilters, "keyword" | "status">;
 
@@ -51,6 +56,26 @@ export const useGetRoomsQuery = () =>
   useSuspenseQuery({
     queryKey: ["nightstudy", "rooms"],
     queryFn: NightStudyApi.getRooms,
+  });
+
+export const attendanceRoomsQueryKey = [
+  "nightstudy",
+  "attendance",
+  "rooms",
+] as const;
+
+export const useGetAttendanceRoomsQuery = (params: AttendanceRoomParams) =>
+  useSuspenseQuery({
+    queryKey: [...attendanceRoomsQueryKey, "list", params],
+    queryFn: () => NightStudyApi.getAttendanceRooms(params),
+  });
+
+export const useGetAttendanceRoomQuery = (
+  params: AttendanceRoomDetailParams,
+) =>
+  useSuspenseQuery({
+    queryKey: [...attendanceRoomsQueryKey, "detail", params],
+    queryFn: () => NightStudyApi.getAttendanceRoom(params),
   });
 
 export const useGetBanListQuery = () =>

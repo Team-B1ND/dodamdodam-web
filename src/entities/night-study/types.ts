@@ -26,6 +26,7 @@ export type ProjectNightStudyApplyRequest = Omit<
   "isLeader" | "id" | "rejectionReason" | "status"
 > & {
   members: string[];
+  wishRoomId: number;
 };
 
 export type PersonalNightStudyApplyRequest = Omit<
@@ -88,6 +89,7 @@ export interface ProjectNightStudyApplication {
   period: number;
   startAt: string;
   endAt: string;
+  wishRoom: NightStudyRoom;
   rejectionReason: string | null;
   status: NightStudyStatus;
   needPhone: boolean;
@@ -101,6 +103,36 @@ export interface ProjectNightStudyApplication {
 export interface NightStudyRoom {
   id: number;
   name: string;
+}
+
+export interface AttendanceRoom {
+  roomId: string;
+  roomName: string;
+  memberCount: number;
+  unchecked: number;
+}
+
+export interface AttendanceRoomMember {
+  userId: string;
+  name: string;
+  profileImage: string;
+  grade: number;
+  room: number;
+  number: number;
+  attended: boolean;
+}
+
+export interface AttendanceRoomDetail {
+  roomMember: AttendanceRoomMember[];
+}
+
+export interface AttendanceRoomParams {
+  date?: string;
+  period: number;
+}
+
+export interface AttendanceRoomDetailParams extends AttendanceRoomParams {
+  roomId: string;
 }
 
 export interface CreateBanRequest {
