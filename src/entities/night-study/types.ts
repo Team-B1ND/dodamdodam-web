@@ -26,6 +26,7 @@ export type ProjectNightStudyApplyRequest = Omit<
   "isLeader" | "id" | "rejectionReason" | "status"
 > & {
   members: string[];
+  wishRoomId: number;
 };
 
 export type PersonalNightStudyApplyRequest = Omit<
@@ -88,6 +89,7 @@ export interface ProjectNightStudyApplication {
   period: number;
   startAt: string;
   endAt: string;
+  wishRoom: NightStudyRoom;
   rejectionReason: string | null;
   status: NightStudyStatus;
   needPhone: boolean;
