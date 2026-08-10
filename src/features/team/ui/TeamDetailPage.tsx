@@ -166,7 +166,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
                   role="negative"
                   size="medium"
                 >
-                  탈퇴하기
+                  {isOwner ? "삭제하기" : "탈퇴하기"}
                 </FilledButton>
               )}
             </div>
