@@ -117,14 +117,14 @@ const TeamForm = ({
           </TeamFormField>
 
           <TeamFormField
-            helperText="20자 이하"
+            helperText="25자 이하"
             label="간략한 소개"
             required={!isEdit}
           >
             <input
               aria-label="간략한 소개"
               className="h-12 w-full rounded-small border border-border-normal bg-background-surface px-4 text-body text-text-primary placeholder:text-text-tertiary focus-visible:border-brand-primary"
-              maxLength={20}
+              maxLength={25}
               onChange={(event) => setDescription(event.target.value)}
               placeholder="팀을 간략하게 소개해주세요. 팀 목록에 표시됩니다."
               required
