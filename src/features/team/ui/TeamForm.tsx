@@ -94,6 +94,9 @@ const TeamForm = ({
       <form
         className="mt-6 flex flex-col"
         noValidate
+        onKeyDown={(event) => {
+          if (event.key === "Enter") event.preventDefault();
+        }}
         onSubmit={(event) => event.preventDefault()}
       >
         <div className="flex flex-col gap-3">
