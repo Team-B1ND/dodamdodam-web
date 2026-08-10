@@ -2,7 +2,6 @@ import {apiClient} from "@/shared/libs/api-client";
 import type {PageResponse} from "@b1nd/api-client";
 import type {
   CreateTeamRequest,
-  DeleteTeamRequest,
   InviteTeamRequest,
   Team,
   TeamMember,
