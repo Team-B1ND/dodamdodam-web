@@ -94,7 +94,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
         >
           {app.name}
         </button>,
-        app.wishRoom.name,
+        app.wishRoom?.name ?? "-",
         app.room?.name ?? "-",
         <span style={{ color: NIGHT_STUDY_STATUS_COLOR[app.status] }}>{NIGHT_STUDY_STATUS_LABEL[app.status]}</span>,
         actionCell,
@@ -110,7 +110,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
       </button>,
       <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
       `심자 ${app.period}`,
-      app.wishRoom.name,
+      app.wishRoom?.name ?? "-",
       app.room?.name ?? "-",
       parseDate(app.startAt),
       parseDate(app.endAt),
