@@ -1,4 +1,4 @@
-import { useLeaveTeamMutation } from "@/entities/team/mutations";
+import { useDeleteTeamMutation, useLeaveTeamMutation } from "@/entities/team/mutations";
 import {
   useGetTeamMembersQuery,
   useGetTeamsQuery,
@@ -14,6 +14,7 @@ import {
 } from "@b1nd/dodam-design-system/components";
 import { ChevronLeft } from "@b1nd/dodam-design-system/icons";
 import { useNavigate } from "@tanstack/react-router";
+import { useGetMe } from "@/features/get-user/model/useGetMe.ts";
 
 interface TeamDetailPageProps {
   publicId: string;
@@ -27,22 +28,25 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   const { data: meData } = useGetMeSuspenseQuery();
   const { mutateAsync: leaveTeam, isPending: isLeaving } =
     useLeaveTeamMutation();
+  const {mutateAsync: deleteTeam, isPending: isDeleting} =
+    useDeleteTeamMutation();
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
     .find((item) => item.publicId === publicId);
-  const members = membersData.data;
-  const acceptedMembers = members.filter((member) => member.isAccept);
-  const owner = acceptedMembers.find((member) => member.isOwner);
-  const currentMember = acceptedMembers.find(
+  const members = membersData.data.filter((member) => member.isAccept);
+  const owner = members.find((member) => member.isOwner);
+  const currentMember = members.find(
     (member) => member.userId === meData.data.publicId,
   );
   const ownerLabel = owner
     ? `${parseStudentId(
-        owner.student.grade,
-        owner.student.room,
-        owner.student.number,
-      )}${owner.name}`
+      owner.student.grade,
+      owner.student.room,
+      owner.student.number,
+    )}${owner.name}`
     : "정보 없음";
+  const user = useGetMe();
+  const isOwner = owner?.userId === user.data.publicId;
 
   const openLeaveDialog = () => {
     if (!team) return;
@@ -53,7 +57,11 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
         onClose={close}
         onExited={exit}
         open={isOpen}
-        title={`${team.name} 팀에서 탈퇴할까요?`}
+        title={
+          isOwner
+            ? `${team.name} 팀을 삭제할까요?`
+            : `${team.name} 팀에서 탈퇴할까요?`
+        }
       >
         <Dialog.FilledButton
           disabled={isLeaving}
@@ -62,21 +70,39 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
         >
           취소
         </Dialog.FilledButton>
-        <Dialog.FilledButton
-          disabled={isLeaving}
-          onClick={async () => {
-            try {
-              await leaveTeam(publicId);
-              close();
-              await navigate({ to: "/team" });
-            } catch {
-              // 오류 안내는 mutation에서 처리합니다.
-            }
-          }}
-          role="negative"
-        >
-          {isLeaving ? "탈퇴 중..." : "탈퇴"}
-        </Dialog.FilledButton>
+        {isOwner ? (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await deleteTeam(publicId);
+                close();
+                await navigate({to: "/team"});
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isDeleting ? "삭제 중..." : "삭제"}
+          </Dialog.FilledButton>
+        ) : (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await leaveTeam(publicId);
+                close();
+                await navigate({to: "/team"});
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isLeaving ? "탈퇴 중..." : "탈퇴"}
+          </Dialog.FilledButton>
+        )}
       </Dialog>
     ));
   };
@@ -145,12 +171,12 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
 
         <div className="h-px w-full bg-border-normal" />
 
-        <div className="flex w-full flex-col gap-2 sm:w-64">
+        <div className="flex w-full flex-col gap-1 sm:w-40">
           <h2 className="text-body1 font-bold text-text-secondary">멤버</h2>
           {members.length ? (
             members.map((member) => (
               <div
-                className="flex h-12 w-full items-center gap-2 rounded-small py-2"
+                className="flex h-12 items-center gap-2 rounded-extrasmall py-3"
                 key={member.userId}
               >
                 {member.profileImage ? (
@@ -162,17 +188,12 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                 ) : (
                   <Avatar size={36} />
                 )}
-                <div className="flex min-w-0 flex-1 flex-col font-medium">
-                  <p className="wrap-break-words text-label text-text-primary">
+                <div className="flex min-w-0 flex-col font-medium">
+                  <p className="truncate text-label text-text-primary">
                     {member.name}
                   </p>
                   <p className="text-caption2 text-text-secondary">
                     {member.student.grade}-{member.student.room}
-                    {!member.isAccept && (
-                      <span className="ml-2">
-                        초대 대기 중
-                      </span>
-                    )}
                   </p>
                 </div>
               </div>

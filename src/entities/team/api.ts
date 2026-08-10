@@ -1,7 +1,8 @@
-import { apiClient } from "@/shared/libs/api-client";
-import type { PageResponse } from "@b1nd/api-client";
+import {apiClient} from "@/shared/libs/api-client";
+import type {PageResponse} from "@b1nd/api-client";
 import type {
   CreateTeamRequest,
+  DeleteTeamRequest,
   InviteTeamRequest,
   Team,
   TeamMember,
@@ -25,17 +26,21 @@ export const TeamApi = {
     return await apiClient.patch(TEAM_BASE, payload);
   },
 
-  async getTeams({ page, size = 12 }: { page: number; size?: number }) {
+  async deleteTeam(id: string) {
+    return await apiClient.delete(`${TEAM_BASE}/${id}`);
+  },
+
+  async getTeams({page, size = 12}: { page: number; size?: number }) {
     return await apiClient.get<PageResponse<Team>>(
       `${TEAM_BASE}?page=${page}&size=${size}&sort=id`,
     );
   },
 
   async getMyTeams({
-    page = 0,
-    size = 10,
-    sort = "id",
-  }: GetMyTeamsParams = {}) {
+                     page = 0,
+                     size = 10,
+                     sort = "id",
+                   }: GetMyTeamsParams = {}) {
     const query = new URLSearchParams({
       page: String(page),
       size: String(size),
@@ -51,7 +56,7 @@ export const TeamApi = {
     return await apiClient.get<TeamMember[]>(`${TEAM_BASE}/${publicId}`);
   },
 
-  async getMyInvitations({ page, size = 10 }: { page: number; size?: number }) {
+  async getMyInvitations({page, size = 10}: { page: number; size?: number }) {
     return await apiClient.get<PageResponse<Team>>(
       `${TEAM_BASE}/invite/my?page=${page}&size=${size}&sort=id`,
     );

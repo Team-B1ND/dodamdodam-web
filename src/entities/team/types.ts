@@ -35,3 +35,7 @@ export interface InviteTeamRequest {
   publicId: string;
   members: string[];
 }
+
+export interface DeleteTeamRequest {
+  id: string;
+}
