@@ -1,7 +1,13 @@
-import { useLeaveTeamMutation } from "@/entities/team/mutations";
-import { useGetTeamMembersQuery, useGetTeamsQuery } from "@/entities/team/queries";
-import { useGetMeSuspenseQuery } from "@/entities/user/queries";
-import { parseStudentId } from "@/shared/utils/parse-student-id";
+import {
+  useDeleteTeamMutation,
+  useLeaveTeamMutation,
+} from "@/entities/team/mutations";
+import {
+  useGetTeamMembersQuery,
+  useGetTeamsQuery,
+} from "@/entities/team/queries";
+import {useGetMeSuspenseQuery} from "@/entities/user/queries";
+import {parseStudentId} from "@/shared/utils/parse-student-id";
 import {
   Avatar,
   Dialog,
@@ -9,21 +15,24 @@ import {
   IconButton,
   useOverlay,
 } from "@b1nd/dodam-design-system/components";
-import { ChevronLeft } from "@b1nd/dodam-design-system/icons";
-import { useNavigate } from "@tanstack/react-router";
+import {ChevronLeft} from "@b1nd/dodam-design-system/icons";
+import {useNavigate} from "@tanstack/react-router";
+import {useGetMe} from "@/features/get-user/model/useGetMe.ts";
 
 interface TeamDetailPageProps {
   publicId: string;
 }
 
-const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
+const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
   const navigate = useNavigate();
   const overlay = useOverlay();
-  const { data: teamsData } = useGetTeamsQuery();
-  const { data: membersData } = useGetTeamMembersQuery(publicId);
-  const { data: meData } = useGetMeSuspenseQuery();
-  const { mutateAsync: leaveTeam, isPending: isLeaving } =
+  const {data: teamsData} = useGetTeamsQuery();
+  const {data: membersData} = useGetTeamMembersQuery(publicId);
+  const {data: meData} = useGetMeSuspenseQuery();
+  const {mutateAsync: leaveTeam, isPending: isLeaving} =
     useLeaveTeamMutation();
+  const {mutateAsync: deleteTeam, isPending: isDeleting} =
+    useDeleteTeamMutation();
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
     .find((item) => item.publicId === publicId);
@@ -34,22 +43,32 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   );
   const ownerLabel = owner
     ? `${parseStudentId(
-        owner.student.grade,
-        owner.student.room,
-        owner.student.number,
-      )}${owner.name}`
+      owner.student.grade,
+      owner.student.room,
+      owner.student.number,
+    )}${owner.name}`
     : "정보 없음";
+  const user = useGetMe();
+  const isOwner = owner?.userId === user.data.publicId;
 
   const openLeaveDialog = () => {
     if (!team) return;
 
-    overlay.open(({ close, exit, isOpen }) => (
+    overlay.open(({close, exit, isOpen}) => (
       <Dialog
-        description="탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+        description={
+          isOwner
+            ? "팀을 삭제 후 다시 참여하려면 팀을 생성해야 해요."
+            : "탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+        }
         onClose={close}
         onExited={exit}
         open={isOpen}
-        title={`${team.name} 팀에서 탈퇴할까요?`}
+        title={
+          isOwner
+            ? `${team.name} 팀을 삭제할까요?`
+            : `${team.name} 팀에서 탈퇴할까요?`
+        }
       >
         <Dialog.FilledButton
           disabled={isLeaving}
@@ -58,21 +77,39 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
         >
           취소
         </Dialog.FilledButton>
-        <Dialog.FilledButton
-          disabled={isLeaving}
-          onClick={async () => {
-            try {
-              await leaveTeam(publicId);
-              close();
-              await navigate({ to: "/team" });
-            } catch {
-              // 오류 안내는 mutation에서 처리합니다.
-            }
-          }}
-          role="negative"
-        >
-          {isLeaving ? "탈퇴 중..." : "탈퇴"}
-        </Dialog.FilledButton>
+        {isOwner ? (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await deleteTeam(publicId);
+                close();
+                await navigate({to: "/team"});
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isDeleting ? "삭제 중..." : "삭제"}
+          </Dialog.FilledButton>
+        ) : (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await leaveTeam(publicId);
+                close();
+                await navigate({to: "/team"});
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isLeaving ? "탈퇴 중..." : "탈퇴"}
+          </Dialog.FilledButton>
+        )}
       </Dialog>
     ));
   };
@@ -90,9 +127,9 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   return (
     <section className="large-container flex w-full flex-col gap-4">
       <IconButton
-        icon={<ChevronLeft />}
+        icon={<ChevronLeft/>}
         iconSize={24}
-        onClick={() => navigate({ to: "/team" })}
+        onClick={() => navigate({to: "/team"})}
         size={40}
       />
 
@@ -114,7 +151,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                   onClick={() =>
                     navigate({
                       to: "/team/$publicId/edit",
-                      params: { publicId },
+                      params: {publicId},
                     })
                   }
                   role="primary"
@@ -139,7 +176,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
           </div>
         </div>
 
-        <div className="h-px w-full bg-border-normal" />
+        <div className="h-px w-full bg-border-normal"/>
 
         <div className="flex w-full flex-col gap-1 sm:w-40">
           <h2 className="text-body1 font-bold text-text-secondary">멤버</h2>
@@ -156,7 +193,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                     src={member.profileImage}
                   />
                 ) : (
-                  <Avatar size={36} />
+                  <Avatar size={36}/>
                 )}
                 <div className="flex min-w-0 flex-col font-medium">
                   <p className="truncate text-label text-text-primary">
@@ -181,30 +218,30 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
 
 TeamDetailPage.Skeleton = () => (
   <section className="large-container flex w-full flex-col gap-4">
-    <div className="skeleton size-6 rounded-extrasmall" />
+    <div className="skeleton size-6 rounded-extrasmall"/>
     <div className="flex flex-col gap-5 p-0 sm:p-5">
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-2">
-          <div className="skeleton h-12 w-32 rounded-extrasmall" />
-          <div className="skeleton h-7 w-64 max-w-full rounded-extrasmall" />
+          <div className="skeleton h-12 w-32 rounded-extrasmall"/>
+          <div className="skeleton h-7 w-64 max-w-full rounded-extrasmall"/>
         </div>
         <div className="hidden flex-col items-end gap-3 sm:flex">
           <div className="flex gap-2">
-            <div className="skeleton h-10 w-20 rounded-small" />
-            <div className="skeleton h-10 w-20 rounded-small" />
+            <div className="skeleton h-10 w-20 rounded-small"/>
+            <div className="skeleton h-10 w-20 rounded-small"/>
           </div>
-          <div className="skeleton h-5 w-32 rounded-extrasmall" />
+          <div className="skeleton h-5 w-32 rounded-extrasmall"/>
         </div>
       </div>
-      <div className="h-px w-full bg-border-normal" />
+      <div className="h-px w-full bg-border-normal"/>
       <div className="flex flex-col gap-2">
-        <div className="skeleton h-6 w-10 rounded-extrasmall" />
-        {Array.from({ length: 3 }).map((_, index) => (
+        <div className="skeleton h-6 w-10 rounded-extrasmall"/>
+        {Array.from({length: 3}).map((_, index) => (
           <div className="flex h-12 items-center gap-2" key={index}>
-            <div className="skeleton size-9 rounded-full" />
+            <div className="skeleton size-9 rounded-full"/>
             <div className="flex flex-col gap-1">
-              <div className="skeleton h-4 w-14 rounded-extrasmall" />
-              <div className="skeleton h-3 w-8 rounded-extrasmall" />
+              <div className="skeleton h-4 w-14 rounded-extrasmall"/>
+              <div className="skeleton h-3 w-8 rounded-extrasmall"/>
             </div>
           </div>
         ))}
