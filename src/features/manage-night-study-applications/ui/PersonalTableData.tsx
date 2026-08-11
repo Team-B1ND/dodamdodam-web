@@ -20,6 +20,7 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
     toggleAll,
     toggleOne,
     ref,
+    isLoadingFilteredData,
     isFetchingNextPage,
     allow,
     isAllowing,
@@ -72,6 +73,10 @@ const PersonalTableData = (filters: ApplicationTableFilters) => {
       />
     ));
   };
+
+  if (isLoadingFilteredData) {
+    return <PersonalSkeletonRows count={8} />;
+  }
 
   if (filtered.length === 0) {
     return (
