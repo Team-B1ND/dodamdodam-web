@@ -27,9 +27,13 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const { ref, inView } = useInView();
+  const isLoadingFilteredData = filtered.length === 0 && hasNextPage;
+
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+    if ((inView || isLoadingFilteredData) && hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, inView, isFetchingNextPage, isLoadingFilteredData]);
 
   const toggleAll = (ids: string[]) => {
     if (selectedIds.size === ids.length) setSelectedIds(new Set());
@@ -78,6 +82,7 @@ export const usePersonalApplicationsTable = (filters: ApplicationTableFilters = 
     toggleAll,
     toggleOne,
     ref,
+    isLoadingFilteredData,
     isFetchingNextPage,
     allow,
     isAllowing,
