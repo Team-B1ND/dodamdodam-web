@@ -1,5 +1,8 @@
 import { useLeaveTeamMutation } from "@/entities/team/mutations";
-import { useGetTeamMembersQuery, useGetTeamsQuery } from "@/entities/team/queries";
+import {
+  useGetTeamMembersQuery,
+  useGetTeamsQuery,
+} from "@/entities/team/queries";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
 import {
@@ -27,9 +30,10 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
     .find((item) => item.publicId === publicId);
-  const members = membersData.data.filter((member) => member.isAccept);
-  const owner = members.find((member) => member.isOwner);
-  const currentMember = members.find(
+  const members = membersData.data;
+  const acceptedMembers = members.filter((member) => member.isAccept);
+  const owner = acceptedMembers.find((member) => member.isOwner);
+  const currentMember = acceptedMembers.find(
     (member) => member.userId === meData.data.publicId,
   );
   const ownerLabel = owner
@@ -166,6 +170,11 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                     {member.student.grade}-{member.student.room}
                   </p>
                 </div>
+                {!member.isAccept && (
+                  <span className="ml-auto shrink-0 text-caption2 text-text-tertiary">
+                    초대 대기 중
+                  </span>
+                )}
               </div>
             ))
           ) : (
