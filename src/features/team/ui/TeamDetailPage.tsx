@@ -1,5 +1,8 @@
 import { useLeaveTeamMutation } from "@/entities/team/mutations";
-import { useGetTeamMembersQuery, useGetTeamsQuery } from "@/entities/team/queries";
+import {
+  useGetTeamMembersQuery,
+  useGetTeamsQuery,
+} from "@/entities/team/queries";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
 import {
@@ -27,9 +30,10 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
     .find((item) => item.publicId === publicId);
-  const members = membersData.data.filter((member) => member.isAccept);
-  const owner = members.find((member) => member.isOwner);
-  const currentMember = members.find(
+  const members = membersData.data;
+  const acceptedMembers = members.filter((member) => member.isAccept);
+  const owner = acceptedMembers.find((member) => member.isOwner);
+  const currentMember = acceptedMembers.find(
     (member) => member.userId === meData.data.publicId,
   );
   const ownerLabel = owner
@@ -141,12 +145,12 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
 
         <div className="h-px w-full bg-border-normal" />
 
-        <div className="flex w-full flex-col gap-1 sm:w-40">
+        <div className="flex w-full flex-col gap-2 sm:w-64">
           <h2 className="text-body1 font-bold text-text-secondary">멤버</h2>
           {members.length ? (
             members.map((member) => (
               <div
-                className="flex h-12 items-center gap-2 rounded-extrasmall py-3"
+                className="flex h-12 w-full items-center gap-2 rounded-small py-2"
                 key={member.userId}
               >
                 {member.profileImage ? (
@@ -158,12 +162,17 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                 ) : (
                   <Avatar size={36} />
                 )}
-                <div className="flex min-w-0 flex-col font-medium">
-                  <p className="truncate text-label text-text-primary">
+                <div className="flex min-w-0 flex-1 flex-col font-medium">
+                  <p className="wrap-break-words text-label text-text-primary">
                     {member.name}
                   </p>
                   <p className="text-caption2 text-text-secondary">
                     {member.student.grade}-{member.student.room}
+                    {!member.isAccept && (
+                      <span className="ml-2">
+                        초대 대기 중
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
