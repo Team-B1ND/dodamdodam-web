@@ -5,10 +5,7 @@ import TeamMemberSearch from "./TeamMemberSearch";
 import TeamMemberSearchSkeleton from "./TeamMemberSearchSkeleton";
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import QueryBoundary from "@/shared/ui/query-boundary";
-import {
-  FilledButton,
-  useToast,
-} from "@b1nd/dodam-design-system/components";
+import { FilledButton, useToast } from "@b1nd/dodam-design-system/components";
 import { useState, type ChangeEvent } from "react";
 
 export interface TeamFormValues {
@@ -69,11 +66,7 @@ const TeamForm = ({
   };
 
   const submit = () => {
-    if (
-      !name.trim() ||
-      !description.trim() ||
-      (!isEdit && !image)
-    ) {
+    if (!name.trim() || !description.trim() || (!isEdit && !image)) {
       toast.warning("필수 입력 필드를 모두 채워주세요.");
       return;
     }
@@ -161,8 +154,7 @@ const TeamForm = ({
 
         <div className="mt-4 flex flex-col">
           <p className="text-label font-medium text-text-primary">
-            팀원 선택{" "}
-            {!isEdit && <span className="text-status-error">*</span>}
+            팀원 선택 {!isEdit && <span className="text-status-error">*</span>}
           </p>
           <div
             aria-required

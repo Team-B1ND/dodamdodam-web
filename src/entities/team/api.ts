@@ -25,6 +25,10 @@ export const TeamApi = {
     return await apiClient.patch(TEAM_BASE, payload);
   },
 
+  async deleteTeam(id: string) {
+    return await apiClient.delete(`${TEAM_BASE}/${id}`);
+  },
+
   async getTeams({ page, size = 12 }: { page: number; size?: number }) {
     return await apiClient.get<PageResponse<Team>>(
       `${TEAM_BASE}?page=${page}&size=${size}&sort=id`,
