@@ -1,12 +1,12 @@
-import type {TeamSelectableMember} from "./TeamMemberItem";
+import type { TeamSelectableMember } from "./TeamMemberItem";
 import TeamFormField from "./TeamFormField";
 import TeamMemberItem from "./TeamMemberItem";
 import TeamMemberSearch from "./TeamMemberSearch";
 import TeamMemberSearchSkeleton from "./TeamMemberSearchSkeleton";
-import {useDebounce} from "@/shared/hooks/useDebounce";
+import { useDebounce } from "@/shared/hooks/useDebounce";
 import QueryBoundary from "@/shared/ui/query-boundary";
-import {FilledButton, useToast} from "@b1nd/dodam-design-system/components";
-import {useState, type ChangeEvent} from "react";
+import { FilledButton, useToast } from "@b1nd/dodam-design-system/components";
+import { useState, type ChangeEvent } from "react";
 
 export interface TeamFormValues {
   name: string;
@@ -27,13 +27,13 @@ interface TeamFormProps {
 }
 
 const TeamForm = ({
-                    initialValues,
-                    isPending,
-                    lockedMemberIds = [],
-                    mode,
-                    onBack,
-                    onSubmit,
-                  }: TeamFormProps) => {
+  initialValues,
+  isPending,
+  lockedMemberIds = [],
+  mode,
+  onBack,
+  onSubmit,
+}: TeamFormProps) => {
   const [name, setName] = useState(initialValues?.name ?? "");
   const [description, setDescription] = useState(
     initialValues?.description ?? "",
@@ -53,14 +53,14 @@ const TeamForm = ({
 
   const isLocked = (memberId: string) => lockedMemberIds.includes(memberId);
   const isSelected = (memberId: string) =>
-    members.some(({publicId}) => publicId === memberId);
+    members.some(({ publicId }) => publicId === memberId);
 
   const handleMember = (member: TeamSelectableMember) => {
     if (isLocked(member.publicId)) return;
 
     setMembers((previous) =>
-      previous.some(({publicId}) => publicId === member.publicId)
-        ? previous.filter(({publicId}) => publicId !== member.publicId)
+      previous.some(({ publicId }) => publicId === member.publicId)
+        ? previous.filter(({ publicId }) => publicId !== member.publicId)
         : [...previous, member],
     );
   };
@@ -75,7 +75,7 @@ const TeamForm = ({
       return;
     }
 
-    onSubmit({name, description, image, members});
+    onSubmit({ name, description, image, members });
   };
 
   return (
@@ -130,8 +130,7 @@ const TeamForm = ({
             label="대표 사진"
             required={!isEdit}
           >
-            <label
-              className="flex h-12 cursor-pointer items-center rounded-small border border-border-normal bg-background-surface px-4 text-body text-text-secondary focus-within:border-brand-primary">
+            <label className="flex h-12 cursor-pointer items-center rounded-small border border-border-normal bg-background-surface px-4 text-body text-text-secondary focus-within:border-brand-primary">
               <span
                 className={
                   image || initialValues?.imageUrl
@@ -176,7 +175,7 @@ const TeamForm = ({
                 <QueryBoundary
                   errorClassName="min-h-full rounded-small"
                   errorTitle="학생 목록을 불러오지 못했어요"
-                  pendingFallback={<TeamMemberSearchSkeleton/>}
+                  pendingFallback={<TeamMemberSearchSkeleton />}
                 >
                   <TeamMemberSearch
                     isDisabled={isLocked}

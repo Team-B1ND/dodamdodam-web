@@ -1,4 +1,7 @@
-import { useDeleteTeamMutation, useLeaveTeamMutation } from "@/entities/team/mutations";
+import {
+  useDeleteTeamMutation,
+  useLeaveTeamMutation,
+} from "@/entities/team/mutations";
 import {
   useGetTeamMembersQuery,
   useGetTeamsQuery,
@@ -20,15 +23,15 @@ interface TeamDetailPageProps {
   publicId: string;
 }
 
-const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
+const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   const navigate = useNavigate();
   const overlay = useOverlay();
-  const {data: teamsData} = useGetTeamsQuery();
-  const {data: membersData} = useGetTeamMembersQuery(publicId);
-  const {data: meData} = useGetMeSuspenseQuery();
-  const {mutateAsync: leaveTeam, isPending: isLeaving} =
+  const { data: teamsData } = useGetTeamsQuery();
+  const { data: membersData } = useGetTeamMembersQuery(publicId);
+  const { data: meData } = useGetMeSuspenseQuery();
+  const { mutateAsync: leaveTeam, isPending: isLeaving } =
     useLeaveTeamMutation();
-  const {mutateAsync: deleteTeam, isPending: isDeleting} =
+  const { mutateAsync: deleteTeam, isPending: isDeleting } =
     useDeleteTeamMutation();
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
@@ -40,10 +43,10 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
   );
   const ownerLabel = owner
     ? `${parseStudentId(
-      owner.student.grade,
-      owner.student.room,
-      owner.student.number,
-    )}${owner.name}`
+        owner.student.grade,
+        owner.student.room,
+        owner.student.number,
+      )}${owner.name}`
     : "정보 없음";
   const user = useGetMe();
   const isOwner = owner?.userId === user.data.publicId;
@@ -51,7 +54,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
   const openLeaveDialog = () => {
     if (!team) return;
 
-    overlay.open(({close, exit, isOpen}) => (
+    overlay.open(({ close, exit, isOpen }) => (
       <Dialog
         description={
           isOwner
@@ -81,7 +84,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
               try {
                 await deleteTeam(publicId);
                 close();
-                await navigate({to: "/team"});
+                await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
               }
@@ -97,7 +100,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
               try {
                 await leaveTeam(publicId);
                 close();
-                await navigate({to: "/team"});
+                await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
               }
@@ -124,9 +127,9 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
   return (
     <section className="large-container flex w-full flex-col gap-4">
       <IconButton
-        icon={<ChevronLeft/>}
+        icon={<ChevronLeft />}
         iconSize={24}
-        onClick={() => navigate({to: "/team"})}
+        onClick={() => navigate({ to: "/team" })}
         size={40}
       />
 
@@ -148,7 +151,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
                   onClick={() =>
                     navigate({
                       to: "/team/$publicId/edit",
-                      params: {publicId},
+                      params: { publicId },
                     })
                   }
                   role="primary"
@@ -173,7 +176,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
           </div>
         </div>
 
-        <div className="h-px w-full bg-border-normal"/>
+        <div className="h-px w-full bg-border-normal" />
 
         <div className="flex w-full flex-col gap-1 sm:w-40">
           <h2 className="text-body1 font-bold text-text-secondary">멤버</h2>
@@ -190,7 +193,7 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
                     src={member.profileImage}
                   />
                 ) : (
-                  <Avatar size={36}/>
+                  <Avatar size={36} />
                 )}
                 <div className="flex min-w-0 flex-col font-medium">
                   <p className="truncate text-label text-text-primary">
@@ -215,30 +218,30 @@ const TeamDetailPage = ({publicId}: TeamDetailPageProps) => {
 
 TeamDetailPage.Skeleton = () => (
   <section className="large-container flex w-full flex-col gap-4">
-    <div className="skeleton size-6 rounded-extrasmall"/>
+    <div className="skeleton size-6 rounded-extrasmall" />
     <div className="flex flex-col gap-5 p-0 sm:p-5">
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-2">
-          <div className="skeleton h-12 w-32 rounded-extrasmall"/>
-          <div className="skeleton h-7 w-64 max-w-full rounded-extrasmall"/>
+          <div className="skeleton h-12 w-32 rounded-extrasmall" />
+          <div className="skeleton h-7 w-64 max-w-full rounded-extrasmall" />
         </div>
         <div className="hidden flex-col items-end gap-3 sm:flex">
           <div className="flex gap-2">
-            <div className="skeleton h-10 w-20 rounded-small"/>
-            <div className="skeleton h-10 w-20 rounded-small"/>
+            <div className="skeleton h-10 w-20 rounded-small" />
+            <div className="skeleton h-10 w-20 rounded-small" />
           </div>
-          <div className="skeleton h-5 w-32 rounded-extrasmall"/>
+          <div className="skeleton h-5 w-32 rounded-extrasmall" />
         </div>
       </div>
-      <div className="h-px w-full bg-border-normal"/>
+      <div className="h-px w-full bg-border-normal" />
       <div className="flex flex-col gap-2">
-        <div className="skeleton h-6 w-10 rounded-extrasmall"/>
-        {Array.from({length: 3}).map((_, index) => (
+        <div className="skeleton h-6 w-10 rounded-extrasmall" />
+        {Array.from({ length: 3 }).map((_, index) => (
           <div className="flex h-12 items-center gap-2" key={index}>
-            <div className="skeleton size-9 rounded-full"/>
+            <div className="skeleton size-9 rounded-full" />
             <div className="flex flex-col gap-1">
-              <div className="skeleton h-4 w-14 rounded-extrasmall"/>
-              <div className="skeleton h-3 w-8 rounded-extrasmall"/>
+              <div className="skeleton h-4 w-14 rounded-extrasmall" />
+              <div className="skeleton h-3 w-8 rounded-extrasmall" />
             </div>
           </div>
         ))}
