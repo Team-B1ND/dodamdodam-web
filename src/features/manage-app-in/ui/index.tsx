@@ -94,8 +94,8 @@ const AdminAppIn = () => {
 
   return (
     <section className="flex w-full min-w-0 flex-col gap-4 xl:flex-row xl:items-start">
-      <div className="h-188.25 min-w-0 flex-1 overflow-auto rounded-large bg-background-surface p-6">
-        <div className="min-w-201.25">
+      <div className="scrollbar h-[70vh] min-h-0 min-w-0 max-h-188.25 flex-1 overflow-auto rounded-large bg-background-surface p-4 sm:p-6">
+        <div className="w-full min-w-0">
           {rows.length ? (
             <Table data={rows} keys={APP_TABLE_KEYS} />
           ) : (
@@ -117,7 +117,7 @@ const AdminAppIn = () => {
         </div>
       </div>
 
-      <aside className="flex h-188.25 w-full shrink-0 flex-col overflow-hidden rounded-large bg-background-surface p-5 xl:w-105.5">
+      <aside className="flex h-[70vh] min-h-0 min-w-0 w-full max-h-188.25 shrink-0 flex-col overflow-hidden rounded-large bg-background-surface p-4 sm:p-5 xl:w-105.5">
         <h1 className="text-headline font-bold">릴리즈 요청 목록</h1>
         <div className="scrollbar mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
           <div className="flex flex-col gap-4">
@@ -135,7 +135,7 @@ const AdminAppIn = () => {
                   {release.releaseUrl}
                 </a>
                 <div className="h-px w-full bg-border-normal" />
-                <div className="grid grid-cols-2 grid-rows-2 gap-x-6 gap-y-3 text-label">
+                <div className="grid grid-cols-1 gap-x-4 gap-y-3 text-label sm:grid-cols-2 sm:gap-x-6">
                   <div className="flex min-w-0 items-center gap-2 whitespace-nowrap">
                     <span className="font-bold text-text-secondary">팀명</span>
                     <span className="truncate font-semibold text-text-primary">
@@ -156,7 +156,7 @@ const AdminAppIn = () => {
                       {app.name}
                     </span>
                   </div>
-                  <div className="flex items-center justify-end gap-1">
+                  <div className="col-span-1 flex items-center justify-end gap-1 sm:col-span-2">
                     <FilledButton
                       disabled={isAllowing}
                       display="inline"
@@ -196,8 +196,8 @@ const AdminAppIn = () => {
 
 AdminAppIn.Skeleton = () => (
   <section className="flex w-full min-w-0 flex-col gap-4 xl:flex-row">
-    <div className="h-188.25 min-w-0 flex-1 rounded-large skeleton" />
-    <div className="h-188.25 w-full shrink-0 rounded-large skeleton xl:w-105.5" />
+    <div className="h-[70vh] min-h-0 min-w-0 max-h-188.25 flex-1 rounded-large skeleton" />
+    <div className="h-[70vh] min-h-0 w-full max-h-188.25 shrink-0 rounded-large skeleton xl:w-105.5" />
   </section>
 );
 
