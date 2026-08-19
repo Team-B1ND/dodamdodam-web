@@ -17,6 +17,8 @@ const APP_TABLE_KEYS: TableKey[] = [
   ["서비스 표시", "90px"],
   ["상태 제어", "90px"],
 ];
+const getGithubDisplayUrl = (githubUrl: string) =>
+  githubUrl.replace(/^https?:\/\/github\.com\//, "");
 const getReleaseVersion = (releaseUrl: string) =>
   releaseUrl.split("/").filter(Boolean).pop()?.replace(/^v/, "") ?? "-";
 
@@ -50,7 +52,7 @@ const AdminAppIn = () => {
         rel="noreferrer"
         target="_blank"
       >
-        {app.githubUrl}
+        {getGithubDisplayUrl(app.githubUrl)}
       </a>
     ) : (
       "-"
