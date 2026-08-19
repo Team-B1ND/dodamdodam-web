@@ -1,13 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import AdminAppIn from "@/features/manage-app-in/ui";
+import QueryBoundary from "@/shared/ui/query-boundary";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/(role)/admin/_adminLayout/app-in/')({
+export const Route = createFileRoute("/(role)/admin/_adminLayout/app-in/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
-    <section className='large-container'>
-      <h1 className='text-heading1 font-bold'>앱인도담</h1>
-    </section>
-  )
+    <QueryBoundary pendingFallback={<AdminAppIn.Skeleton />}>
+      <AdminAppIn />
+    </QueryBoundary>
+  );
 }
