@@ -1,5 +1,11 @@
-import { useLeaveTeamMutation } from "@/entities/team/mutations";
-import { useGetTeamMembersQuery, useGetTeamsQuery } from "@/entities/team/queries";
+import {
+  useDeleteTeamMutation,
+  useLeaveTeamMutation,
+} from "@/entities/team/mutations";
+import {
+  useGetTeamMembersQuery,
+  useGetTeamsQuery,
+} from "@/entities/team/queries";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
 import {
@@ -11,6 +17,7 @@ import {
 } from "@b1nd/dodam-design-system/components";
 import { ChevronLeft } from "@b1nd/dodam-design-system/icons";
 import { useNavigate } from "@tanstack/react-router";
+import { useGetMe } from "@/features/get-user/model/useGetMe.ts";
 
 interface TeamDetailPageProps {
   publicId: string;
@@ -24,6 +31,8 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   const { data: meData } = useGetMeSuspenseQuery();
   const { mutateAsync: leaveTeam, isPending: isLeaving } =
     useLeaveTeamMutation();
+  const { mutateAsync: deleteTeam, isPending: isDeleting } =
+    useDeleteTeamMutation();
   const team = teamsData.pages
     .flatMap((page) => page.data.content)
     .find((item) => item.publicId === publicId);
@@ -39,17 +48,27 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
         owner.student.number,
       )}${owner.name}`
     : "정보 없음";
+  const user = useGetMe();
+  const isOwner = owner?.userId === user.data.publicId;
 
   const openLeaveDialog = () => {
     if (!team) return;
 
     overlay.open(({ close, exit, isOpen }) => (
       <Dialog
-        description="탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+        description={
+          isOwner
+            ? "팀을 삭제 후 다시 참여하려면 팀을 생성해야 해요."
+            : "탈퇴 후 다시 참여하려면 팀의 초대가 필요해요."
+        }
         onClose={close}
         onExited={exit}
         open={isOpen}
-        title={`${team.name} 팀에서 탈퇴할까요?`}
+        title={
+          isOwner
+            ? `${team.name} 팀을 삭제할까요?`
+            : `${team.name} 팀에서 탈퇴할까요?`
+        }
       >
         <Dialog.FilledButton
           disabled={isLeaving}
@@ -58,21 +77,39 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
         >
           취소
         </Dialog.FilledButton>
-        <Dialog.FilledButton
-          disabled={isLeaving}
-          onClick={async () => {
-            try {
-              await leaveTeam(publicId);
-              close();
-              await navigate({ to: "/team" });
-            } catch {
-              // 오류 안내는 mutation에서 처리합니다.
-            }
-          }}
-          role="negative"
-        >
-          {isLeaving ? "탈퇴 중..." : "탈퇴"}
-        </Dialog.FilledButton>
+        {isOwner ? (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await deleteTeam(publicId);
+                close();
+                await navigate({ to: "/team" });
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isDeleting ? "삭제 중..." : "삭제"}
+          </Dialog.FilledButton>
+        ) : (
+          <Dialog.FilledButton
+            disabled={isLeaving}
+            onClick={async () => {
+              try {
+                await leaveTeam(publicId);
+                close();
+                await navigate({ to: "/team" });
+              } catch {
+                // 오류 안내는 mutation에서 처리합니다.
+              }
+            }}
+            role="negative"
+          >
+            {isLeaving ? "탈퇴 중..." : "탈퇴"}
+          </Dialog.FilledButton>
+        )}
       </Dialog>
     ));
   };
@@ -129,7 +166,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                   role="negative"
                   size="medium"
                 >
-                  탈퇴하기
+                  {isOwner ? "삭제하기" : "탈퇴하기"}
                 </FilledButton>
               )}
             </div>
