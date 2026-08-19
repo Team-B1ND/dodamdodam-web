@@ -49,14 +49,16 @@ function RouteComponent() {
   }
 
   return (
-    <div className="flex h-fit min-h-0 flex-col gap-4">
-      <header className="large-container">
-        <SegmentedButton
-          data={pageData}
-          setData={setPages}
-          onBlockClick={(v) => navigate({ to: `/admin/${v}` })}
-          width="22.5rem"
-        />
+    <div className="flex h-fit min-h-0 min-w-0 flex-col gap-4">
+      <header className="large-container min-w-0 max-sm:p-4">
+        <div className="w-full max-w-[22.5rem]">
+          <SegmentedButton
+            data={pageData}
+            setData={setPages}
+            onBlockClick={(v) => navigate({ to: `/admin/${v}` })}
+            width="100%"
+          />
+        </div>
       </header>
       <Outlet />
     </div>

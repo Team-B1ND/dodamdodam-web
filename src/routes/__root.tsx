@@ -91,7 +91,7 @@ function RootComponent() {
 
   return (
     <div className="relative flex justify-center w-full h-screen bg-background-default">
-      <div className="flex justify-center w-lg max-w-lg grow min-h-0 gap-8">
+      <div className="flex min-w-0 w-full max-w-lg grow min-h-0 justify-center gap-8">
         <Sidebar
           isMobile={isMobile}
           isMobileSidebarOpen={isMobileSidebarOpen}
@@ -107,9 +107,9 @@ function RootComponent() {
 
         <main
           ref={mainRef}
-          className="flex grow min-h-0 flex-col overflow-y-auto py-7 sm:pr-8 max-sm:py-5 max-sm:px-5"
+          className="flex min-w-0 grow min-h-0 flex-col overflow-y-auto py-7 sm:pr-8 max-sm:py-5 max-sm:px-5"
         >
-          <div className="flex min-h-full flex-col">
+          <div className="flex min-w-0 min-h-full flex-col">
             <Outlet />
             <div className="h-9 shrink-0" />
           </div>
