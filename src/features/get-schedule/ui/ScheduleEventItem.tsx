@@ -57,7 +57,7 @@ export const ScheduleEventItem = ({
       <button
         type="button"
         onClick={openDetailDialog}
-        className="w-full flex items-center gap-1 appearance-none border-0 bg-transparent p-0 font-[inherit] text-left"
+        className="w-full flex items-center gap-1 appearance-none border-0 bg-transparent p-0 font-[inherit] text-left cursor-pointer"
       >
         <span
           className="size-1.5 rounded-full shrink-0"
@@ -84,7 +84,7 @@ export const ScheduleEventItem = ({
     <button
       type="button"
       onClick={openDetailDialog}
-      className="h-5 rounded-[3px] px-1.5 text-static-white flex items-center whitespace-nowrap overflow-hidden relative z-10 appearance-none border-0 bg-transparent py-0 font-[inherit] text-left"
+      className="h-5 rounded-[3px] px-1.5 text-static-white flex items-center whitespace-nowrap overflow-hidden relative z-10 appearance-none border-0 bg-transparent py-0 font-[inherit] text-left cursor-pointer"
       style={{
         backgroundColor: item.backgroundColor,
         width: `calc(${spanDays * 100}% + ${spanDays - 1}px + ${1.05 * spanDays}rem - 1rem)`,
