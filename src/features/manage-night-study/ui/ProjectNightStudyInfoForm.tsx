@@ -8,7 +8,7 @@ import { useEffect, useMemo } from "react";
 const ProjectNightStudyInfoForm = () => {
   const { form, handleDateChange, handleStringChange, handleDropdownChange } =
     useApplyProjectNightStudy();
-  const { period, wishRoom, startAt, endAt, name, description } = form;
+  const { period, wishRoom, date, name, description } = form;
   const { data: rooms } = useGetRoomsQuery();
   const roomOptions = useMemo(
     () =>
@@ -48,17 +48,16 @@ const ProjectNightStudyInfoForm = () => {
             <PickerTrigger
               content={({ onClose }) => (
                 <DatePicker.Content
-                  date={startAt}
-                  onChangeDate={(date) => {
-                    handleDateChange("startAt", date)
-                    handleDateChange("endAt", date)
+                  date={date}
+                  onChangeDate={async (date) => {
+                    handleDateChange(date);
                   }}
                   onClose={onClose}
                   disablePast
                 />
               )}>
               <FilledButton role="assistive" size="medium">
-                {startAt ? padDate(startAt) : "YYYY-MM-DD"}
+                {date ? padDate(date) : "YYYY-MM-DD"}
               </FilledButton>
             </PickerTrigger>
           </div>
