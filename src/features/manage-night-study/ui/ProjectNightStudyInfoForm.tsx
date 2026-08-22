@@ -8,7 +8,7 @@ import { useEffect, useMemo } from "react";
 const ProjectNightStudyInfoForm = () => {
   const { form, handleDateChange, handleStringChange, handleDropdownChange } =
     useApplyProjectNightStudy();
-  const { period, wishRoom, startAt, endAt, name, description } = form;
+  const { period, wishRoom, date, name, description } = form;
   const { data: rooms } = useGetRoomsQuery();
   const roomOptions = useMemo(
     () =>
@@ -44,34 +44,20 @@ const ProjectNightStudyInfoForm = () => {
             />
           </div>
           <div className="w-full flex items-center justify-between">
-            <p className="text-headline font-medium text-text-secondary">시작 날짜</p>
+            <p className="text-headline font-medium text-text-secondary">날짜</p>
             <PickerTrigger
               content={({ onClose }) => (
                 <DatePicker.Content
-                  date={startAt}
-                  onChangeDate={(date) => handleDateChange("startAt", date)}
+                  date={date}
+                  onChangeDate={async (date) => {
+                    handleDateChange(date);
+                  }}
                   onClose={onClose}
                   disablePast
                 />
               )}>
               <FilledButton role="assistive" size="medium">
-                {startAt ? padDate(startAt) : "YYYY-MM-DD"}
-              </FilledButton>
-            </PickerTrigger>
-          </div>
-          <div className="w-full flex items-center justify-between">
-            <p className="text-headline font-medium text-text-secondary">종료 날짜</p>
-            <PickerTrigger
-              content={({ onClose }) => (
-                <DatePicker.Content
-                  date={endAt}
-                  onChangeDate={(date) => handleDateChange("endAt", date)}
-                  onClose={onClose}
-                  disablePast
-                />
-              )}>
-              <FilledButton role="assistive" size="medium">
-                {endAt ? padDate(endAt) : "YYYY-MM-DD"}
+                {date ? padDate(date) : "YYYY-MM-DD"}
               </FilledButton>
             </PickerTrigger>
           </div>

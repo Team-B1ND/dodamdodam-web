@@ -12,8 +12,8 @@ export const useApplyProjectNightStudy = () => {
   const { mutateAsync, isPending } = useApplyProjectNightStudyMutation();
   const toast = useToast();
 
-  const handleDateChange = (field: "startAt" | "endAt", value: Date) => {
-    setForm({ ...form, [field]: value });
+  const handleDateChange = (value: Date) => {
+    setForm({ ...form, date: value });
   };
 
   const handleStringChange = (field: "name" | "description", value: string) => {
@@ -101,8 +101,8 @@ export const useApplyProjectNightStudy = () => {
     await mutateAsync({
       name: form.name,
       description: form.description,
-      startAt: padDate(form.startAt),
-      endAt: padDate(form.endAt),
+      startAt: padDate(form.date),
+      endAt: padDate(form.date),
       period: Number(form.period.value),
       members: form.members.map((m) => m.publicId),
       wishRoomId: Number(form.wishRoom.value),

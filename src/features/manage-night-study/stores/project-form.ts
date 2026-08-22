@@ -13,8 +13,7 @@ export interface ProjectMember {
 interface Form {
   period: DropdownItem;
   wishRoom: DropdownItem | null;
-  startAt: Date;
-  endAt: Date;
+  date: Date;
   name: string;
   description: string;
   members: ProjectMember[];
@@ -29,8 +28,7 @@ interface State {
 const INITIAL_FORM = {
   period: PERIOD_OPTIONS[0],
   wishRoom: null,
-  startAt: new Date(),
-  endAt: new Date(),
+  date: new Date(),
   name: "",
   description: "",
   members: [],
