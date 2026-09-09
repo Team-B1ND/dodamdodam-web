@@ -1,18 +1,33 @@
 export type OutSleepingStatus = "PENDING" | "ALLOWED" | "DENIED";
 
+export type OutSleepingReasonType =
+  | "PERSONAL"
+  | "TRAINING"
+  | "INTERNSHIP"
+  | "SILICON_VALLEY"
+  | "SICK_LEAVE"
+  | "ETC";
+
 export interface OutSleeping {
   publicId: string;
-  reason: string;
+  reasonType: OutSleepingReasonType;
+  reason: string | null;
   status: OutSleepingStatus;
   startAt: string;
   endAt: string;
 }
 
-export type OutSleepingApplyRequest = Omit<OutSleeping, "publicId" | "status">;
+export interface OutSleepingApplyRequest {
+  reasonType: OutSleepingReasonType;
+  reason: string | null;
+  startAt: string;
+  endAt: string;
+}
 
 export interface OutSleepingApplication {
   publicId: string;
-  reason: string;
+  reasonType: OutSleepingReasonType;
+  reason: string | null;
   status: OutSleepingStatus;
   student: {
     name: string;

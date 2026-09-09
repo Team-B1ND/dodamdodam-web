@@ -8,12 +8,13 @@ interface State {
 }
 
 const init: OutSleepingApplyRequest = {
-  reason: "",
+  reasonType: "PERSONAL",
+  reason: null,
   startAt: padDate(new Date()),
   endAt: padDate(new Date()),
-}
+};
 
 export const useApplyOutSleepingStore = create<State>((set) => ({
   applyData: init,
   setApplyData: (applyData) => set({ applyData }),
-}))
+}));

@@ -1,5 +1,6 @@
 import { useDeleteOutSleepingMutation } from "@/entities/out-sleeping/mutations";
 import { useGetMyOutSleepingQuery } from "@/entities/out-sleeping/queries";
+import { formatOutSleepingReason } from "@/features/manage-out-sleeping/constants/out-sleeping-reasons";
 import { useOutSleepingPageStore } from "@/features/manage-out-sleeping/stores/out-sleeping-page";
 import { parseOutSleepingStatus } from "@/features/manage-out-sleeping/utils/parse-out-sleeping-status";
 import { colors } from "@b1nd/dodam-design-system/colors";
@@ -19,7 +20,9 @@ const MyOutSleeingList = () => {
           <Tag color="blue" text={parseOutSleepingStatus(item.status)} customStyle={{ alignSelf:"start" }} />
           <div className="flex gap-4">
             <div className="flex flex-col gap-1 grow">
-              <p className="text-text-primary text-body2 font-medium grow">{item.reason}</p>
+              <p className="text-text-primary text-body2 font-medium grow">
+                {formatOutSleepingReason(item.reasonType, item.reason)}
+              </p>
               <p className="text-text-tertiary text-label font-normal">{`${item.startAt} ~ ${item.endAt}`}</p>
             </div>
             <div className={`bg-fill-primary h-fit p-1 rounded-extrasmall ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`} onClick={() => isPending ? {} : mutateAsync(item.publicId)}>

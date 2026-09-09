@@ -1,6 +1,8 @@
 import { colors } from "@b1nd/dodam-design-system/colors"
 import { FilledButton } from "@b1nd/dodam-design-system/components";
 import { Close } from "@b1nd/dodam-design-system/icons"
+import type { OutSleepingReasonType } from "@/entities/out-sleeping/types";
+import { formatOutSleepingReason } from "@/features/manage-out-sleeping/constants/out-sleeping-reasons";
 import { useManageOutSleeping } from "@/features/manage-out-sleeping/model/useManageOutSleeping";
 
 interface Props {
@@ -8,7 +10,8 @@ interface Props {
   studentId: string;
   startDate: string;
   endDate: string;
-  reason: string;
+  reasonType: OutSleepingReasonType;
+  reason: string | null;
   publicId: string;
   onClose: () => void;
 }
@@ -18,6 +21,7 @@ const OutSleepingApplicationsModal = ({
   studentId,
   startDate,
   endDate,
+  reasonType,
   reason,
   publicId,
   onClose,
@@ -45,7 +49,7 @@ const OutSleepingApplicationsModal = ({
         {row("학생정보", studentId)}
         {row("출발일자", startDate)}
         {row("도착일자", endDate)}
-        {row("사유", reason)}
+        {row("사유", formatOutSleepingReason(reasonType, reason))}
       </div>
       <div className="grid grid-cols-2 gap-3">
         <FilledButton

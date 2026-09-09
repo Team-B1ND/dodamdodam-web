@@ -9,7 +9,8 @@ export const useApplyOutSleeping = () => {
 
   const [startAt, setStartAt] = useState(new Date(applyData.startAt));
   const [endAt, setEndAt] = useState(new Date(applyData.endAt));
-  const [reason, setReason] = useState(applyData.reason);
+  const [reasonType, setReasonType] = useState(applyData.reasonType);
+  const [reason, setReason] = useState(applyData.reason ?? "");
   const toast = useToast();
   const { mutateAsync, isPending } = useApplyOutSleepingMutation();
 
@@ -28,7 +29,7 @@ export const useApplyOutSleeping = () => {
       errorMessage.push("도착 일자는 출발 일자 이후여야 해요.");
     }
     
-    if (reason.trim().length === 0) {
+    if (reasonType === "ETC" && reason.trim().length === 0) {
       errorMessage.push("사유를 입력해주세요.");
     }
 
@@ -38,8 +39,9 @@ export const useApplyOutSleeping = () => {
   const init = () => {
     setStartAt(new Date());
     setEndAt(new Date());
+    setReasonType("PERSONAL");
     setReason("");
-  }
+  };
 
   const submit = async () => {
     if (validate().length > 0) {
@@ -50,7 +52,8 @@ export const useApplyOutSleeping = () => {
     await mutateAsync({
       startAt: padDate(startAt),
       endAt: padDate(endAt),
-      reason
+      reasonType,
+      reason: reasonType === "ETC" ? reason : null,
     });
 
     init();
@@ -60,7 +63,8 @@ export const useApplyOutSleeping = () => {
     setApplyData({
       startAt: padDate(startAt),
       endAt: padDate(endAt),
-      reason,
+      reasonType,
+      reason: reasonType === "ETC" ? reason : null,
     });
   }
 
@@ -69,10 +73,12 @@ export const useApplyOutSleeping = () => {
     endAt,
     setStartAt,
     setEndAt,
+    reasonType,
+    setReasonType,
     reason,
     handleReason,
     submit,
     isPending,
     saveOnChangePage
-  }
-}
+  };
+};
