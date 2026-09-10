@@ -173,17 +173,25 @@ export interface NightStudyCountDataType {
   period2: number;
 }
 
-export interface NightStudyTotalCount {
-  personal: number;
-  project: number;
+export interface NightStudyGenderCount {
+  male: number;
+  female: number;
 }
 
-export interface NightStudyFloorTotal {
+export interface NightStudyFloorTotal extends NightStudyGenderCount {
   floor: number;
-  count: Record<"period1" | "period2", NightStudyTotalCount>;
 }
 
-export interface NightStudyTotal {
-  floors: NightStudyFloorTotal[];
-  total: Record<"period1" | "period2", NightStudyTotalCount>;
+export interface NightStudyGradeTotal extends NightStudyGenderCount {
+  grade: number;
 }
+
+export type NightStudyTotalPeriod = {
+  grades: NightStudyGradeTotal[];
+  floors: NightStudyFloorTotal[];
+};
+
+export type NightStudyTotal = Record<
+  "personal" | "project",
+  Record<"period1" | "period2", NightStudyTotalPeriod>
+>;

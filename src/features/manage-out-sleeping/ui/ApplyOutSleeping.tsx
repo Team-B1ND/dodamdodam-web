@@ -1,14 +1,28 @@
 import { useApplyOutSleeping } from "@/features/manage-out-sleeping/model/useApplyOutSleeping";
+import type { OutSleepingReasonType } from "@/entities/out-sleeping/types";
+import { OUT_SLEEPING_REASON_ITEMS } from "@/features/manage-out-sleeping/constants/out-sleeping-reasons";
 import { useOutSleepingPageStore } from "@/features/manage-out-sleeping/stores/out-sleeping-page";
 import { padDate } from "@/shared/utils/pad-date";
 import { parseDate } from "@/shared/utils/parse-date";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { DatePicker, FilledButton, useOverlay } from "@b1nd/dodam-design-system/components";
+import { DatePicker, Dropdown, FilledButton, useOverlay } from "@b1nd/dodam-design-system/components";
 import { Calendar } from "@b1nd/dodam-design-system/icons";
 
 const ApplyOutSleeping = () => {
   const { setPage } = useOutSleepingPageStore();
-  const { startAt, endAt, setStartAt, setEndAt, reason, handleReason, submit, isPending, saveOnChangePage } = useApplyOutSleeping();
+  const {
+    startAt,
+    endAt,
+    setStartAt,
+    setEndAt,
+    reasonType,
+    setReasonType,
+    reason,
+    handleReason,
+    submit,
+    isPending,
+    saveOnChangePage,
+  } = useApplyOutSleeping();
   const overlay = useOverlay();
 
   const openDatePicker = (date: Date, setDate: (date: Date) => void) => {
@@ -50,12 +64,24 @@ const ApplyOutSleeping = () => {
           <Calendar color={colors.brand.primary} size={24} />
         </div>
       </div>
-      <textarea
-        value={reason}
-        onChange={handleReason}
-        placeholder="사유를 입력해주세요."
-        className="border border-border-normal rounded-small py-3 px-4 resize-none h-40 outline-none"
-      />
+      <div className="flex justify-between items-center">
+        <p>사유</p>
+        <Dropdown
+          items={OUT_SLEEPING_REASON_ITEMS}
+          value={reasonType}
+          onSelectedItemChange={(item) =>
+            setReasonType(item.value as OutSleepingReasonType)
+          }
+        />
+      </div>
+      {reasonType === "ETC" && (
+        <textarea
+          value={reason}
+          onChange={handleReason}
+          placeholder="사유를 입력해주세요."
+          className="border border-border-normal rounded-small py-3 px-4 resize-none h-40 outline-none"
+        />
+      )}
       <div className="grid grid-cols-2 gap-3 grow">
         <FilledButton
           role="assistive" 
