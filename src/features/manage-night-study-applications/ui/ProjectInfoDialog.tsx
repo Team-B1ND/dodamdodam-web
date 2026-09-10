@@ -50,15 +50,16 @@ const ProjectInfoDialog = ({ application, isOpen, onClose }: Props) => {
             ))}
           </div>
         </div>
-        {application.status === "REJECTED" ? (
+        <div className="flex flex-col gap-1">
+          <span className="text-label font-bold text-text-secondary">프로젝트 개요</span>
+          <p className="text-body1 whitespace-pre-wrap">{application.description}</p>
+        </div>
+        {application.status === "REJECTED" && (
           <div className="flex flex-col gap-1">
             <span className="text-label font-bold text-text-secondary">거절 사유</span>
-            <p className="text-body1 whitespace-pre-wrap">{application.rejectionReason ?? "-"}</p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-1">
-            <span className="text-label font-bold text-text-secondary">프로젝트 개요</span>
-            <p className="text-body1 whitespace-pre-wrap">{application.description}</p>
+            <p className="text-body1 whitespace-pre-wrap text-status-error">
+              {application.rejectionReason ?? "-"}
+            </p>
           </div>
         )}
         <Dialog.FilledButton role="assistive" onClick={onClose}>
