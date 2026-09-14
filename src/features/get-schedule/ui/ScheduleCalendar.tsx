@@ -5,6 +5,7 @@ import { getToday } from "@/shared/libs/day";
 import { ScheduleCalendarCell } from "./ScheduleCalendarCell";
 import { IconButton } from "@b1nd/dodam-design-system/components";
 import { ChevronRight, ChevronLeft } from "@b1nd/dodam-design-system/icons";
+import { colors } from "@b1nd/dodam-design-system/colors";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -35,14 +36,14 @@ const ScheduleCalendar = ({
           <IconButton
             onClick={() => moveMonth("prev")}
             aria-label="이전 달"
-            icon={ <ChevronLeft />}
+            icon={<ChevronLeft color={colors.text.primary} />}
             size={32}
           />
           <span>{monthLabel}</span>
           <IconButton
             onClick={() => moveMonth("next")}
             aria-label="다음 달"
-            icon={ <ChevronRight />}
+            icon={<ChevronRight color={colors.text.primary} />}
             size={32}
           />
         </div>
