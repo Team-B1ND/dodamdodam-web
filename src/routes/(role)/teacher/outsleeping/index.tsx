@@ -27,7 +27,6 @@ function RouteComponent() {
           date={date}
           onChangeDate={setDate}
           onClose={onClose}
-          disablePast
         />
       );
     })
@@ -50,7 +49,6 @@ function RouteComponent() {
             date={date}
             onChangeDate={setDate}
             onClose={onClose}
-            disablePast
           />
         )}
       >
