@@ -13,6 +13,7 @@ export const useRegister = () => {
     username: "",
     password: "",
     phone: "",
+    gender: "MALE",
   });
   const [studentInfo, setStudentInfo] = useState("");
   const [teacherPosition, setTeacherPosition] = useState("");
@@ -62,6 +63,7 @@ export const useRegister = () => {
         grade: Number(studentInfo.slice(0, 1)),
         room: Number(studentInfo.slice(1, 2)),
         number: Number(studentInfo.slice(2)),
+        gender: registerUser.gender,
       });
       return;
     }
@@ -72,6 +74,7 @@ export const useRegister = () => {
       password: registerUser.password,
       phone: registerUser.phone,
       position: teacherPosition,
+      gender: registerUser.gender,
     });
   };
 

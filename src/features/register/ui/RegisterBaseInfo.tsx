@@ -1,7 +1,12 @@
 import type { UserRegister } from "@/entities/user/types";
 import { extractEngAndNumberOnString } from "@/shared/utils/extract-eng-number-on-string";
 import { isValidPassword } from "@/shared/utils/validate-password";
-import { FilledButton, TextField, useToast } from "@b1nd/dodam-design-system/components";
+import {
+  Dropdown,
+  FilledButton,
+  TextField,
+  useToast,
+} from "@b1nd/dodam-design-system/components";
 
 interface Props {
   phaseController: (type: "up" | "down") => void;
@@ -58,12 +63,24 @@ const RegisterBaseInfo = ({
         type="password"
         value={registerUser.password}
         onKeyDown={(e) =>
-          e.key === "Enter" && !e.nativeEvent.isComposing
-            ? goNextPhase()
-            : {}
+          e.key === "Enter" && !e.nativeEvent.isComposing ? goNextPhase() : {}
         }
         onChange={(e) => registerUserHandler(e.target.value, "password")}
       />
+      <div className="w-full">
+        <p className="text-body2 mb-1">성별</p>
+        <Dropdown
+          customStyle={{"width": "100%"}}
+          items={[
+            { name: "남자", value: "MALE" },
+            { name: "여자", value: "FEMALE" },
+          ]}
+          value={registerUser.gender}
+          onSelectedItemChange={(item) =>
+            registerUserHandler(item.value, "gender")
+          }
+        />
+      </div>
       <div className="grid grid-cols-2 w-full gap-3">
         <FilledButton role="assistive" onClick={() => phaseController("down")}>
           이전으로

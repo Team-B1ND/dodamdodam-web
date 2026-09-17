@@ -88,6 +88,7 @@ export interface UserRegister {
   name: string;
   password: string;
   phone: string;
+  gender: "MALE" | "FEMALE";
 }
 
 export type StudentPartialRegisterInfo = Omit<Partial<StudentInfo>, "isGraduated">;
