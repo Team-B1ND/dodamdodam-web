@@ -83,13 +83,19 @@ export interface FixTeacherProfile {
 
 // Register 
 
+export type Gender = "MALE" | "FEMALE";
+
 export interface UserRegister {
   username: string;
   name: string;
   password: string;
   phone: string;
-  gender: "MALE" | "FEMALE";
+  gender: Gender;
 }
+
+export type UserRegisterForm = Omit<UserRegister, "gender"> & {
+  gender: Gender | "";
+};
 
 export type StudentPartialRegisterInfo = Omit<Partial<StudentInfo>, "isGraduated">;
 

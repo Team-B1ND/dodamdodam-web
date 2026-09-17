@@ -1,4 +1,4 @@
-import type { UserRegister } from "@/entities/user/types";
+import type { UserRegisterForm } from "@/entities/user/types";
 import { extractEngAndNumberOnString } from "@/shared/utils/extract-eng-number-on-string";
 import { isValidPassword } from "@/shared/utils/validate-password";
 import {
@@ -10,10 +10,10 @@ import {
 
 interface Props {
   phaseController: (type: "up" | "down") => void;
-  registerUser: UserRegister;
+  registerUser: UserRegisterForm;
   registerUserHandler: (
     data: string,
-    prop: keyof UserRegister,
+    prop: keyof UserRegisterForm,
   ) => void;
 }
 
@@ -26,7 +26,8 @@ const RegisterBaseInfo = ({
   const isCompleteForm =
     registerUser.name.length !== 0 &&
     registerUser.username.length !== 0 &&
-    registerUser.password.length !== 0;
+    registerUser.password.length !== 0 &&
+    registerUser.gender !== "";
 
   const goNextPhase = () => {
     if (!isCompleteForm) return;
@@ -75,7 +76,7 @@ const RegisterBaseInfo = ({
             { name: "남자", value: "MALE" },
             { name: "여자", value: "FEMALE" },
           ]}
-          value={registerUser.gender}
+          value={registerUser.gender || "성별을 선택하세요."}
           onSelectedItemChange={(item) =>
             registerUserHandler(item.value, "gender")
           }
