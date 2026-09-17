@@ -2,17 +2,18 @@ import {
   useRegisterStudentMutation,
   useRegisterTeacherMutation,
 } from "@/entities/user/mutations";
-import type { UserRegister } from "@/entities/user/types";
+import type { UserRegisterForm } from "@/entities/user/types";
 import { useState } from "react"
 
 export type RegisterType = "TEACHER" | "STUDENT";
 export const useRegister = () => {
   const [registerType, setRegisterType] = useState<RegisterType | undefined>(undefined);
-  const [registerUser, setRegisterUser] = useState<UserRegister>({
+  const [registerUser, setRegisterUser] = useState<UserRegisterForm>({
     name: "",
     username: "",
     password: "",
     phone: "",
+    gender: "",
   });
   const [studentInfo, setStudentInfo] = useState("");
   const [teacherPosition, setTeacherPosition] = useState("");
@@ -48,11 +49,13 @@ export const useRegister = () => {
     return errorMessage;
   };
 
-  const registerUserHandler = (data: string, prop: keyof UserRegister) => {
-    setRegisterUser(prev => ({...prev, [prop]: data}));
+  const registerUserHandler = (data: string, prop: keyof UserRegisterForm) => {
+    setRegisterUser((prev) => ({ ...prev, [prop]: data } as UserRegisterForm));
   };
 
   const submit = async () => {
+    if (!registerUser.gender) return;
+
     if (registerType === "STUDENT") {
       await registerStudent({
         username: registerUser.username,
@@ -62,6 +65,7 @@ export const useRegister = () => {
         grade: Number(studentInfo.slice(0, 1)),
         room: Number(studentInfo.slice(1, 2)),
         number: Number(studentInfo.slice(2)),
+        gender: registerUser.gender,
       });
       return;
     }
@@ -72,6 +76,7 @@ export const useRegister = () => {
       password: registerUser.password,
       phone: registerUser.phone,
       position: teacherPosition,
+      gender: registerUser.gender,
     });
   };
 
