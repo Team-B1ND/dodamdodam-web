@@ -14,6 +14,7 @@ import NotFound from "@/shared/ui/not-found";
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
 import { useViewportSync } from "@/shared/hooks/useViewportSync";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
+import { isPublicAuthPath } from "@/shared/utils/redirect-to-login";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -43,13 +44,12 @@ function RootComponent() {
   const isMobile = useIsMobile();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  const { location } = useRouterState();
+  const { location, matches } = useRouterState();
   const mainRef = useRef<HTMLElement>(null);
-  const isNoneSidebarPage =
-    location.pathname.startsWith("/login") ||
-    location.pathname.startsWith("/register");
+  const isNoneSidebarPage = isPublicAuthPath(location.pathname);
+  const isPublicOutlet = matches[0]?.globalNotFound || isPublicAuthPath(matches.at(-1)?.pathname ?? "");
 
-  const { data: meData } = useGetMeQuery();
+  const { data: meData, isPending, isFetching, error } = useGetMeQuery(!isNoneSidebarPage);
 
   const rolesKey = meData?.data?.roles?.join(",") ?? "";
 
@@ -85,9 +85,20 @@ function RootComponent() {
     mainRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [location.pathname]);
 
-  if (isNoneSidebarPage) {
+  if (isNoneSidebarPage && isPublicOutlet) {
     return <Outlet />;
   }
+
+  // The latest URL can be public while the previous protected Outlet is still mounted.
+  if (isNoneSidebarPage || isPending || (!meData && isFetching)) {
+    return (
+      <div role="status" className="flex min-h-screen items-center justify-center text-text-secondary">
+        사용자 정보를 확인하고 있어요.
+      </div>
+    );
+  }
+
+  if (error && !meData) throw error;
 
   return (
     <div className="relative flex justify-center w-full h-screen bg-background-default">

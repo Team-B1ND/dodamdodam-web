@@ -1,19 +1,27 @@
 import type { ErrorResponse } from "@b1nd/api-client";
-import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseInfiniteQuery, useSuspenseQuery, type QueryFunctionContext } from "@tanstack/react-query";
 import { redirectToLogin } from "@/shared/utils/redirect-to-login";
 import { UserApi } from "./api";
 import type { SearchUserParams } from "@/entities/user/types";
+import { resetApiClient } from "@/shared/libs/api-client";
 
-const getMeQueryFn = async () => {
+const getMeQueryFn = async ({ signal }: QueryFunctionContext) => {
   try {
-    return await UserApi.getMe();
+    return await UserApi.getMe(signal);
   } catch (error) {
-    if ((error as ErrorResponse).status === 403) {
+    const status = (error as ErrorResponse).status;
+    if (!signal.aborted && (status === 401 || status === 403)) {
+      resetApiClient();
       redirectToLogin();
     }
 
     throw error;
   }
+};
+
+const retryGetMe = (failureCount: number, error: unknown) => {
+  const status = (error as ErrorResponse).status;
+  return status !== 401 && status !== 403 && failureCount < 3;
 };
 
 export const useSearchStudentQuery = (keyword: string) =>
@@ -57,12 +65,15 @@ export const useGetMeSuspenseQuery = () =>
   useSuspenseQuery({
     queryKey: ["user", "my"],
     queryFn: getMeQueryFn,
+    retry: retryGetMe,
     staleTime: 1000 * 60 * 5
   });
 
-export const useGetMeQuery = () =>
+export const useGetMeQuery = (enabled = true) =>
   useQuery({
     queryKey: ["user", "my"],
     queryFn: getMeQueryFn,
+    enabled,
+    retry: retryGetMe,
     staleTime: 1000 * 60 * 5
   });
