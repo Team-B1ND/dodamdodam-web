@@ -49,3 +49,16 @@ test("missing asset paths never fall back to the SPA HTML", () => {
   expect(config.rewrites[0].destination).toBe("/");
   expect(readFileSync("dist/index.html", "utf8")).toContain("/assets/");
 });
+
+test("font subsets stay separate so unused glyphs can be deferred", () => {
+  const fonts = readdirSync("dist/assets").filter((name) =>
+    name.endsWith(".woff2"),
+  );
+  expect(fonts).toHaveLength(837);
+  for (const name of readdirSync("dist/assets").filter((name) =>
+    name.endsWith(".css"),
+  ))
+    expect(readFileSync(`dist/assets/${name}`, "utf8")).not.toMatch(
+      /data:font\/woff2;base64,/,
+    );
+});
