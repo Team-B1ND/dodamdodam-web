@@ -4,69 +4,7 @@
 @import "@b1nd/dodam-design-system/shapes/tokens.tailwind.css";
 @import "@b1nd/dodam-design-system/typography/tokens.tailwind.css";
 @import "@b1nd/dodam-design-system/breakpoints/tokens.tailwind.css";
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 100;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Thin.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 200;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-ExtraLight.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 300;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Light.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 400;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 500;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Medium.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 600;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-SemiBold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Bold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 800;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-ExtraBold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 900;
-  font-display: swap;
-  src: url("./shared/assets/fonts/Pretendard-Black.woff") format("woff");
-}
+@import "./shared/assets/fonts/pretendard.css";
 
 .font-pretendard {
   font-family: "Pretendard", sans-serif;
