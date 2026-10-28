@@ -1,5 +1,7 @@
 import { logout } from "@/widgets/sidebar/model/api";
 import { Dialog } from "@b1nd/dodam-design-system/components";
+import { useQueryClient } from "@tanstack/react-query";
+import { resetApiClient } from "@/shared/libs/api-client";
 
 interface Props {
   onClose: () => void;
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const LogoutDialog = ({ onClose, moveToLogin }: Props) => {
+  const queryClient = useQueryClient();
 
   return (
     <Dialog
@@ -23,6 +26,8 @@ const LogoutDialog = ({ onClose, moveToLogin }: Props) => {
         role="assistive"
         onClick={() => {
           logout();
+          resetApiClient();
+          queryClient.clear();
           onClose();
           moveToLogin();
         }}

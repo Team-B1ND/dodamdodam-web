@@ -47,8 +47,8 @@ export const UserApi = {
     );
   },
 
-  async getMe() {
-    return await apiClient.get<User>(`${USER_BASE}/me`);
+  async getMe(signal?: AbortSignal) {
+    return await apiClient.get<User>(`${USER_BASE}/me`, { signal });
   },
 
   async fixPassword(payload: FixPassword) {

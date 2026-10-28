@@ -3,6 +3,8 @@ import type { ErrorResponse } from "@b1nd/api-client";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
+import { resetApiClient } from "@/shared/libs/api-client";
+import { history } from "@/shared/libs/history";
 
 export const useFixPasswordMutation = () => {
   const toast = useToast();
@@ -133,10 +135,16 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: UserApi.login,
     onSuccess: async () => {
+      resetApiClient();
       queryClient.clear();
 
       if (redirectUrl) {
-        window.location.href = redirectUrl;
+        const destination = new URL(redirectUrl, window.location.origin);
+        if (destination.origin === window.location.origin) {
+          history.replace(`${destination.pathname}${destination.search}${destination.hash}`);
+        } else {
+          window.location.href = redirectUrl;
+        }
       } else {
         await navigate({ to: "/" });
         toast.success("로그인 성공!");
