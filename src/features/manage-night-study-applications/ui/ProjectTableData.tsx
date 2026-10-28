@@ -108,7 +108,15 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
       >
         {app.name}
       </button>,
-      <p className="truncate max-w-xs text-text-secondary">{app.description}</p>,
+      <p
+        className={
+          app.status === "REJECTED"
+            ? "truncate max-w-xs text-status-error"
+            : "truncate max-w-xs text-text-secondary"
+        }
+      >
+        {app.status === "REJECTED" ? app.rejectionReason ?? "-" : app.description}
+      </p>,
       `심자 ${app.period}`,
       app.wishRoom?.name ?? "-",
       app.room?.name ?? "-",

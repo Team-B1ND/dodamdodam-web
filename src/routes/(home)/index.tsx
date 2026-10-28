@@ -4,6 +4,7 @@ import ScheduleHome from "@/features/get-schedule/ui/ScheduleHome";
 import TimeTable from "@/features/get-time-table/ui";
 import UserProfile from "@/features/get-user/ui";
 import ManageOutSleeping from "@/features/manage-out-sleeping/ui";
+import ServiceLink from "@/features/service-link/ui";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -40,10 +41,11 @@ function RouteComponent() {
           </div>
         </main>
       </div>
-      <div className="max-md:hidden">
+      <div className="max-md:hidden flex flex-col gap-4">
         <QueryBoundary pendingFallback={<UserProfile.Skeleton />}>
           <UserProfile />
         </QueryBoundary>
+        <ServiceLink />
       </div>
     </div>
   );
