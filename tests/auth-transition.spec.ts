@@ -421,24 +421,51 @@ test("an old user response cannot redirect a freshly logged-in session", async (
   await expect(page.locator('input[type="password"]')).toHaveCount(0);
 });
 
-test("external login destinations retain document navigation", async ({
+test("trusted external login destinations retain document navigation", async ({
   page,
 }) => {
   const counts = await mockApi(page);
-  await page.route("https://example.invalid/**", (route) =>
+  await page.route("https://dgit.b1nd.com/**", (route) =>
     route.fulfill({
       contentType: "text/html",
       body: "<h1>External fixture</h1>",
     }),
   );
   await page.goto(
-    "/login?redirectUrl=" +
-      encodeURIComponent("https://example.invalid/return"),
+    "/login?redirectUrl=" + encodeURIComponent("https://dgit.b1nd.com/return"),
   );
   await login(page);
-  await expect(page).toHaveURL("https://example.invalid/return");
+  await expect(page).toHaveURL("https://dgit.b1nd.com/return");
   await expect(
     page.getByRole("heading", { name: "External fixture" }),
   ).toBeVisible();
   expect(counts.documents).toBe(2);
 });
+
+for (const redirectUrl of [
+  "javascript:alert(document.domain)",
+  "//evil.example/return",
+  "https://evil.example/return",
+  "https://b1nd.com.evil.example/return",
+  "http://dgit.b1nd.com/return",
+  "http://",
+]) {
+  test(`untrusted login destination ${redirectUrl} falls back to home`, async ({
+    page,
+  }) => {
+    const counts = await mockApi(page);
+    let dialogs = 0;
+    page.on("dialog", async (dialog) => {
+      dialogs += 1;
+      await dialog.dismiss();
+    });
+    await page.goto("/login?redirectUrl=" + encodeURIComponent(redirectUrl));
+    await login(page);
+    await expect(page).toHaveURL("http://127.0.0.1:4175/");
+    await expect(
+      page.getByRole("link", { name: "홈", exact: true }),
+    ).toBeVisible();
+    expect(dialogs).toBe(0);
+    expect(counts.documents).toBe(1);
+  });
+}

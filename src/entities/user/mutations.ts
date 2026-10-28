@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { resetApiClient } from "@/shared/libs/api-client";
 import { history } from "@/shared/libs/history";
+import { resolveLoginRedirect } from "@/shared/utils/redirect-to-login";
 
 export const useFixPasswordMutation = () => {
   const toast = useToast();
@@ -138,13 +139,12 @@ export const useLoginMutation = () => {
       resetApiClient();
       queryClient.clear();
 
-      if (redirectUrl) {
-        const destination = new URL(redirectUrl, window.location.origin);
-        if (destination.origin === window.location.origin) {
-          history.replace(`${destination.pathname}${destination.search}${destination.hash}`);
-        } else {
-          window.location.href = redirectUrl;
-        }
+      const destination = redirectUrl ? resolveLoginRedirect(redirectUrl) : null;
+
+      if (destination?.type === "internal") {
+        history.replace(destination.path);
+      } else if (destination?.type === "external") {
+        window.location.href = destination.href;
       } else {
         await navigate({ to: "/" });
         toast.success("로그인 성공!");
