@@ -82,9 +82,9 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
           <Dialog.FilledButton
             disabled={isLeaving}
             onClick={async () => {
+              close();
               try {
                 await deleteTeam(publicId);
-                close();
                 await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
@@ -98,9 +98,9 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
           <Dialog.FilledButton
             disabled={isLeaving}
             onClick={async () => {
+              close();
               try {
                 await leaveTeam(publicId);
-                close();
                 await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
