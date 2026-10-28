@@ -16,6 +16,7 @@ import {
   useOverlay,
 } from "@b1nd/dodam-design-system/components";
 import { ChevronLeft } from "@b1nd/dodam-design-system/icons";
+import { colors } from "@b1nd/dodam-design-system/colors";
 import { useNavigate } from "@tanstack/react-router";
 import { useGetMe } from "@/features/get-user/model/useGetMe.ts";
 
@@ -128,7 +129,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
   return (
     <section className="large-container flex w-full flex-col gap-4">
       <IconButton
-        icon={<ChevronLeft />}
+        icon={<ChevronLeft color={colors.text.primary} />}
         iconSize={24}
         onClick={() => navigate({ to: "/team" })}
         size={40}
