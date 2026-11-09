@@ -1,5 +1,6 @@
 import { useGetMe } from "@/features/get-user/model/useGetMe";
 import UserProfileModal from "@/features/get-user/ui/user-modal";
+import ProfileImage from "@/shared/ui/profile-image";
 import { Avatar, FilledButton, useOverlay } from "@b1nd/dodam-design-system/components"
 
 const UserProfile = () => {
@@ -21,7 +22,7 @@ const UserProfile = () => {
   return (
     <div className="flex flex-col w-70 min-w-70 max-md:w-full h-fit gap-4 small-container">
       <div className="flex gap-3 grow items-center">
-        {data.profileImage ? <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={48} /> : <Avatar size={48} />}
+        <ProfileImage src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={48} size={48} />
         <section className="flex flex-col">
           <p className="text-headline font-bold">{data.name}</p>
           {data.student ? (
