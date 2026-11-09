@@ -7,9 +7,9 @@ import {
   useGetTeamsQuery,
 } from "@/entities/team/queries";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
+import ProfileImage from "@/shared/ui/profile-image";
 import { parseStudentId } from "@/shared/utils/parse-student-id";
 import {
-  Avatar,
   Dialog,
   FilledButton,
   IconButton,
@@ -188,15 +188,12 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
                 className="flex h-12 items-center gap-2 rounded-extrasmall py-3"
                 key={member.userId}
               >
-                {member.profileImage ? (
-                  <img
-                    alt={`${member.name}의 프로필 사진`}
-                    className="size-9 rounded-full object-cover"
-                    src={member.profileImage}
-                  />
-                ) : (
-                  <Avatar size={36} />
-                )}
+                <ProfileImage
+                  alt={`${member.name}의 프로필 사진`}
+                  className="size-9 rounded-full object-cover"
+                  size={36}
+                  src={member.profileImage}
+                />
                 <div className="flex min-w-0 flex-col font-medium">
                   <p className="truncate text-label text-text-primary">
                     {member.name}

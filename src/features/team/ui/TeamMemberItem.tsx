@@ -1,6 +1,6 @@
 import type { StudentInfo } from "@/entities/user/types";
+import ProfileImage from "@/shared/ui/profile-image";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Avatar } from "@b1nd/dodam-design-system/components";
 import {
   CheckmarkCircleFill,
   CheckmarkCircleLine,
@@ -32,15 +32,12 @@ const TeamMemberItem = ({
     onClick={() => onSelect(member)}
     type="button"
   >
-    {member.profileImage ? (
-      <img
-        alt={`${member.name}의 프로필 사진`}
-        className="size-8 rounded-full object-cover"
-        src={member.profileImage}
-      />
-    ) : (
-      <Avatar size={32} />
-    )}
+    <ProfileImage
+      alt={`${member.name}의 프로필 사진`}
+      className="size-8 rounded-full object-cover"
+      size={32}
+      src={member.profileImage}
+    />
     <span className="flex min-w-0 flex-col">
       <span className="truncate text-label font-bold text-text-primary">
         {member.name}
