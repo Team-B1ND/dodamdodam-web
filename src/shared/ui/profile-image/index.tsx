@@ -7,8 +7,19 @@ interface ProfileImageProps
   size: number;
 }
 
-const ProfileImage = ({ src, size, ...imgProps }: ProfileImageProps) => {
+const EMPTY_SRC_VALUES = ["", "null", "undefined"];
+
+const normalizeSrc = (src?: string | null) => {
+  const trimmed = src?.trim();
+  if (!trimmed || EMPTY_SRC_VALUES.includes(trimmed.toLowerCase())) {
+    return null;
+  }
+  return trimmed;
+};
+
+const ProfileImage = ({ src: rawSrc, size, ...imgProps }: ProfileImageProps) => {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const src = normalizeSrc(rawSrc);
 
   if (!src || failedSrc === src) {
     return <Avatar size={size} />;
