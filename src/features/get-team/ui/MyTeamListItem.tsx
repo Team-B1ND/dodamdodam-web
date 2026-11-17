@@ -52,10 +52,14 @@ const MyTeamListItem = ({ team }: MyTeamListItemProps) => {
           role="negative"
           disabled={isPending}
           onClick={async () => {
-            await (isOwner
-              ? deleteTeam(team.publicId)
-              : leaveTeam(team.publicId));
             close();
+            try {
+              await (isOwner
+                ? deleteTeam(team.publicId)
+                : leaveTeam(team.publicId));
+            } catch {
+              // 오류 안내는 mutation에서 처리합니다.
+            }
           }}
         >
           {isOwner
