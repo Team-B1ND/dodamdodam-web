@@ -16,6 +16,15 @@ export const useFixPasswordMutation = () => {
   });
 };
 
+export const useResetPasswordMutation = () => {
+  const toast = useToast();
+  return useMutation({
+    mutationFn: UserApi.resetPassword,
+    onSuccess: (res) => toast.success(res.message),
+    onError: (error: ErrorResponse) => toast.error(error.message),
+  });
+};
+
 export const useFixProfileMutation = () => {
   const queryClient = useQueryClient();
   const toast = useToast();

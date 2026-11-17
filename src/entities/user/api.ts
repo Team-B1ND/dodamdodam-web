@@ -55,6 +55,10 @@ export const UserApi = {
     return await apiClient.patch(`${USER_BASE}/change-password`, payload);
   },
 
+  async resetPassword(payload: { phone: string; newPassword: string }) {
+    return await apiClient.patch(`${USER_BASE}/reset-password`, payload);
+  },
+
   async requestPhoneVerification(payload: PhoneVerificationRequest) {
     return await apiClient.post(
       `${USER_BASE}/phone-verification/request`,
