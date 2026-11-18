@@ -1,6 +1,6 @@
 import type { ProjectMember } from "../stores/project-form";
+import ProfileImage from "@/shared/ui/profile-image";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Avatar } from "@b1nd/dodam-design-system/components";
 import {
   CheckmarkCircleFill,
   CheckmarkCircleLine,
@@ -15,15 +15,12 @@ interface Props {
 const MemberItem = ({ data, selected, handleSelect }: Props) => {
   return (
     <div className="px-4 h-12 w-full flex items-center gap-2">
-      {data.profileImage ? (
-        <img
-          src={data.profileImage}
-          alt={`${data.name}의 프로필 사진`}
-          className="w-8 h-8 rounded-full"
-        />
-      ) : (
-        <Avatar size={32} />
-      )}
+      <ProfileImage
+        src={data.profileImage}
+        alt={`${data.name}의 프로필 사진`}
+        className="w-8 h-8 rounded-full"
+        size={32}
+      />
       <div>
         <p className="text-label font-bold">{data.name}</p>
         <p className="text-caption2 font-medium text-text-secondary">

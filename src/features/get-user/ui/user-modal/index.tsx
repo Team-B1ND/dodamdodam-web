@@ -1,8 +1,9 @@
 import FixPasswordModal from "@/features/fix-password/ui";
 import FixProfileModal from "@/features/fix-profile/ui";
 import { useGetMe } from "@/features/get-user/model/useGetMe";
+import ProfileImage from "@/shared/ui/profile-image";
 import { formatPhoneNumber } from "@/shared/utils/format-phone-number";
-import { Avatar, FilledButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components"
+import { FilledButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components"
 
 const UserProfileModal = () => {
   const { data } = useGetMe();
@@ -29,11 +30,7 @@ const UserProfileModal = () => {
         내 프로필
       </p>
       <section className="flex flex-col items-center gap-2">
-        {data.profileImage ? (
-          <img src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={96} />
-        ) : (
-          <Avatar size={96} />
-        )}
+        <ProfileImage src={data.profileImage} alt="프로필 이미지" className="rounded-full" width={96} size={96} />
         <div className="flex flex-col items-center">
           <p className="text-heading2 font-bold text-text-primary">
             {data.name}
