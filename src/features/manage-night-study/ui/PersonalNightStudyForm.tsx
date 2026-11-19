@@ -1,4 +1,5 @@
 import { padDate } from "@/shared/utils/pad-date";
+import dayjs from "dayjs";
 import {
   Checkbox,
   DatePicker,
@@ -81,6 +82,8 @@ const PersonalNightStudyForm = () => {
                   onChangeDate={(date) => handleDateChange("endAt", date)}
                   onClose={onClose}
                   disablePast
+                  // maxSelectableDays는 오늘 기준이라 시작 날짜 + 7일로 환산
+                  maxSelectableDays={dayjs(startAt).startOf("day").diff(dayjs().startOf("day"), "day") + 7}
                 />
               )}>
               <FilledButton role="assistive" size="medium">
