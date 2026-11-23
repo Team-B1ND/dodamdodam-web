@@ -40,7 +40,8 @@ export type UserRole =
 | "TEACHER"
 | "ADMIN"
 | "BROADCASTER"
-| "DORMITORY_MANAGER";
+| "DORMITORY_MANAGER"
+| "WEEKEND_MANAGER";
 
 export const USER_ROLE_MAP: Record<UserRole, string> = {
   "STUDENT": "학생",
@@ -48,6 +49,7 @@ export const USER_ROLE_MAP: Record<UserRole, string> = {
   "ADMIN": "관리자",
   "BROADCASTER": "방송부",
   "DORMITORY_MANAGER": "자치위원",
+  "WEEKEND_MANAGER": "주말 자습 관리자",
 } as const;
 
 export interface FixPassword {
