@@ -15,11 +15,12 @@ import {
 } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
+import type { MemberSelection } from "../stores/project-form";
 import MemberItem from "./MemberItem";
 
 interface Props {
   keyword: string;
+  selection: MemberSelection;
 }
 
 const TeamAvatar = ({ team }: { team: Team }) =>
@@ -36,14 +37,15 @@ const TeamAvatar = ({ team }: { team: Team }) =>
 const ExpandedTeam = ({
   team,
   onToggle,
+  selection,
 }: {
   team: Team;
   onToggle: () => void;
+  selection: MemberSelection;
 }) => {
   const { data } = useGetTeamMembersQuery(team.publicId);
   const { data: me } = useGetMeSuspenseQuery();
-  const { handleMember, handleMembers, isSelected } =
-    useApplyProjectNightStudy();
+  const { handleMember, handleMembers, isSelected } = selection;
   const members = data.data
     .filter(
       (member) => member.isAccept && member.userId !== me.data.publicId,
@@ -98,7 +100,7 @@ const ExpandedTeam = ({
   );
 };
 
-const TeamSearch = ({ keyword }: Props) => {
+const TeamSearch = ({ keyword, selection }: Props) => {
   const [openTeamIds, setOpenTeamIds] = useState<string[]>([]);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetMyTeamsQuery();
@@ -134,7 +136,11 @@ const TeamSearch = ({ keyword }: Props) => {
           <div key={team.publicId}>
             {isOpen ? (
               <QueryBoundary pendingFallback={<MemberItem.Skeleton />}>
-                <ExpandedTeam team={team} onToggle={toggleTeam} />
+                <ExpandedTeam
+                  team={team}
+                  onToggle={toggleTeam}
+                  selection={selection}
+                />
               </QueryBoundary>
             ) : (
               <button

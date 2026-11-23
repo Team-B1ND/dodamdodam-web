@@ -1,19 +1,20 @@
 import { useGetMeSuspenseQuery, useSearchStudentQuery } from "@/entities/user/queries";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
+import type { MemberSelection } from "../stores/project-form";
 import MemberItem from "./MemberItem";
 
 interface Props {
   keyword: string;
+  selection: MemberSelection;
 }
 
-const MemberSearch = ({ keyword }: Props) => {
+const MemberSearch = ({ keyword, selection }: Props) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSearchStudentQuery(keyword.trim());
   const students = data.pages.flatMap((data) => data.data.content);
   const user = useGetMeSuspenseQuery();
-  const { handleMember, isSelected } = useApplyProjectNightStudy();
+  const { handleMember, isSelected } = selection;
 
   const { ref, inView } = useInView();
 

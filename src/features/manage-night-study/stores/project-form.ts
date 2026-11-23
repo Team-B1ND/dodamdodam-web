@@ -10,6 +10,12 @@ export interface ProjectMember {
   student?: Pick<StudentInfo, "grade" | "room">;
 }
 
+export interface MemberSelection {
+  handleMember: (member: ProjectMember) => void;
+  handleMembers: (members: ProjectMember[]) => void;
+  isSelected: (memberId: string) => boolean;
+}
+
 interface Form {
   period: DropdownItem;
   wishRoom: DropdownItem | null;
