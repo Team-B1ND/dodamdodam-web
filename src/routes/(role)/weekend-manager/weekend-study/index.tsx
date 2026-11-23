@@ -1,6 +1,7 @@
 import { useGetMeQuery } from "@/entities/user/queries";
 import AttendanceCheckTable from "@/features/manage-weekend-study-applications/ui/AttendanceCheckTable";
 import HeadcountTable from "@/features/manage-weekend-study-applications/ui/HeadcountTable";
+import RoomManagement from "@/features/manage-weekend-study-applications/ui/RoomManagement";
 import ProjectRentalTable from "@/features/manage-weekend-study-applications/ui/ProjectRentalTable";
 import {
   SegmentedButton,
@@ -13,12 +14,13 @@ export const Route = createFileRoute("/(role)/weekend-manager/weekend-study/")({
   component: RouteComponent,
 });
 
-type Tab = "attendance" | "rental" | "headcount";
+type Tab = "attendance" | "rental" | "headcount" | "room";
 
 const TABS: SegmentedButtonData[] = [
   { text: "출석 체크", value: "attendance", isActive: true },
   { text: "실 대여", value: "rental", isActive: false },
   { text: "인원 조회", value: "headcount", isActive: false },
+  { text: "실 관리", value: "room", isActive: false },
 ];
 
 function RouteComponent() {
@@ -47,6 +49,7 @@ function RouteComponent() {
       {tab === "attendance" && <AttendanceCheckTable />}
       {tab === "rental" && <ProjectRentalTable />}
       {tab === "headcount" && <HeadcountTable />}
+      {tab === "room" && <RoomManagement />}
     </div>
   );
 }
