@@ -83,7 +83,9 @@ export const WeekendStudyApi = {
   },
 
   async getRooms() {
-    return await apiClient.get<WeekendStudyRoom[]>(`${WEEKEND_STUDY_BASE}/rooms`);
+    return await apiClient.get<WeekendStudyRoom[]>(
+      `${WEEKEND_STUDY_BASE}/rooms`,
+    );
   },
 
   async createRoom(payload: SaveWeekendStudyRoomRequest) {

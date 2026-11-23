@@ -1,4 +1,8 @@
-import { useQuery, useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useSuspenseQueries,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import type { PageResponse } from "@b1nd/api-client";
 import { WeekendStudyApi } from "./api";
 import type { WeekendStudyRoom, WeekendStudyType } from "./types";
@@ -13,7 +17,11 @@ export const weekendStudyQueryKeys = {
   roomBlocks: (roomId: number) =>
     [...WEEKEND_STUDY_QUERY_KEY, "rooms", roomId, "blocks"] as const,
   deadline: [...WEEKEND_STUDY_QUERY_KEY, "deadline"] as const,
-  attendanceSummaries: [...WEEKEND_STUDY_QUERY_KEY, "attendance", "summaries"] as const,
+  attendanceSummaries: [
+    ...WEEKEND_STUDY_QUERY_KEY,
+    "attendance",
+    "summaries",
+  ] as const,
 };
 
 const PAGE_SIZE = 100;
@@ -66,7 +74,9 @@ export const useGetWeekendStudyRoomsQuery = () =>
     queryFn: WeekendStudyApi.getRooms,
   });
 
-export const useGetWeekendStudyRoomBlocksQueries = (rooms: WeekendStudyRoom[]) =>
+export const useGetWeekendStudyRoomBlocksQueries = (
+  rooms: WeekendStudyRoom[],
+) =>
   useSuspenseQueries({
     queries: rooms.map((room) => ({
       queryKey: weekendStudyQueryKeys.roomBlocks(room.id),

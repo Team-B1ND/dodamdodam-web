@@ -1,8 +1,5 @@
 import dayjs from "dayjs";
-import type {
-  WeekendStudyAttendanceStatus,
-  WeekendStudyStatus,
-} from "./types";
+import type { WeekendStudyAttendanceStatus, WeekendStudyStatus } from "./types";
 
 /** 주말 자습 신청 가능한 교시예요. `17`은 17:00–18:00을 뜻해요. */
 export const WEEKEND_STUDY_PERIODS = [17, 18, 19, 20] as const;
@@ -24,7 +21,9 @@ export const WEEKEND_STUDY_ATTENDANCE_LABEL: Record<
 
 /** 서버는 이번 주(오늘 포함) 일요일만 신청을 받아요. */
 export const getWeekendStudyDate = (base = dayjs()) =>
-  base.day() === 0 ? base.startOf("day") : base.add(7 - base.day(), "day").startOf("day");
+  base.day() === 0
+    ? base.startOf("day")
+    : base.add(7 - base.day(), "day").startOf("day");
 
 /** `17` -> `17–18시` */
 export const formatPeriod = (period: number) => `${period}–${period + 1}시`;
@@ -63,11 +62,13 @@ export const formatWeekendStudyDate = (date: string | Date | dayjs.Dayjs) => {
   return `${d.month() + 1}월 ${d.date()}일 (${days[d.day()]})`;
 };
 
-export const formatStudentNumber = (student: {
-  grade: number;
-  room: number;
-  number: number;
-} | null) =>
+export const formatStudentNumber = (
+  student: {
+    grade: number;
+    room: number;
+    number: number;
+  } | null,
+) =>
   student
     ? `${student.grade}${student.room}${String(student.number).padStart(2, "0")}`
     : "-";

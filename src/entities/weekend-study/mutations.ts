@@ -1,4 +1,8 @@
-import { useMutation, useQueryClient, type QueryKey } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  type QueryKey,
+} from "@tanstack/react-query";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import type { ErrorResponse } from "@b1nd/api-client";
 import { WeekendStudyApi } from "./api";
