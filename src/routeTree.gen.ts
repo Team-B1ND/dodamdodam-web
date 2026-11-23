@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeekendStudyIndexRouteImport } from './routes/weekend-study/index'
 import { Route as TeamIndexRouteImport } from './routes/team/index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
 import { Route as RegisterIndexRouteImport } from './routes/register/index'
@@ -25,6 +26,11 @@ import { Route as roleAdminAdminLayoutBannerIndexRouteImport } from './routes/(r
 import { Route as roleAdminAdminLayoutAppInIndexRouteImport } from './routes/(role)/admin/_adminLayout/app-in/index'
 import { Route as roleAdminAdminLayoutmanageUserIndexRouteImport } from './routes/(role)/admin/_adminLayout/(manage-user)/index'
 
+const WeekendStudyIndexRoute = WeekendStudyIndexRouteImport.update({
+  id: '/weekend-study/',
+  path: '/weekend-study/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/team/',
   path: '/team/',
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/weekend-study/': typeof WeekendStudyIndexRoute
   '/admin': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/team/$publicId/': typeof TeamPublicIdIndexRoute
   '/team/create/': typeof TeamCreateIndexRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/team': typeof TeamIndexRoute
+  '/weekend-study': typeof WeekendStudyIndexRoute
   '/team/$publicId': typeof TeamPublicIdIndexRoute
   '/team/create': typeof TeamCreateIndexRoute
   '/dormitory/night-study': typeof roleDormitoryNightStudyIndexRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/weekend-study/': typeof WeekendStudyIndexRoute
   '/(role)/admin/_adminLayout': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/team/$publicId/': typeof TeamPublicIdIndexRoute
   '/team/create/': typeof TeamCreateIndexRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/register/'
     | '/schedule/'
     | '/team/'
+    | '/weekend-study/'
     | '/admin'
     | '/team/$publicId/'
     | '/team/create/'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/schedule'
     | '/team'
+    | '/weekend-study'
     | '/team/$publicId'
     | '/team/create'
     | '/dormitory/night-study'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/register/'
     | '/schedule/'
     | '/team/'
+    | '/weekend-study/'
     | '/(role)/admin/_adminLayout'
     | '/team/$publicId/'
     | '/team/create/'
@@ -218,6 +230,7 @@ export interface RootRouteChildren {
   RegisterIndexRoute: typeof RegisterIndexRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
   TeamIndexRoute: typeof TeamIndexRoute
+  WeekendStudyIndexRoute: typeof WeekendStudyIndexRoute
   roleAdminAdminLayoutRouteRoute: typeof roleAdminAdminLayoutRouteRouteWithChildren
   TeamPublicIdIndexRoute: typeof TeamPublicIdIndexRoute
   TeamCreateIndexRoute: typeof TeamCreateIndexRoute
@@ -228,6 +241,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/weekend-study/': {
+      id: '/weekend-study/'
+      path: '/weekend-study'
+      fullPath: '/weekend-study/'
+      preLoaderRoute: typeof WeekendStudyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team/': {
       id: '/team/'
       path: '/team'
@@ -362,6 +382,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterIndexRoute: RegisterIndexRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
   TeamIndexRoute: TeamIndexRoute,
+  WeekendStudyIndexRoute: WeekendStudyIndexRoute,
   roleAdminAdminLayoutRouteRoute: roleAdminAdminLayoutRouteRouteWithChildren,
   TeamPublicIdIndexRoute: TeamPublicIdIndexRoute,
   TeamCreateIndexRoute: TeamCreateIndexRoute,
