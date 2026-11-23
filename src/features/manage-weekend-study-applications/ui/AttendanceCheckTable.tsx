@@ -44,7 +44,7 @@ const ROW_CLASS: Record<WeekendStudyAttendanceStatus | "NONE", string> = {
   ATTENDANCE: "",
   LATE: "bg-status-warning",
   ABSENT: "bg-status-error",
-  NONE: "bg-fill-secondary",
+  NONE: "bg-fill-primary",
 };
 
 const COLUMNS: WeekendTableColumn[] = [

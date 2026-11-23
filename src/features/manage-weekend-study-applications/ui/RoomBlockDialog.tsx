@@ -36,13 +36,13 @@ const DateField = ({
   disabled?: boolean;
   onClick: () => void;
 }) => (
-  <div className="flex-1 min-w-0 flex flex-col gap-2">
+  <div className="min-w-0 flex flex-col gap-2">
     <span className="text-label text-text-secondary">{label}</span>
     <button
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className="h-14 px-4 rounded-medium border border-border-normal text-left text-headline font-medium disabled:text-text-disabled disabled:bg-fill-primary"
+      className="h-12 px-3 rounded-medium border border-border-normal text-left text-body1 font-medium whitespace-nowrap truncate disabled:text-text-disabled disabled:bg-fill-primary"
     >
       {formatWeekendStudyDate(date)}
     </button>
@@ -138,23 +138,25 @@ const RoomBlockDialog = ({ rooms, isOpen, onClose }: Props) => {
             </div>
           </div>
 
-          <div className="flex items-end gap-3">
-            <DateField
-              label="날짜"
-              date={startAt}
-              onClick={() => setPicker("startAt")}
-            />
-            <DateField
-              label="종료일"
-              date={effectiveEndAt}
-              disabled={!isRepeat}
-              onClick={() => setPicker("endAt")}
-            />
-            <div className="flex flex-col items-center gap-2 shrink-0 pb-3">
-              <span className="text-label font-bold">매주 반복</span>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <span className="text-body1 font-bold">매주 반복</span>
               <Switch
                 checked={isRepeat}
                 onChange={() => setIsRepeat((prev) => !prev)}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <DateField
+                label="날짜"
+                date={startAt}
+                onClick={() => setPicker("startAt")}
+              />
+              <DateField
+                label="종료일"
+                date={effectiveEndAt}
+                disabled={!isRepeat}
+                onClick={() => setPicker("endAt")}
               />
             </div>
           </div>
@@ -180,16 +182,19 @@ const RoomBlockDialog = ({ rooms, isOpen, onClose }: Props) => {
             </div>
           </div>
 
-          <TextField
-            type="text"
-            label="사유"
-            placeholder="예) 미유고 수업"
-            supportingText="해당 실·시간에는 학생이 실 대여를 신청할 수 없어요."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            onRemoveClick={() => setDescription("")}
-            showIcon
-          />
+          <div className="flex flex-col gap-2">
+            <TextField
+              type="text"
+              label="사유"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              onRemoveClick={() => setDescription("")}
+              showIcon
+            />
+            <p className="text-caption1 text-text-tertiary">
+              해당 실·시간에는 학생이 실 대여를 신청할 수 없어요.
+            </p>
+          </div>
 
           <div className="flex gap-2">
             <Dialog.FilledButton
