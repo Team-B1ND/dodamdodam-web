@@ -45,41 +45,25 @@ export const useApplyPersonalWeekendStudyMutation = () =>
 export const useApplyProjectWeekendStudyMutation = () =>
   useWeekendStudyMutation(WeekendStudyApi.applyProject, [
     weekendStudyQueryKeys.myProject,
+    weekendStudyQueryKeys.rooms,
+  ]);
+
+export const useUpdatePersonalWeekendStudyMutation = () =>
+  useWeekendStudyMutation(WeekendStudyApi.updatePersonal, [
+    weekendStudyQueryKeys.myPersonal,
+  ]);
+
+export const useUpdateProjectWeekendStudyMutation = () =>
+  useWeekendStudyMutation(WeekendStudyApi.updateProject, [
+    weekendStudyQueryKeys.myProject,
+    weekendStudyQueryKeys.rooms,
   ]);
 
 export const useCancelWeekendStudyMutation = () =>
   useWeekendStudyMutation(WeekendStudyApi.cancel, [
     weekendStudyQueryKeys.myPersonal,
     weekendStudyQueryKeys.myProject,
-  ]);
-
-export const useAllowWeekendStudyMutation = (options?: MutationOptions) =>
-  useWeekendStudyMutation(
-    WeekendStudyApi.allow,
-    [weekendStudyQueryKeys.applications],
-    options,
-  );
-
-export const useRejectWeekendStudyMutation = (options?: MutationOptions) =>
-  useWeekendStudyMutation(
-    WeekendStudyApi.reject,
-    [weekendStudyQueryKeys.applications],
-    options,
-  );
-
-export const usePendingWeekendStudyMutation = () =>
-  useWeekendStudyMutation(WeekendStudyApi.pending, [
-    weekendStudyQueryKeys.applications,
-  ]);
-
-export const useAssignWeekendStudyRoomMutation = () =>
-  useWeekendStudyMutation(WeekendStudyApi.assignRoom, [
-    weekendStudyQueryKeys.applications,
-  ]);
-
-export const useUnassignWeekendStudyRoomMutation = () =>
-  useWeekendStudyMutation(WeekendStudyApi.unassignRoom, [
-    weekendStudyQueryKeys.applications,
+    weekendStudyQueryKeys.rooms,
   ]);
 
 export const useCreateWeekendStudyRoomMutation = () =>

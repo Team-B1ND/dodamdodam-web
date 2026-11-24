@@ -15,6 +15,7 @@ import type {
   WeekendStudyDeadline,
   WeekendStudyRoom,
   WeekendStudyRoomBlock,
+  WeekendStudyRoomStatus,
 } from "./types";
 
 const WEEKEND_STUDY_BASE = "/weekendstudy";
@@ -40,6 +41,20 @@ export const WeekendStudyApi = {
     );
   },
 
+  async updatePersonal(
+    payload: { id: string } & PersonalWeekendStudyApplyRequest,
+  ) {
+    const { id, ...body } = payload;
+    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/personal/${id}`, body);
+  },
+
+  async updateProject(
+    payload: { id: string } & ProjectWeekendStudyApplyRequest,
+  ) {
+    const { id, ...body } = payload;
+    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/project/${id}`, body);
+  },
+
   async cancel(id: string) {
     return await apiClient.delete(`${WEEKEND_STUDY_BASE}/${id}`);
   },
@@ -58,33 +73,17 @@ export const WeekendStudyApi = {
     );
   },
 
-  async allow(id: string) {
-    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/${id}/allow`);
-  },
-
-  async reject(payload: { id: string; rejectionReason: string }) {
-    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/${payload.id}/reject`, {
-      rejectionReason: payload.rejectionReason,
-    });
-  },
-
-  async pending(id: string) {
-    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/${id}/pending`);
-  },
-
-  async assignRoom(payload: { id: string; roomId: number }) {
-    return await apiClient.patch(`${WEEKEND_STUDY_BASE}/${payload.id}/room`, {
-      roomId: payload.roomId,
-    });
-  },
-
-  async unassignRoom(id: string) {
-    return await apiClient.delete(`${WEEKEND_STUDY_BASE}/${id}/room`);
-  },
-
   async getRooms() {
     return await apiClient.get<WeekendStudyRoom[]>(
       `${WEEKEND_STUDY_BASE}/rooms`,
+    );
+  },
+
+  async getRoomStatus(params: { date: string; floor?: number }) {
+    const qs = new URLSearchParams({ date: params.date });
+    if (params.floor !== undefined) qs.set("floor", String(params.floor));
+    return await apiClient.get<WeekendStudyRoomStatus[]>(
+      `${WEEKEND_STUDY_BASE}/rooms/status?${qs.toString()}`,
     );
   },
 

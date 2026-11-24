@@ -14,6 +14,8 @@ export const weekendStudyQueryKeys = {
   myProject: [...WEEKEND_STUDY_QUERY_KEY, "my", "project"] as const,
   applications: [...WEEKEND_STUDY_QUERY_KEY, "applications"] as const,
   rooms: [...WEEKEND_STUDY_QUERY_KEY, "rooms"] as const,
+  roomStatus: (date: string) =>
+    [...WEEKEND_STUDY_QUERY_KEY, "rooms", "status", date] as const,
   roomBlocks: (roomId: number) =>
     [...WEEKEND_STUDY_QUERY_KEY, "rooms", roomId, "blocks"] as const,
   deadline: [...WEEKEND_STUDY_QUERY_KEY, "deadline"] as const,
@@ -72,6 +74,12 @@ export const useGetWeekendStudyRoomsQuery = () =>
   useSuspenseQuery({
     queryKey: weekendStudyQueryKeys.rooms,
     queryFn: WeekendStudyApi.getRooms,
+  });
+
+export const useGetWeekendStudyRoomStatusQuery = (date: string) =>
+  useSuspenseQuery({
+    queryKey: weekendStudyQueryKeys.roomStatus(date),
+    queryFn: () => WeekendStudyApi.getRoomStatus({ date }),
   });
 
 export const useGetWeekendStudyRoomBlocksQueries = (

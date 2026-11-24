@@ -1,14 +1,8 @@
 import dayjs from "dayjs";
-import type { WeekendStudyAttendanceStatus, WeekendStudyStatus } from "./types";
+import type { WeekendStudyAttendanceStatus, WeekendStudyTime } from "./types";
 
 /** 주말 자습 신청 가능한 교시예요. `17`은 17:00–18:00을 뜻해요. */
 export const WEEKEND_STUDY_PERIODS = [17, 18, 19, 20] as const;
-
-export const WEEKEND_STUDY_STATUS_LABEL: Record<WeekendStudyStatus, string> = {
-  PENDING: "대기중",
-  ALLOWED: "승인됨",
-  REJECTED: "거절됨",
-};
 
 export const WEEKEND_STUDY_ATTENDANCE_LABEL: Record<
   WeekendStudyAttendanceStatus,
@@ -72,3 +66,9 @@ export const formatStudentNumber = (
   student
     ? `${student.grade}${student.room}${String(student.number).padStart(2, "0")}`
     : "-";
+
+/** `17:00:00` 또는 `{ hour: 17, minute: 0 }` -> `17:00` */
+export const formatWeekendStudyTime = (time: WeekendStudyTime) =>
+  typeof time === "string"
+    ? time.slice(0, 5)
+    : `${String(time.hour).padStart(2, "0")}:${String(time.minute).padStart(2, "0")}`;

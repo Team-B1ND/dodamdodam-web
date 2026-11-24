@@ -1,5 +1,3 @@
-export type WeekendStudyStatus = "PENDING" | "ALLOWED" | "REJECTED";
-
 export type WeekendStudyType = "PERSONAL" | "PROJECT";
 
 export type WeekendStudyAttendanceStatus = "ATTENDANCE" | "LATE" | "ABSENT";
@@ -23,15 +21,12 @@ export interface PersonalWeekendStudy {
   /** `YYYY-MM-DD` */
   date: string;
   periods: number[];
-  status: WeekendStudyStatus;
-  rejectionReason: string | null;
 }
 
 export interface ProjectWeekendStudy extends PersonalWeekendStudy {
   name: string;
   description: string;
   isLeader: boolean;
-  wishRoom: WeekendStudyRoomInfo | null;
   room: WeekendStudyRoomInfo | null;
 }
 
@@ -46,7 +41,7 @@ export interface ProjectWeekendStudyApplyRequest {
   date: string;
   periods: number[];
   members: string[];
-  wishRoomId?: number | null;
+  roomId: number;
 }
 
 export interface WeekendStudyApplicant {
@@ -72,11 +67,8 @@ export interface WeekendStudyApplication {
   type: WeekendStudyType;
   date: string;
   periods: number[];
-  status: WeekendStudyStatus;
-  rejectionReason: string | null;
   name: string | null;
   description: string | null;
-  wishRoom: WeekendStudyRoomInfo | null;
   room: WeekendStudyRoomInfo | null;
   leader: WeekendStudyApplicant;
   members: WeekendStudyApplicant[];
@@ -93,6 +85,17 @@ export interface WeekendStudyRoom {
   id: number;
   name: string;
   floor: number;
+}
+
+export type WeekendStudyRoomPeriodStatus = "AVAILABLE" | "RESERVED" | "BLOCKED";
+
+export interface WeekendStudyRoomStatus extends WeekendStudyRoom {
+  periods: {
+    period: number;
+    status: WeekendStudyRoomPeriodStatus;
+    /** 사용 제한 사유예요. `BLOCKED`일 때만 내려와요. */
+    reason: string | null;
+  }[];
 }
 
 export interface SaveWeekendStudyRoomRequest {
@@ -115,12 +118,14 @@ export interface BlockWeekendStudyRoomRequest {
   description: string;
 }
 
+export type WeekendStudyTime = string | { hour: number; minute: number };
+
 export interface WeekendStudyDeadline {
   startDayOfWeek: DayOfWeek;
-  /** `HH:mm:ss` */
-  startTime: string;
+  /** Jackson 설정에 따라 `HH:mm:ss` 문자열 또는 객체로 내려와요. */
+  startTime: WeekendStudyTime;
   endDayOfWeek: DayOfWeek;
-  endTime: string;
+  endTime: WeekendStudyTime;
 }
 
 export interface CheckWeekendStudyAttendanceRequest {
