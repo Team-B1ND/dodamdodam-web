@@ -1,3 +1,4 @@
+import { formatWeekendStudyTime } from "@/entities/weekend-study/constants";
 import { useGetWeekendStudyDeadlineQuery } from "@/entities/weekend-study/queries";
 import type { DayOfWeek } from "@/entities/weekend-study/types";
 
@@ -18,7 +19,7 @@ interface Props {
 const DeadlineNotice = ({ extra }: Props) => {
   const { data } = useGetWeekendStudyDeadlineQuery();
   const deadline = data?.data;
-  const endTime = deadline?.endTime.slice(0, 5) ?? "17:00";
+  const endTime = deadline ? formatWeekendStudyTime(deadline.endTime) : "17:00";
   const endDay = deadline ? DAY_LABEL[deadline.endDayOfWeek] : "당일";
 
   return (

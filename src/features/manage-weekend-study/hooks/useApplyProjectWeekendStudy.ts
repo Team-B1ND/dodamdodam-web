@@ -99,7 +99,7 @@ export const useApplyProjectWeekendStudy = () => {
       date: getWeekendStudyDate().format("YYYY-MM-DD"),
       periods: form.periods,
       members: form.members.map((m) => m.publicId),
-      wishRoomId: form.roomId,
+      roomId: form.roomId!,
     });
 
     init();

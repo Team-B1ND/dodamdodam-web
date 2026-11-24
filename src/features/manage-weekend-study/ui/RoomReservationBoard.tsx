@@ -6,7 +6,7 @@ import {
 } from "@/entities/weekend-study/constants";
 import {
   useGetMyProjectWeekendStudyQuery,
-  useGetWeekendStudyRoomsQuery,
+  useGetWeekendStudyRoomStatusQuery,
 } from "@/entities/weekend-study/queries";
 import {
   SegmentedButton,
@@ -20,19 +20,22 @@ import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStud
 type CellState =
   | { type: "available" }
   | { type: "selected" }
-  | { type: "reserved"; label: string };
+  | { type: "reserved"; label?: string }
+  | { type: "blocked"; label?: string };
 
 const CELL_CLASS: Record<CellState["type"], string> = {
   available:
     "border border-border-normal bg-background-surface text-brand-primary hover:bg-fill-primary cursor-pointer",
   selected: "bg-brand-primary text-static-white cursor-pointer",
   reserved: "bg-fill-primary text-text-tertiary cursor-not-allowed",
+  blocked: "bg-status-error/10 text-status-error cursor-not-allowed",
 };
 
 const CELL_TEXT: Record<CellState["type"], string> = {
   available: "예약 가능",
   selected: "선택됨",
   reserved: "예약됨",
+  blocked: "사용 제한",
 };
 
 const LEGENDS = [
@@ -40,16 +43,17 @@ const LEGENDS = [
     label: "예약 가능",
     className: "border border-border-normal bg-background-surface",
   },
-  { label: "예약됨 (내 신청)", className: "bg-fill-primary" },
+  { label: "예약됨", className: "bg-fill-primary" },
+  { label: "사용 제한 (관리자 설정)", className: "bg-status-error" },
   { label: "내가 선택한 시간", className: "bg-brand-primary" },
 ];
 
 const RoomReservationBoard = () => {
-  const { data: rooms } = useGetWeekendStudyRoomsQuery();
-  const { data: myProjects } = useGetMyProjectWeekendStudyQuery();
   const { form, selectCell } = useApplyProjectWeekendStudy();
   const date = getWeekendStudyDate();
   const dateText = date.format("YYYY-MM-DD");
+  const { data: rooms } = useGetWeekendStudyRoomStatusQuery(dateText);
+  const { data: myProjects } = useGetMyProjectWeekendStudyQuery();
 
   const floors = [...new Set(rooms.data.map((room) => room.floor))].sort(
     (a, b) => a - b,
@@ -66,24 +70,31 @@ const RoomReservationBoard = () => {
   );
   const [floor, setFloor] = useState("");
 
-  /** 학생은 다른 팀의 예약을 조회할 수 없어서, 내가 이미 신청한 실·교시만 예약됨으로 표시해요. */
-  const reservedMap = new Map<string, string>();
+  /** 서버는 누가 예약했는지 내려주지 않아서, 내가 신청한 칸에만 팀 이름을 붙여요. */
+  const myReservations = new Map<string, string>();
   myProjects.data
-    .filter(
-      (project) => project.date === dateText && project.status !== "REJECTED",
-    )
-    .forEach((project) => {
-      const room = project.room ?? project.wishRoom;
-      if (!room) return;
+    .filter((project) => project.date === dateText && project.room)
+    .forEach((project) =>
       project.periods.forEach((period) =>
-        reservedMap.set(`${room.id}-${period}`, project.name),
-      );
-    });
+        myReservations.set(`${project.room!.id}-${period}`, project.name),
+      ),
+    );
 
-  const getCellState = (roomId: number, period: number): CellState => {
-    const reserved = reservedMap.get(`${roomId}-${period}`);
-    if (reserved) return { type: "reserved", label: reserved };
-    if (form.roomId === roomId && form.periods.includes(period)) {
+  const getCellState = (
+    room: (typeof rooms.data)[number],
+    period: number,
+  ): CellState => {
+    const status = room.periods.find((p) => p.period === period);
+    if (status?.status === "BLOCKED") {
+      return { type: "blocked", label: status.reason ?? undefined };
+    }
+    if (status?.status === "RESERVED") {
+      return {
+        type: "reserved",
+        label: myReservations.get(`${room.id}-${period}`),
+      };
+    }
+    if (form.roomId === room.id && form.periods.includes(period)) {
       return { type: "selected" };
     }
     return { type: "available" };
@@ -102,8 +113,8 @@ const RoomReservationBoard = () => {
       <div className="flex flex-col gap-1">
         <h1 className="text-headline font-bold">실 예약 현황</h1>
         <p className="text-caption2 text-status-error">
-          (원하는 실과 시간을 눌러 선택하세요. 실 대여는 선착순으로 승인되며,
-          실이 모두 소진된 경우 대기중으로 표시됩니다.)
+          (원하는 실과 시간을 눌러 선택하세요. 사용 제한된 실은 사유와 함께
+          표시됩니다.)
         </p>
       </div>
       <div className="w-full flex flex-wrap items-center justify-between gap-3">
@@ -148,12 +159,14 @@ const RoomReservationBoard = () => {
                   {room.floor}층
                 </td>
                 {WEEKEND_STUDY_PERIODS.map((period) => {
-                  const state = getCellState(room.id, period);
+                  const state = getCellState(room, period);
                   return (
                     <td key={period}>
                       <button
                         type="button"
-                        disabled={state.type === "reserved"}
+                        disabled={
+                          state.type === "reserved" || state.type === "blocked"
+                        }
                         aria-pressed={state.type === "selected"}
                         aria-label={`${room.name} ${formatPeriod(period)} ${CELL_TEXT[state.type]}`}
                         onClick={() => selectCell(room.id, period)}
@@ -162,7 +175,7 @@ const RoomReservationBoard = () => {
                         <span className="text-label font-bold">
                           {CELL_TEXT[state.type]}
                         </span>
-                        {state.type === "reserved" && (
+                        {"label" in state && state.label && (
                           <span className="text-caption2 truncate max-w-full px-1">
                             {state.label}
                           </span>

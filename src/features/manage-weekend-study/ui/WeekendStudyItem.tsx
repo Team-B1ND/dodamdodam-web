@@ -4,7 +4,6 @@ import type {
   PersonalWeekendStudy,
   ProjectWeekendStudy,
 } from "@/entities/weekend-study/types";
-import StatusTag from "@/features/manage-night-study/ui/StatusTag";
 import { parseDate } from "@/shared/utils/parse-date";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { Dialog, useOverlay } from "@b1nd/dodam-design-system/components";
@@ -22,8 +21,8 @@ const WeekendStudyItem = ({ data }: Props) => {
   const { open } = useOverlay();
   const { mutateAsync, isPending } = useCancelWeekendStudyMutation();
   const project = isProject(data) ? data : null;
-  /** 서버는 승인된 신청과, 프로젝트의 경우 리더가 아닌 사람의 취소를 막아요. */
-  const canCancel = data.status !== "ALLOWED" && (!project || project.isLeader);
+  /** 신청은 바로 확정되고, 프로젝트는 리더만 취소할 수 있어요. */
+  const canCancel = !project || project.isLeader;
 
   const handleOpenCancelDialog = () => {
     open(({ close, exit, isOpen }) => (
@@ -57,12 +56,14 @@ const WeekendStudyItem = ({ data }: Props) => {
     ));
   };
 
-  const room = project?.room ?? project?.wishRoom;
+  const room = project?.room;
 
   return (
     <div className="w-full bg-fill-primary p-3 rounded-large flex flex-col gap-3">
       <div className="w-full flex justify-between items-center">
-        <StatusTag status={data.status} />
+        <span className="text-static-white bg-status-info rounded-full px-3 py-0.5 text-body1 font-bold">
+          신청됨
+        </span>
         {canCancel && (
           <button
             type="button"
@@ -87,7 +88,7 @@ const WeekendStudyItem = ({ data }: Props) => {
         {room && (
           <div className="flex items-center gap-2 min-w-0">
             <p className="text-caption1 font-medium text-text-secondary shrink-0">
-              {project?.room ? "실" : "희망 실"}
+              실
             </p>
             <p className="text-caption1 font-bold truncate">{room.name}</p>
           </div>
@@ -98,16 +99,6 @@ const WeekendStudyItem = ({ data }: Props) => {
             {formatPeriodsLabel(data.periods)}
           </p>
         </div>
-        {data.status === "REJECTED" && data.rejectionReason && (
-          <div className="col-span-2 flex items-start gap-2">
-            <p className="text-caption1 font-medium text-text-secondary shrink-0">
-              거절 사유
-            </p>
-            <p className="text-caption1 font-bold text-status-error">
-              {data.rejectionReason}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
