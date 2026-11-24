@@ -55,13 +55,6 @@ export const PLACE_TYPE_FILTER_ITEMS: DropdownItem[] = [
   { name: "실 대여", value: "PROJECT" },
 ];
 
-export const APPROVAL_FILTER_ITEMS: DropdownItem[] = [
-  { name: "모든 상태", value: ALL_VALUE },
-  { name: "대기중", value: "PENDING" },
-  { name: "승인됨", value: "ALLOWED" },
-  { name: "거절됨", value: "REJECTED" },
-];
-
 export const ATTENDANCE_FILTER_ITEMS: DropdownItem[] = [
   { name: "모든 상태", value: ALL_VALUE },
   { name: "출석", value: "ATTENDANCE" },

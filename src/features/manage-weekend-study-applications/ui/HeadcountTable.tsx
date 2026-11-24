@@ -46,9 +46,7 @@ const HeadcountData = ({ date, period, floor, group }: Filters) => {
   );
 
   const rows = toParticipantRows([...personal, ...project]).filter(
-    (row) =>
-      row.status !== "REJECTED" &&
-      (period === ALL_VALUE || row.period === Number(period)),
+    (row) => period === ALL_VALUE || row.period === Number(period),
   );
   const roomFloor = new Map(rooms.data.map((room) => [room.id, room.floor]));
 

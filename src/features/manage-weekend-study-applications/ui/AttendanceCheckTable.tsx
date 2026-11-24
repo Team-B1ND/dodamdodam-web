@@ -6,13 +6,11 @@ import {
 } from "@/entities/weekend-study/constants";
 import { useGetWeekendStudyRoomsQuery } from "@/entities/weekend-study/queries";
 import type { WeekendStudyAttendanceStatus } from "@/entities/weekend-study/types";
-import RejectDialog from "@/features/manage-night-study-applications/ui/RejectDialog";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   Checkbox,
   Dropdown,
   FilledButton,
-  useOverlay,
 } from "@b1nd/dodam-design-system/components";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -80,7 +78,6 @@ const RoomFilter = ({
 };
 
 const AttendanceCheckData = (filters: AttendanceCheckFilters) => {
-  const { open } = useOverlay();
   const {
     rows,
     selectedKeys,
@@ -90,64 +87,11 @@ const AttendanceCheckData = (filters: AttendanceCheckFilters) => {
     checkRows,
     handleBulkCheck,
     isChecking,
-    allow,
-    isAllowing,
-    reject,
-    isRejecting,
     summary,
   } = useAttendanceCheckTable(filters);
   const date = dayjs(filters.date);
 
-  const openRejectDialog = (row: WeekendStudyParticipantRow) => {
-    open(({ close, exit, isOpen }) => (
-      <RejectDialog
-        title="주말 자습 신청을 거절할까요?"
-        isOpen={isOpen}
-        isPending={isRejecting}
-        onClose={() => {
-          close();
-          exit();
-        }}
-        onConfirm={(reason) =>
-          reject(
-            { id: row.applicationId, rejectionReason: reason },
-            {
-              onSettled: () => {
-                close();
-                exit();
-              },
-            },
-          )
-        }
-      />
-    ));
-  };
-
   const renderStatusCell = (row: WeekendStudyParticipantRow) => {
-    if (row.status === "PENDING") {
-      return (
-        <div className="flex items-center justify-end gap-2">
-          <FilledButton
-            role="primary"
-            size="small"
-            display="inline"
-            disabled={isAllowing}
-            onClick={() => allow(row.applicationId)}
-          >
-            승인
-          </FilledButton>
-          <FilledButton
-            role="negative"
-            size="small"
-            display="inline"
-            onClick={() => openRejectDialog(row)}
-          >
-            거절
-          </FilledButton>
-        </div>
-      );
-    }
-
     const attendance = getAttendance(row);
     return (
       <div className="flex justify-end">
@@ -229,10 +173,7 @@ const AttendanceCheckData = (filters: AttendanceCheckFilters) => {
         minWidth="52rem"
         rows={rows.map((row) => ({
           key: row.key,
-          className:
-            row.status === "ALLOWED"
-              ? ROW_CLASS[getAttendance(row) ?? "NONE"]
-              : "",
+          className: ROW_CLASS[getAttendance(row) ?? "NONE"],
           cells: [
             <Checkbox
               size="small"

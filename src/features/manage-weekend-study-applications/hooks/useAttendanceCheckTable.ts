@@ -1,8 +1,4 @@
-import {
-  useAllowWeekendStudyMutation,
-  useCheckWeekendStudyAttendanceMutation,
-  useRejectWeekendStudyMutation,
-} from "@/entities/weekend-study/mutations";
+import { useCheckWeekendStudyAttendanceMutation } from "@/entities/weekend-study/mutations";
 import { useGetWeekendStudyApplicationsQuery } from "@/entities/weekend-study/queries";
 import {
   WEEKEND_STUDY_PERIODS,
@@ -47,9 +43,7 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const toast = useToast();
 
-  const allRows = toParticipantRows([...personal, ...project]).filter(
-    (row) => row.status !== "REJECTED",
-  );
+  const allRows = toParticipantRows([...personal, ...project]);
 
   const getAttendance = (row: WeekendStudyParticipantRow) =>
     records[attendanceRecordKey(row.student.publicId, row.date, row.period)];
@@ -134,15 +128,11 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
     targets: WeekendStudyParticipantRow[],
     status: WeekendStudyAttendanceStatus,
   ) => {
-    const allowed = targets.filter((row) => row.status === "ALLOWED");
-    if (allowed.length === 0) {
-      toast.warning("승인된 신청만 출석을 체크할 수 있어요.");
-      return;
-    }
+    if (targets.length === 0) return;
 
     setIsChecking(true);
     const results = await Promise.allSettled(
-      allowed.map((row) =>
+      targets.map((row) =>
         check({
           userId: row.student.publicId,
           date: row.date,
@@ -167,7 +157,7 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
         `${failed.length}건을 처리하지 못했어요. ${reason?.message ?? ""}`.trim(),
       );
     } else {
-      toast.success(`${allowed.length}명의 출석을 체크했어요.`);
+      toast.success(`${targets.length}명의 출석을 체크했어요.`);
     }
   };
 
@@ -179,11 +169,6 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
     setSelectedKeys(new Set());
   };
 
-  const { mutate: allow, isPending: isAllowing } =
-    useAllowWeekendStudyMutation();
-  const { mutate: reject, isPending: isRejecting } =
-    useRejectWeekendStudyMutation();
-
   return {
     rows,
     selectedKeys,
@@ -193,10 +178,6 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
     checkRows,
     handleBulkCheck,
     isChecking,
-    allow,
-    isAllowing,
-    reject,
-    isRejecting,
     summary: { periodCounts, personalCount, projectCount, projectRoomCount },
   };
 };
