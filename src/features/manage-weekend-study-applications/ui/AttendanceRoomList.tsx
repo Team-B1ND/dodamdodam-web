@@ -22,8 +22,8 @@ import {
 } from "../lib/weekend-study-rows";
 import {
   attendanceRecordKey,
-  useAttendanceCheckStore,
-} from "../stores/attendance-check";
+  useAttendanceRecords,
+} from "../hooks/useAttendanceRecords";
 import SearchInput from "./SearchInput";
 
 export interface AttendanceRoom {
@@ -84,7 +84,7 @@ const AttendanceRoomList = ({
     "PROJECT",
   );
   const { data: weekendRooms } = useGetWeekendStudyRoomsQuery();
-  const { records } = useAttendanceCheckStore();
+  const records = useAttendanceRecords(date);
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<RoomStatus>("ALL");
   const isMobile = useIsMobile();
@@ -111,9 +111,9 @@ const AttendanceRoomList = ({
     const rows = periodRows.filter((row) => getRowRoomKey(row) === room.key);
     const unchecked = rows.filter(
       (row) =>
-        !records[
-          attendanceRecordKey(row.student.publicId, row.date, row.period)
-        ],
+        !records.has(
+          attendanceRecordKey(row.student.publicId, row.date, row.period),
+        ),
     );
     return {
       room,

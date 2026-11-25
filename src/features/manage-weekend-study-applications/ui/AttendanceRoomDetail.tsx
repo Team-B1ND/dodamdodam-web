@@ -15,7 +15,11 @@ import { colors } from "@b1nd/dodam-design-system/colors";
 import { ArrowLeft } from "@b1nd/dodam-design-system/icons";
 import { useState } from "react";
 import { ALL_VALUE, ATTENDANCE_FILTER_ITEMS } from "../constants/filter-items";
-import { useAttendanceCheckTable } from "../hooks/useAttendanceCheckTable";
+import {
+  NO_ATTENDANCE,
+  useAttendanceCheckTable,
+  type AttendanceChoice,
+} from "../hooks/useAttendanceCheckTable";
 import type { WeekendStudyParticipantRow } from "../lib/weekend-study-rows";
 import type { AttendanceRoom } from "./AttendanceRoomList";
 import SearchInput from "./SearchInput";
@@ -28,12 +32,17 @@ interface Props {
   onBack: () => void;
 }
 
-const ATTENDANCE_ITEMS = (
-  Object.keys(WEEKEND_STUDY_ATTENDANCE_LABEL) as WeekendStudyAttendanceStatus[]
-).map((status) => ({
-  name: WEEKEND_STUDY_ATTENDANCE_LABEL[status],
-  value: status,
-}));
+const ATTENDANCE_ITEMS = [
+  { name: "미출석", value: NO_ATTENDANCE },
+  ...(
+    Object.keys(
+      WEEKEND_STUDY_ATTENDANCE_LABEL,
+    ) as WeekendStudyAttendanceStatus[]
+  ).map((status) => ({
+    name: WEEKEND_STUDY_ATTENDANCE_LABEL[status],
+    value: status,
+  })),
+];
 
 const ROW_CLASS: Record<WeekendStudyAttendanceStatus | "NONE", string> = {
   ATTENDANCE: "",
@@ -60,6 +69,7 @@ const AttendanceRoomDetail = ({ room, date, period, onBack }: Props) => {
     toggleAll,
     toggleOne,
     getAttendance,
+    getRecord,
     checkRows,
     handleBulkCheck,
     isChecking,
@@ -75,9 +85,9 @@ const AttendanceRoomDetail = ({ room, date, period, onBack }: Props) => {
     <div className="flex justify-end">
       <Dropdown
         items={ATTENDANCE_ITEMS}
-        value={getAttendance(row) ?? "미출석"}
+        value={getAttendance(row) ?? NO_ATTENDANCE}
         onSelectedItemChange={(item) =>
-          checkRows([row], item.value as WeekendStudyAttendanceStatus)
+          checkRows([row], item.value as AttendanceChoice)
         }
       />
     </div>
@@ -166,7 +176,14 @@ const AttendanceRoomDetail = ({ room, date, period, onBack }: Props) => {
             <span className="font-bold">{row.student.name}</span>,
             formatStudentNumber(row.student.student),
             row.date,
-            formatPeriodTime(row.period),
+            <div className="flex flex-col gap-0.5">
+              <span>{formatPeriodTime(row.period)}</span>
+              {getRecord(row)?.reason && (
+                <span className="text-caption1 text-text-tertiary whitespace-normal">
+                  수정 사유: {getRecord(row)?.reason}
+                </span>
+              )}
+            </div>,
             renderStatusCell(row),
           ],
         }))}
