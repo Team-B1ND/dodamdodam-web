@@ -138,7 +138,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
       <div className="flex flex-col gap-5 p-0 sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex min-w-0 flex-col gap-1">
-            <h1 className="truncate text-title1 font-extrabold text-text-primary">
+            <h1 className="truncate text-title1 font-bold text-text-primary">
               {team.name}
             </h1>
             <p className="text-heading1 text-text-primary">

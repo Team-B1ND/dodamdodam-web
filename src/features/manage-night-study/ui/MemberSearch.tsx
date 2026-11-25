@@ -38,7 +38,7 @@ const MemberSearch = ({ keyword, selection }: Props) => {
             )
         })
       ) : (
-        <p className="py-8 text-center text-border-normal">학생이 없어요.</p>
+        <p className="py-12 text-center text-body1 text-text-tertiary">학생이 없어요.</p>
       )}
       <div ref={ref} />
     </div>

@@ -1,7 +1,18 @@
 import { colors } from "@b1nd/dodam-design-system/colors";
+import { IconButton } from "@b1nd/dodam-design-system/components";
 import { Plus } from "@b1nd/dodam-design-system/icons";
 import type { ProfileImageSectionProps } from "@/features/fix-profile/types";
 import ProfileImage from "@/shared/ui/profile-image";
+
+/** 프로필 사진 오른쪽 아래에 겹치는 원형 브랜드 버튼이에요. DS IconButton의 회색 hover를 브랜드색으로 덮어요. */
+const PLUS_BUTTON_STYLE = {
+  position: "absolute" as const,
+  right: 0,
+  bottom: 0,
+  borderRadius: "50%",
+  backgroundColor: colors.brand.primary,
+  "&:hover": { backgroundColor: colors.brand.primary },
+};
 
 const ProfileImageSection = ({
   profileImage,
@@ -20,15 +31,14 @@ const ProfileImageSection = ({
           className="h-32 w-32 rounded-full object-cover"
           size={128}
         />
-        <button
-          type="button"
-          aria-label="프로필 이미지 변경"
-          className="absolute right-0 bottom-0 flex h-9 w-9 items-center cursor-pointer justify-center rounded-full bg-brand-primary text-white disabled:cursor-not-allowed disabled:opacity-60"
+        <IconButton
+          icon={<Plus color={colors.static.white} />}
+          size={36}
+          iconSize={20}
           disabled={isUploadPending}
           onClick={onOpenProfileImagePicker}
-        >
-          <Plus color={colors.static.white} pointer size={20}/>
-        </button>
+          customStyle={PLUS_BUTTON_STYLE}
+        />
       </div>
       <input
         ref={fileInputRef}

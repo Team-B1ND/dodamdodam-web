@@ -81,7 +81,7 @@ const ProjectNightStudyMemberForm = () => {
                 />
               ))
             ) : (
-              <p className="py-8 text-center text-border-normal">
+              <p className="py-12 text-center text-body1 text-text-tertiary">
                 선택된 팀원이 없어요.
               </p>
             )}
