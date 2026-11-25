@@ -6,12 +6,15 @@ import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   Dropdown,
   FilledButton,
+  SegmentedButton,
   useToast,
+  type SegmentedButtonData,
 } from "@b1nd/dodam-design-system/components";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { ALL_VALUE, CLASS_FILTER_ITEMS } from "../constants/filter-items";
 import { compareStudent } from "../lib/weekend-study-rows";
+import AttendanceDailyRecord from "./AttendanceDailyRecord";
 import SearchInput from "./SearchInput";
 import WeekendTable, { type WeekendTableColumn } from "./WeekendTable";
 
@@ -144,7 +147,7 @@ const AttendanceRecordData = (filters: Filters) => {
   );
 };
 
-const AttendanceRecordTable = () => {
+const AttendanceSummary = () => {
   const [filters, setFilters] = useState<Filters>({
     month: MONTH_ITEMS[0].value,
     keyword: "",
@@ -176,6 +179,29 @@ const AttendanceRecordTable = () => {
       >
         <AttendanceRecordData {...filters} />
       </QueryBoundary>
+    </div>
+  );
+};
+
+type View = "summary" | "daily";
+
+/** 월별 누적 집계에는 장소·교시별 상태가 없어서, 장소·상태 필터는 날짜별 기록에 둬요. */
+const AttendanceRecordTable = () => {
+  const [segment, setSegment] = useState<SegmentedButtonData[]>([
+    { text: "학생별 누적", value: "summary", isActive: true },
+    { text: "날짜별 기록", value: "daily", isActive: false },
+  ]);
+  const [view, setView] = useState<View>("summary");
+
+  return (
+    <div className="flex flex-col gap-5 min-w-0">
+      <SegmentedButton
+        data={segment}
+        setData={setSegment}
+        onBlockClick={(value) => setView(value as View)}
+        width="16rem"
+      />
+      {view === "summary" ? <AttendanceSummary /> : <AttendanceDailyRecord />}
     </div>
   );
 };
