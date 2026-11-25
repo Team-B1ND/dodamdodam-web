@@ -5,16 +5,18 @@ import {
 import {
   useDeleteWeekendStudyRoomMutation,
   useUnblockWeekendStudyRoomMutation,
+  useUpdateWeekendStudyRoomEnabledMutation,
 } from "@/entities/weekend-study/mutations";
 import {
+  useGetAllWeekendStudyRoomsQuery,
   useGetWeekendStudyRoomBlocksQueries,
-  useGetWeekendStudyRoomsQuery,
 } from "@/entities/weekend-study/queries";
 import type { WeekendStudyRoom } from "@/entities/weekend-study/types";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   Dialog,
   FilledButton,
+  Switch,
   useOverlay,
   useToast,
 } from "@b1nd/dodam-design-system/components";
@@ -26,7 +28,8 @@ import WeekendTable, { type WeekendTableColumn } from "./WeekendTable";
 
 const ROOM_COLUMNS: WeekendTableColumn[] = [
   { label: "실 이름", width: "200px" },
-  { label: "층" },
+  { label: "층", width: "80px" },
+  { label: "사용 여부" },
   { label: "제어", width: "140px", align: "right" },
 ];
 
@@ -64,9 +67,11 @@ const Section = ({
 
 const RoomList = () => {
   const { open } = useOverlay();
-  const { data } = useGetWeekendStudyRoomsQuery();
+  const { data } = useGetAllWeekendStudyRoomsQuery();
   const { mutateAsync: deleteRoom, isPending } =
     useDeleteWeekendStudyRoomMutation();
+  const { mutate: updateEnabled, isPending: isUpdatingEnabled } =
+    useUpdateWeekendStudyRoomEnabledMutation();
 
   const openEdit = (room: WeekendStudyRoom) =>
     open(({ close, exit, isOpen }) => (
@@ -85,7 +90,7 @@ const RoomList = () => {
       <Dialog
         open={isOpen}
         title={`${room.name}을(를) 삭제할까요?`}
-        description="삭제한 실은 학생 신청 목록에서 사라져요."
+        description="신청 기록이 있는 실은 삭제할 수 없어요. 더 쓰지 않는 실은 사용 여부를 꺼주세요."
       >
         <Dialog.FilledButton
           role="assistive"
@@ -101,7 +106,8 @@ const RoomList = () => {
           role="negative"
           disabled={isPending}
           onClick={async () => {
-            await deleteRoom(room.id);
+            // 실패 문구는 뮤테이션이 토스트로 보여줘요.
+            await deleteRoom(room.id).catch(() => undefined);
             close();
             exit();
           }}
@@ -119,9 +125,23 @@ const RoomList = () => {
       emptyText="등록된 실이 없어요."
       rows={data.data.map((room) => ({
         key: String(room.id),
+        className: room.enabled ? undefined : "text-text-tertiary",
         cells: [
           <span className="font-bold">{room.name}</span>,
           `${room.floor}층`,
+          <div className="flex items-center gap-2">
+            <Switch
+              size="small"
+              checked={room.enabled}
+              disabled={isUpdatingEnabled}
+              onChange={() =>
+                updateEnabled({ id: room.id, enabled: !room.enabled })
+              }
+            />
+            <span className="text-body2">
+              {room.enabled ? "사용 중" : "사용 안 함"}
+            </span>
+          </div>,
           <div className="flex justify-end gap-2">
             <FilledButton
               role="assistive"
@@ -234,12 +254,14 @@ const BlockList = ({ rooms }: { rooms: WeekendStudyRoom[] }) => {
 
 const BlockSection = () => {
   const { open } = useOverlay();
-  const { data } = useGetWeekendStudyRoomsQuery();
+  const { data } = useGetAllWeekendStudyRoomsQuery();
+  /** 꺼진 실은 신청을 받지 않으니 새 제한은 켜진 실에만 걸어요. 기존 제한은 모두 보여줘요. */
+  const enabledRooms = data.data.filter((room) => room.enabled);
 
   const openAdd = () =>
     open(({ close, exit, isOpen }) => (
       <RoomBlockDialog
-        rooms={data.data}
+        rooms={enabledRooms}
         isOpen={isOpen}
         onClose={() => {
           close();
@@ -257,7 +279,7 @@ const BlockSection = () => {
           role="primary"
           size="medium"
           display="inline"
-          disabled={data.data.length === 0}
+          disabled={enabledRooms.length === 0}
           onClick={openAdd}
         >
           사용 제한 추가
@@ -293,7 +315,7 @@ const RoomManagement = () => {
     <div className="flex flex-col gap-6 pt-1 min-w-0">
       <Section
         title="대여 가능 실"
-        description="학생이 주말 자습 실 대여로 신청할 수 있는 실을 관리합니다."
+        description="학생이 주말 자습 실 대여로 신청할 수 있는 실을 관리합니다. 사용 여부를 끈 실은 학생 신청 화면에 나오지 않아요."
         action={
           <FilledButton
             role="primary"
