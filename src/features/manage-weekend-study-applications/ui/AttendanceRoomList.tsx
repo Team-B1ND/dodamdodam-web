@@ -12,6 +12,7 @@ import {
   type DropdownItem,
   type TableKey,
 } from "@b1nd/dodam-design-system/components";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import { useState } from "react";
 import { getPeriodFilterItems } from "../constants/filter-items";
 import {
@@ -51,6 +52,13 @@ const ROOM_TABLE_KEYS: TableKey[] = [
   ["미출석 인원", "FULL"],
 ];
 
+/** 모바일에서는 표를 화면 너비에 맞추려고 열 너비를 줄여요. */
+const MOBILE_ROOM_TABLE_KEYS: TableKey[] = [
+  ["실 이름", "FULL"],
+  ["신청", "64px"],
+  ["미출석", "64px"],
+];
+
 const CLASSROOMS: AttendanceRoom[] = [1, 2, 3].flatMap((grade) =>
   [1, 2, 3, 4].map((room) => ({
     key: `class-${grade}-${room}`,
@@ -79,6 +87,7 @@ const AttendanceRoomList = ({
   const { records } = useAttendanceCheckStore();
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState<RoomStatus>("ALL");
+  const isMobile = useIsMobile();
 
   const allRows = toParticipantRows([...personal, ...project]);
   const periodRows = allRows.filter((row) => row.period === Number(period));
@@ -155,9 +164,9 @@ const AttendanceRoomList = ({
       </div>
 
       <div className="scrollbar min-h-0 w-full flex-1 overflow-auto">
-        <div className="min-w-120">
+        <div className="sm:min-w-120">
           <Table
-            keys={ROOM_TABLE_KEYS}
+            keys={isMobile ? MOBILE_ROOM_TABLE_KEYS : ROOM_TABLE_KEYS}
             data={rows}
             onRowClick={(index) => {
               const target = rooms[index];

@@ -25,6 +25,13 @@ const TABS: SegmentedButtonData[] = [
   { text: "출석 기록", value: "record", isActive: false },
 ];
 
+/**
+ * 탭이 5개라 좁은 화면에서 칸이 줄어들면 글자가 두 줄로 꺾여요.
+ * 글자는 한 줄로 고정하고 최소 너비를 둬서, 그보다 좁으면 감싼 영역에서 가로로 스크롤돼요.
+ */
+const TAB_CONTAINER_STYLE = { minWidth: "30rem" };
+const TAB_ITEM_STYLE = { whiteSpace: "nowrap" as const };
+
 function RouteComponent() {
   const { data: meData, isPending, isError } = useGetMeQuery();
   const [tabs, setTabs] = useState(TABS);
@@ -46,6 +53,8 @@ function RouteComponent() {
           setData={setTabs}
           onBlockClick={(value) => setTab(value as Tab)}
           width="100%"
+          containerCustomStyle={TAB_CONTAINER_STYLE}
+          itemCustomStyle={TAB_ITEM_STYLE}
         />
       </div>
       {tab === "attendance" && <AttendanceCheckTable />}
