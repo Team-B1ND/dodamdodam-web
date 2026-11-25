@@ -50,10 +50,10 @@ const Section = ({
   action: ReactNode;
   children: ReactNode;
 }) => (
-  <section className="flex flex-col gap-3">
+  <section className="flex flex-col gap-4">
     <div className="flex items-start justify-between gap-3">
-      <div className="flex flex-col gap-0.5">
-        <h2 className="text-heading2 font-bold">{title}</h2>
+      <div className="flex flex-col gap-1">
+        <h2 className="text-headline font-bold">{title}</h2>
         <p className="text-caption1 text-text-tertiary">{description}</p>
       </div>
       {action}
@@ -216,13 +216,13 @@ const BlockList = ({ rooms }: { rooms: WeekendStudyRoom[] }) => {
             <span className="whitespace-normal">{group.description}</span>,
             <div className="flex justify-end">
               <FilledButton
-                role="negative"
+                role="assistive"
                 size="small"
                 display="inline"
                 disabled={isPending}
                 onClick={() => handleDelete(group)}
               >
-                삭제
+                제한 해제
               </FilledButton>
             </div>,
           ],
@@ -290,7 +290,7 @@ const RoomManagement = () => {
     ));
 
   return (
-    <div className="flex flex-col gap-6 min-w-0">
+    <div className="flex flex-col gap-6 pt-1 min-w-0">
       <Section
         title="대여 가능 실"
         description="학생이 주말 자습 실 대여로 신청할 수 있는 실을 관리합니다."

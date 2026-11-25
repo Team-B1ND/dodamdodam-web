@@ -10,6 +10,7 @@ import {
   Checkbox,
   DatePicker,
   Dialog,
+  FilledButton,
   Switch,
   TextField,
   useToast,
@@ -38,14 +39,15 @@ const DateField = ({
 }) => (
   <div className="min-w-0 flex flex-col gap-2">
     <span className="text-label text-text-secondary">{label}</span>
-    <button
-      type="button"
+    <FilledButton
+      role="assistive"
+      size="medium"
+      display="fill"
       disabled={disabled}
       onClick={onClick}
-      className="h-12 px-3 rounded-medium border border-border-normal text-left text-body1 font-medium whitespace-nowrap truncate disabled:text-text-disabled disabled:bg-fill-primary"
     >
       {formatWeekendStudyDate(date)}
-    </button>
+    </FilledButton>
   </div>
 );
 
@@ -100,8 +102,12 @@ const RoomBlockDialog = ({ rooms, isOpen, onClose }: Props) => {
     onClose();
   };
 
+  /**
+   * DS 오버레이는 한 번에 하나만 띄우고 내용을 가로로 나란히 놓아서,
+   * 달력을 다이얼로그와 같은 박스에 겹쳐 그 위 가운데에 띄워요.
+   */
   return (
-    <>
+    <div className="relative">
       <Dialog
         open={isOpen}
         title="사용 제한 추가"
@@ -125,7 +131,7 @@ const RoomBlockDialog = ({ rooms, isOpen, onClose }: Props) => {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setRoomIds((prev) => toggle(prev, room.id))}
-                    className={`h-9 px-3 rounded-small text-label font-bold transition-colors ${
+                    className={`h-9 px-3 rounded-small text-label font-bold ${
                       selected
                         ? "bg-brand-primary text-static-white"
                         : "bg-fill-primary text-text-secondary hover:bg-fill-hover"
@@ -215,21 +221,31 @@ const RoomBlockDialog = ({ rooms, isOpen, onClose }: Props) => {
         </div>
       </Dialog>
 
-      <DatePicker
-        open={picker !== null}
-        date={picker === "endAt" ? endAt : startAt}
-        onChangeDate={(date) => {
-          if (picker === "endAt") setEndAt(date);
-          else {
-            setStartAt(date);
-            if (dayjs(endAt).isBefore(date, "day")) setEndAt(date);
-          }
+      <div
+        className={`absolute inset-0 z-10 flex items-center justify-center ${
+          picker ? "" : "pointer-events-none"
+        }`}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setPicker(null);
         }}
-        onClose={() => setPicker(null)}
-        onExited={() => setPicker(null)}
-        disablePast
-      />
-    </>
+      >
+        <div className="rounded-extralarge shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
+          <DatePicker
+            open={picker !== null}
+            date={picker === "endAt" ? endAt : startAt}
+            onChangeDate={(date) => {
+              if (picker === "endAt") setEndAt(date);
+              else {
+                setStartAt(date);
+                if (dayjs(endAt).isBefore(date, "day")) setEndAt(date);
+              }
+            }}
+            onClose={() => setPicker(null)}
+            disablePast
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

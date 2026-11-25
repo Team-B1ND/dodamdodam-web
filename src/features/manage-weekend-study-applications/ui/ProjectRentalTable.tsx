@@ -12,7 +12,7 @@ import { Dropdown, useOverlay } from "@b1nd/dodam-design-system/components";
 import { useState } from "react";
 import {
   ALL_VALUE,
-  getDateFilterItems,
+  getCurrentWeekendStudyDate,
   getPeriodFilterItems,
 } from "../constants/filter-items";
 import ProjectRentalDialog from "./ProjectRentalDialog";
@@ -114,9 +114,8 @@ const RoomFilter = ({
 };
 
 const ProjectRentalTable = () => {
-  const dateItems = getDateFilterItems();
   const [filters, setFilters] = useState<Filters>({
-    date: dateItems[0].value,
+    date: getCurrentWeekendStudyDate(),
     keyword: "",
     period: ALL_VALUE,
     room: ALL_VALUE,
@@ -129,11 +128,6 @@ const ProjectRentalTable = () => {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <SearchInput onSearch={set("keyword")} />
         <div className="flex flex-wrap items-center gap-3">
-          <Dropdown
-            items={dateItems}
-            value={filters.date}
-            onSelectedItemChange={(item) => set("date")(item.value)}
-          />
           <Dropdown
             items={getPeriodFilterItems(true)}
             value={filters.period}

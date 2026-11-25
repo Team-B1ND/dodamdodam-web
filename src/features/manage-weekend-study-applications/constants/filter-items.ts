@@ -1,24 +1,15 @@
 import {
   WEEKEND_STUDY_PERIODS,
   formatPeriod,
-  formatWeekendStudyDate,
   getWeekendStudyDate,
 } from "@/entities/weekend-study/constants";
 import type { DropdownItem } from "@b1nd/dodam-design-system/components";
 
 export const ALL_VALUE = "";
 
-/** 이번 주 일요일부터 지난 8주까지 선택할 수 있어요. */
-export const getDateFilterItems = (): DropdownItem[] => {
-  const base = getWeekendStudyDate();
-  return Array.from({ length: 9 }).map((_, idx) => {
-    const date = base.subtract(idx * 7, "day");
-    return {
-      name: formatWeekendStudyDate(date),
-      value: date.format("YYYY-MM-DD"),
-    };
-  });
-};
+/** 관리 화면은 이번 주 일요일만 보여줘요. */
+export const getCurrentWeekendStudyDate = () =>
+  getWeekendStudyDate().format("YYYY-MM-DD");
 
 const getCurrentPeriod = () => {
   const hour = new Date().getHours();
@@ -47,12 +38,6 @@ export const CLASS_FILTER_ITEMS: DropdownItem[] = [
       value: `${grade}-${room}`,
     })),
   ),
-];
-
-export const PLACE_TYPE_FILTER_ITEMS: DropdownItem[] = [
-  { name: "모든 장소 유형", value: ALL_VALUE },
-  { name: "개별 자습", value: "PERSONAL" },
-  { name: "실 대여", value: "PROJECT" },
 ];
 
 export const ATTENDANCE_FILTER_ITEMS: DropdownItem[] = [

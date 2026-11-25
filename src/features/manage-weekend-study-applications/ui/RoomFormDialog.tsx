@@ -37,22 +37,22 @@ const RoomFormDialog = ({ room, isOpen, onClose }: Props) => {
       onClose={onClose}
       closeOnDimmerClick
     >
-      <div className="flex flex-col gap-3 w-full">
-        <TextField
-          type="text"
-          label="실 이름"
-          placeholder="예) LAB 13"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField
-          type="text"
-          inputMode="numeric"
-          label="층"
-          placeholder="예) 2"
-          value={floor}
-          onChange={(e) => setFloor(e.target.value.replace(/[^0-9]/g, ""))}
-        />
+      <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col gap-5">
+          <TextField
+            type="text"
+            label="실 이름"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            type="text"
+            inputMode="numeric"
+            label="층"
+            value={floor}
+            onChange={(e) => setFloor(e.target.value.replace(/[^0-9]/g, ""))}
+          />
+        </div>
         <div className="flex gap-2">
           <Dialog.FilledButton
             role="assistive"

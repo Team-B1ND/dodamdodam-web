@@ -50,6 +50,12 @@ export const toParticipantRows = (
     );
   });
 
+/** 출석 체크에서 행을 실 단위로 묶는 키예요. 개별 자습은 학생의 교실로 묶어요. */
+export const getRowRoomKey = (row: WeekendStudyParticipantRow) =>
+  row.type === "PROJECT"
+    ? `room-${row.roomId ?? "none"}`
+    : `class-${row.student.student?.grade ?? 0}-${row.student.student?.room ?? 0}`;
+
 export const compareStudent = (
   a: WeekendStudyApplicant,
   b: WeekendStudyApplicant,

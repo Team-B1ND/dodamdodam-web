@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import {
   ALL_VALUE,
-  getDateFilterItems,
+  getCurrentWeekendStudyDate,
   getDefaultPeriod,
   getPeriodFilterItems,
 } from "../constants/filter-items";
@@ -137,13 +137,12 @@ const FloorFilter = ({
 };
 
 const HeadcountTable = () => {
-  const dateItems = getDateFilterItems();
   const [segment, setSegment] = useState<SegmentedButtonData[]>([
     { text: "층 별", value: "floor", isActive: true },
     { text: "실 별", value: "room", isActive: false },
   ]);
   const [filters, setFilters] = useState<Filters>({
-    date: dateItems[0].value,
+    date: getCurrentWeekendStudyDate(),
     period: getDefaultPeriod(),
     floor: ALL_VALUE,
     group: "floor",
@@ -161,11 +160,6 @@ const HeadcountTable = () => {
           width="14rem"
         />
         <div className="flex flex-wrap items-center gap-3">
-          <Dropdown
-            items={dateItems}
-            value={filters.date}
-            onSelectedItemChange={(item) => set("date")(item.value)}
-          />
           <QueryBoundary
             pendingFallback={
               <div className="skeleton h-12 w-24 rounded-medium" />

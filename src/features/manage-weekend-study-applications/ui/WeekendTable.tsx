@@ -20,6 +20,11 @@ interface Props {
   rowHeight?: number;
   minWidth?: string;
   emptyText?: string;
+  /**
+   * 가로 스크롤 영역은 세로로 넘치는 부분도 잘라서, 셀 안 DS Dropdown 옵션이 가려져요.
+   * 켜면 레이아웃 높이는 그대로 두고 아래에 옵션이 펼쳐질 공간을 둬요.
+   */
+  dropdownSpace?: boolean;
 }
 
 const ALIGN_CLASS = {
@@ -38,8 +43,11 @@ const WeekendTable = ({
   rowHeight = 48,
   minWidth = "40rem",
   emptyText = "신청 내역이 없어요.",
+  dropdownSpace = false,
 }: Props) => (
-  <div className="w-full overflow-x-auto">
+  <div
+    className={`w-full overflow-x-auto ${dropdownSpace ? "pb-32 -mb-32" : ""}`}
+  >
     <table className="w-full border-collapse" style={{ minWidth }}>
       <thead>
         <tr className="border-b border-border-normal">

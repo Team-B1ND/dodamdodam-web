@@ -109,20 +109,20 @@ const AttendanceRecordData = (filters: Filters) => {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col">
           <h2 className="text-headline font-bold">학생별 누적 집계</h2>
-          <p className="text-caption2 text-text-tertiary">
+          <p className="text-caption1 text-text-tertiary">
             선택한 기간 기준 ({dayjs(startAt).month() + 1}월{" "}
             {dayjs(startAt).date()}일 ~ {dayjs(endAt).month() + 1}월{" "}
             {dayjs(endAt).date()}일)
           </p>
         </div>
         <FilledButton
-          role="primary"
+          role="assistive"
           size="medium"
           display="inline"
           disabled={isDownloading || summaries.length === 0}
           onClick={handleDownload}
         >
-          {isDownloading ? "내보내는 중..." : "엑셀 내보내기"}
+          {isDownloading ? "다운로드 중.." : "엑셀 다운로드"}
         </FilledButton>
       </div>
       <WeekendTable
@@ -134,9 +134,9 @@ const AttendanceRecordData = (filters: Filters) => {
           cells: [
             <span className="font-bold">{student.name}</span>,
             formatStudentNumber(student.student),
-            <span className="text-brand-primary">출석 {attendance}</span>,
-            <span className="text-status-warning">지각 {late}</span>,
-            <span className="text-status-error">결석 {absent}</span>,
+            attendance,
+            late,
+            absent,
           ],
         }))}
       />

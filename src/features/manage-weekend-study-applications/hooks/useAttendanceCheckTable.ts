@@ -1,15 +1,13 @@
 import { useCheckWeekendStudyAttendanceMutation } from "@/entities/weekend-study/mutations";
 import { useGetWeekendStudyApplicationsQuery } from "@/entities/weekend-study/queries";
-import {
-  WEEKEND_STUDY_PERIODS,
-  formatStudentNumber,
-} from "@/entities/weekend-study/constants";
+import { formatStudentNumber } from "@/entities/weekend-study/constants";
 import type { WeekendStudyAttendanceStatus } from "@/entities/weekend-study/types";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useState } from "react";
 import { ALL_VALUE } from "../constants/filter-items";
 import {
   compareStudent,
+  getRowRoomKey,
   toParticipantRows,
   type WeekendStudyParticipantRow,
 } from "../lib/weekend-study-rows";
@@ -22,15 +20,13 @@ export interface AttendanceCheckFilters {
   date: string;
   period: string;
   keyword: string;
-  classValue: string;
-  placeType: string;
   attendance: string;
-  room: string;
+  /** `getRowRoomKey`로 만든 실 키예요. */
+  roomKey: string;
 }
 
 export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
-  const { date, period, keyword, classValue, placeType, attendance, room } =
-    filters;
+  const { date, period, keyword, attendance, roomKey } = filters;
   const { data: personal } = useGetWeekendStudyApplicationsQuery(
     date,
     "PERSONAL",
@@ -51,28 +47,10 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
   const rows = allRows
     .filter((row) => {
       if (row.period !== Number(period)) return false;
+      if (getRowRoomKey(row) !== roomKey) return false;
       if (keyword) {
         const target = `${row.student.name} ${row.place} ${formatStudentNumber(row.student.student)}`;
         if (!target.includes(keyword)) return false;
-      }
-      if (classValue !== ALL_VALUE) {
-        const [grade, classRoom] = classValue.split("-").map(Number);
-        if (
-          row.student.student?.grade !== grade ||
-          row.student.student?.room !== classRoom
-        ) {
-          return false;
-        }
-      }
-      if (placeType !== ALL_VALUE && row.type !== placeType) return false;
-      if (room !== ALL_VALUE) {
-        if (
-          room === "CLASSROOM"
-            ? row.type !== "PERSONAL"
-            : row.roomId !== Number(room)
-        ) {
-          return false;
-        }
       }
       if (attendance !== ALL_VALUE) {
         const current = getAttendance(row) ?? "NONE";
@@ -81,26 +59,6 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
       return true;
     })
     .sort((a, b) => compareStudent(a.student, b.student));
-
-  const periodCounts = WEEKEND_STUDY_PERIODS.map((p) => ({
-    period: p,
-    count: new Set(
-      allRows
-        .filter((row) => row.period === p)
-        .map((row) => row.student.publicId),
-    ).size,
-  }));
-  const personalCount = new Set(
-    allRows
-      .filter((row) => row.type === "PERSONAL")
-      .map((row) => row.student.publicId),
-  ).size;
-  const projectRows = allRows.filter((row) => row.type === "PROJECT");
-  const projectCount = new Set(projectRows.map((row) => row.student.publicId))
-    .size;
-  const projectRoomCount = new Set(
-    projectRows.map((row) => row.roomId).filter((id) => id !== null),
-  ).size;
 
   const toggleAll = () => {
     setSelectedKeys((prev) =>
@@ -178,6 +136,5 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
     checkRows,
     handleBulkCheck,
     isChecking,
-    summary: { periodCounts, personalCount, projectCount, projectRoomCount },
   };
 };
