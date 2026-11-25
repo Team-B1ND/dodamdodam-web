@@ -81,6 +81,11 @@ export const useDeleteWeekendStudyRoomMutation = () =>
     weekendStudyQueryKeys.rooms,
   ]);
 
+export const useUpdateWeekendStudyRoomEnabledMutation = () =>
+  useWeekendStudyMutation(WeekendStudyApi.updateRoomEnabled, [
+    weekendStudyQueryKeys.rooms,
+  ]);
+
 export const useBlockWeekendStudyRoomMutation = (options?: MutationOptions) =>
   useWeekendStudyMutation(
     WeekendStudyApi.blockRoom,
@@ -100,6 +105,21 @@ export const useCheckWeekendStudyAttendanceMutation = (
 ) =>
   useWeekendStudyMutation(
     WeekendStudyApi.checkAttendance,
-    [weekendStudyQueryKeys.attendanceSummaries],
+    [
+      weekendStudyQueryKeys.attendanceStatus,
+      weekendStudyQueryKeys.attendanceSummaries,
+    ],
+    options,
+  );
+
+export const useCancelWeekendStudyAttendanceMutation = (
+  options?: MutationOptions,
+) =>
+  useWeekendStudyMutation(
+    WeekendStudyApi.cancelAttendance,
+    [
+      weekendStudyQueryKeys.attendanceStatus,
+      weekendStudyQueryKeys.attendanceSummaries,
+    ],
     options,
   );

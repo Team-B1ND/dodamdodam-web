@@ -2,6 +2,7 @@ import { apiClient } from "@/shared/libs/api-client";
 import type { PageResponse } from "@b1nd/api-client";
 import type {
   BlockWeekendStudyRoomRequest,
+  CancelWeekendStudyAttendanceRequest,
   CheckWeekendStudyAttendanceRequest,
   PersonalWeekendStudy,
   PersonalWeekendStudyApplyRequest,
@@ -10,6 +11,7 @@ import type {
   SaveWeekendStudyRoomRequest,
   WeekendStudyApplication,
   WeekendStudyApplicationsParams,
+  WeekendStudyAttendanceStatusItem,
   WeekendStudyAttendanceSummary,
   WeekendStudyAttendanceSummaryParams,
   WeekendStudyDeadline,
@@ -79,6 +81,20 @@ export const WeekendStudyApi = {
     );
   },
 
+  /** 관리자용이에요. 꺼진 실도 함께 내려와요. */
+  async getAllRooms() {
+    return await apiClient.get<WeekendStudyRoom[]>(
+      `${WEEKEND_STUDY_BASE}/rooms/all`,
+    );
+  },
+
+  async updateRoomEnabled(payload: { id: number; enabled: boolean }) {
+    const qs = new URLSearchParams({ enabled: String(payload.enabled) });
+    return await apiClient.patch(
+      `${WEEKEND_STUDY_BASE}/rooms/${payload.id}/enabled?${qs.toString()}`,
+    );
+  },
+
   async getRoomStatus(params: { date: string; floor?: number }) {
     const qs = new URLSearchParams({ date: params.date });
     if (params.floor !== undefined) qs.set("floor", String(params.floor));
@@ -135,6 +151,23 @@ export const WeekendStudyApi = {
     return await apiClient.patch(
       `${WEEKEND_STUDY_BASE}/attendance/${userId}`,
       body,
+    );
+  },
+
+  async cancelAttendance(payload: CancelWeekendStudyAttendanceRequest) {
+    const { userId, date, period } = payload;
+    const qs = new URLSearchParams({ date, period: String(period) });
+    return await apiClient.delete(
+      `${WEEKEND_STUDY_BASE}/attendance/${userId}?${qs.toString()}`,
+    );
+  },
+
+  /** 그 날짜(교시)의 신청 학생마다 출결 상태를 내려줘요. */
+  async getAttendanceStatuses(params: { date: string; period?: number }) {
+    const qs = new URLSearchParams({ date: params.date });
+    if (params.period !== undefined) qs.set("period", String(params.period));
+    return await apiClient.get<WeekendStudyAttendanceStatusItem[]>(
+      `${WEEKEND_STUDY_BASE}/attendance/status?${qs.toString()}`,
     );
   },
 

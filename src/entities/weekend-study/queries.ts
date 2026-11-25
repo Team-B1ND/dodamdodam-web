@@ -14,11 +14,13 @@ export const weekendStudyQueryKeys = {
   myProject: [...WEEKEND_STUDY_QUERY_KEY, "my", "project"] as const,
   applications: [...WEEKEND_STUDY_QUERY_KEY, "applications"] as const,
   rooms: [...WEEKEND_STUDY_QUERY_KEY, "rooms"] as const,
+  allRooms: [...WEEKEND_STUDY_QUERY_KEY, "rooms", "all"] as const,
   roomStatus: (date: string) =>
     [...WEEKEND_STUDY_QUERY_KEY, "rooms", "status", date] as const,
   roomBlocks: (roomId: number) =>
     [...WEEKEND_STUDY_QUERY_KEY, "rooms", roomId, "blocks"] as const,
   deadline: [...WEEKEND_STUDY_QUERY_KEY, "deadline"] as const,
+  attendanceStatus: [...WEEKEND_STUDY_QUERY_KEY, "attendance", "status"] as const,
   attendanceSummaries: [
     ...WEEKEND_STUDY_QUERY_KEY,
     "attendance",
@@ -76,6 +78,12 @@ export const useGetWeekendStudyRoomsQuery = () =>
     queryFn: WeekendStudyApi.getRooms,
   });
 
+export const useGetAllWeekendStudyRoomsQuery = () =>
+  useSuspenseQuery({
+    queryKey: weekendStudyQueryKeys.allRooms,
+    queryFn: WeekendStudyApi.getAllRooms,
+  });
+
 export const useGetWeekendStudyRoomStatusQuery = (date: string) =>
   useSuspenseQuery({
     queryKey: weekendStudyQueryKeys.roomStatus(date),
@@ -114,4 +122,12 @@ export const useGetWeekendStudyAttendanceSummariesQuery = (
           size: PAGE_SIZE,
         }),
       ),
+  });
+
+/** 여러 관리자가 장소를 나눠 동시에 체크하니, 다른 관리자의 체크도 보이도록 주기적으로 다시 받아요. */
+export const useGetWeekendStudyAttendanceStatusQuery = (date: string) =>
+  useSuspenseQuery({
+    queryKey: [...weekendStudyQueryKeys.attendanceStatus, date],
+    queryFn: () => WeekendStudyApi.getAttendanceStatuses({ date }),
+    refetchInterval: 1000 * 30,
   });

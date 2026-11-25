@@ -85,11 +85,14 @@ export interface WeekendStudyRoom {
   id: number;
   name: string;
   floor: number;
+  /** 꺼진 실은 학생 실 목록·현황표에 나오지 않고 신청도 받지 않아요. */
+  enabled: boolean;
 }
 
 export type WeekendStudyRoomPeriodStatus = "AVAILABLE" | "RESERVED" | "BLOCKED";
 
-export interface WeekendStudyRoomStatus extends WeekendStudyRoom {
+export interface WeekendStudyRoomStatus
+  extends Omit<WeekendStudyRoom, "enabled"> {
   periods: {
     period: number;
     status: WeekendStudyRoomPeriodStatus;
@@ -133,6 +136,25 @@ export interface CheckWeekendStudyAttendanceRequest {
   date: string;
   period: number;
   status: WeekendStudyAttendanceStatus;
+  /** 슬롯이 끝난 뒤 고칠 때 남기는 사유예요. */
+  reason?: string | null;
+}
+
+export interface CancelWeekendStudyAttendanceRequest {
+  userId: string;
+  date: string;
+  period: number;
+}
+
+/** 학생·교시마다 한 행이에요. 아직 체크하지 않았으면 `status`가 `null`이에요. */
+export interface WeekendStudyAttendanceStatusItem {
+  student: WeekendStudyApplicant;
+  period: number;
+  type: WeekendStudyType;
+  status: WeekendStudyAttendanceStatus | null;
+  /** `YYYY-MM-DDTHH:mm:ss` */
+  checkedAt: string | null;
+  reason: string | null;
 }
 
 export interface WeekendStudyAttendanceSummary {
