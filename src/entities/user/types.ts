@@ -128,3 +128,7 @@ export interface DeactivateUser {
 export interface GrantDormitory {
   userId: string
 }
+
+export interface GrantWeekendManager {
+  userId: string;
+}

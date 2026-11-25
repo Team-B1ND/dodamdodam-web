@@ -197,6 +197,22 @@ export const useRegisterTeacherMutation = () => {
   });
 };
 
+export const useGrantWeekendManagerMutation = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: UserApi.grantWeekendManager,
+    onSuccess: () => {
+      toast.success("주말 자습 관리자 권한 부여가 완료되었어요!");
+      queryClient.refetchQueries({ queryKey: ["user"] });
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
 export const useGrantDormitoryMutation = () => {
   const toast = useToast();
   const queryClient = useQueryClient();

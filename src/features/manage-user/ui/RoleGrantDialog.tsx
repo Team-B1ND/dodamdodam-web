@@ -7,6 +7,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onGrantRole: () => void;
+  onGrantWeekendManager: () => void;
   isGrantingRole?: boolean;
 }
 
@@ -15,6 +16,7 @@ const RoleGrantDialog = ({
   isOpen,
   onClose,
   onGrantRole,
+  onGrantWeekendManager,
   isGrantingRole=false
 }: Props) => {
   return (
@@ -38,6 +40,17 @@ const RoleGrantDialog = ({
             disabled={isGrantingRole || application.roles.includes("DORMITORY_MANAGER")}
           >
             자치위원
+          </FilledButton>
+          <FilledButton
+            role={
+              application.roles.includes("WEEKEND_MANAGER")
+                ? "negative"
+                : "primary"
+            }
+            onClick={onGrantWeekendManager}
+            disabled={isGrantingRole || application.roles.includes("WEEKEND_MANAGER")}
+          >
+            주말 자습 관리자
           </FilledButton>
         </div>
         <Dialog.FilledButton role="assistive" onClick={onClose}>
