@@ -6,13 +6,20 @@ interface Props {
   isPending: boolean;
   onClose: () => void;
   onConfirm: (reason: string) => void;
+  title?: string;
 }
 
-const RejectDialog = ({ isOpen, isPending, onClose, onConfirm }: Props) => {
+const RejectDialog = ({
+  isOpen,
+  isPending,
+  onClose,
+  onConfirm,
+  title = "심자 신청을 거절할까요?",
+}: Props) => {
   const [reason, setReason] = useState("");
 
   return (
-    <Dialog open={isOpen} title="심자 신청을 거절할까요?">
+    <Dialog open={isOpen} title={title}>
       <div className="flex flex-col gap-3 w-full">
         <TextField
           type="text"
@@ -21,7 +28,11 @@ const RejectDialog = ({ isOpen, isPending, onClose, onConfirm }: Props) => {
           onChange={(e) => setReason(e.target.value)}
         />
         <div className="flex gap-2">
-          <Dialog.FilledButton role="assistive" disabled={isPending} onClick={onClose}>
+          <Dialog.FilledButton
+            role="assistive"
+            disabled={isPending}
+            onClick={onClose}
+          >
             취소
           </Dialog.FilledButton>
           <Dialog.FilledButton

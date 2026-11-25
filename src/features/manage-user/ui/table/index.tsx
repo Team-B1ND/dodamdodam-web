@@ -19,7 +19,10 @@ import {
 } from "@b1nd/dodam-design-system/icons";
 import { type ReactNode } from "react";
 import RoleGrantDialog from '../RoleGrantDialog';
-import { useGrantDormitoryMutation } from '@/entities/user/mutations';
+import {
+  useGrantDormitoryMutation,
+  useGrantWeekendManagerMutation,
+} from '@/entities/user/mutations';
 
 const ManageUserTable = ({
   keyword,
@@ -31,7 +34,10 @@ const ManageUserTable = ({
   "keyword" | "selectedStatus" | "roles" | "generationOnly"
 >) => {
   const { open } = useOverlay();
-  const { mutateAsync: grantRole, isPending: isGrantingRole } = useGrantDormitoryMutation();
+  const { mutateAsync: grantRole, isPending: isGrantingDormitory } = useGrantDormitoryMutation();
+  const { mutateAsync: grantWeekendManager, isPending: isGrantingWeekend } =
+    useGrantWeekendManagerMutation();
+  const isGrantingRole = isGrantingDormitory || isGrantingWeekend;
   const { users, ref, hasNextPage, isFetchingNextPage } = useManageUserTable({
     keyword,
     selectedStatus,
@@ -59,6 +65,11 @@ const ManageUserTable = ({
         onClose={() => { close(); exit(); }}
         onGrantRole={async () => {
           await grantRole({ userId: app.publicId });
+          close();
+          exit();
+        }}
+        onGrantWeekendManager={async () => {
+          await grantWeekendManager({ userId: app.publicId });
           close();
           exit();
         }}

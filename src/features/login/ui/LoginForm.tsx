@@ -1,4 +1,4 @@
-import { FilledButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components";
+import { FilledButton, TextButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components";
 import { useLogin } from "../hooks/useLogin";
 import ResetPasswordModal from "@/features/login/ui/ResetPasswordModal";
 
@@ -45,11 +45,11 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-right text-[14px] font-medium tracking-[0.28px] text-text-tertiary">
+          <p className="flex items-center justify-end gap-1 text-label font-medium text-text-tertiary">
             비밀번호를 잊으셨나요?{" "}
-            <button type="button" className="cursor-pointer text-text-primary underline" onClick={openModal}>
+            <TextButton size="small" onClick={openModal}>
               비밀번호 재설정
-            </button>
+            </TextButton>
           </p>
         </div>
       </div>

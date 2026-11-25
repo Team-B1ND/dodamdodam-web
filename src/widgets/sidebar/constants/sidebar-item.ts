@@ -1,5 +1,5 @@
 import type { SidebarMenuType } from "@/widgets/sidebar/types/sidebar-item/sidebar-item";
-import { Calendar, Home, MoonPlus, People } from "@b1nd/dodam-design-system/icons";
+import { Calendar, Clock, Home, MoonPlus, People } from "@b1nd/dodam-design-system/icons";
 
 export const MENUS: SidebarMenuType[] = [
   {
@@ -21,6 +21,11 @@ export const MENUS: SidebarMenuType[] = [
     text: "심야자습",
     herf: "/night-study",
     icon: MoonPlus,
+  },
+  {
+    text: "주말자습",
+    herf: "/weekend-study",
+    icon: Clock,
   },
   // {
   //   text: "동아리",

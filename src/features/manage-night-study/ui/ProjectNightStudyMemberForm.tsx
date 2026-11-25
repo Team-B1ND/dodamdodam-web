@@ -12,8 +12,9 @@ import {
 } from "@b1nd/dodam-design-system/components";
 
 const ProjectNightStudyMemberForm = () => {
-  const { form, handleMember, clearMembers, isSelected } =
+  const { form, handleMember, handleMembers, clearMembers, isSelected } =
     useApplyProjectNightStudy();
+  const selection = { handleMember, handleMembers, isSelected };
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword);
   const [segment, setSegment] = useState<SegmentedButtonData[]>([
@@ -59,11 +60,11 @@ const ProjectNightStudyMemberForm = () => {
           <div className="flex-1 border border-border-normal rounded-small overflow-y-scroll">
             {memberType === "personal" ? (
               <QueryBoundary pendingFallback={<MemberSearch.Skeleton />}>
-                <MemberSearch keyword={debouncedKeyword} />
+                <MemberSearch keyword={debouncedKeyword} selection={selection} />
               </QueryBoundary>
             ) : (
               <QueryBoundary pendingFallback={<TeamSearch.Skeleton />}>
-                <TeamSearch keyword={debouncedKeyword} />
+                <TeamSearch keyword={debouncedKeyword} selection={selection} />
               </QueryBoundary>
             )}
           </div>
@@ -80,7 +81,7 @@ const ProjectNightStudyMemberForm = () => {
                 />
               ))
             ) : (
-              <p className="py-8 text-center text-border-normal">
+              <p className="py-12 text-center text-body1 text-text-tertiary">
                 선택된 팀원이 없어요.
               </p>
             )}

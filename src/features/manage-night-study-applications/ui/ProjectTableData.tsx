@@ -89,7 +89,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
     if (isMobile) {
       return [
         <button
-          className="text-primary-normal font-medium hover:underline text-left"
+          className="text-brand-primary font-medium hover:underline text-left"
           onClick={() => openInfoDialog(app)}
         >
           {app.name}
@@ -103,7 +103,7 @@ const ProjectTableData = (filters: ApplicationTableFilters) => {
 
     return [
       <button
-        className="text-primary-normal font-medium hover:underline text-left"
+        className="text-brand-primary font-medium hover:underline text-left"
         onClick={() => openInfoDialog(app)}
       >
         {app.name}

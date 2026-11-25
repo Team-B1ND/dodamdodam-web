@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeekendStudyIndexRouteImport } from './routes/weekend-study/index'
 import { Route as TeamIndexRouteImport } from './routes/team/index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule/index'
 import { Route as RegisterIndexRouteImport } from './routes/register/index'
@@ -19,12 +20,18 @@ import { Route as TeamCreateIndexRouteImport } from './routes/team/create/index'
 import { Route as TeamPublicIdIndexRouteImport } from './routes/team/$publicId/index'
 import { Route as roleAdminAdminLayoutRouteRouteImport } from './routes/(role)/admin/_adminLayout/route'
 import { Route as TeamPublicIdEditIndexRouteImport } from './routes/team/$publicId/edit/index'
+import { Route as roleWeekendManagerWeekendStudyIndexRouteImport } from './routes/(role)/weekend-manager/weekend-study/index'
 import { Route as roleTeacherOutsleepingIndexRouteImport } from './routes/(role)/teacher/outsleeping/index'
 import { Route as roleDormitoryNightStudyIndexRouteImport } from './routes/(role)/dormitory/night-study/index'
 import { Route as roleAdminAdminLayoutBannerIndexRouteImport } from './routes/(role)/admin/_adminLayout/banner/index'
 import { Route as roleAdminAdminLayoutAppInIndexRouteImport } from './routes/(role)/admin/_adminLayout/app-in/index'
 import { Route as roleAdminAdminLayoutmanageUserIndexRouteImport } from './routes/(role)/admin/_adminLayout/(manage-user)/index'
 
+const WeekendStudyIndexRoute = WeekendStudyIndexRouteImport.update({
+  id: '/weekend-study/',
+  path: '/weekend-study/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/team/',
   path: '/team/',
@@ -76,6 +83,12 @@ const TeamPublicIdEditIndexRoute = TeamPublicIdEditIndexRouteImport.update({
   path: '/team/$publicId/edit/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const roleWeekendManagerWeekendStudyIndexRoute =
+  roleWeekendManagerWeekendStudyIndexRouteImport.update({
+    id: '/(role)/weekend-manager/weekend-study/',
+    path: '/weekend-manager/weekend-study/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const roleTeacherOutsleepingIndexRoute =
   roleTeacherOutsleepingIndexRouteImport.update({
     id: '/(role)/teacher/outsleeping/',
@@ -114,11 +127,13 @@ export interface FileRoutesByFullPath {
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/weekend-study/': typeof WeekendStudyIndexRoute
   '/admin': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/team/$publicId/': typeof TeamPublicIdIndexRoute
   '/team/create/': typeof TeamCreateIndexRoute
   '/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
+  '/weekend-manager/weekend-study/': typeof roleWeekendManagerWeekendStudyIndexRoute
   '/team/$publicId/edit/': typeof TeamPublicIdEditIndexRoute
   '/admin/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
@@ -131,10 +146,12 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/team': typeof TeamIndexRoute
+  '/weekend-study': typeof WeekendStudyIndexRoute
   '/team/$publicId': typeof TeamPublicIdIndexRoute
   '/team/create': typeof TeamCreateIndexRoute
   '/dormitory/night-study': typeof roleDormitoryNightStudyIndexRoute
   '/teacher/outsleeping': typeof roleTeacherOutsleepingIndexRoute
+  '/weekend-manager/weekend-study': typeof roleWeekendManagerWeekendStudyIndexRoute
   '/team/$publicId/edit': typeof TeamPublicIdEditIndexRoute
   '/admin': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/admin/app-in': typeof roleAdminAdminLayoutAppInIndexRoute
@@ -148,11 +165,13 @@ export interface FileRoutesById {
   '/register/': typeof RegisterIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/weekend-study/': typeof WeekendStudyIndexRoute
   '/(role)/admin/_adminLayout': typeof roleAdminAdminLayoutRouteRouteWithChildren
   '/team/$publicId/': typeof TeamPublicIdIndexRoute
   '/team/create/': typeof TeamCreateIndexRoute
   '/(role)/dormitory/night-study/': typeof roleDormitoryNightStudyIndexRoute
   '/(role)/teacher/outsleeping/': typeof roleTeacherOutsleepingIndexRoute
+  '/(role)/weekend-manager/weekend-study/': typeof roleWeekendManagerWeekendStudyIndexRoute
   '/team/$publicId/edit/': typeof TeamPublicIdEditIndexRoute
   '/(role)/admin/_adminLayout/(manage-user)/': typeof roleAdminAdminLayoutmanageUserIndexRoute
   '/(role)/admin/_adminLayout/app-in/': typeof roleAdminAdminLayoutAppInIndexRoute
@@ -167,11 +186,13 @@ export interface FileRouteTypes {
     | '/register/'
     | '/schedule/'
     | '/team/'
+    | '/weekend-study/'
     | '/admin'
     | '/team/$publicId/'
     | '/team/create/'
     | '/dormitory/night-study/'
     | '/teacher/outsleeping/'
+    | '/weekend-manager/weekend-study/'
     | '/team/$publicId/edit/'
     | '/admin/'
     | '/admin/app-in/'
@@ -184,10 +205,12 @@ export interface FileRouteTypes {
     | '/register'
     | '/schedule'
     | '/team'
+    | '/weekend-study'
     | '/team/$publicId'
     | '/team/create'
     | '/dormitory/night-study'
     | '/teacher/outsleeping'
+    | '/weekend-manager/weekend-study'
     | '/team/$publicId/edit'
     | '/admin'
     | '/admin/app-in'
@@ -200,11 +223,13 @@ export interface FileRouteTypes {
     | '/register/'
     | '/schedule/'
     | '/team/'
+    | '/weekend-study/'
     | '/(role)/admin/_adminLayout'
     | '/team/$publicId/'
     | '/team/create/'
     | '/(role)/dormitory/night-study/'
     | '/(role)/teacher/outsleeping/'
+    | '/(role)/weekend-manager/weekend-study/'
     | '/team/$publicId/edit/'
     | '/(role)/admin/_adminLayout/(manage-user)/'
     | '/(role)/admin/_adminLayout/app-in/'
@@ -218,16 +243,25 @@ export interface RootRouteChildren {
   RegisterIndexRoute: typeof RegisterIndexRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
   TeamIndexRoute: typeof TeamIndexRoute
+  WeekendStudyIndexRoute: typeof WeekendStudyIndexRoute
   roleAdminAdminLayoutRouteRoute: typeof roleAdminAdminLayoutRouteRouteWithChildren
   TeamPublicIdIndexRoute: typeof TeamPublicIdIndexRoute
   TeamCreateIndexRoute: typeof TeamCreateIndexRoute
   roleDormitoryNightStudyIndexRoute: typeof roleDormitoryNightStudyIndexRoute
   roleTeacherOutsleepingIndexRoute: typeof roleTeacherOutsleepingIndexRoute
+  roleWeekendManagerWeekendStudyIndexRoute: typeof roleWeekendManagerWeekendStudyIndexRoute
   TeamPublicIdEditIndexRoute: typeof TeamPublicIdEditIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/weekend-study/': {
+      id: '/weekend-study/'
+      path: '/weekend-study'
+      fullPath: '/weekend-study/'
+      preLoaderRoute: typeof WeekendStudyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team/': {
       id: '/team/'
       path: '/team'
@@ -298,6 +332,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamPublicIdEditIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(role)/weekend-manager/weekend-study/': {
+      id: '/(role)/weekend-manager/weekend-study/'
+      path: '/weekend-manager/weekend-study'
+      fullPath: '/weekend-manager/weekend-study/'
+      preLoaderRoute: typeof roleWeekendManagerWeekendStudyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(role)/teacher/outsleeping/': {
       id: '/(role)/teacher/outsleeping/'
       path: '/teacher/outsleeping'
@@ -362,11 +403,14 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterIndexRoute: RegisterIndexRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
   TeamIndexRoute: TeamIndexRoute,
+  WeekendStudyIndexRoute: WeekendStudyIndexRoute,
   roleAdminAdminLayoutRouteRoute: roleAdminAdminLayoutRouteRouteWithChildren,
   TeamPublicIdIndexRoute: TeamPublicIdIndexRoute,
   TeamCreateIndexRoute: TeamCreateIndexRoute,
   roleDormitoryNightStudyIndexRoute: roleDormitoryNightStudyIndexRoute,
   roleTeacherOutsleepingIndexRoute: roleTeacherOutsleepingIndexRoute,
+  roleWeekendManagerWeekendStudyIndexRoute:
+    roleWeekendManagerWeekendStudyIndexRoute,
   TeamPublicIdEditIndexRoute: TeamPublicIdEditIndexRoute,
 }
 export const routeTree = rootRouteImport

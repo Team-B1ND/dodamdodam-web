@@ -14,7 +14,8 @@ import type {
   SearchUserParams,
   EnableUser,
   DeactivateUser,
-  GrantDormitory
+  GrantDormitory,
+  GrantWeekendManager,
 } from "./types";
 
 const USER_BASE = "/user"
@@ -103,5 +104,12 @@ export const UserApi = {
 
   async grantDormitory(payload: GrantDormitory) {
     return await apiClient.patch(`${USER_BASE}/grant-dormitory-manager`, payload)
-  }
+  },
+
+  async grantWeekendManager(payload: GrantWeekendManager) {
+    return await apiClient.patch(
+      `${USER_BASE}/grant-weekend-manager`,
+      payload,
+    );
+  },
 };
