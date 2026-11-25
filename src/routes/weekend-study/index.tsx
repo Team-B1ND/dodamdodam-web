@@ -5,6 +5,7 @@ import {
   MyProjectWeekendStudyList,
   MyWeekendStudyListSkeleton,
 } from "@/features/manage-weekend-study/ui/MyWeekendStudyList";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   SegmentedButton,
@@ -25,6 +26,7 @@ function RouteComponent() {
     { text: "실 대여", value: "project", isActive: false },
   ]);
   const [page, setPage] = useState<Page>("personal");
+  const isMobile = useIsMobile();
 
   return (
     <div className="w-full flex flex-col lg:flex-row gap-4 items-start">
@@ -33,6 +35,7 @@ function RouteComponent() {
           data={segment}
           setData={setSegment}
           onBlockClick={(value) => setPage(value as Page)}
+          width={isMobile ? "100%" : undefined}
         />
         {page === "personal" ? (
           <PersonalWeekendStudyForm />
