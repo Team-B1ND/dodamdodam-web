@@ -12,7 +12,7 @@ import WeekendTable from "./WeekendTable";
 
 /** 심자 출석 체크처럼 실 목록에서 실을 고르면 그 실 학생들의 출석을 체크해요. */
 const AttendanceCheckTable = () => {
-  const date = getCurrentWeekendStudyDate();
+  const [date, setDate] = useState(getCurrentWeekendStudyDate);
   const [period, setPeriod] = useState(getDefaultPeriod);
   const [selectedRoom, setSelectedRoom] = useState<AttendanceRoom | null>(null);
 
@@ -43,6 +43,7 @@ const AttendanceCheckTable = () => {
     <QueryBoundary pendingFallback={<AttendanceRoomList.Skeleton />}>
       <AttendanceRoomList
         date={date}
+        onDateChange={setDate}
         period={period}
         onPeriodChange={setPeriod}
         onSelectRoom={setSelectedRoom}

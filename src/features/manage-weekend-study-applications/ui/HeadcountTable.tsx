@@ -16,6 +16,7 @@ import {
   getPeriodFilterItems,
 } from "../constants/filter-items";
 import { toParticipantRows } from "../lib/weekend-study-rows";
+import WeekendDatePicker from "./WeekendDatePicker";
 import WeekendTable, { type WeekendTableColumn } from "./WeekendTable";
 
 type Group = "floor" | "room";
@@ -172,6 +173,7 @@ const HeadcountTable = () => {
             value={filters.period}
             onSelectedItemChange={(item) => set("period")(item.value)}
           />
+          <WeekendDatePicker value={filters.date} onChange={set("date")} />
         </div>
       </div>
       <QueryBoundary

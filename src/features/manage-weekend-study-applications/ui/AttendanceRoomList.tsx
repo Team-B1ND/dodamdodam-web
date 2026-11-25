@@ -25,6 +25,7 @@ import {
   useAttendanceRecords,
 } from "../hooks/useAttendanceRecords";
 import SearchInput from "./SearchInput";
+import WeekendDatePicker from "./WeekendDatePicker";
 
 export interface AttendanceRoom {
   key: string;
@@ -35,6 +36,7 @@ type RoomStatus = "ALL" | "CHECKED" | "UNCHECKED";
 
 interface Props {
   date: string;
+  onDateChange: (date: string) => void;
   period: string;
   onPeriodChange: (period: string) => void;
   onSelectRoom: (room: AttendanceRoom) => void;
@@ -71,6 +73,7 @@ const countStudents = (rows: WeekendStudyParticipantRow[]) =>
 
 const AttendanceRoomList = ({
   date,
+  onDateChange,
   period,
   onPeriodChange,
   onSelectRoom,
@@ -160,6 +163,7 @@ const AttendanceRoomList = ({
             value={period}
             onSelectedItemChange={(item) => onPeriodChange(item.value)}
           />
+          <WeekendDatePicker value={date} onChange={onDateChange} />
         </div>
       </div>
 

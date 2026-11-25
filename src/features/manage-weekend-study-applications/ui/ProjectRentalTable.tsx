@@ -17,6 +17,7 @@ import {
 } from "../constants/filter-items";
 import ProjectRentalDialog from "./ProjectRentalDialog";
 import SearchInput from "./SearchInput";
+import WeekendDatePicker from "./WeekendDatePicker";
 import WeekendTable, { type WeekendTableColumn } from "./WeekendTable";
 
 interface Filters {
@@ -140,6 +141,7 @@ const ProjectRentalTable = () => {
           >
             <RoomFilter value={filters.room} onChange={set("room")} />
           </QueryBoundary>
+          <WeekendDatePicker value={filters.date} onChange={set("date")} />
         </div>
       </div>
       <QueryBoundary
