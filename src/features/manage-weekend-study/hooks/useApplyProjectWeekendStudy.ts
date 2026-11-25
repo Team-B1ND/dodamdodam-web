@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
-import { useApplyProjectWeekendStudyMutation } from "@/entities/weekend-study/mutations";
+import {
+  useApplyProjectWeekendStudyMutation,
+  useUpdateProjectWeekendStudyMutation,
+} from "@/entities/weekend-study/mutations";
+import type { ProjectWeekendStudy } from "@/entities/weekend-study/types";
 import { isWeekendStudyDay } from "@/entities/weekend-study/constants";
 import type { ProjectMember } from "@/features/manage-night-study/stores/project-form";
 import { useToast } from "@b1nd/dodam-design-system/components";
@@ -10,14 +14,20 @@ const DESCRIPTION_MIN_LENGTH = 10;
 const DESCRIPTION_MAX_LENGTH = 250;
 
 export const useApplyProjectWeekendStudy = () => {
-  const { form, setForm, page, setPage, init } = useWeekendProjectFormStore();
-  const { mutateAsync, isPending } = useApplyProjectWeekendStudyMutation();
+  const { form, setForm, page, setPage, init, editingId, startEdit } =
+    useWeekendProjectFormStore();
+  const { mutateAsync: apply, isPending: isApplying } =
+    useApplyProjectWeekendStudyMutation();
+  const { mutateAsync: update, isPending: isUpdating } =
+    useUpdateProjectWeekendStudyMutation();
+  const isPending = isApplying || isUpdating;
   const toast = useToast();
 
   /** 날짜마다 실 예약 현황이 달라서, 날짜를 바꾸면 선택한 실·시간을 비워요. */
   const changeDate = (date: Date) => {
     const next = dayjs(date).format("YYYY-MM-DD");
-    if (next === form.date) return;
+    // 서버는 신청한 날짜 안에서만 수정을 받아요.
+    if (next === form.date || editingId) return;
     setForm({ ...form, date: next, roomId: null, periods: [] });
   };
 
@@ -106,17 +116,33 @@ export const useApplyProjectWeekendStudy = () => {
       return;
     }
 
-    await mutateAsync({
+    const payload = {
       name: form.name.trim(),
       description: form.description.trim(),
       date: form.date,
       periods: form.periods,
       members: form.members.map((m) => m.publicId),
       roomId: form.roomId!,
-    });
+    };
+    if (editingId) await update({ id: editingId, ...payload });
+    else await apply(payload);
 
     init();
   };
+
+  /**
+   * 내 실 대여 신청을 폼으로 불러와 수정해요.
+   * 서버가 학생에게 팀원 목록을 내려주지 않아서 팀원은 다시 골라야 해요.
+   */
+  const editProject = (project: ProjectWeekendStudy) =>
+    startEdit(project.id, {
+      date: project.date,
+      roomId: project.room?.id ?? null,
+      periods: project.periods,
+      name: project.name,
+      description: project.description,
+      members: [],
+    });
 
   return {
     form,
@@ -129,5 +155,8 @@ export const useApplyProjectWeekendStudy = () => {
     clearMembers,
     submit,
     isPending,
+    editingId,
+    editProject,
+    cancelEdit: init,
   };
 };

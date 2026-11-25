@@ -40,7 +40,8 @@ const CELL_TEXT: Record<CellState["type"], string> = {
 };
 
 const RoomReservationBoard = () => {
-  const { form, changeDate, selectCell } = useApplyProjectWeekendStudy();
+  const { form, changeDate, selectCell, editingId } =
+    useApplyProjectWeekendStudy();
   const dateText = form.date;
   const date = dayjs(dateText);
   const { data: rooms } = useGetWeekendStudyRoomStatusQuery(dateText);
@@ -63,6 +64,15 @@ const RoomReservationBoard = () => {
 
   /** 서버는 누가 예약했는지 내려주지 않아서, 내가 신청한 칸에만 팀 이름을 붙여요. */
   const myReservations = new Map<string, string>();
+  /** 수정 중인 신청이 잡아 둔 칸은 서버가 수정할 때 비워주니 다시 고를 수 있어요. */
+  const editingCells = new Set<string>();
+  myProjects.data
+    .filter((project) => project.id === editingId && project.room)
+    .forEach((project) =>
+      project.periods.forEach((period) =>
+        editingCells.add(`${project.room!.id}-${period}`),
+      ),
+    );
   myProjects.data
     .filter((project) => project.date === dateText && project.room)
     .forEach((project) =>
@@ -79,7 +89,10 @@ const RoomReservationBoard = () => {
     if (status?.status === "BLOCKED") {
       return { type: "blocked", label: status.reason ?? undefined };
     }
-    if (status?.status === "RESERVED") {
+    if (
+      status?.status === "RESERVED" &&
+      !editingCells.has(`${room.id}-${period}`)
+    ) {
       return {
         type: "reserved",
         label: myReservations.get(`${room.id}-${period}`),
@@ -116,22 +129,28 @@ const RoomReservationBoard = () => {
           <div />
         )}
         {/* 버튼이 행 오른쪽 끝이라 달력을 오른쪽 기준으로 펼쳐요. DS 스타일(emotion)은 CSS 레이어 밖이라 left는 !important로 덮어요. */}
-        <div className="[&>div>div:last-child]:left-auto! [&>div>div:last-child]:right-0">
-          <PickerTrigger
-            content={({ onClose }) => (
-              <DatePicker.Content
-                date={date.toDate()}
-                onChangeDate={changeDate}
-                onClose={onClose}
-                disablePast
-              />
-            )}
-          >
-            <FilledButton role="assistive" size="medium">
-              {padDate(date.toDate())}
-            </FilledButton>
-          </PickerTrigger>
-        </div>
+        {editingId ? (
+          <FilledButton role="assistive" size="medium" disabled>
+            {padDate(date.toDate())}
+          </FilledButton>
+        ) : (
+          <div className="[&>div>div:last-child]:left-auto! [&>div>div:last-child]:right-0">
+            <PickerTrigger
+              content={({ onClose }) => (
+                <DatePicker.Content
+                  date={date.toDate()}
+                  onChangeDate={changeDate}
+                  onClose={onClose}
+                  disablePast
+                />
+              )}
+            >
+              <FilledButton role="assistive" size="medium">
+                {padDate(date.toDate())}
+              </FilledButton>
+            </PickerTrigger>
+          </div>
+        )}
       </div>
 
       <div className="w-full overflow-x-auto">

@@ -15,8 +15,11 @@ interface Form {
 interface State {
   form: Form;
   page: number;
+  /** 수정 중인 실 대여 신청 id예요. 새로 신청할 때는 `null`이에요. */
+  editingId: string | null;
   setForm: (form: Form) => void;
   setPage: (page: number) => void;
+  startEdit: (id: string, form: Form) => void;
   init: () => void;
 }
 
@@ -32,7 +35,9 @@ const createInitialForm = (): Form => ({
 export const useWeekendProjectFormStore = create<State>((set) => ({
   form: createInitialForm(),
   page: 0,
+  editingId: null,
   setForm: (form) => set({ form }),
   setPage: (page) => set({ page }),
-  init: () => set({ form: createInitialForm(), page: 0 }),
+  startEdit: (editingId, form) => set({ editingId, form, page: 0 }),
+  init: () => set({ form: createInitialForm(), page: 0, editingId: null }),
 }));

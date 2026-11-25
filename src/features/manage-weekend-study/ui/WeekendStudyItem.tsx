@@ -1,5 +1,7 @@
 import { formatPeriodsLabel } from "@/entities/weekend-study/constants";
 import { useCancelWeekendStudyMutation } from "@/entities/weekend-study/mutations";
+import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStudy";
+import PersonalWeekendStudyEditDialog from "./PersonalWeekendStudyEditDialog";
 import type {
   PersonalWeekendStudy,
   ProjectWeekendStudy,
@@ -8,6 +10,7 @@ import { parseDate } from "@/shared/utils/parse-date";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import {
   Dialog,
+  FilledButton,
   IconButton,
   Tag,
   useOverlay,
@@ -26,8 +29,26 @@ const WeekendStudyItem = ({ data }: Props) => {
   const { open } = useOverlay();
   const { mutateAsync, isPending } = useCancelWeekendStudyMutation();
   const project = isProject(data) ? data : null;
-  /** 신청은 바로 확정되고, 프로젝트는 리더만 취소할 수 있어요. */
+  /** 신청은 바로 확정되고, 프로젝트는 리더만 수정·취소할 수 있어요. */
   const canCancel = !project || project.isLeader;
+  const { editProject, editingId } = useApplyProjectWeekendStudy();
+
+  const handleEdit = () => {
+    if (project) {
+      editProject(project);
+      return;
+    }
+    open(({ close, exit, isOpen }) => (
+      <PersonalWeekendStudyEditDialog
+        data={data}
+        isOpen={isOpen}
+        onClose={() => {
+          close();
+          exit();
+        }}
+      />
+    ));
+  };
 
   const handleOpenCancelDialog = () => {
     open(({ close, exit, isOpen }) => (
@@ -66,13 +87,23 @@ const WeekendStudyItem = ({ data }: Props) => {
   return (
     <div className="w-full bg-fill-primary p-3 rounded-large flex flex-col gap-3">
       <div className="w-full flex justify-between items-center">
-        <Tag text="신청됨" color="blue" />
+        <Tag text={editingId === data.id ? "수정 중" : "신청됨"} color="blue" />
         {canCancel && (
-          <IconButton
-            icon={<Trash color={colors.text.tertiary} />}
-            iconSize={24}
-            onClick={handleOpenCancelDialog}
-          />
+          <div className="flex items-center gap-1">
+            <FilledButton
+              role="assistive"
+              size="small"
+              display="inline"
+              onClick={handleEdit}
+            >
+              수정
+            </FilledButton>
+            <IconButton
+              icon={<Trash color={colors.text.tertiary} />}
+              iconSize={24}
+              onClick={handleOpenCancelDialog}
+            />
+          </div>
         )}
       </div>
       {project && (
