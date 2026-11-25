@@ -3,7 +3,7 @@ import { getWeekendStudyDate } from "@/entities/weekend-study/constants";
 import type { ProjectMember } from "@/features/manage-night-study/stores/project-form";
 
 interface Form {
-  /** `YYYY-MM-DD` */
+  /** `YYYY-MM-DD`. 새 신청은 항상 이번 주 일요일이고, 수정할 때만 원래 신청 날짜를 써요. */
   date: string;
   roomId: number | null;
   periods: number[];

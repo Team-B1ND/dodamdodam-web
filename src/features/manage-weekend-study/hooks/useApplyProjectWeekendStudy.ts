@@ -1,10 +1,8 @@
-import dayjs from "dayjs";
 import {
   useApplyProjectWeekendStudyMutation,
   useUpdateProjectWeekendStudyMutation,
 } from "@/entities/weekend-study/mutations";
 import type { ProjectWeekendStudy } from "@/entities/weekend-study/types";
-import { isWeekendStudyDay } from "@/entities/weekend-study/constants";
 import type { ProjectMember } from "@/features/manage-night-study/stores/project-form";
 import { useToast } from "@b1nd/dodam-design-system/components";
 import { useWeekendProjectFormStore } from "../stores/project-form";
@@ -22,14 +20,6 @@ export const useApplyProjectWeekendStudy = () => {
     useUpdateProjectWeekendStudyMutation();
   const isPending = isApplying || isUpdating;
   const toast = useToast();
-
-  /** 날짜마다 실 예약 현황이 달라서, 날짜를 바꾸면 선택한 실·시간을 비워요. */
-  const changeDate = (date: Date) => {
-    const next = dayjs(date).format("YYYY-MM-DD");
-    // 서버는 신청한 날짜 안에서만 수정을 받아요.
-    if (next === form.date || editingId) return;
-    setForm({ ...form, date: next, roomId: null, periods: [] });
-  };
 
   /** 같은 실에서는 교시를 토글하고, 다른 실을 누르면 그 실로 새로 선택해요. */
   const selectCell = (roomId: number, period: number) => {
@@ -111,11 +101,6 @@ export const useApplyProjectWeekendStudy = () => {
       return;
     }
 
-    if (!isWeekendStudyDay(form.date)) {
-      toast.warning("주말 자습은 일요일만 신청할 수 있어요.");
-      return;
-    }
-
     const payload = {
       name: form.name.trim(),
       description: form.description.trim(),
@@ -148,7 +133,6 @@ export const useApplyProjectWeekendStudy = () => {
     form,
     page,
     setPage,
-    changeDate,
     selectCell,
     handleStringChange,
     selection: { handleMember, handleMembers, isSelected },

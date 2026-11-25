@@ -1,9 +1,5 @@
-import { padDate } from "@/shared/utils/pad-date";
-import {
-  DatePicker,
-  FilledButton,
-  PickerTrigger,
-} from "@b1nd/dodam-design-system/components";
+import { formatWeekendStudyDate } from "@/entities/weekend-study/constants";
+import { FilledButton } from "@b1nd/dodam-design-system/components";
 import { ArrowRight } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { useApplyPersonalWeekendStudy } from "../hooks/useApplyPersonalWeekendStudy";
@@ -11,7 +7,7 @@ import DeadlineNotice from "./DeadlineNotice";
 import PeriodTimeline from "./PeriodTimeline";
 
 const PersonalWeekendStudyForm = () => {
-  const { periods, togglePeriod, date, changeDate, submit, isPending } =
+  const { periods, togglePeriod, date, submit, isPending } =
     useApplyPersonalWeekendStudy();
 
   return (
@@ -25,23 +21,9 @@ const PersonalWeekendStudyForm = () => {
         <p className="text-headline font-medium text-text-secondary">
           진행 날짜
         </p>
-        {/* 버튼이 행 오른쪽 끝이라 달력을 오른쪽 기준으로 펼쳐요. DS 스타일(emotion)은 CSS 레이어 밖이라 left는 !important로 덮어요. */}
-        <div className="[&>div>div:last-child]:left-auto! [&>div>div:last-child]:right-0">
-          <PickerTrigger
-            content={({ onClose }) => (
-              <DatePicker.Content
-                date={date.toDate()}
-                onChangeDate={changeDate}
-                onClose={onClose}
-                disablePast
-              />
-            )}
-          >
-            <FilledButton role="assistive" size="medium">
-              {padDate(date.toDate())}
-            </FilledButton>
-          </PickerTrigger>
-        </div>
+        <p className="text-headline font-bold">
+          {formatWeekendStudyDate(date)}
+        </p>
       </div>
       <div className="grow min-h-16" />
       <div className="self-end">
