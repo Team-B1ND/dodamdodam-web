@@ -1,19 +1,20 @@
+import { padDate } from "@/shared/utils/pad-date";
 import {
   WEEKEND_STUDY_PERIODS,
   formatPeriod,
-  getWeekendStudyDate,
-  groupContinuousPeriods,
 } from "@/entities/weekend-study/constants";
 import {
   useGetMyProjectWeekendStudyQuery,
   useGetWeekendStudyRoomStatusQuery,
 } from "@/entities/weekend-study/queries";
 import {
+  DatePicker,
+  FilledButton,
   SegmentedButton,
   type SegmentedButtonData,
+  PickerTrigger,
 } from "@b1nd/dodam-design-system/components";
-import { Calendar } from "@b1nd/dodam-design-system/icons";
-import { colors } from "@b1nd/dodam-design-system/colors";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStudy";
 
@@ -38,20 +39,10 @@ const CELL_TEXT: Record<CellState["type"], string> = {
   blocked: "사용 제한",
 };
 
-const LEGENDS = [
-  {
-    label: "예약 가능",
-    className: "border border-border-normal bg-background-surface",
-  },
-  { label: "예약됨", className: "bg-fill-primary" },
-  { label: "사용 제한 (관리자 설정)", className: "bg-status-error" },
-  { label: "내가 선택한 시간", className: "bg-brand-primary" },
-];
-
 const RoomReservationBoard = () => {
-  const { form, selectCell } = useApplyProjectWeekendStudy();
-  const date = getWeekendStudyDate();
-  const dateText = date.format("YYYY-MM-DD");
+  const { form, changeDate, selectCell } = useApplyProjectWeekendStudy();
+  const dateText = form.date;
+  const date = dayjs(dateText);
   const { data: rooms } = useGetWeekendStudyRoomStatusQuery(dateText);
   const { data: myProjects } = useGetMyProjectWeekendStudyQuery();
 
@@ -103,10 +94,6 @@ const RoomReservationBoard = () => {
   const visibleRooms = rooms.data.filter(
     (room) => !floor || room.floor === Number(floor),
   );
-  const selectedRoom = rooms.data.find((room) => room.id === form.roomId);
-  const selectedRanges = groupContinuousPeriods(form.periods)
-    .map((group) => `${group[0]}:00–${group.at(-1)! + 1}:00`)
-    .join(", ");
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -128,11 +115,22 @@ const RoomReservationBoard = () => {
         ) : (
           <div />
         )}
-        <div className="flex items-center gap-3">
-          <p className="text-headline font-regular text-brand-primary">
-            {date.month() + 1}월 {date.date()}일
-          </p>
-          <Calendar size={24} color={colors.brand.primary} />
+        {/* 버튼이 행 오른쪽 끝이라 달력을 오른쪽 기준으로 펼쳐요. DS 스타일(emotion)은 CSS 레이어 밖이라 left는 !important로 덮어요. */}
+        <div className="[&>div>div:last-child]:left-auto! [&>div>div:last-child]:right-0">
+          <PickerTrigger
+            content={({ onClose }) => (
+              <DatePicker.Content
+                date={date.toDate()}
+                onChangeDate={changeDate}
+                onClose={onClose}
+                disablePast
+              />
+            )}
+          >
+            <FilledButton role="assistive" size="medium">
+              {padDate(date.toDate())}
+            </FilledButton>
+          </PickerTrigger>
         </div>
       </div>
 
@@ -170,7 +168,7 @@ const RoomReservationBoard = () => {
                         aria-pressed={state.type === "selected"}
                         aria-label={`${room.name} ${formatPeriod(period)} ${CELL_TEXT[state.type]}`}
                         onClick={() => selectCell(room.id, period)}
-                        className={`w-full h-12 rounded-medium flex flex-col items-center justify-center transition-colors ${CELL_CLASS[state.type]}`}
+                        className={`w-full h-12 rounded-medium flex flex-col items-center justify-center ${CELL_CLASS[state.type]}`}
                       >
                         <span className="text-label font-bold">
                           {CELL_TEXT[state.type]}
@@ -189,34 +187,10 @@ const RoomReservationBoard = () => {
           </tbody>
         </table>
         {visibleRooms.length === 0 && (
-          <p className="py-8 text-center text-border-normal">
+          <p className="py-12 text-center text-body1 text-text-tertiary">
             대여 가능한 실이 없어요.
           </p>
         )}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-4">
-        {LEGENDS.map((legend) => (
-          <div key={legend.label} className="flex items-center gap-1.5">
-            <span
-              className={`size-3.5 rounded-extrasmall ${legend.className}`}
-            />
-            <span className="text-caption1 text-text-tertiary">
-              {legend.label}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <div className="w-full rounded-medium bg-fill-primary px-4 py-2.5 flex items-center gap-2">
-        <span className="text-body2 text-text-tertiary shrink-0">
-          선택한 실
-        </span>
-        <span className="text-body2 font-bold truncate">
-          {selectedRoom && form.periods.length
-            ? `${selectedRoom.name} · ${date.month() + 1}월 ${date.date()}일 ${selectedRanges} (${form.periods.length}시간)`
-            : "아직 선택하지 않았어요."}
-        </span>
       </div>
     </div>
   );

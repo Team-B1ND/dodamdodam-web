@@ -19,6 +19,10 @@ export const getWeekendStudyDate = (base = dayjs()) =>
     ? base.startOf("day")
     : base.add(7 - base.day(), "day").startOf("day");
 
+/** 서버가 받는 신청 날짜(일요일)인지 확인해요. */
+export const isWeekendStudyDay = (date: string | Date | dayjs.Dayjs) =>
+  dayjs(date).day() === 0;
+
 /** `17` -> `17–18시` */
 export const formatPeriod = (period: number) => `${period}–${period + 1}시`;
 

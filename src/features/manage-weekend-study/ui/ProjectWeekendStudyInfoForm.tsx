@@ -1,4 +1,7 @@
-import { FilledTextField } from "@b1nd/dodam-design-system/components";
+import {
+  FilledTextField,
+  Textarea,
+} from "@b1nd/dodam-design-system/components";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStudy";
 import RoomReservationBoard from "./RoomReservationBoard";
@@ -37,8 +40,7 @@ const ProjectWeekendStudyInfoForm = () => {
               10 ~ 250 이내로 작성해주세요.
             </p>
           </div>
-          <textarea
-            className="w-full h-24 rounded-medium bg-fill-primary p-2.5 text-body1 font-medium resize-none placeholder:text-text-placeholder"
+          <Textarea
             placeholder="학습 내용을 입력해주세요."
             maxLength={250}
             value={form.description}

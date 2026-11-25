@@ -17,7 +17,7 @@ const List = ({
     {items.length ? (
       items.map((item) => <WeekendStudyItem key={item.id} data={item} />)
     ) : (
-      <p className="py-8 text-center text-border-normal">
+      <p className="py-12 text-center text-body1 text-text-tertiary">
         주말 자습 신청 내역이 없어요.
       </p>
     )}

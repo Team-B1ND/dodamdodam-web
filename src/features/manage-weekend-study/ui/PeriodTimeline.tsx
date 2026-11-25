@@ -33,7 +33,7 @@ const PeriodTimeline = ({ periods, onToggle }: Props) => {
               aria-pressed={selected}
               aria-label={formatPeriodTime(period)}
               onClick={() => onToggle(period)}
-              className={`flex-1 h-3.5 cursor-pointer transition-colors first:rounded-l-extrasmall last:rounded-r-extrasmall ${
+              className={`flex-1 h-3.5 cursor-pointer first:rounded-l-extrasmall last:rounded-r-extrasmall ${
                 selected
                   ? "bg-brand-primary"
                   : "bg-fill-secondary hover:bg-fill-hover"

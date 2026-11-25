@@ -6,7 +6,12 @@ import type {
 } from "@/entities/weekend-study/types";
 import { parseDate } from "@/shared/utils/parse-date";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Dialog, useOverlay } from "@b1nd/dodam-design-system/components";
+import {
+  Dialog,
+  IconButton,
+  Tag,
+  useOverlay,
+} from "@b1nd/dodam-design-system/components";
 import { Trash } from "@b1nd/dodam-design-system/icons";
 
 interface Props {
@@ -61,17 +66,13 @@ const WeekendStudyItem = ({ data }: Props) => {
   return (
     <div className="w-full bg-fill-primary p-3 rounded-large flex flex-col gap-3">
       <div className="w-full flex justify-between items-center">
-        <span className="text-static-white bg-status-info rounded-full px-3 py-0.5 text-body1 font-bold">
-          신청됨
-        </span>
+        <Tag text="신청됨" color="blue" />
         {canCancel && (
-          <button
-            type="button"
-            aria-label="주말 자습 신청 취소"
+          <IconButton
+            icon={<Trash color={colors.text.tertiary} />}
+            iconSize={24}
             onClick={handleOpenCancelDialog}
-          >
-            <Trash size={24} color={colors.border.normal} />
-          </button>
+          />
         )}
       </div>
       {project && (

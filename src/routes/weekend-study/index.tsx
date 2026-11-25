@@ -33,7 +33,6 @@ function RouteComponent() {
           data={segment}
           setData={setSegment}
           onBlockClick={(value) => setPage(value as Page)}
-          width="15rem"
         />
         {page === "personal" ? (
           <PersonalWeekendStudyForm />
@@ -41,7 +40,7 @@ function RouteComponent() {
           <ProjectWeekendStudyForm />
         )}
       </div>
-      <div className="w-full lg:w-80 shrink-0 px-5 py-4 bg-background-surface rounded-large flex flex-col gap-4">
+      <div className="small-container w-full lg:w-80 shrink-0 flex flex-col gap-4">
         <h1 className="text-headline font-bold">
           {page === "personal" ? "My 주말 자습 신청" : "My 주말 실 대여 신청"}
         </h1>

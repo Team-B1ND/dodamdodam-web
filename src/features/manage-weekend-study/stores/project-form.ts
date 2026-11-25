@@ -1,7 +1,10 @@
 import { create } from "zustand";
+import { getWeekendStudyDate } from "@/entities/weekend-study/constants";
 import type { ProjectMember } from "@/features/manage-night-study/stores/project-form";
 
 interface Form {
+  /** `YYYY-MM-DD` */
+  date: string;
   roomId: number | null;
   periods: number[];
   name: string;
@@ -17,18 +20,19 @@ interface State {
   init: () => void;
 }
 
-const INITIAL_FORM: Form = {
+const createInitialForm = (): Form => ({
+  date: getWeekendStudyDate().format("YYYY-MM-DD"),
   roomId: null,
   periods: [],
   name: "",
   description: "",
   members: [],
-};
+});
 
 export const useWeekendProjectFormStore = create<State>((set) => ({
-  form: INITIAL_FORM,
+  form: createInitialForm(),
   page: 0,
   setForm: (form) => set({ form }),
   setPage: (page) => set({ page }),
-  init: () => set({ form: INITIAL_FORM, page: 0 }),
+  init: () => set({ form: createInitialForm(), page: 0 }),
 }));

@@ -3,7 +3,7 @@ import {
   Indicator,
   Switcher,
 } from "@b1nd/dodam-design-system/components";
-import { ArrowLeft, ArrowRight } from "@b1nd/dodam-design-system/icons";
+import { ArrowRight } from "@b1nd/dodam-design-system/icons";
 import { colors } from "@b1nd/dodam-design-system/colors";
 import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStudy";
 import ProjectWeekendStudyInfoForm from "./ProjectWeekendStudyInfoForm";
@@ -29,7 +29,7 @@ const ProjectWeekendStudyForm = () => {
             <p className="mr-2">
               {isPending ? "신청하는 중..." : "실 대여 신청하기"}
             </p>
-            <ArrowLeft color={colors.static.white} size={20} />
+            <ArrowRight color={colors.static.white} size={20} />
           </FilledButton>
         ) : (
           <FilledButton size="large" onClick={submit}>
