@@ -32,7 +32,8 @@ export interface AttendanceCheckFilters {
 
 /** 출결 드롭다운의 `미출석`이에요. 고르면 체크를 취소해요. */
 export const NO_ATTENDANCE = "NONE";
-export type AttendanceChoice = WeekendStudyAttendanceStatus | typeof NO_ATTENDANCE;
+export type AttendanceChoice =
+  WeekendStudyAttendanceStatus | typeof NO_ATTENDANCE;
 
 export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
   const { date, period, keyword, attendance, roomKey } = filters;
@@ -52,7 +53,9 @@ export const useAttendanceCheckTable = (filters: AttendanceCheckFilters) => {
   const allRows = toParticipantRows([...personal, ...project]);
 
   const getRecord = (row: WeekendStudyParticipantRow) =>
-    records.get(attendanceRecordKey(row.student.publicId, row.date, row.period));
+    records.get(
+      attendanceRecordKey(row.student.publicId, row.date, row.period),
+    );
 
   const getAttendance = (row: WeekendStudyParticipantRow) =>
     getRecord(row)?.status ?? undefined;

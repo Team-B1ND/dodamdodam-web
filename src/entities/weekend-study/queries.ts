@@ -20,7 +20,11 @@ export const weekendStudyQueryKeys = {
   roomBlocks: (roomId: number) =>
     [...WEEKEND_STUDY_QUERY_KEY, "rooms", roomId, "blocks"] as const,
   deadline: [...WEEKEND_STUDY_QUERY_KEY, "deadline"] as const,
-  attendanceStatus: [...WEEKEND_STUDY_QUERY_KEY, "attendance", "status"] as const,
+  attendanceStatus: [
+    ...WEEKEND_STUDY_QUERY_KEY,
+    "attendance",
+    "status",
+  ] as const,
   attendanceSummaries: [
     ...WEEKEND_STUDY_QUERY_KEY,
     "attendance",

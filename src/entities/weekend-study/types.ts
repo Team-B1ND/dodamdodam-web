@@ -91,8 +91,10 @@ export interface WeekendStudyRoom {
 
 export type WeekendStudyRoomPeriodStatus = "AVAILABLE" | "RESERVED" | "BLOCKED";
 
-export interface WeekendStudyRoomStatus
-  extends Omit<WeekendStudyRoom, "enabled"> {
+export interface WeekendStudyRoomStatus extends Omit<
+  WeekendStudyRoom,
+  "enabled"
+> {
   periods: {
     period: number;
     status: WeekendStudyRoomPeriodStatus;

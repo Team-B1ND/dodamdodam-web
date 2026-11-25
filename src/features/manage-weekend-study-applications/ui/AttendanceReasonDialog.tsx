@@ -10,7 +10,12 @@ interface Props {
 }
 
 /** 슬롯이 끝난 뒤 출결을 고칠 때 사유를 받아요. */
-const AttendanceReasonDialog = ({ isOpen, count, onSubmit, onClose }: Props) => {
+const AttendanceReasonDialog = ({
+  isOpen,
+  count,
+  onSubmit,
+  onClose,
+}: Props) => {
   const [reason, setReason] = useState("");
   const trimmed = reason.trim();
 

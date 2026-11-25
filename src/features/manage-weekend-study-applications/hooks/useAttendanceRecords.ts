@@ -24,4 +24,8 @@ export const useAttendanceRecords = (date: string) => {
 
 /** 슬롯(교시) 시간이 끝났는지예요. 끝난 뒤 고칠 때는 사유를 받아요. */
 export const isPeriodEnded = (date: string, period: number, now = dayjs()) =>
-  !now.isBefore(dayjs(date).hour(period + 1).startOf("hour"));
+  !now.isBefore(
+    dayjs(date)
+      .hour(period + 1)
+      .startOf("hour"),
+  );
