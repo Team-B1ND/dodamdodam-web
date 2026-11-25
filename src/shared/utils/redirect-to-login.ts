@@ -1,11 +1,18 @@
-export const redirectToLogin = () => {
-  const { pathname, search } = window.location;
+import { history } from "@/shared/libs/history";
+import { queryClient } from "@/shared/libs/query-client";
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
+export const isPublicAuthPath = (pathname: string) =>
+  pathname.startsWith("/login") || pathname.startsWith("/register");
+
+export const redirectToLogin = () => {
+  const { pathname, search, hash } = window.location;
+
+  if (isPublicAuthPath(pathname)) {
+    queryClient.clear();
     return;
   }
 
-  const redirectUrl = `${pathname}${search}`;
+  const redirectUrl = `${pathname}${search}${hash}`;
   const loginSearch = new URLSearchParams();
 
   if (redirectUrl !== "/") {
@@ -16,6 +23,7 @@ export const redirectToLogin = () => {
     ? `/login?${loginSearch.toString()}`
     : "/login";
 
-  window.location.href = loginUrl;
+  history.replace(loginUrl);
+  history.flush();
+  queryClient.clear();
 };
-

@@ -8,14 +8,19 @@ import useGetScheduleByDate from "../model/useGetScheduleByDate";
 dayjs.locale("ko");
 
 const ScheduleHome = () => {
-  const { groupedSchedules } = useGetScheduleByDate();
+  const { groupedSchedules, isPending } = useGetScheduleByDate();
   const today = dayjs().startOf("day");
   const entries = Object.entries(groupedSchedules)
-    .map(([date, schedules]) => [
-      date,
-      schedules.filter((item) => !dayjs(item.end).isBefore(today, "day")),
-    ] as const)
+    .map(
+      ([date, schedules]) =>
+        [
+          date,
+          schedules.filter((item) => !dayjs(item.end).isBefore(today, "day")),
+        ] as const,
+    )
     .filter(([, schedules]) => schedules.length > 0);
+
+  if (isPending) return <ScheduleHome.Skeleton />;
 
   return (
     <aside className="w-full bg-background-surface rounded-large p-4 max-h-60 flex flex-col gap-4">

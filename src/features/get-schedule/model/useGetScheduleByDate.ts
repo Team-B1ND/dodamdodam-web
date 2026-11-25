@@ -12,7 +12,8 @@ const useGetScheduleByDate = () => {
 
   const date = dayjs(currentMonth).startOf("month").format("YYYY-MM-DD");
 
-  const { data, isFetching } = useGetSchedulesQuery(date);
+  const { data, isFetching, isPending } = useGetSchedulesQuery(date);
+  const displayedMonth = data?.requestedDate ?? currentMonth;
   const scheduleList = data?.data ?? [];
 
   const scheduleEvents = useMemo(
@@ -57,11 +58,12 @@ const useGetScheduleByDate = () => {
   };
 
   return {
-    currentMonth,
-    monthLabel: dayjs(currentMonth).format("YYYY년 M월"),
+    currentMonth: displayedMonth,
+    monthLabel: dayjs(displayedMonth).format("YYYY년 M월"),
     scheduleEvents,
     groupedSchedules,
     isFetching,
+    isPending,
     isMonthTransitionPending,
     moveMonth,
   };

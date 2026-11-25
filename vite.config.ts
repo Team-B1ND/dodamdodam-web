@@ -24,6 +24,11 @@ export default defineConfig({
     tailwindcss(),
     svgr({ include: "**/*.svg" }),
   ],
+  build: {
+    // Keep unused font subsets out of render-blocking CSS.
+    assetsInlineLimit: (filePath) =>
+      filePath.endsWith(".woff2") ? false : undefined,
+  },
   server: {
     host: true,
     allowedHosts: true,

@@ -1,9 +1,14 @@
 import { ScheduleApi } from "@/entities/schedule/api";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const useGetSchedulesQuery = (date: string) =>
-  useSuspenseQuery({
+  useQuery({
     queryKey: ["schedule", date],
-    queryFn: () => ScheduleApi.getSchedules(date),
+    queryFn: async () => ({
+      ...(await ScheduleApi.getSchedules(date)),
+      requestedDate: date,
+    }),
+    placeholderData: keepPreviousData,
+    throwOnError: (_error, query) => query.state.data === undefined,
     staleTime: 1000 * 60,
   });

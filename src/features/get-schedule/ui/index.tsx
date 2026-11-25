@@ -15,12 +15,15 @@ const Schedule = () => {
     scheduleEvents,
     groupedSchedules,
     isFetching,
+    isPending,
     isMonthTransitionPending,
     moveMonth,
   } = useGetScheduleByDate();
 
   const isLoading = isFetching || isMonthTransitionPending;
   const isManager = me.roles.includes("TEACHER") || me.roles.includes("ADMIN");
+
+  if (isPending) return <Schedule.Skeleton />;
 
   return (
     <div className="w-full flex flex-col md:flex-row gap-8 items-start">

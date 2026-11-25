@@ -1,7 +1,7 @@
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Avatar } from "@b1nd/dodam-design-system/components";
 import { Plus } from "@b1nd/dodam-design-system/icons";
 import type { ProfileImageSectionProps } from "@/features/fix-profile/types";
+import ProfileImage from "@/shared/ui/profile-image";
 
 const ProfileImageSection = ({
   profileImage,
@@ -14,15 +14,12 @@ const ProfileImageSection = ({
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="relative h-32 w-32">
-        {profileImage ? (
-          <img
-            src={profileImage}
-            alt="프로필 이미지"
-            className="h-32 w-32 rounded-full object-cover"
-          />
-        ) : (
-          <Avatar size={128} />
-        )}
+        <ProfileImage
+          src={profileImage}
+          alt="프로필 이미지"
+          className="h-32 w-32 rounded-full object-cover"
+          size={128}
+        />
         <button
           type="button"
           aria-label="프로필 이미지 변경"
