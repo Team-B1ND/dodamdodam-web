@@ -3,7 +3,7 @@ import loginBackground2x from "@/shared/assets/images/login-background-2x.webp";
 
 const AuthImagePanel = () => {
   return (
-    <div className="relative hidden h-125 w-100 shrink-0 flex-col items-center overflow-hidden rounded-xl pt-18 md:flex">
+    <div className="relative hidden h-125 w-100 shrink-0 flex-col items-center overflow-hidden rounded-medium pt-18 md:flex">
       <picture className="absolute inset-0">
         {/* Match the DDS md breakpoint so hidden panels do not download the image. */}
         <source
@@ -21,7 +21,7 @@ const AuthImagePanel = () => {
       </picture>
       <div className="relative flex flex-col items-center gap-4">
         <img src="/dodamLogoWhite.svg" className="h-12.5 w-50" />
-        <p className="text-center text-body2 text-white">
+        <p className="text-center text-body2 text-static-white">
           어린아이가 탈 없이 잘 놀며 자라는 모양.
         </p>
       </div>

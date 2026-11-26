@@ -5,7 +5,7 @@ import {
 import type { Team } from "@/entities/team/types";
 import { useGetMeSuspenseQuery } from "@/entities/user/queries";
 import { colors } from "@b1nd/dodam-design-system/colors";
-import { Avatar } from "@b1nd/dodam-design-system/components";
+import { Avatar, IconButton } from "@b1nd/dodam-design-system/components";
 import QueryBoundary from "@/shared/ui/query-boundary";
 import {
   CheckmarkCircleFill,
@@ -15,11 +15,12 @@ import {
 } from "@b1nd/dodam-design-system/icons";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useApplyProjectNightStudy } from "../hooks/useApplyProjectNightStudy";
+import type { MemberSelection } from "../stores/project-form";
 import MemberItem from "./MemberItem";
 
 interface Props {
   keyword: string;
+  selection: MemberSelection;
 }
 
 const TeamAvatar = ({ team }: { team: Team }) =>
@@ -36,14 +37,15 @@ const TeamAvatar = ({ team }: { team: Team }) =>
 const ExpandedTeam = ({
   team,
   onToggle,
+  selection,
 }: {
   team: Team;
   onToggle: () => void;
+  selection: MemberSelection;
 }) => {
   const { data } = useGetTeamMembersQuery(team.publicId);
   const { data: me } = useGetMeSuspenseQuery();
-  const { handleMember, handleMembers, isSelected } =
-    useApplyProjectNightStudy();
+  const { handleMember, handleMembers, isSelected } = selection;
   const members = data.data
     .filter(
       (member) => member.isAccept && member.userId !== me.data.publicId,
@@ -61,28 +63,27 @@ const ExpandedTeam = ({
   return (
     <>
       <div className="px-4 h-12 w-full flex items-center gap-2">
-        <button
-          type="button"
-          aria-label={`${team.name} 팀 접기`}
-          aria-expanded
+        <IconButton
+          icon={<ChevronDown color={colors.text.primary} />}
+          size={32}
+          iconSize={20}
           onClick={onToggle}
-        >
-          <ChevronDown color={colors.text.primary} size={20} />
-        </button>
+        />
         <TeamAvatar team={team} />
         <span className="text-label font-bold">{team.name}</span>
         <div className="flex-1" />
-        <button
-          type="button"
-          aria-label={`${team.name} 팀원 전체 ${allSelected ? "해제" : "선택"}`}
+        <IconButton
+          icon={
+            allSelected ? (
+              <CheckmarkCircleFill color={colors.brand.primary} />
+            ) : (
+              <CheckmarkCircleLine color={colors.border.normal} />
+            )
+          }
+          size={32}
+          iconSize={24}
           onClick={() => handleMembers(members)}
-        >
-          {allSelected ? (
-            <CheckmarkCircleFill color={colors.brand.primary} size={24} />
-          ) : (
-            <CheckmarkCircleLine color={colors.border.normal} size={24} />
-          )}
-        </button>
+        />
       </div>
       <div className="pl-7">
         {members.map((member) => (
@@ -98,7 +99,7 @@ const ExpandedTeam = ({
   );
 };
 
-const TeamSearch = ({ keyword }: Props) => {
+const TeamSearch = ({ keyword, selection }: Props) => {
   const [openTeamIds, setOpenTeamIds] = useState<string[]>([]);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetMyTeamsQuery();
@@ -116,7 +117,7 @@ const TeamSearch = ({ keyword }: Props) => {
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (!teams.length) {
-    return <p className="py-8 text-center text-border-normal">팀이 없어요.</p>;
+    return <p className="py-12 text-center text-body1 text-text-tertiary">팀이 없어요.</p>;
   }
 
   return (
@@ -134,7 +135,11 @@ const TeamSearch = ({ keyword }: Props) => {
           <div key={team.publicId}>
             {isOpen ? (
               <QueryBoundary pendingFallback={<MemberItem.Skeleton />}>
-                <ExpandedTeam team={team} onToggle={toggleTeam} />
+                <ExpandedTeam
+                  team={team}
+                  onToggle={toggleTeam}
+                  selection={selection}
+                />
               </QueryBoundary>
             ) : (
               <button

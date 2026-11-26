@@ -28,7 +28,7 @@ const ScheduleCalendar = ({
   const today = getToday();
 
   return (
-    <section className="w-full bg-background-surface rounded-large p-6 flex flex-col">
+    <section className="large-container w-full flex flex-col">
       <header className="w-full flex items-center gap-3">
         <h1 className="text-heading1 font-bold">학사 일정</h1>
         <div className="grow" />
@@ -65,16 +65,12 @@ const ScheduleCalendar = ({
         ))}
       </div>
 
-      <div
-        className="border rounded-small overflow-hidden"
-        style={{ borderColor: "var(--dds-color-border-subtle)" }}
-      >
+      <div className="border border-border-subtle rounded-small overflow-hidden">
         <div className="grid grid-cols-7">
           {WEEK_DAYS.map((day) => (
             <div
               key={day}
-              className="h-8 border-b flex items-center justify-center text-label text-text-tertiary"
-              style={{ borderColor: "var(--dds-color-border-subtle)" }}
+              className="h-8 border-b border-border-subtle flex items-center justify-center text-label text-text-tertiary"
             >
               {day}
             </div>

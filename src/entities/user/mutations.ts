@@ -18,6 +18,15 @@ export const useFixPasswordMutation = () => {
   });
 };
 
+export const useResetPasswordMutation = () => {
+  const toast = useToast();
+  return useMutation({
+    mutationFn: UserApi.resetPassword,
+    onSuccess: (res) => toast.success(res.message),
+    onError: (error: ErrorResponse) => toast.error(error.message),
+  });
+};
+
 export const useFixProfileMutation = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
@@ -181,6 +190,22 @@ export const useRegisterTeacherMutation = () => {
     onSuccess: () => {
       navigate({ to: "/login", search: { redirectUrl: "/" }});
       toast.success("도담도담에 가입을 환영해요!");
+    },
+    onError: (e: ErrorResponse) => {
+      toast.error(e.message);
+    },
+  });
+};
+
+export const useGrantWeekendManagerMutation = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: UserApi.grantWeekendManager,
+    onSuccess: () => {
+      toast.success("주말 자습 관리자 권한 부여가 완료되었어요!");
+      queryClient.refetchQueries({ queryKey: ["user"] });
     },
     onError: (e: ErrorResponse) => {
       toast.error(e.message);

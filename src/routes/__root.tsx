@@ -71,6 +71,13 @@ function RootComponent() {
       });
     }
 
+    if (roles.includes("WEEKEND_MANAGER")) {
+      managingMenus.push({
+        text: "주말자습 관리",
+        herf: "/weekend-manager/weekend-study",
+      });
+    }
+
     if (roles.includes("ADMIN")) {
       managingMenus.push({
         text: "어드민",

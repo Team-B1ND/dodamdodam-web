@@ -14,7 +14,8 @@ import type {
   SearchUserParams,
   EnableUser,
   DeactivateUser,
-  GrantDormitory
+  GrantDormitory,
+  GrantWeekendManager,
 } from "./types";
 
 const USER_BASE = "/user"
@@ -53,6 +54,10 @@ export const UserApi = {
 
   async fixPassword(payload: FixPassword) {
     return await apiClient.patch(`${USER_BASE}/change-password`, payload);
+  },
+
+  async resetPassword(payload: { phone: string; newPassword: string }) {
+    return await apiClient.patch(`${USER_BASE}/reset-password`, payload);
   },
 
   async requestPhoneVerification(payload: PhoneVerificationRequest) {
@@ -99,5 +104,12 @@ export const UserApi = {
 
   async grantDormitory(payload: GrantDormitory) {
     return await apiClient.patch(`${USER_BASE}/grant-dormitory-manager`, payload)
-  }
+  },
+
+  async grantWeekendManager(payload: GrantWeekendManager) {
+    return await apiClient.patch(
+      `${USER_BASE}/grant-weekend-manager`,
+      payload,
+    );
+  },
 };

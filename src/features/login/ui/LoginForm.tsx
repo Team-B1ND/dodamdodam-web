@@ -1,5 +1,6 @@
-import { FilledButton, TextField } from "@b1nd/dodam-design-system/components";
+import { FilledButton, TextButton, TextField, useOverlay } from "@b1nd/dodam-design-system/components";
 import { useLogin } from "../hooks/useLogin";
+import ResetPasswordModal from "@/features/login/ui/ResetPasswordModal";
 
 const LoginForm = () => {
   const {
@@ -10,6 +11,19 @@ const LoginForm = () => {
     handleLogin,
     isPending,
   } = useLogin();
+
+
+  const overlay = useOverlay();
+  const openModal = () => {
+    overlay.open(({ close, exit, setDimClickHandler }) => {
+      const onClose = () => {
+        close();
+        exit();
+      };
+      setDimClickHandler(onClose);
+      return <ResetPasswordModal onClose={onClose}/>;
+    })
+  }
 
   return (
     <form
@@ -31,11 +45,11 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-right text-[14px] font-medium tracking-[0.28px] text-text-tertiary">
+          <p className="flex items-center justify-end gap-1 text-label font-medium text-text-tertiary">
             비밀번호를 잊으셨나요?{" "}
-            <span className="cursor-pointer text-text-primary underline">
+            <TextButton size="small" onClick={openModal}>
               비밀번호 재설정
-            </span>
+            </TextButton>
           </p>
         </div>
       </div>

@@ -83,9 +83,9 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
           <Dialog.FilledButton
             disabled={isLeaving}
             onClick={async () => {
+              close();
               try {
                 await deleteTeam(publicId);
-                close();
                 await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
@@ -99,9 +99,9 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
           <Dialog.FilledButton
             disabled={isLeaving}
             onClick={async () => {
+              close();
               try {
                 await leaveTeam(publicId);
-                close();
                 await navigate({ to: "/team" });
               } catch {
                 // 오류 안내는 mutation에서 처리합니다.
@@ -138,7 +138,7 @@ const TeamDetailPage = ({ publicId }: TeamDetailPageProps) => {
       <div className="flex flex-col gap-5 p-0 sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex min-w-0 flex-col gap-1">
-            <h1 className="truncate text-title1 font-extrabold text-text-primary">
+            <h1 className="truncate text-title1 font-bold text-text-primary">
               {team.name}
             </h1>
             <p className="text-heading1 text-text-primary">

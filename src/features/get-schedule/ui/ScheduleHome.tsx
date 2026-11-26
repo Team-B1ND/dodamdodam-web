@@ -51,7 +51,7 @@ const ScheduleHome = () => {
             return (
               <div key={date}>
                 <div className="flex items-end gap-1">
-                  <p className="text-heading2 font-extrabold">
+                  <p className="text-heading2 font-bold">
                     {hasPeriodSchedule
                       ? `${dayjs(date).format("D일")}-${dayjs(endDate).format("D일")}`
                       : dayjs(date).format("D일")}
