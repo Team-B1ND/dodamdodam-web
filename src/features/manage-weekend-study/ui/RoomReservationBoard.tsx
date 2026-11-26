@@ -1,20 +1,16 @@
-import { padDate } from "@/shared/utils/pad-date";
 import {
   WEEKEND_STUDY_PERIODS,
   formatPeriod,
+  formatWeekendStudyDate,
 } from "@/entities/weekend-study/constants";
 import {
   useGetMyProjectWeekendStudyQuery,
   useGetWeekendStudyRoomStatusQuery,
 } from "@/entities/weekend-study/queries";
 import {
-  DatePicker,
-  FilledButton,
   SegmentedButton,
   type SegmentedButtonData,
-  PickerTrigger,
 } from "@b1nd/dodam-design-system/components";
-import dayjs from "dayjs";
 import { useState } from "react";
 import { useApplyProjectWeekendStudy } from "../hooks/useApplyProjectWeekendStudy";
 
@@ -40,10 +36,8 @@ const CELL_TEXT: Record<CellState["type"], string> = {
 };
 
 const RoomReservationBoard = () => {
-  const { form, changeDate, selectCell, editingId } =
-    useApplyProjectWeekendStudy();
+  const { form, selectCell, editingId } = useApplyProjectWeekendStudy();
   const dateText = form.date;
-  const date = dayjs(dateText);
   const { data: rooms } = useGetWeekendStudyRoomStatusQuery(dateText);
   const { data: myProjects } = useGetMyProjectWeekendStudyQuery();
 
@@ -128,29 +122,9 @@ const RoomReservationBoard = () => {
         ) : (
           <div />
         )}
-        {/* 버튼이 행 오른쪽 끝이라 달력을 오른쪽 기준으로 펼쳐요. DS 스타일(emotion)은 CSS 레이어 밖이라 left는 !important로 덮어요. */}
-        {editingId ? (
-          <FilledButton role="assistive" size="medium" disabled>
-            {padDate(date.toDate())}
-          </FilledButton>
-        ) : (
-          <div className="[&>div>div:last-child]:left-auto! [&>div>div:last-child]:right-0">
-            <PickerTrigger
-              content={({ onClose }) => (
-                <DatePicker.Content
-                  date={date.toDate()}
-                  onChangeDate={changeDate}
-                  onClose={onClose}
-                  disablePast
-                />
-              )}
-            >
-              <FilledButton role="assistive" size="medium">
-                {padDate(date.toDate())}
-              </FilledButton>
-            </PickerTrigger>
-          </div>
-        )}
+        <p className="text-headline font-bold">
+          {formatWeekendStudyDate(dateText)}
+        </p>
       </div>
 
       <div className="w-full overflow-x-auto">
